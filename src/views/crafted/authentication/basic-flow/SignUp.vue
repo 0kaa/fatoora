@@ -7,95 +7,97 @@
       class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
       id="kt_create_account_stepper"
     >
-    <div class="d-flex py-10 justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
-  <!--begin::Nav-->
-              <div class="stepper-nav ps-lg-10">
-                <!--begin::Step 1-->
-                <div class="stepper-item current" data-kt-stepper-element="nav">
-                  <!--begin::Line-->
-                  <div class="stepper-line w-40px"></div>
-                  <!--end::Line-->
+      <div
+        class="d-flex py-10 justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px"
+      >
+        <!--begin::Nav-->
+        <div class="stepper-nav ps-lg-10">
+          <!--begin::Step 1-->
+          <div class="stepper-item current" data-kt-stepper-element="nav">
+            <!--begin::Line-->
+            <div class="stepper-line w-40px"></div>
+            <!--end::Line-->
 
-                  <!--begin::Icon-->
-                  <div class="stepper-icon w-40px h-40px">
-                    <i class="stepper-check fas fa-check"></i>
-                    <span class="stepper-number">1</span>
-                  </div>
-                  <!--end::Icon-->
+            <!--begin::Icon-->
+            <div class="stepper-icon w-40px h-40px">
+              <i class="stepper-check fas fa-check"></i>
+              <span class="stepper-number">1</span>
+            </div>
+            <!--end::Icon-->
 
-                  <!--begin::Label-->
-                  <div class="stepper-label">
-                    <h3 class="stepper-title">Account Type</h3>
-                  </div>
-                  <!--end::Label-->
-                </div>
-                <!--end::Step 1-->
+            <!--begin::Label-->
+            <div class="stepper-label">
+              <h3 class="stepper-title">Account Type</h3>
+            </div>
+            <!--end::Label-->
+          </div>
+          <!--end::Step 1-->
 
-                <!--begin::Step 2-->
-                <div class="stepper-item" data-kt-stepper-element="nav">
-                  <!--begin::Line-->
-                  <div class="stepper-line w-40px"></div>
-                  <!--end::Line-->
+          <!--begin::Step 2-->
+          <div class="stepper-item" data-kt-stepper-element="nav">
+            <!--begin::Line-->
+            <div class="stepper-line w-40px"></div>
+            <!--end::Line-->
 
-                  <!--begin::Icon-->
-                  <div class="stepper-icon w-40px h-40px">
-                    <i class="stepper-check fas fa-check"></i>
-                    <span class="stepper-number">2</span>
-                  </div>
-                  <!--begin::Icon-->
+            <!--begin::Icon-->
+            <div class="stepper-icon w-40px h-40px">
+              <i class="stepper-check fas fa-check"></i>
+              <span class="stepper-number">2</span>
+            </div>
+            <!--begin::Icon-->
 
-                  <!--begin::Label-->
-                  <div class="stepper-label">
-                    <h3 class="stepper-title">Account Info</h3>
-                  </div>
-                  <!--begin::Label-->
-                </div>
-                <!--end::Step 2-->
+            <!--begin::Label-->
+            <div class="stepper-label">
+              <h3 class="stepper-title">Account Info</h3>
+            </div>
+            <!--begin::Label-->
+          </div>
+          <!--end::Step 2-->
 
-                <!--begin::Step 3-->
-                <div class="stepper-item" data-kt-stepper-element="nav">
-                  <!--begin::Line-->
-                  <div class="stepper-line w-40px"></div>
-                  <!--end::Line-->
+          <!--begin::Step 3-->
+          <div class="stepper-item" data-kt-stepper-element="nav">
+            <!--begin::Line-->
+            <div class="stepper-line w-40px"></div>
+            <!--end::Line-->
 
-                  <!--begin::Icon-->
-                  <div class="stepper-icon w-40px h-40px">
-                    <i class="stepper-check fas fa-check"></i>
-                    <span class="stepper-number">3</span>
-                  </div>
-                  <!--end::Icon-->
+            <!--begin::Icon-->
+            <div class="stepper-icon w-40px h-40px">
+              <i class="stepper-check fas fa-check"></i>
+              <span class="stepper-number">3</span>
+            </div>
+            <!--end::Icon-->
 
-                  <!--begin::Label-->
-                  <div class="stepper-label">
-                    <h3 class="stepper-title">Establishment</h3>
-                  </div>
-                  <!--end::Label-->
-                </div>
-                <!--end::Step 3-->
-           
-                <!--begin::Step 5-->
-                <div class="stepper-item" data-kt-stepper-element="nav">
-                  <!--begin::Line-->
-                  <div class="stepper-line w-40px"></div>
-                  <!--end::Line-->
+            <!--begin::Label-->
+            <div class="stepper-label">
+              <h3 class="stepper-title">Establishment</h3>
+            </div>
+            <!--end::Label-->
+          </div>
+          <!--end::Step 3-->
 
-                  <!--begin::Icon-->
-                  <div class="stepper-icon w-40px h-40px">
-                    <i class="stepper-check fas fa-check"></i>
-                    <span class="stepper-number">4</span>
-                  </div>
-                  <!--end::Icon-->
+          <!--begin::Step 5-->
+          <div class="stepper-item" data-kt-stepper-element="nav">
+            <!--begin::Line-->
+            <div class="stepper-line w-40px"></div>
+            <!--end::Line-->
 
-                  <!--begin::Label-->
-                  <div class="stepper-label">
-                    <h3 class="stepper-title">Confirm</h3>
-                  </div>
-                  <!--end::Label-->
-                </div>
-                <!--end::Step 5-->
-              </div>
-              <!--end::Nav-->
-              </div>
+            <!--begin::Icon-->
+            <div class="stepper-icon w-40px h-40px">
+              <i class="stepper-check fas fa-check"></i>
+              <span class="stepper-number">4</span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Label-->
+            <div class="stepper-label">
+              <h3 class="stepper-title">Confirm</h3>
+            </div>
+            <!--end::Label-->
+          </div>
+          <!--end::Step 5-->
+        </div>
+        <!--end::Nav-->
+      </div>
 
       <!--begin::Form-->
       <form

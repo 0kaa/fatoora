@@ -15,6 +15,7 @@
         <div class="modal-header">
           <!--begin::Title-->
           <h2>Create Invoice</h2>
+
           <!--end::Title-->
 
           <!--begin::Close-->
@@ -268,6 +269,7 @@
                                 <span class="fs-2x fw-bolder text-gray-800"
                                   >Invoice #</span
                                 >
+
                                 <input
                                   type="text"
                                   class="form-control form-control-flush fw-bolder text-muted fs-3 w-125px"
@@ -346,16 +348,6 @@
                                     />
                                   </div>
                                   <!--end::Input group-->
-                                  <!--begin::Input group-->
-                                  <div class="mb-5">
-                                    <textarea
-                                      name="notes"
-                                      class="form-control form-control-solid"
-                                      rows="3"
-                                      placeholder="Who is this invoice from?"
-                                    ></textarea>
-                                  </div>
-                                  <!--end::Input group-->
                                 </div>
                                 <!--end::Col-->
                                 <!--begin::Col-->
@@ -382,7 +374,6 @@
                                     />
                                   </div>
                                   <!--end::Input group-->
-                        
                                 </div>
                                 <!--end::Col-->
                               </div>
@@ -416,18 +407,20 @@
                                     <tr
                                       class="border-bottom border-bottom-dashed"
                                       data-kt-element="item"
+                                      v-for="(item, index) in items"
+                                      :key="index"
                                     >
                                       <td class="pe-7">
                                         <input
                                           type="text"
                                           class="form-control form-control-solid mb-2"
-                                          name="name[]"
+                                          v-model="item.name"
                                           placeholder="Item name"
                                         />
                                         <input
                                           type="text"
                                           class="form-control form-control-solid"
-                                          name="description[]"
+                                          v-model="item.description"
                                           placeholder="Description"
                                         />
                                       </td>
@@ -436,33 +429,38 @@
                                           class="form-control form-control-solid"
                                           type="number"
                                           min="1"
-                                          name="quantity[]"
+                                          v-model.number="item.quantity"
                                           placeholder="1"
-                                          value="1"
                                           data-kt-element="quantity"
                                         />
                                       </td>
                                       <td>
                                         <input
                                           type="text"
-                                          class="form-control form-control-solid text-end"
-                                          name="price[]"
+                                          class="form-control form-control-solid"
+                                          v-model="item.price"
                                           placeholder="0.00"
-                                          value="0.00"
                                           data-kt-element="price"
                                         />
                                       </td>
                                       <td class="pt-8 text-end text-nowrap">
                                         $
-                                        <span data-kt-element="total"
-                                          >0.00</span
-                                        >
+                                        <span data-kt-element="total">
+                                          {{
+                                            item.quantity && item.price
+                                              ? (
+                                                  item.quantity * item.price
+                                                ).toFixed(2)
+                                              : "0.00"
+                                          }}
+                                        </span>
                                       </td>
                                       <td class="pt-5 text-end">
                                         <button
                                           type="button"
                                           class="btn btn-sm btn-icon btn-active-color-primary"
                                           data-kt-element="remove-item"
+                                          @click="removeItem(index)"
                                         >
                                           <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                           <span class="svg-icon svg-icon-3">
@@ -504,6 +502,7 @@
                                         <button
                                           class="btn btn-link py-1"
                                           data-kt-element="add-item"
+                                          @click="addItem"
                                         >
                                           Add item
                                         </button>
@@ -516,20 +515,17 @@
                                           class="d-flex flex-column align-items-start"
                                         >
                                           <div class="fs-5">Subtotal</div>
-                                          <button
-                                            class="btn btn-link py-1"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover"
-                                            title="Coming soon"
-                                          >
+                                          <button class="btn btn-link py-1">
                                             Add tax
                                           </button>
-                                          <button
-                                            class="btn btn-link py-1"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover"
-                                            title="Coming soon"
-                                          >
+
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-solid"
+                                            placeholder="0.00"
+                                            data-kt-element="price"
+                                          />
+                                          <button class="btn btn-link py-1">
                                             Add discount
                                           </button>
                                         </div>
@@ -539,9 +535,7 @@
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
                                         $
-                                        <span data-kt-element="sub-total"
-                                          >0.00</span
-                                        >
+                                        <span>{{ totalInvoice }}</span>
                                       </th>
                                     </tr>
                                     <tr
@@ -618,6 +612,7 @@
                                       data-kt-element="remove-item"
                                     >
                                       <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+
                                       <span class="svg-icon svg-icon-3">
                                         <svg
                                           xmlns="http://www.w3.org/2000/svg"
@@ -754,7 +749,6 @@
                             <!--end::Input group Payment method-->
                             <!--begin::Actions-->
                             <div class="mb-0">
-                      
                               <button
                                 class="btn btn-primary w-100"
                                 id="kt_invoice_submit_button"
@@ -952,6 +946,9 @@ interface Step2 {
   invoicePhone: string;
   invoiceEmail: string;
   invoiceNotes: string;
+  invoiceTax: string;
+  invoiceDiscount: string;
+  invoiceTotal: string;
 }
 
 interface KTCreateApp extends Step1, Step2 {}
@@ -972,6 +969,14 @@ export default defineComponent({
     const paymentUrl = ref("");
     const invoice_date = ref(new Date());
     const invoice_duo_date = ref("");
+    const items = ref<any[]>([
+      {
+        name: "",
+        description: "",
+        quantity: "1",
+        price: "",
+      },
+    ]);
     const formData = ref<KTCreateApp>({
       invoiceType: "fast",
       invoiceNumber: "",
@@ -982,12 +987,40 @@ export default defineComponent({
       invoicePhone: "",
       invoiceEmail: "",
       invoiceNotes: "",
+      invoiceTax: "",
+      invoiceDiscount: "",
+      invoiceTotal: "",
     });
 
     onMounted(() => {
       _stepperObj.value = StepperComponent.createInsance(
         createInvoiceRef.value as HTMLElement
       );
+    });
+
+    const addItem = () => {
+      items.value.push({
+        name: "",
+        description: "",
+        quantity: "1",
+        price: "",
+      });
+    };
+
+    const removeItem = (index: number) => {
+      items.value.splice(index, 1);
+    };
+
+    const totalInvoice = computed(() => {
+      let total = 0;
+      items.value.forEach((item) => {
+        total +=
+          item.price && item.quantity
+            ? parseFloat(item.quantity) * parseFloat(item.price)
+            : 0;
+      });
+
+      return total.toFixed(2);
     });
 
     const createAppSchema = [
@@ -1079,8 +1112,12 @@ export default defineComponent({
       paymentMethod,
       paymentUrl,
       toggleNotes,
+      addItem,
+      removeItem,
       currentStepIndex,
       invoice_date,
+      totalInvoice,
+      items,
       invoice_duo_date,
       formData,
       createInvoiceModalRef,
