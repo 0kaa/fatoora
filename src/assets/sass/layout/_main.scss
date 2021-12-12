@@ -5,6 +5,9 @@
 
 body {
 	background-color: $page-bg;
+	&.rtl {
+		direction: rtl;
+	}
 }
 
 // Font color from Content background color

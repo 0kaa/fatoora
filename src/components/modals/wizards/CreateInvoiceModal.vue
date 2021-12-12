@@ -245,8 +245,7 @@
                                 >
                                   <!--begin::Datepicker-->
                                   <!--begin::Input-->
-                                  <el-date-picker
-                                    type="text"
+                                  <el-date-picker                                    
                                     class="form-control-transparent pe-5 w-150px"
                                     name="invoice_date"
                                     placeholder="Select date"
@@ -436,9 +435,10 @@
                                       </td>
                                       <td>
                                         <input
-                                          type="text"
+                                          type="number"
                                           class="form-control form-control-solid"
                                           v-model="item.price"
+                                          min="1"
                                           placeholder="0.00"
                                           data-kt-element="price"
                                         />
@@ -460,7 +460,7 @@
                                           type="button"
                                           class="btn btn-sm btn-icon btn-active-color-primary"
                                           data-kt-element="remove-item"
-                                          @click="removeItem(index)"
+                                          @click.prevent="removeItem(index)"
                                         >
                                           <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                           <span class="svg-icon svg-icon-3">
@@ -496,17 +496,41 @@
                                   <!--begin::Table foot-->
                                   <tfoot>
                                     <tr
-                                      class="border-top border-top-dashed align-top fs-6 fw-bolder text-gray-700"
+                                      class="border-top border-top-dashed align-top fw-bolder text-gray-500"
                                     >
                                       <th class="text-primary">
                                         <button
                                           class="btn btn-link py-1"
                                           data-kt-element="add-item"
-                                          @click="addItem"
+                                          @click.prevent="addItem"
                                         >
                                           Add item
                                         </button>
                                       </th>
+                                      <th
+                                        colspan="4"
+                                        class="border-bottom border-bottom-dashed ps-0"
+                                      >
+                                        <div
+                                          class="d-flex flex-column align-items-start"
+                                        >
+                                          <!--begin::Discount-->
+                                          <div class="mb-0 w-100">
+                                            <input
+                                              type="number"
+                                              class="form-control form-control-solid"
+                                              placeholder="Add discount"
+                                              v-model="formData.invoiceDiscount"
+                                            />
+                                          </div>
+                                          <!--end::Discount-->
+                                        </div>
+                                      </th>
+                                    </tr>
+                                    <tr
+                                      class="align-top fw-bolder text-gray-500"
+                                    >
+                                      <th></th>
                                       <th
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed ps-0"
@@ -514,28 +538,60 @@
                                         <div
                                           class="d-flex flex-column align-items-start"
                                         >
-                                          <div class="fs-5">Subtotal</div>
-                                          <button class="btn btn-link py-1">
-                                            Add tax
-                                          </button>
-
-                                          <input
-                                            type="text"
-                                            class="form-control form-control-solid"
-                                            placeholder="0.00"
-                                            data-kt-element="price"
-                                          />
-                                          <button class="btn btn-link py-1">
-                                            Add discount
-                                          </button>
+                                          <div>Subtotal</div>
                                         </div>
                                       </th>
+
                                       <th
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
                                         $
-                                        <span>{{ totalInvoice }}</span>
+                                        <span>{{
+                                          totalInvoice.toFixed(2)
+                                        }}</span>
+                                      </th>
+                                    </tr>
+
+                                    <tr
+                                      class="align-top fw-bolder text-gray-500"
+                                    >
+                                      <th></th>
+                                      <th colspan="2" class="ps-0">Discount</th>
+                                      <th
+                                        colspan="2"
+                                        class="border-bottom border-bottom-dashed text-end"
+                                      >
+                                        $
+                                        <span>
+                                          {{
+                                            formData.invoiceDiscount
+                                              ? parseFloat(
+                                                  formData.invoiceDiscount
+                                                ).toFixed(2)
+                                              : "0.00"
+                                          }}
+                                        </span>
+                                      </th>
+                                    </tr>
+                                    <tr
+                                      class="align-top fw-bolder text-gray-500"
+                                    >
+                                      <th></th>
+                                      <th colspan="2" class="ps-0">Tax</th>
+                                      <th
+                                        colspan="2"
+                                        class="border-bottom border-bottom-dashed text-end"
+                                      >
+                                        $
+                                        <span>
+                                          {{
+                                            (
+                                              (formData.invoiceTax / 100) *
+                                              totalInvoice
+                                            ).toFixed(2)
+                                          }}
+                                        </span>
                                       </th>
                                     </tr>
                                     <tr
@@ -550,9 +606,16 @@
                                         class="text-end fs-4 text-nowrap"
                                       >
                                         $
-                                        <span data-kt-element="grand-total"
-                                          >0.00</span
-                                        >
+                                        <span data-kt-element="grand-total">
+                                          {{
+                                            (
+                                              totalInvoice +
+                                              (formData.invoiceTax / 100) *
+                                                totalInvoice -
+                                              formData.invoiceDiscount
+                                            ).toFixed(2)
+                                          }}
+                                        </span>
                                       </th>
                                     </tr>
                                   </tfoot>
@@ -560,88 +623,7 @@
                                 </table>
                               </div>
                               <!--end::Table-->
-                              <!--begin::Item template-->
-                              <table
-                                class="table d-none"
-                                data-kt-element="item-template"
-                              >
-                                <tr
-                                  class="border-bottom border-bottom-dashed"
-                                  data-kt-element="item"
-                                >
-                                  <td class="pe-7">
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-solid mb-2"
-                                      name="name[]"
-                                      placeholder="Item name"
-                                    />
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-solid"
-                                      name="description[]"
-                                      placeholder="Description"
-                                    />
-                                  </td>
-                                  <td class="ps-0">
-                                    <input
-                                      class="form-control form-control-solid"
-                                      type="number"
-                                      min="1"
-                                      name="quantity[]"
-                                      placeholder="1"
-                                      data-kt-element="quantity"
-                                    />
-                                  </td>
-                                  <td>
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-solid text-end"
-                                      name="price[]"
-                                      placeholder="0.00"
-                                      data-kt-element="price"
-                                    />
-                                  </td>
-                                  <td class="pt-8 text-end">
-                                    $ <span data-kt-element="total">0.00</span>
-                                  </td>
-                                  <td class="pt-5 text-end">
-                                    <button
-                                      type="button"
-                                      class="btn btn-sm btn-icon btn-active-color-primary"
-                                      data-kt-element="remove-item"
-                                    >
-                                      <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
 
-                                      <span class="svg-icon svg-icon-3">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="24"
-                                          height="24"
-                                          viewBox="0 0 24 24"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                            fill="black"
-                                          />
-                                          <path
-                                            opacity="0.5"
-                                            d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                            fill="black"
-                                          />
-                                          <path
-                                            opacity="0.5"
-                                            d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                            fill="black"
-                                          />
-                                        </svg>
-                                      </span>
-                                      <!--end::Svg Icon-->
-                                    </button>
-                                  </td>
-                                </tr>
-                              </table>
                               <table
                                 class="table d-none"
                                 data-kt-element="empty-template"
@@ -656,20 +638,6 @@
                                 </tr>
                               </table>
                               <!--end::Item template-->
-                              <!--begin::Notes-->
-                              <div class="mb-0" v-if="toggleNotes">
-                                <label
-                                  class="form-label fs-6 fw-bolder text-gray-700"
-                                  >Notes</label
-                                >
-                                <textarea
-                                  name="notes"
-                                  class="form-control form-control-solid"
-                                  rows="3"
-                                  placeholder="Thanks for your business"
-                                ></textarea>
-                              </div>
-                              <!--end::Notes-->
                             </div>
                             <!--end::Wrapper-->
                           </div>
@@ -747,6 +715,25 @@
                               <!--end::Separator-->
                             </div>
                             <!--end::Input group Payment method-->
+                            <!--begin::Notes-->
+                            <div class="mb-0" v-if="toggleNotes">
+                              <label
+                                class="form-label fs-6 fw-bolder text-gray-700"
+                                >Notes</label
+                              >
+                              <textarea
+                                name="notes"
+                                class="form-control form-control-solid"
+                                rows="3"
+                                placeholder="Thanks for your business"
+                              ></textarea>
+                              <!--begin::Separator-->
+                              <div
+                                class="separator separator-dashed mt-8 mb-8"
+                              ></div>
+                              <!--end::Separator-->
+                            </div>
+                            <!--end::Notes-->
                             <!--begin::Actions-->
                             <div class="mb-0">
                               <button
@@ -946,8 +933,8 @@ interface Step2 {
   invoicePhone: string;
   invoiceEmail: string;
   invoiceNotes: string;
-  invoiceTax: string;
-  invoiceDiscount: string;
+  invoiceTax: number;
+  invoiceDiscount: any;
   invoiceTotal: string;
 }
 
@@ -987,7 +974,7 @@ export default defineComponent({
       invoicePhone: "",
       invoiceEmail: "",
       invoiceNotes: "",
-      invoiceTax: "",
+      invoiceTax: 14,
       invoiceDiscount: "",
       invoiceTotal: "",
     });
@@ -1020,13 +1007,14 @@ export default defineComponent({
             : 0;
       });
 
-      return total.toFixed(2);
+      return total;
     });
 
     const createAppSchema = [
       Yup.object({
-        // facilityName: Yup.string().required().label("Facility Name"),
-        // facilityAddress: Yup.string().required().label("Facility Address"),
+        // itemName: Yup.string().required().label("Item Name"),
+        // itemQty: Yup.string().required().label("Item Quantity"),
+        // itemPrice: Yup.string().required().label("Item Price"),
       }),
     ];
 

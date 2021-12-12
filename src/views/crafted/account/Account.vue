@@ -1,6 +1,6 @@
 <template>
   <!--begin::Navbar-->
-  <div class="card mb-5 mb-xl-10">
+  <div class="card mb-5 mb-xl-10 mt-20">
     <div class="card-body pt-9 pb-0">
       <!--begin::Details-->
       <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
@@ -30,7 +30,7 @@
                 <a
                   href="#"
                   class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1"
-                  >Max Smith</a
+                  >Max SmitWh</a
                 >
                 <a href="#">
                   <span class="svg-icon svg-icon-1 svg-icon-primary">

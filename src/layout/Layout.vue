@@ -4,8 +4,6 @@
   <!-- begin:: Body -->
   <div class="page d-flex flex-row flex-column-fluid">
     <div id="kt_wrapper" class="wrapper d-flex flex-column flex-row-fluid">
-      <KTHeader :title="pageTitle" :breadcrumbs="breadcrumbs"></KTHeader>
-
       <!-- begin:: Content -->
       <div id="kt_content" class="content d-flex flex-column flex-column-fluid">
         <!-- begin:: Content Body -->
@@ -26,7 +24,6 @@
   </div>
   <!-- end:: Body -->
   <KTScrollTop></KTScrollTop>
-  <KTExplore></KTExplore>
   <KTDrawerMessenger></KTDrawerMessenger>
   <KTUserMenu></KTUserMenu>
   <KTCreateApp></KTCreateApp>
@@ -37,9 +34,8 @@
 <script lang="ts">
 import { defineComponent, computed, onMounted, watch, nextTick } from "vue";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n/index";
 import { useRoute, useRouter } from "vue-router";
-import KTAside from "@/layout/aside/Aside.vue";
-import KTHeader from "@/layout/header/Header.vue";
 import KTFooter from "@/layout/footer/Footer.vue";
 import HtmlClass from "@/core/services/LayoutService";
 import KTScrollTop from "@/layout/extras/ScrollTop.vue";
@@ -48,7 +44,6 @@ import KTLoader from "@/components/Loader.vue";
 import KTCreateApp from "@/components/modals/wizards/CreateAppModal.vue";
 import KTInviteFriendsModal from "@/components/modals/general/InviteFriendsModal.vue";
 import KTUpgradePlanModal from "@/components/modals/general/UpgradePlanModal.vue";
-import KTExplore from "@/layout/extras/Explore.vue";
 import KTDrawerMessenger from "@/layout/extras/DrawerMessenger.vue";
 import { Actions } from "@/store/enums/StoreEnums";
 import { MenuComponent } from "@/assets/ts/components/index";
@@ -69,20 +64,20 @@ export default defineComponent({
   name: "Layout",
   components: {
     // KTAside,
-    KTHeader,
+    // KTHeader,
     KTFooter,
     KTScrollTop,
     KTCreateApp,
     KTInviteFriendsModal,
     KTUpgradePlanModal,
     KTUserMenu,
-    KTExplore,
     KTDrawerMessenger,
     KTLoader,
   },
   setup() {
     const store = useStore();
     const route = useRoute();
+    const i18n = useI18n();
     const router = useRouter();
 
     // show page loading
@@ -108,7 +103,11 @@ export default defineComponent({
       nextTick(() => {
         reinitializeComponents();
       });
-
+      if (i18n.locale.value == "ar") {
+        document.body.classList.add("rtl");
+      } else {
+        document.body.classList.remove("rtl");
+      }
       // Simulate the delay page loading
       setTimeout(() => {
         // Remove page loader after some time
@@ -120,7 +119,11 @@ export default defineComponent({
       () => route.path,
       () => {
         MenuComponent.hideDropdowns(undefined);
-
+        if (i18n.locale.value == "ar") {
+          document.body.classList.add("rtl");
+        } else {
+          document.body.classList.remove("rtl");
+        }
         // check if current user is authenticated
         // if (!store.getters.isUserAuthenticated) {
         //   router.push({ name: "sign-in" });

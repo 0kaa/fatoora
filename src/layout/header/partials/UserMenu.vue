@@ -1,7 +1,7 @@
 <template>
   <!--begin::Menu-->
   <div
-    class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px"
+    class="menu d-block menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 h-100"
     data-kt-menu="true"
   >
     <!--begin::Menu item-->
@@ -37,7 +37,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link to="/pages/profile/overview" class="menu-link px-5">
+      <router-link to="/crafted/account/overview" class="menu-link px-5">
         My Profile
       </router-link>
     </div>
@@ -46,7 +46,7 @@
     <!--begin::Menu item-->
     <div class="menu-item px-5">
       <router-link to="/pages/profile/overview" class="menu-link px-5">
-        <span class="menu-text">My Projects</span>
+        <span class="menu-text">My Invoices</span>
         <span class="menu-badge">
           <span class="badge badge-light-danger badge-circle fw-bolder fs-7"
             >3</span
@@ -64,7 +64,7 @@
       data-kt-menu-flip="center, top"
     >
       <router-link to="/pages/profile/overview" class="menu-link px-5">
-        <span class="menu-title">My Subscription</span>
+        <span class="menu-title">My Customers</span>
         <span class="menu-arrow"></span>
       </router-link>
 
@@ -180,7 +180,7 @@
         <!--begin::Menu item-->
         <div class="menu-item px-3">
           <a
-            @click="setLang('en')"
+            @click.prevent="setLang('en')"
             href="#"
             class="menu-link d-flex px-5"
             :class="{ active: currentLanguage('en') }"
@@ -200,10 +200,10 @@
         <!--begin::Menu item-->
         <div class="menu-item px-3">
           <a
-            @click="setLang('es')"
+            @click.prevent="setLang('ar')"
             href="#"
             class="menu-link d-flex px-5"
-            :class="{ active: currentLanguage('es') }"
+            :class="{ active: currentLanguage('ar') }"
           >
             <span class="symbol symbol-20px me-4">
               <img
@@ -322,21 +322,9 @@ export default defineComponent({
         flag: "media/flags/united-states.svg",
         name: "English",
       },
-      es: {
-        flag: "media/flags/spain.svg",
-        name: "Spanish",
-      },
-      de: {
-        flag: "media/flags/germany.svg",
-        name: "German",
-      },
-      ja: {
-        flag: "media/flags/japan.svg",
-        name: "Japanese",
-      },
-      fr: {
-        flag: "media/flags/france.svg",
-        name: "French",
+      ar: {
+        flag: "media/flags/united-states.svg",
+        name: "Arabic",
       },
     };
 
@@ -345,10 +333,14 @@ export default defineComponent({
         .dispatch(Actions.LOGOUT)
         .then(() => router.push({ name: "sign-in" }));
     };
-
     const setLang = (lang) => {
       localStorage.setItem("lang", lang);
       i18n.locale.value = lang;
+      if (i18n.locale.value == "ar") {
+        document.body.classList.add("rtl");
+      } else {
+        document.body.classList.remove("rtl");
+      }
     };
 
     const currentLanguage = (lang) => {
