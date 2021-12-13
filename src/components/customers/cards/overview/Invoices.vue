@@ -102,9 +102,41 @@
               {{ invoice.date }}
             </template>
             <template v-slot:cell-invoice>
-              <button class="btn btn-sm btn-light btn-active-light-primary">
-                Download
-              </button>
+              <a
+                href="#"
+                class="btn btn-sm btn-light btn-active-light-primary"
+                data-kt-menu-trigger="click"
+                data-kt-menu-placement="bottom-end"
+                data-kt-menu-flip="top-end"
+                >Actions
+                <span class="svg-icon svg-icon-5 m-0">
+                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                </span>
+              </a>
+              <!--begin::Menu-->
+              <div
+                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                data-kt-menu="true"
+              >
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <router-link to="/invoice/1" class="menu-link px-3"
+                    >View</router-link
+                  >
+                </div>
+                <!--end::Menu item-->
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <a class="menu-link px-3">Download</a>
+                </div>
+                <!--end::Menu item-->
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <a class="menu-link px-3">Delete</a>
+                </div>
+                <!--end::Menu item-->
+              </div>
+              <!--end::Menu-->
             </template>
           </Datatable>
         </div>
@@ -136,9 +168,38 @@
               {{ invoice.date }}
             </template>
             <template v-slot:cell-invoice>
-              <button class="btn btn-sm btn-light btn-active-light-primary">
-                Download
-              </button>
+              <a
+                href="#"
+                class="btn btn-sm btn-light btn-active-light-primary"
+                data-kt-menu-trigger="click"
+                data-kt-menu-placement="bottom-end"
+                data-kt-menu-flip="top-end"
+                >Actions
+                <span class="svg-icon svg-icon-5 m-0">
+                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                </span>
+              </a>
+              <!--begin::Menu-->
+              <div
+                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                data-kt-menu="true"
+              >
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <router-link
+                    to="/apps/customers/customer-details"
+                    class="menu-link px-3"
+                    >View</router-link
+                  >
+                </div>
+                <!--end::Menu item-->
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <a class="menu-link px-3">Delete</a>
+                </div>
+                <!--end::Menu item-->
+              </div>
+              <!--end::Menu-->
             </template>
           </Datatable>
         </div>
@@ -170,9 +231,38 @@
               {{ invoice.date }}
             </template>
             <template v-slot:cell-invoice>
-              <button class="btn btn-sm btn-light btn-active-light-primary">
-                Download
-              </button>
+              <a
+                href="#"
+                class="btn btn-sm btn-light btn-active-light-primary"
+                data-kt-menu-trigger="click"
+                data-kt-menu-placement="bottom-end"
+                data-kt-menu-flip="top-end"
+                >Actions
+                <span class="svg-icon svg-icon-5 m-0">
+                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                </span>
+              </a>
+              <!--begin::Menu-->
+              <div
+                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                data-kt-menu="true"
+              >
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <router-link
+                    to="/apps/customers/customer-details"
+                    class="menu-link px-3"
+                    >View</router-link
+                  >
+                </div>
+                <!--end::Menu item-->
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <a class="menu-link px-3">Delete</a>
+                </div>
+                <!--end::Menu item-->
+              </div>
+              <!--end::Menu-->
             </template>
           </Datatable>
         </div>
@@ -204,9 +294,38 @@
               {{ invoice.date }}
             </template>
             <template v-slot:cell-invoice>
-              <button class="btn btn-sm btn-light btn-active-light-primary">
-                Download
-              </button>
+              <a
+                href="#"
+                class="btn btn-sm btn-light btn-active-light-primary"
+                data-kt-menu-trigger="click"
+                data-kt-menu-placement="bottom-end"
+                data-kt-menu-flip="top-end"
+                >Actions
+                <span class="svg-icon svg-icon-5 m-0">
+                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                </span>
+              </a>
+              <!--begin::Menu-->
+              <div
+                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                data-kt-menu="true"
+              >
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <router-link
+                    to="/apps/customers/customer-details"
+                    class="menu-link px-3"
+                    >View</router-link
+                  >
+                </div>
+                <!--end::Menu item-->
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                  <a class="menu-link px-3">Delete</a>
+                </div>
+                <!--end::Menu item-->
+              </div>
+              <!--end::Menu-->
             </template>
           </Datatable>
         </div>
@@ -279,7 +398,7 @@ export default defineComponent({
         amount: "$-2.60",
         status: {
           label: "Pending",
-          state: "warning",
+          state: "success",
         },
       },
       {

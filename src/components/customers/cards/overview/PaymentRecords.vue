@@ -9,23 +9,7 @@
       </div>
       <!--end::Card title-->
 
-      <!--begin::Card toolbar-->
-      <div class="card-toolbar">
-        <!--begin::Filter-->
-        <button
-          type="button"
-          class="btn btn-sm btn-flex btn-light-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#kt_modal_add_payment"
-        >
-          <span class="svg-icon svg-icon-3">
-            <inline-svg src="media/icons/duotune/general/gen035.svg" />
-          </span>
-          Add payment
-        </button>
-        <!--end::Filter-->
-      </div>
-      <!--end::Card toolbar-->
+   
     </div>
     <!--end::Card header-->
 

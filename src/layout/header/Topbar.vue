@@ -6,14 +6,14 @@
       <a
         href="#"
         class="btn btn-flex flex-center btn-bg-white btn-text-gray-500 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
-        tooltip="New Member"
+        tooltip="New Customer"
         data-bs-toggle="modal"
-        data-bs-target="#kt_modal_invite_friends"
+        data-bs-target="#kt_modal_create_account"
       >
         <span class="svg-icon svg-icon-2 svg-icon-primary me-0 me-md-2">
           <inline-svg src="media/icons/duotune/arrows/arr075.svg" />
         </span>
-        <span class="d-none d-md-inline">New Member</span>
+        <span class="d-none d-md-inline">New Customer</span>
       </a>
     </div>
     <!--end::Invite user-->
@@ -23,32 +23,18 @@
       <a
         href="#"
         class="btn btn-flex flex-center btn-bg-white btn-text-gray-500 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
-        tooltip="New App"
+        tooltip="New Invoice"
         data-bs-toggle="modal"
-        data-bs-target="#kt_modal_create_app"
+        data-bs-target="#kt_modal_create_invoice"
         id="kt_toolbar_primary_button"
       >
         <span class="svg-icon svg-icon-2 svg-icon-primary me-0 me-md-2">
           <inline-svg src="media/icons/duotune/general/gen005.svg" />
         </span>
-        <span class="d-none d-md-inline">New App</span>
+        <span class="d-none d-md-inline">New Invoice</span>
       </a>
     </div>
     <!--end::Create app-->
-    <div class="d-flex align-items-center ms-3">
-      <!--begin::Menu wrapper-->
-      <div
-        class="btn btn-icon btn-primary w-40px h-40px pulse pulse-white"
-        id="kt_drawer_chat_toggle"
-      >
-        <span class="svg-icon svg-icon-2">
-          <inline-svg src="media/icons/duotune/communication/com012.svg" />
-        </span>
-        <span class="pulse-ring"></span>
-      </div>
-      <!--end::Menu wrapper-->
-    </div>
-    <!--end::Chat-->
   </div>
   <!--end::Toolbar wrapper-->
 </template>

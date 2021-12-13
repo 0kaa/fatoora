@@ -19,6 +19,7 @@
         <!--end::Search-->
       </div>
       <!--begin::Card title-->
+
       <!--begin::Card toolbar-->
       <div class="card-toolbar">
         <!--begin::Toolbar-->
@@ -187,6 +188,7 @@ import AddCustomerModal from "@/components/modals/forms/AddCustomerModal.vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import customers from "@/core/data/customers";
 import { ICustomer } from "@/core/data/customers";
+import jsPDF from "jspdf";
 
 export default defineComponent({
   name: "customers-listing",
@@ -197,6 +199,7 @@ export default defineComponent({
   },
   setup() {
     const checkedCustomers = ref([]);
+
     const tableHeader = ref([
       {
         key: "checkbox",
@@ -236,6 +239,24 @@ export default defineComponent({
 
     const tableData = ref<Array<ICustomer>>(customers);
     const initCustomers = ref<Array<ICustomer>>([]);
+    const createPDF = () => {
+      const pdf = new jsPDF();
+      const data = tableData.value.map((customer: ICustomer) => {
+        return {
+          id: customer.id.toString(),
+          name: customer.name,
+          email: customer.email,
+          company: customer.company,
+          date: customer.date,
+        };
+      });
+
+      const header = ["id", "name", "email", "company", "date"];
+      pdf.table(10, 10, data, header, {
+        autoSize: true,
+      });
+      pdf.save("pdf.pdf");
+    };
 
     onMounted(() => {
       setCurrentPageBreadcrumbs("Customers Listing", ["Apps", "Customers"]);
@@ -287,6 +308,7 @@ export default defineComponent({
       tableHeader,
       deleteCustomer,
       search,
+      createPDF,
       searchItems,
       checkedCustomers,
       deleteFewCustomers,

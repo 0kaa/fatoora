@@ -99,8 +99,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted } from "vue";
-import KTCreateAccountModal from "@/components/modals/wizards/CreateAccountModal.vue";
-import KTCreateInvoiceModal from "@/components/modals/wizards/CreateInvoiceModal.vue";
+
 import { setCurrentPageTitle } from "@/core/helpers/breadcrumb";
 import CardCreateModal from "../components/cards/CardCreateModal.vue";
 import UserMenu from "@/layout/header/partials/UserMenu.vue";
@@ -108,8 +107,6 @@ import UserMenu from "@/layout/header/partials/UserMenu.vue";
 export default defineComponent({
   name: "dashboard",
   components: {
-    KTCreateAccountModal,
-    KTCreateInvoiceModal,
     CardCreateModal,
     UserMenu,
   },

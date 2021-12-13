@@ -4,6 +4,13 @@
   <!-- begin:: Body -->
   <div class="page d-flex flex-row flex-column-fluid">
     <div id="kt_wrapper" class="wrapper d-flex flex-column flex-row-fluid">
+      <!-- begin:: Header -->
+
+      <!-- ktheader -->
+      <KTHeader
+        v-if="route.name != 'home'"
+        :breadcrumbs="breadcrumbs"
+      ></KTHeader>
       <!-- begin:: Content -->
       <div id="kt_content" class="content d-flex flex-column flex-column-fluid">
         <!-- begin:: Content Body -->
@@ -24,10 +31,8 @@
   </div>
   <!-- end:: Body -->
   <KTScrollTop></KTScrollTop>
-  <KTDrawerMessenger></KTDrawerMessenger>
-  <KTUserMenu></KTUserMenu>
-  <KTCreateApp></KTCreateApp>
-  <KTInviteFriendsModal></KTInviteFriendsModal>
+  <KTCreateAccountModal></KTCreateAccountModal>
+  <KTCreateInvoiceModal></KTCreateInvoiceModal>
   <KTUpgradePlanModal></KTUpgradePlanModal>
 </template>
 
@@ -36,15 +41,15 @@ import { defineComponent, computed, onMounted, watch, nextTick } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n/index";
 import { useRoute, useRouter } from "vue-router";
+import KTHeader from "@/layout/header/Header.vue";
 import KTFooter from "@/layout/footer/Footer.vue";
 import HtmlClass from "@/core/services/LayoutService";
 import KTScrollTop from "@/layout/extras/ScrollTop.vue";
-import KTUserMenu from "@/layout/header/partials/ActivityDrawer.vue";
 import KTLoader from "@/components/Loader.vue";
-import KTCreateApp from "@/components/modals/wizards/CreateAppModal.vue";
-import KTInviteFriendsModal from "@/components/modals/general/InviteFriendsModal.vue";
+import KTCreateAccountModal from "@/components/modals/wizards/CreateAccountModal.vue";
+import KTCreateInvoiceModal from "@/components/modals/wizards/CreateInvoiceModal.vue";
 import KTUpgradePlanModal from "@/components/modals/general/UpgradePlanModal.vue";
-import KTDrawerMessenger from "@/layout/extras/DrawerMessenger.vue";
+
 import { Actions } from "@/store/enums/StoreEnums";
 import { MenuComponent } from "@/assets/ts/components/index";
 import { reinitializeComponents } from "@/core/plugins/keenthemes";
@@ -64,14 +69,12 @@ export default defineComponent({
   name: "Layout",
   components: {
     // KTAside,
-    // KTHeader,
+    KTHeader,
     KTFooter,
     KTScrollTop,
-    KTCreateApp,
-    KTInviteFriendsModal,
+    KTCreateInvoiceModal,
+    KTCreateAccountModal,
     KTUpgradePlanModal,
-    KTUserMenu,
-    KTDrawerMessenger,
     KTLoader,
   },
   setup() {
@@ -145,6 +148,7 @@ export default defineComponent({
       subheaderDisplay,
       pageTitle,
       breadcrumbs,
+      route,
       themeLightLogo,
       themeDarkLogo,
     };

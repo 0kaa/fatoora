@@ -8,7 +8,7 @@
     aria-hidden="true"
   >
     <!--begin::Modal dialog-->
-    <div class="modal-dialog mw-1000px">
+    <div class="modal-dialog mw-1200px">
       <!--begin::Modal content-->
       <div class="modal-content">
         <!--begin::Modal header-->
@@ -62,12 +62,11 @@
 
             <!--begin::Form-->
             <form
-              class="mx-auto mw-600px w-100 py-10"
+              class="mx-auto w-100 py-10"
               novalidate="novalidate"
               id="kt_create_account_form"
               @submit="handleStep"
             >
-              {{ formData.accountType }}
               <!--begin::Step 1-->
               <div class="current" data-kt-stepper-element="content">
                 <!--begin::Wrapper-->
@@ -583,3 +582,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.mw-1200px {
+  max-width: 1200px;
+}
+</style>

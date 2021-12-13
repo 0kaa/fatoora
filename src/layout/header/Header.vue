@@ -29,7 +29,7 @@
         <!--begin::Breadcrumb-->
         <ul v-if="breadcrumbs" class="breadcrumb fw-bold fs-base my-1">
           <li class="breadcrumb-item text-muted">
-            <router-link to="/dashboard" class="text-muted"> Home </router-link>
+            <router-link to="/home" class="text-muted"> Home </router-link>
           </li>
           <template v-for="(item, index) in breadcrumbs" :key="index">
             <li class="breadcrumb-item text-dark">
@@ -44,21 +44,7 @@
       </div>
 
       <!--begin::Wrapper-->
-      <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
-        <!--begin::Aside mobile toggle-->
-        <div class="btn btn-icon btn-active-icon-primary" id="kt_aside_toggle">
-          <span class="svg-icon svg-icon-2x">
-            <inline-svg src="media/icons/duotune/abstract/abs015.svg" />
-          </span>
-        </div>
-        <!--end::Aside mobile toggle-->
-
-        <!--begin::Logo-->
-        <a href="#" class="d-flex align-items-center">
-          <img alt="Logo" src="media/logos/logo-demo7.svg" class="h-30px" />
-        </a>
-        <!--end::Logo-->
-      </div>
+      <div class="d-flex d-lg-none align-items-center ms-n2 me-2"></div>
       <!--end::Wrapper-->
 
       <KTTopbar></KTTopbar>

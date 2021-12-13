@@ -45,7 +45,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link to="/pages/profile/overview" class="menu-link px-5">
+      <router-link to="/invoices" class="menu-link px-5">
         <span class="menu-text">My Invoices</span>
         <span class="menu-badge">
           <span class="badge badge-light-danger badge-circle fw-bolder fs-7"
@@ -142,8 +142,8 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link to="/pages/profile/overview" class="menu-link px-5">
-        My Statements
+      <router-link to="/apps/customers/customers-listing" class="menu-link px-5">
+        My Customers
       </router-link>
     </div>
     <!--end::Menu item-->
@@ -283,7 +283,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5 my-1">
-      <router-link to="/pages/profile/overview" class="menu-link px-5">
+      <router-link to="/crafted/account/settings" class="menu-link px-5">
         Account Settings
       </router-link>
     </div>
