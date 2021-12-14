@@ -245,7 +245,7 @@
                                 >
                                   <!--begin::Datepicker-->
                                   <!--begin::Input-->
-                                  <el-date-picker                                    
+                                  <el-date-picker
                                     class="form-control-transparent pe-5 w-150px"
                                     name="invoice_date"
                                     placeholder="Select date"
@@ -917,7 +917,7 @@ import { hideModal } from "@/core/helpers/dom";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
-import { Field, ErrorMessage } from "vee-validate";
+import { Field } from "vee-validate";
 import * as Yup from "yup";
 
 interface Step1 {
@@ -934,6 +934,7 @@ interface Step2 {
   invoiceEmail: string;
   invoiceNotes: string;
   invoiceTax: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   invoiceDiscount: any;
   invoiceTotal: string;
 }
@@ -956,6 +957,7 @@ export default defineComponent({
     const paymentUrl = ref("");
     const invoice_date = ref(new Date());
     const invoice_duo_date = ref("");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const items = ref<any[]>([
       {
         name: "",

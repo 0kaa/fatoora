@@ -1675,7 +1675,7 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      setCurrentPageBreadcrumbs("Settings", ["Account"]);
+      setCurrentPageBreadcrumbs("Settings", ["Account", "Settings"]);
     });
 
     return {

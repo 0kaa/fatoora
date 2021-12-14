@@ -21,7 +21,7 @@
         data-kt-swapper="true"
         data-kt-swapper-mode="prepend"
         data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}"
-        class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-2 pb-lg-0"
+        class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0"
       >
         <!--begin::Heading-->
         <h1 class="text-white fw-bolder my-0 fs-2">{{ title }}</h1>
@@ -36,9 +36,6 @@
               {{ item }}
             </li>
           </template>
-          <li class="breadcrumb-item text-dark">
-            {{ title }}
-          </li>
         </ul>
         <!--end::Breadcrumb-->
       </div>

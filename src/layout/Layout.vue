@@ -7,8 +7,9 @@
       <!-- begin:: Header -->
 
       <!-- ktheader -->
+
       <KTHeader
-        v-if="route.name != 'home'"
+        v-if="route.name !== 'home'"
         :breadcrumbs="breadcrumbs"
       ></KTHeader>
       <!-- begin:: Content -->
@@ -40,7 +41,7 @@
 import { defineComponent, computed, onMounted, watch, nextTick } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n/index";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute /*,useRouter*/ } from "vue-router";
 import KTHeader from "@/layout/header/Header.vue";
 import KTFooter from "@/layout/footer/Footer.vue";
 import HtmlClass from "@/core/services/LayoutService";
@@ -81,7 +82,7 @@ export default defineComponent({
     const store = useStore();
     const route = useRoute();
     const i18n = useI18n();
-    const router = useRouter();
+    // const router = useRouter();
 
     // show page loading
     store.dispatch(Actions.ADD_BODY_CLASSNAME, "page-loading");

@@ -142,7 +142,10 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link to="/apps/customers/customers-listing" class="menu-link px-5">
+      <router-link
+        to="/apps/customers/customers-listing"
+        class="menu-link px-5"
+      >
         My Customers
       </router-link>
     </div>

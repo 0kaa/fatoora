@@ -99,7 +99,6 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted } from "vue";
-
 import { setCurrentPageTitle } from "@/core/helpers/breadcrumb";
 import CardCreateModal from "../components/cards/CardCreateModal.vue";
 import UserMenu from "@/layout/header/partials/UserMenu.vue";

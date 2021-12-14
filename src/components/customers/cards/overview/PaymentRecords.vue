@@ -8,8 +8,6 @@
         <h2>Payment Records</h2>
       </div>
       <!--end::Card title-->
-
-   
     </div>
     <!--end::Card header-->
 
