@@ -1,6 +1,6 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+  <div class="w-lg-500px bg-white rounded shadow-sm p-10 m-10 p-lg-15 mx-auto">
     <!--begin::Form-->
     <Form
       class="form w-100"
@@ -26,12 +26,6 @@
       </div>
       <!--begin::Heading-->
 
-      <div class="mb-10 bg-light-info p-8 rounded">
-        <div class="text-info">
-          Use account <strong>admin@demo.com</strong> and password
-          <strong>demo</strong> to continue.
-        </div>
-      </div>
 
       <!--begin::Input group-->
       <div class="fv-row mb-10">

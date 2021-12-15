@@ -1,15 +1,18 @@
 <template>
   <!--begin::Stepper-->
-  <div class="w-100 bg-white">
+  <div class="w-100">
     <!--begin::Wrapper-->
     <div
       ref="createAccountRef"
-      class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
+      class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid h-100 flex-center"
       id="kt_create_account_stepper"
     >
       <div
-        class="d-flex py-10 justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px"
+        class="bg-lighten flex-column flex-center shadow-sm py-10 justify-content-center h-100 d-none d-xl-flex w-100 w-xl-500px"
       >
+        <!--begin::Logo-->
+        <Logo class="mb-20 ps-lg-10"></Logo>
+        <!--end::Logo-->
         <!--begin::Nav-->
         <div class="stepper-nav ps-lg-10">
           <!--begin::Step 1-->
@@ -101,672 +104,702 @@
 
       <!--begin::Form-->
       <form
-        class="mx-auto mw-900px w-100 py-10"
+        class="w-100 h-100 d-flex flex-column py-lg-0 px-lg-20 p-10"
         novalidate="novalidate"
         id="kt_create_account_form"
         @submit="handleStep"
       >
-        <!--begin::Step 1-->
-        <div class="current" data-kt-stepper-element="content">
-          <!--begin::Wrapper-->
-          <div class="w-100">
-            <!--begin::Heading-->
-            <div class="pb-10 pb-lg-15">
-              <!--begin::Title-->
-              <h2 class="fw-bolder d-flex align-items-center text-dark">
-                Choose Account Type
+        <div
+          class="d-flex flex-column flex-column-fluid justify-content-center"
+        >
+          <!--begin::Step 1-->
+          <div class="current" data-kt-stepper-element="content">
+            <!--begin::Wrapper-->
+            <div class="w-100">
+              <!-- begin::Logo in mobile -->
+              <Logo class="mb-10 ps-lg-10 d-xl-none"></Logo>
+              <!--end::Logo-->
+              <!--begin::Heading-->
+              <div class="pb-10 pb-lg-15">
+                <!--begin::Title-->
+                <h2 class="fw-bolder d-flex align-items-center text-dark">
+                  Choose Account Type
+                  <i
+                    class="fas fa-exclamation-circle ms-2 fs-7"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    title="Billing is issued based on your selected account type"
+                  ></i>
+                </h2>
+                <!--end::Title-->
+
+                <!--begin::Notice-->
+                <div class="text-gray-400 fw-bold fs-6">
+                  If you have account, please
+                  <router-link to="/sign-in" class="link-primary fw-bolder"
+                    >Sign in</router-link
+                  >.
+                </div>
+                <!--end::Notice-->
+              </div>
+              <!--end::Heading-->
+
+              <!--begin::Input group-->
+              <div class="fv-row">
+                <!--begin::Row-->
+
+                <div class="row">
+                  <!--begin::Col-->
+                  <div class="col-lg-6">
+                    <!--begin::Option-->
+                    <Field
+                      type="radio"
+                      class="btn-check"
+                      name="accountType"
+                      value="cloud"
+                      id="kt_create_account_form_account_type_cloud"
+                    />
+                    <label
+                      class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-10"
+                      for="kt_create_account_form_account_type_cloud"
+                    >
+                      <span class="svg-icon svg-icon-3x me-5">
+                        <inline-svg
+                          src="media/icons/duotune/communication/com005.svg"
+                        />
+                      </span>
+
+                      <!--begin::Info-->
+                      <span class="d-block fw-bold text-start">
+                        <span class="text-dark fw-bolder d-block fs-4 mb-2">
+                          Cloud Account
+                        </span>
+                        <span class="text-gray-400 fw-bold fs-6"
+                          >If you need more info, please check it out</span
+                        >
+                      </span>
+                      <!--end::Info-->
+                    </label>
+                    <!--end::Option-->
+                  </div>
+                  <!--end::Col-->
+
+                  <!--begin::Col-->
+                  <div class="col-lg-6">
+                    <!--begin::Option-->
+                    <Field
+                      type="radio"
+                      class="btn-check"
+                      name="accountType"
+                      value="custom"
+                      id="kt_create_account_form_account_type_custom"
+                    />
+                    <label
+                      class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
+                      for="kt_create_account_form_account_type_custom"
+                    >
+                      <span class="svg-icon svg-icon-3x me-5">
+                        <inline-svg
+                          src="media/icons/duotune/finance/fin006.svg"
+                        />
+                      </span>
+
+                      <!--begin::Info-->
+                      <span class="d-block fw-bold text-start">
+                        <span class="text-dark fw-bolder d-block fs-4 mb-2"
+                          >Custom Account</span
+                        >
+                        <span class="text-gray-400 fw-bold fs-6"
+                          >Create corporate account to mane users</span
+                        >
+                      </span>
+                      <!--end::Info-->
+                    </label>
+                    <!--end::Option-->
+                  </div>
+                  <!--end::Col-->
+                </div>
+                <!--end::Row-->
+              </div>
+              <!--end::Input group-->
+            </div>
+            <!--end::Wrapper-->
+          </div>
+          <!--end::Step 1-->
+
+          <!--begin::Step 3-->
+          <div data-kt-stepper-element="content">
+            <!--begin::Wrapper-->
+            <div class="w-100">
+              <!--end::Heading-->
+              <label class="d-flex align-items-center form-label mb-3"
+                >Specify Team Size
                 <i
                   class="fas fa-exclamation-circle ms-2 fs-7"
                   data-bs-toggle="tooltip"
-                  data-bs-trigger="hover"
-                  title="Billing is issued based on your selected account type"
-                ></i>
-              </h2>
-              <!--end::Title-->
-
-              <!--begin::Notice-->
-              <div class="text-gray-400 fw-bold fs-6">
-                If you have account, please
-                <router-link to="/sign-in" class="link-primary fw-bolder"
-                  >Sign in</router-link
-                >.
-              </div>
-              <!--end::Notice-->
-            </div>
-            <!--end::Heading-->
-
-            <!--begin::Input group-->
-            <div class="fv-row">
+                  title=""
+                  data-bs-original-title="Provide your team size to help us setup your billing"
+                  aria-label="Provide your team size to help us setup your billing"
+                ></i
+              ></label>
               <!--begin::Row-->
-
-              <div class="row">
+              <div
+                class="row mb-10"
+                style="row-gap: 20px"
+                data-kt-buttons="true"
+              >
                 <!--begin::Col-->
-                <div class="col-lg-6">
+                <div class="col">
                   <!--begin::Option-->
                   <Field
                     type="radio"
                     class="btn-check"
-                    name="accountType"
-                    value="cloud"
-                    id="kt_create_account_form_account_type_cloud"
+                    name="invoicePlan"
+                    value="100"
+                    id="kt_hundred_select"
                   />
                   <label
-                    class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-10"
-                    for="kt_create_account_form_account_type_cloud"
+                    class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+                    for="kt_hundred_select"
                   >
-                    <span class="svg-icon svg-icon-3x me-5">
-                      <inline-svg
-                        src="media/icons/duotune/communication/com005.svg"
-                      />
-                    </span>
-
-                    <!--begin::Info-->
-                    <span class="d-block fw-bold text-start">
-                      <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                        Cloud Account
-                      </span>
-                      <span class="text-gray-400 fw-bold fs-6"
-                        >If you need more info, please check it out</span
-                      >
-                    </span>
-                    <!--end::Info-->
+                    <span class="fw-bolder fs-3">100</span>
+                  </label>
+                  <!--end::Option-->
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col">
+                  <!--begin::Option-->
+                  <Field
+                    type="radio"
+                    class="btn-check"
+                    name="invoicePlan"
+                    value="1000"
+                    id="kt_one_thousand_select"
+                  />
+                  <label
+                    class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+                    for="kt_one_thousand_select"
+                  >
+                    <span class="fw-bolder fs-3">1000</span>
                   </label>
                   <!--end::Option-->
                 </div>
                 <!--end::Col-->
 
                 <!--begin::Col-->
-                <div class="col-lg-6">
+                <div class="col">
                   <!--begin::Option-->
                   <Field
                     type="radio"
                     class="btn-check"
-                    name="accountType"
-                    value="custom"
-                    id="kt_create_account_form_account_type_custom"
+                    name="invoicePlan"
+                    value="5000"
+                    id="kt_five_thousand_select"
                   />
                   <label
-                    class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
-                    for="kt_create_account_form_account_type_custom"
+                    class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+                    for="kt_five_thousand_select"
                   >
-                    <span class="svg-icon svg-icon-3x me-5">
-                      <inline-svg
-                        src="media/icons/duotune/finance/fin006.svg"
-                      />
-                    </span>
+                    <span class="fw-bolder fs-3">5000</span>
+                  </label>
+                  <!--end::Option-->
+                </div>
+                <!--end::Col-->
 
-                    <!--begin::Info-->
-                    <span class="d-block fw-bold text-start">
-                      <span class="text-dark fw-bolder d-block fs-4 mb-2"
-                        >Custom Account</span
-                      >
-                      <span class="text-gray-400 fw-bold fs-6"
-                        >Create corporate account to mane users</span
-                      >
-                    </span>
-                    <!--end::Info-->
+                <!--begin::Col-->
+                <div class="col">
+                  <!--begin::Option-->
+                  <Field
+                    type="radio"
+                    class="btn-check"
+                    name="invoicePlan"
+                    value="10000"
+                    id="kt_ten_thousand_select"
+                  />
+                  <label
+                    class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+                    for="kt_ten_thousand_select"
+                  >
+                    <span class="fw-bolder fs-3">10000</span>
+                  </label>
+                  <!--end::Option-->
+                </div>
+                <!--end::Col-->
+
+                <!--begin::Col-->
+                <div class="col">
+                  <!--begin::Option-->
+                  <Field
+                    type="radio"
+                    class="btn-check"
+                    name="invoicePlan"
+                    value="other"
+                    id="kt_other_select"
+                  />
+                  <label
+                    class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+                    for="kt_other_select"
+                  >
+                    <span class="fw-bolder fs-3">Other</span>
                   </label>
                   <!--end::Option-->
                 </div>
                 <!--end::Col-->
               </div>
               <!--end::Row-->
-            </div>
-            <!--end::Input group-->
-          </div>
-          <!--end::Wrapper-->
-        </div>
-        <!--end::Step 1-->
+              <!--begin::Input group-->
+              <div class="row mb-5">
+                <div class="col-lg-6 mb-5">
+                  <!--begin::Label-->
+                  <label class="form-label required">Name</label>
+                  <!--end::Label-->
 
-        <!--begin::Step 3-->
-        <div data-kt-stepper-element="content">
-          <!--begin::Wrapper-->
-          <div class="w-100">
-            <!--end::Heading-->
-            <label class="d-flex align-items-center form-label mb-3"
-              >Specify Team Size
-              <i
-                class="fas fa-exclamation-circle ms-2 fs-7"
-                data-bs-toggle="tooltip"
-                title=""
-                data-bs-original-title="Provide your team size to help us setup your billing"
-                aria-label="Provide your team size to help us setup your billing"
-              ></i
-            ></label>
-            <!--begin::Row-->
-            <div class="row mb-10" style="row-gap: 20px" data-kt-buttons="true">
-              <!--begin::Col-->
-              <div class="col">
-                <!--begin::Option-->
-                <Field
-                  type="radio"
-                  class="btn-check"
-                  name="invoicePlan"
-                  value="100"
-                  id="kt_hundred_select"
-                />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_hundred_select"
-                >
-                  <span class="fw-bolder fs-3">100</span>
-                </label>
-                <!--end::Option-->
-              </div>
-              <!--end::Col-->
-              <!--begin::Col-->
-              <div class="col">
-                <!--begin::Option-->
-                <Field
-                  type="radio"
-                  class="btn-check"
-                  name="invoicePlan"
-                  value="1000"
-                  id="kt_one_thousand_select"
-                />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_one_thousand_select"
-                >
-                  <span class="fw-bolder fs-3">1000</span>
-                </label>
-                <!--end::Option-->
-              </div>
-              <!--end::Col-->
-
-              <!--begin::Col-->
-              <div class="col">
-                <!--begin::Option-->
-                <Field
-                  type="radio"
-                  class="btn-check"
-                  name="invoicePlan"
-                  value="5000"
-                  id="kt_five_thousand_select"
-                />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_five_thousand_select"
-                >
-                  <span class="fw-bolder fs-3">5000</span>
-                </label>
-                <!--end::Option-->
-              </div>
-              <!--end::Col-->
-
-              <!--begin::Col-->
-              <div class="col">
-                <!--begin::Option-->
-                <Field
-                  type="radio"
-                  class="btn-check"
-                  name="invoicePlan"
-                  value="10000"
-                  id="kt_ten_thousand_select"
-                />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_ten_thousand_select"
-                >
-                  <span class="fw-bolder fs-3">10000</span>
-                </label>
-                <!--end::Option-->
-              </div>
-              <!--end::Col-->
-
-              <!--begin::Col-->
-              <div class="col">
-                <!--begin::Option-->
-                <Field
-                  type="radio"
-                  class="btn-check"
-                  name="invoicePlan"
-                  value="other"
-                  id="kt_other_select"
-                />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_other_select"
-                >
-                  <span class="fw-bolder fs-3">Other</span>
-                </label>
-                <!--end::Option-->
-              </div>
-              <!--end::Col-->
-            </div>
-            <!--end::Row-->
-            <!--begin::Input group-->
-            <div class="row mb-5">
-              <div class="col-lg-6 mb-5">
-                <!--begin::Label-->
-                <label class="form-label required">Name</label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="name"
-                  class="form-control form-control-lg form-control-solid"
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="name"
-                />
-                <!--end::Input-->
-              </div>
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="d-flex align-items-center form-label">
-                  <span class="required">Email Address</span>
-                </label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="email"
-                  value=""
-                  class="form-control form-control-lg form-control-solid"
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="email"
-                />
-                <!--end::Input-->
-              </div>
-            </div>
-            <!--end::Input group-->
-
-            <!--begin::Input group-->
-            <div class="row mb-5">
-              <div class="col-lg-6 mb-5">
-                <!--begin::Label-->
-
-                <label class="d-flex align-items-center form-label">
-                  <span class="required">Phone</span>
-                </label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="phone"
-                  class="form-control form-control-lg form-control-solid"
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="phone"
-                />
-                <!--end::Input-->
-              </div>
-              <div class="col-lg-6">
-                <!--end::Label-->
-                <label class="d-flex align-items-center form-label">
-                  <span class="required">Password</span>
-                </label>
-
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="password"
-                  type="password"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="password"
-                />
-                <!--end::Input-->
-              </div>
-            </div>
-            <!--end::Input group-->
-          </div>
-          <!--end::Wrapper-->
-        </div>
-        <!--end::Step 3-->
-        <!--begin::Step 4-->
-        <div data-kt-stepper-element="content">
-          <!--begin::Wrapper-->
-          <div class="w-100">
-            <!--begin::Heading-->
-            <div class="pb-10 pb-lg-12">
-              <!--begin::Title-->
-              <h2 class="fw-bolder text-dark">Business Details</h2>
-              <!--end::Title-->
-
-              <!--begin::Notice-->
-              <div class="text-gray-400 fw-bold fs-6">
-                If you need more info, please check out
-                <a href="#" class="link-primary fw-bolder">Help Page</a>.
-              </div>
-              <!--end::Notice-->
-            </div>
-            <!--end::Heading-->
-
-            <!--begin::Input group-->
-            <div class="row mb-5">
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="form-label required">Facility Name</label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="facilityName"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="facilityName"
-                />
-                <!--end::Input-->
-              </div>
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="d-flex align-items-center form-label">
-                  <span class="required">Facility Address</span>
-                </label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="facilityAddress"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="facilityAddress"
-                />
-                <!--end::Input-->
-              </div>
-            </div>
-            <!--end::Input group-->
-
-            <!--begin::Input group-->
-            <div class="row mb-5">
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="form-label">Establishment Tax Number</label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="establishmentTaxNumber"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="establishmentTaxNumber"
-                />
-                <!--end::Input-->
-              </div>
-
-              <div class="col-lg-6">
-                <!--end::Label-->
-                <label class="form-label">Record Number</label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="recordNumber"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="recordNumber"
-                />
-                <!--end::Input-->
-              </div>
-            </div>
-            <!--end::Input group-->
-
-            <!--begin::Input group-->
-            <div class="row mb-5">
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="fs-6 fw-bold form-label"
-                  >Number of the facility</label
-                >
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="numberOfTheFacility"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="numberOfTheFacility"
-                />
-                <!--end::Input-->
-              </div>
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="fs-6 fw-bold form-label"
-                  >Establishment website</label
-                >
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="establishmentWebsite"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="establishmentWebsite"
-                />
-                <!--end::Input-->
-              </div>
-            </div>
-            <!--end::Input group-->
-
-            <!--begin::Input group-->
-            <div class="row mb-10">
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="fs-6 fw-bold form-label"
-                  >Establishment Email</label
-                >
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="establishmentEmail"
-                  class="form-control form-control-lg form-control-solid"
-                  value=""
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="establishmentEmail"
-                />
-                <!--end::Input-->
-              </div>
-              <div class="col-lg-6">
-                <!--begin::Label-->
-                <label class="fs-6 fw-bold form-label"
-                  >Establishment Phone</label
-                >
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <Field
-                  name="establishmentPhone"
-                  class="form-control form-control-lg form-control-solid"
-                />
-                <ErrorMessage
-                  class="fv-plugins-message-container invalid-feedback"
-                  name="establishmentPhone"
-                />
-                <!--end::Input-->
-              </div>
-            </div>
-            <!--end::Input group-->
-
-            <!--begin::Input group-->
-            <div
-              class="fv-row mb-0"
-              :class="imgPreview ? 'align-items-start d-flex flex-column' : ''"
-            >
-              <!--begin::Label-->
-              <label class="fs-6 fw-bold form-label">Establishment Logo</label>
-              <!--end::Label-->
-              <!--begin::Input-->
-              <Field
-                type="file"
-                class="btn-check"
-                name="establishmentLogo"
-                id="kt_logo_select"
-                @change="onFileChange"
-              />
-
-              <label
-                class="btn btn-outline btn-outline-dashed btn-outline-default p-4"
-                :class="!imgPreview ? 'w-100' : ''"
-                for="kt_logo_select"
-              >
-                <span v-if="!imgPreview" class="fw-bolder fs-3"
-                  >Upload Logo</span
-                >
-                <img
-                  v-else
-                  width="150"
-                  height="150"
-                  :src="imgPreview"
-                  class="img-fluid"
-                />
-              </label>
-              <ErrorMessage
-                class="fv-plugins-message-container invalid-feedback"
-                name="establishmentLogo"
-              />
-              <!--end::Input-->
-            </div>
-            <!--end::Input group-->
-          </div>
-          <!--end::Wrapper-->
-        </div>
-        <!--end::Step 4-->
-
-        <!--begin::Step 5-->
-        <div data-kt-stepper-element="content">
-          <!--begin::Wrapper-->
-          <div class="w-100">
-            <!--begin::Heading-->
-            <div class="pb-8 pb-lg-10">
-              <!--begin::Title-->
-              <h2 class="fw-bolder text-dark">Your Are Done!</h2>
-              <!--end::Title-->
-
-              <!--begin::Notice-->
-              <div class="text-gray-400 fw-bold fs-6">
-                If you need more info, please
-                <router-link to="/sign-in" class="link-primary fw-bolder"
-                  >Sign In</router-link
-                >.
-              </div>
-              <!--end::Notice-->
-            </div>
-            <!--end::Heading-->
-
-            <!--begin::Body-->
-            <div class="mb-0">
-              <!--begin::Text-->
-              <div class="fs-6 text-gray-600 mb-5">
-                Writing headlines for blog posts is as much an art as it is a
-                science and probably warrants its own post, but for all advise
-                is with what works for your great & amazing audience.
-              </div>
-              <!--end::Text-->
-
-              <!--begin::Alert-->
-              <div
-                class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6"
-              >
-                <!--begin::Icon-->
-                <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                  <inline-svg src="media/icons/duotune/general/gen044.svg" />
-                </span>
-                <!--end::Icon-->
-                <!--begin::Wrapper-->
-                <div class="d-flex flex-stack flex-grow-1">
-                  <!--begin::Content-->
-                  <div class="fw-bold">
-                    <h4 class="text-gray-800 fw-bolder">
-                      We need your attention!
-                    </h4>
-                    <div class="fs-6 text-gray-600">
-                      To start using great tools, please, please
-                      <a href="#" class="fw-bolder">Create Team Platform</a>
-                    </div>
-                  </div>
-                  <!--end::Content-->
+                  <!--begin::Input-->
+                  <Field
+                    name="name"
+                    class="form-control form-control-lg form-control-solid"
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="name"
+                  />
+                  <!--end::Input-->
                 </div>
-                <!--end::Wrapper-->
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="d-flex align-items-center form-label">
+                    <span class="required">Email Address</span>
+                  </label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="email"
+                    value=""
+                    class="form-control form-control-lg form-control-solid"
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="email"
+                  />
+                  <!--end::Input-->
+                </div>
               </div>
-              <!--end::Alert-->
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="row mb-5">
+                <div class="col-lg-6 mb-5">
+                  <!--begin::Label-->
+
+                  <label class="d-flex align-items-center form-label">
+                    <span class="required">Phone</span>
+                  </label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="phone"
+                    class="form-control form-control-lg form-control-solid"
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="phone"
+                  />
+                  <!--end::Input-->
+                </div>
+                <div class="col-lg-6">
+                  <!--end::Label-->
+                  <label class="d-flex align-items-center form-label">
+                    <span class="required">Password</span>
+                  </label>
+
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="password"
+                    type="password"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="password"
+                  />
+                  <!--end::Input-->
+                </div>
+              </div>
+              <!--end::Input group-->
             </div>
-            <!--end::Body-->
+            <!--end::Wrapper-->
           </div>
-          <!--end::Wrapper-->
-        </div>
-        <!--end::Step 5-->
+          <!--end::Step 3-->
+          <!--begin::Step 4-->
+          <div data-kt-stepper-element="content">
+            <!--begin::Wrapper-->
+            <div class="w-100">
+              <!--begin::Heading-->
+              <div class="pb-10 pb-lg-12">
+                <!--begin::Title-->
+                <h2 class="fw-bolder text-dark">Business Details</h2>
+                <!--end::Title-->
 
-        <!--begin::Actions-->
-        <div class="d-flex flex-stack pt-15">
-          <!--begin::Wrapper-->
-          <div class="me-2">
-            <button
-              type="button"
-              class="btn btn-lg btn-light-primary me-3"
-              data-kt-stepper-action="previous"
-              @click="previousStep()"
-            >
-              <span class="svg-icon svg-icon-3 me-1">
-                <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
-              </span>
-              Back
-            </button>
+                <!--begin::Notice-->
+                <div class="text-gray-400 fw-bold fs-6">
+                  If you need more info, please check out
+                  <a href="#" class="link-primary fw-bolder">Help Page</a>.
+                </div>
+                <!--end::Notice-->
+              </div>
+              <!--end::Heading-->
+
+              <!--begin::Input group-->
+              <div class="row mb-5">
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="form-label required">Facility Name</label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="facilityName"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="facilityName"
+                  />
+                  <!--end::Input-->
+                </div>
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="d-flex align-items-center form-label">
+                    <span class="required">Facility Address</span>
+                  </label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="facilityAddress"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="facilityAddress"
+                  />
+                  <!--end::Input-->
+                </div>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="row mb-5">
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="form-label">Establishment Tax Number</label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="establishmentTaxNumber"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="establishmentTaxNumber"
+                  />
+                  <!--end::Input-->
+                </div>
+
+                <div class="col-lg-6">
+                  <!--end::Label-->
+                  <label class="form-label">Record Number</label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="recordNumber"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="recordNumber"
+                  />
+                  <!--end::Input-->
+                </div>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="row mb-5">
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label"
+                    >Number of the facility</label
+                  >
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="numberOfTheFacility"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="numberOfTheFacility"
+                  />
+                  <!--end::Input-->
+                </div>
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label"
+                    >Establishment website</label
+                  >
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="establishmentWebsite"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="establishmentWebsite"
+                  />
+                  <!--end::Input-->
+                </div>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="row mb-10">
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label"
+                    >Establishment Email</label
+                  >
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="establishmentEmail"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="establishmentEmail"
+                  />
+                  <!--end::Input-->
+                </div>
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label"
+                    >Establishment Phone</label
+                  >
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="establishmentPhone"
+                    class="form-control form-control-lg form-control-solid"
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="establishmentPhone"
+                  />
+                  <!--end::Input-->
+                </div>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div
+                class="fv-row mb-0"
+                :class="
+                  imgPreview ? 'align-items-start d-flex flex-column' : ''
+                "
+              >
+                <!--begin::Label-->
+                <label class="fs-6 fw-bold form-label"
+                  >Establishment Logo</label
+                >
+                <!--end::Label-->
+                <!--begin::Input-->
+                <Field
+                  type="file"
+                  class="btn-check"
+                  name="establishmentLogo"
+                  id="kt_logo_select"
+                  @change="onFileChange"
+                />
+
+                <label
+                  class="btn btn-outline btn-outline-dashed btn-outline-default p-4"
+                  :class="!imgPreview ? 'w-100' : ''"
+                  for="kt_logo_select"
+                >
+                  <span v-if="!imgPreview" class="fw-bolder fs-3"
+                    >Upload Logo</span
+                  >
+                  <img
+                    v-else
+                    width="150"
+                    height="150"
+                    :src="imgPreview"
+                    class="img-fluid"
+                  />
+                </label>
+                <ErrorMessage
+                  class="fv-plugins-message-container invalid-feedback"
+                  name="establishmentLogo"
+                />
+                <!--end::Input-->
+              </div>
+              <!--end::Input group-->
+            </div>
+            <!--end::Wrapper-->
           </div>
-          <!--end::Wrapper-->
+          <!--end::Step 4-->
 
-          <!--begin::Wrapper-->
-          <div>
-            <button
-              type="submit"
-              class="btn btn-lg btn-primary"
-              v-if="currentStepIndex === totalSteps - 1"
-              @click="formSubmit()"
-            >
-              <span class="indicator-label">
-                Submit
-                <span class="svg-icon svg-icon-3 ms-2 me-0">
-                  <inline-svg src="icons/duotune/arrows/arr064.svg" />
+          <!--begin::Step 5-->
+          <div data-kt-stepper-element="content">
+            <!--begin::Wrapper-->
+            <div class="w-100">
+              <!--begin::Heading-->
+              <div class="pb-8 pb-lg-10">
+                <!--begin::Title-->
+                <h2 class="fw-bolder text-dark">Your Are Done!</h2>
+                <!--end::Title-->
+
+                <!--begin::Notice-->
+                <div class="text-gray-400 fw-bold fs-6">
+                  If you need more info, please
+                  <router-link to="/sign-in" class="link-primary fw-bolder"
+                    >Sign In</router-link
+                  >.
+                </div>
+                <!--end::Notice-->
+              </div>
+              <!--end::Heading-->
+
+              <!--begin::Body-->
+              <div class="mb-0">
+                <!--begin::Text-->
+                <div class="fs-6 text-gray-600 mb-5">
+                  Writing headlines for blog posts is as much an art as it is a
+                  science and probably warrants its own post, but for all advise
+                  is with what works for your great & amazing audience.
+                </div>
+                <!--end::Text-->
+
+                <!--begin::Alert-->
+                <div
+                  class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6"
+                >
+                  <!--begin::Icon-->
+                  <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
+                    <inline-svg src="media/icons/duotune/general/gen044.svg" />
+                  </span>
+                  <!--end::Icon-->
+                  <!--begin::Wrapper-->
+                  <div class="d-flex flex-stack flex-grow-1">
+                    <!--begin::Content-->
+                    <div class="fw-bold">
+                      <h4 class="text-gray-800 fw-bolder">
+                        We need your attention!
+                      </h4>
+                      <div class="fs-6 text-gray-600">
+                        To start using great tools, please, please
+                        <a href="#" class="fw-bolder">Create Team Platform</a>
+                      </div>
+                    </div>
+                    <!--end::Content-->
+                  </div>
+                  <!--end::Wrapper-->
+                </div>
+                <!--end::Alert-->
+              </div>
+              <!--end::Body-->
+            </div>
+            <!--end::Wrapper-->
+          </div>
+          <!--end::Step 5-->
+
+          <!--begin::Actions-->
+          <div class="d-flex flex-stack pt-15">
+            <!--begin::Wrapper-->
+            <div class="me-2">
+              <button
+                type="button"
+                class="btn btn-lg btn-light-primary me-3"
+                data-kt-stepper-action="previous"
+                @click="previousStep()"
+              >
+                <span class="svg-icon svg-icon-3 me-1">
+                  <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
                 </span>
-              </span>
-              <span class="indicator-progress">
-                Please wait...
-                <span
-                  class="spinner-border spinner-border-sm align-middle ms-2"
-                ></span>
-              </span>
-            </button>
+                Back
+              </button>
+            </div>
+            <!--end::Wrapper-->
 
-            <button type="submit" class="btn btn-lg btn-primary" v-else>
-              Continue
-              <span class="svg-icon svg-icon-3 ms-1 me-0">
-                <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
-              </span>
-            </button>
+            <!--begin::Wrapper-->
+            <div>
+              <button
+                type="submit"
+                class="btn btn-lg btn-primary"
+                v-if="currentStepIndex === totalSteps - 1"
+                @click="formSubmit()"
+              >
+                <span class="indicator-label">
+                  Submit
+                  <span class="svg-icon svg-icon-3 ms-2 me-0">
+                    <inline-svg src="icons/duotune/arrows/arr064.svg" />
+                  </span>
+                </span>
+                <span class="indicator-progress">
+                  Please wait...
+                  <span
+                    class="spinner-border spinner-border-sm align-middle ms-2"
+                  ></span>
+                </span>
+              </button>
+
+              <button type="submit" class="btn btn-lg btn-primary" v-else>
+                Continue
+                <span class="svg-icon svg-icon-3 ms-1 me-0">
+                  <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
+                </span>
+              </button>
+            </div>
+            <!--end::Wrapper-->
           </div>
-          <!--end::Wrapper-->
+          <!--end::Actions-->
         </div>
-        <!--end::Actions-->
+        <!--begin::Footer-->
+        <div class="d-flex flex-center flex-column-auto p-10">
+          <!--begin::Links-->
+          <div class="d-flex align-items-center fw-bold fs-6">
+            <a href="#" class="text-muted text-hover-primary px-2">About</a>
+
+            <a href="#" class="text-muted text-hover-primary px-2">Contact</a>
+
+            <a href="#" class="text-muted text-hover-primary px-2"
+              >Contact Us</a
+            >
+          </div>
+          <!--end::Links-->
+        </div>
+        <!--end::Footer-->
       </form>
       <!--end::Form-->
     </div>
@@ -778,6 +811,7 @@
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { hideModal } from "@/core/helpers/dom";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
+import Logo from "@/components/Logo.vue";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
 import { Field, ErrorMessage } from "vee-validate";
@@ -817,6 +851,7 @@ export default defineComponent({
   components: {
     Field,
     ErrorMessage,
+    Logo,
   },
   setup() {
     const _stepperObj = ref<StepperComponent | null>(null);
