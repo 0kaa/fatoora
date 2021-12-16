@@ -14,7 +14,9 @@
         <!--begin::Modal header-->
         <div class="modal-header">
           <!--begin::Title-->
-          <h2>Create Account</h2>
+          <h2>
+            {{ $t("create_account") }}
+          </h2>
           <!--end::Title-->
 
           <!--begin::Close-->
@@ -42,19 +44,25 @@
             <div class="stepper-nav py-5">
               <!--begin::Step 1-->
               <div class="stepper-item current" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">Account Type</h3>
+                <h3 class="stepper-title">
+                  {{ $t("accountType") }}
+                </h3>
               </div>
               <!--end::Step 1-->
 
               <!--begin::Step 2-->
               <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">Account Info</h3>
+                <h3 class="stepper-title">
+                  {{ $t("accountInfo") }}
+                </h3>
               </div>
               <!--end::Step 2-->
 
               <!--begin::Step 3-->
               <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">Completed</h3>
+                <h3 class="stepper-title">
+                  {{ $t("complete") }}
+                </h3>
               </div>
               <!--end::Step 3-->
             </div>
@@ -75,7 +83,7 @@
                   <div class="pb-10 pb-lg-15">
                     <!--begin::Title-->
                     <h2 class="fw-bolder d-flex align-items-center text-dark">
-                      Choose Account Type
+                      {{ $t("choose_account_type") }}
                       <i
                         class="fas fa-exclamation-circle ms-2 fs-7"
                         data-bs-toggle="tooltip"
@@ -83,13 +91,6 @@
                       ></i>
                     </h2>
                     <!--end::Title-->
-
-                    <!--begin::Notice-->
-                    <div class="text-gray-400 fw-bold fs-6">
-                      If you need more info, please check out
-                      <a href="#" class="link-primary fw-bolder">Help Page</a>.
-                    </div>
-                    <!--end::Notice-->
                   </div>
                   <!--end::Heading-->
 
@@ -120,7 +121,7 @@
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
                             <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              Personal Account
+                              {{ $t("personalAccount") }}
                             </span>
                             <span class="text-gray-400 fw-bold fs-6"
                               >If you need more info, please check it out</span
@@ -154,9 +155,9 @@
 
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
-                            <span class="text-dark fw-bolder d-block fs-4 mb-2"
-                              >Corporate Account</span
-                            >
+                            <span class="text-dark fw-bolder d-block fs-4 mb-2">
+                              {{ $t("corporateAccount") }}
+                            </span>
                             <span class="text-gray-400 fw-bold fs-6"
                               >Create corporate account to mane users</span
                             >
@@ -182,7 +183,9 @@
                   <!--begin::Heading-->
                   <div class="pb-10 pb-lg-12">
                     <!--begin::Title-->
-                    <h2 class="fw-bolder text-dark">Business Details</h2>
+                    <h2 class="fw-bolder text-dark">
+                      {{ $t("establishmentDetails") }}
+                    </h2>
                     <!--end::Title-->
 
                     <!--begin::Notice-->
@@ -197,18 +200,20 @@
                   <!--begin::Input group-->
                   <div class="fv-row mb-10">
                     <!--begin::Label-->
-                    <label class="form-label required">Facility Name</label>
+                    <label class="form-label required">
+                      {{ $t("establishmentName") }}
+                    </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="facilityName"
+                      name="establishmentName"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="facilityName"
+                      name="establishmentName"
                     />
                     <!--end::Input-->
                   </div>
@@ -449,7 +454,7 @@ interface Step1 {
 }
 
 interface Step2 {
-  facilityName: string;
+  establishmentName: string;
   facilityAddress: string;
   establishmentTaxNumber: string;
   recordNumber: string;
@@ -473,7 +478,7 @@ export default defineComponent({
 
     const formData = ref<KTCreateApp>({
       accountType: "personal",
-      facilityName: "",
+      establishmentName: "",
       facilityAddress: "",
       establishmentTaxNumber: "",
       recordNumber: "",
@@ -491,7 +496,7 @@ export default defineComponent({
       Yup.object({}),
 
       Yup.object({
-        facilityName: Yup.string().required().label("Facility Name"),
+        establishmentName: Yup.string().required().label("Facility Name"),
         facilityAddress: Yup.string().required().label("Facility Address"),
       }),
     ];

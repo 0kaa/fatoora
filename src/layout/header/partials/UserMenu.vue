@@ -38,7 +38,7 @@
     <!--begin::Menu item-->
     <div class="menu-item px-5">
       <router-link to="/crafted/account/overview" class="menu-link px-5">
-        My Profile
+        {{ $t("my_profile") }}
       </router-link>
     </div>
     <!--end::Menu item-->
@@ -46,7 +46,7 @@
     <!--begin::Menu item-->
     <div class="menu-item px-5">
       <router-link to="/invoices" class="menu-link px-5">
-        <span class="menu-text">My Invoices</span>
+        <span class="menu-text">{{ $t("my_invoices") }}</span>
         <span class="menu-badge">
           <span class="badge badge-light-danger badge-circle fw-bolder fs-7"
             >3</span
@@ -64,7 +64,7 @@
       data-kt-menu-flip="center, top"
     >
       <router-link to="/pages/profile/overview" class="menu-link px-5">
-        <span class="menu-title">My Customers</span>
+        <span class="menu-title">{{ $t("my_customers") }}</span>
         <span class="menu-arrow"></span>
       </router-link>
 
@@ -146,7 +146,7 @@
         to="/apps/customers/customers-listing"
         class="menu-link px-5"
       >
-        My Customers
+        {{ $t("my_customers") }}
       </router-link>
     </div>
     <!--end::Menu item-->
@@ -164,7 +164,7 @@
     >
       <router-link to="/pages/profile/overview" class="menu-link px-5">
         <span class="menu-title position-relative">
-          Language
+          {{ $t("language") }}
           <span
             class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0"
           >
@@ -287,14 +287,14 @@
     <!--begin::Menu item-->
     <div class="menu-item px-5 my-1">
       <router-link to="/crafted/account/settings" class="menu-link px-5">
-        Account Settings
+        {{ $t("account_settings") }}
       </router-link>
     </div>
     <!--end::Menu item-->
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <a @click="signOut()" class="menu-link px-5"> Sign Out </a>
+      <a @click="signOut()" class="menu-link px-5"> {{ $t("signOut") }} </a>
     </div>
     <!--end::Menu item-->
   </div>
