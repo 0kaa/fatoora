@@ -9,6 +9,12 @@ import ConfigModule from "@/store/modules/ConfigModule";
 config.rawError = true;
 
 const store = createStore({
+  state: {
+    currency: {
+      symbol: "Riyal saudi",
+      code: "SAR",
+    },
+  },
   modules: {
     AuthModule,
     BodyModule,

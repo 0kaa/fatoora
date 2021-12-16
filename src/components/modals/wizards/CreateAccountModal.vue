@@ -223,19 +223,21 @@
                   <div class="fv-row mb-10">
                     <!--begin::Label-->
                     <label class="d-flex align-items-center form-label">
-                      <span class="required">Facility Address</span>
+                      <span class="required">
+                        {{ $t("establishmentAddress") }}
+                      </span>
                     </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="facilityAddress"
+                      name="establishmentAddress"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="facilityAddress"
+                      name="establishmentAddress"
                     />
                     <!--end::Input-->
                   </div>
@@ -244,7 +246,9 @@
                   <!--begin::Input group-->
                   <div class="fv-row mb-10">
                     <!--begin::Label-->
-                    <label class="form-label">Establishment Tax Number</label>
+                    <label class="form-label">
+                      {{ $t("establishmentTaxNumber") }}
+                    </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
@@ -264,7 +268,9 @@
                   <!--begin::Input group-->
                   <div class="fv-row mb-10">
                     <!--end::Label-->
-                    <label class="form-label">Record Number</label>
+                    <label class="form-label">
+                      {{ $t("recordNumber") }}
+                    </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
@@ -284,20 +290,20 @@
                   <!--begin::Input group-->
                   <div class="fv-row mb-0">
                     <!--begin::Label-->
-                    <label class="fs-6 fw-bold form-label"
-                      >Number of the facility</label
-                    >
+                    <label class="fs-6 fw-bold form-label">
+                      {{ $t("numberOfTheEstablishment") }}
+                    </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="numberOfTheFacility"
+                      name="numberOfTheEstablishment"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="numberOfTheFacility"
+                      name="numberOfTheEstablishment"
                     />
                     <!--end::Input-->
                   </div>
@@ -387,9 +393,13 @@
                     @click="previousStep()"
                   >
                     <span class="svg-icon svg-icon-3 me-1">
-                      <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
+                      <inline-svg
+                        :src="`media/icons/duotune/arrows/arr06${
+                          il8n.locale.value == 'ar' ? '4' : '3'
+                        }.svg`"
+                      />
                     </span>
-                    Back
+                    {{ $t("back") }}
                   </button>
                 </div>
                 <!--end::Wrapper-->
@@ -403,13 +413,17 @@
                     @click="formSubmit()"
                   >
                     <span class="indicator-label">
-                      Submit
+                      {{ $t("submit") }}
                       <span class="svg-icon svg-icon-3 ms-2 me-0">
-                        <inline-svg src="icons/duotune/arrows/arr064.svg" />
+                        <inline-svg
+                          :src="`media/icons/duotune/arrows/arr06${
+                            il8n.locale.value == 'ar' ? '3' : '4'
+                          }.svg`"
+                        />
                       </span>
                     </span>
                     <span class="indicator-progress">
-                      Please wait...
+                      {{ $t("pleaseWait") }}
                       <span
                         class="spinner-border spinner-border-sm align-middle ms-2"
                       ></span>
@@ -417,9 +431,13 @@
                   </button>
 
                   <button type="submit" class="btn btn-lg btn-primary" v-else>
-                    Continue
+                    {{ $t("continue") }}
                     <span class="svg-icon svg-icon-3 ms-1 me-0">
-                      <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
+                      <inline-svg
+                        :src="`media/icons/duotune/arrows/arr06${
+                          il8n.locale.value == 'ar' ? '3' : '4'
+                        }.svg`"
+                      />
                     </span>
                   </button>
                 </div>
@@ -443,6 +461,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { hideModal } from "@/core/helpers/dom";
+import { useI18n } from "vue-i18n/index";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
@@ -455,10 +474,9 @@ interface Step1 {
 
 interface Step2 {
   establishmentName: string;
-  facilityAddress: string;
+  establishmentAddress: string;
   establishmentTaxNumber: string;
   recordNumber: string;
-  businessDescription: string;
   numberOfTheFacility: string;
 }
 
@@ -475,14 +493,13 @@ export default defineComponent({
     const createAccountRef = ref<HTMLElement | null>(null);
     const createAccountModalRef = ref<HTMLElement | null>(null);
     const currentStepIndex = ref(0);
-
+    const il8n = useI18n();
     const formData = ref<KTCreateApp>({
       accountType: "personal",
       establishmentName: "",
-      facilityAddress: "",
+      establishmentAddress: "",
       establishmentTaxNumber: "",
       recordNumber: "",
-      businessDescription: "",
       numberOfTheFacility: "",
     });
 
@@ -496,8 +513,10 @@ export default defineComponent({
       Yup.object({}),
 
       Yup.object({
-        establishmentName: Yup.string().required().label("Facility Name"),
-        facilityAddress: Yup.string().required().label("Facility Address"),
+        establishmentName: Yup.string().required(
+          il8n.t("establishment_name_required")
+        ),
+        establishmentAddress: Yup.string().required("Establishment Address"),
       }),
     ];
 
@@ -580,6 +599,7 @@ export default defineComponent({
       previousStep,
       handleStep,
       formSubmit,
+      il8n,
       currentStepIndex,
       formData,
       createAccountModalRef,

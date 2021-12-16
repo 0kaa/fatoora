@@ -14,7 +14,9 @@
         <!--begin::Modal header-->
         <div class="modal-header">
           <!--begin::Title-->
-          <h2>Create Invoice</h2>
+          <h2>
+            {{ $t("create_invoice") }}
+          </h2>
 
           <!--end::Title-->
 
@@ -43,13 +45,13 @@
             <div class="stepper-nav py-5">
               <!--begin::Step 1-->
               <div class="stepper-item current" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">Invoice Type</h3>
+                <h3 class="stepper-title">{{ $t("invoiceType") }}</h3>
               </div>
               <!--end::Step 1-->
 
               <!--begin::Step 2-->
               <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">Invoice Info</h3>
+                <h3 class="stepper-title">{{ $t("invoiceInfo") }}</h3>
               </div>
               <!--end::Step 2-->
             </div>
@@ -70,7 +72,7 @@
                   <div class="pb-10 pb-lg-15">
                     <!--begin::Title-->
                     <h2 class="fw-bolder d-flex align-items-center text-dark">
-                      Choose Invoice Type
+                      {{ $t("chooseInvoiceType") }}
                       <i
                         class="fas fa-exclamation-circle ms-2 fs-7"
                         data-bs-toggle="tooltip"
@@ -80,10 +82,10 @@
                     <!--end::Title-->
 
                     <!--begin::Notice-->
-                    <div class="text-gray-400 fw-bold fs-6">
+                    <!-- <div class="text-gray-400 fw-bold fs-6">
                       If you need more info, please check out
                       <a href="#" class="link-primary fw-bolder">Help Page</a>.
-                    </div>
+                    </div> -->
                     <!--end::Notice-->
                   </div>
                   <!--end::Heading-->
@@ -116,7 +118,7 @@
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
                             <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              Fast Invoice
+                              {{ $t("fastInvoice") }}
                             </span>
                             <span class="text-gray-400 fw-bold fs-6"
                               >If you need more info, please check it out</span
@@ -150,7 +152,7 @@
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
                             <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              Medium Invoice
+                              {{ $t("mediumInvoice") }}
                             </span>
                             <span class="text-gray-400 fw-bold fs-6"
                               >If you need more info, please check it out</span
@@ -184,9 +186,9 @@
 
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
-                            <span class="text-dark fw-bolder d-block fs-4 mb-2"
-                              >Full Invoice</span
-                            >
+                            <span class="text-dark fw-bolder d-block fs-4 mb-2">
+                              {{ $t("fullInvoice") }}
+                            </span>
                             <span class="text-gray-400 fw-bold fs-6"
                               >Create corporate account to mane users</span
                             >
@@ -230,13 +232,13 @@
                                 class="d-flex align-items-center flex-equal fw-row me-4 order-2 gap-3"
                                 data-bs-toggle="tooltip"
                                 data-bs-trigger="hover"
-                                title="Specify invoice date"
+                                :title="$t('specifyInvoiceDate')"
                               >
                                 <!--begin::Date-->
                                 <div
                                   class="fs-6 fw-bolder text-gray-700 text-nowrap"
                                 >
-                                  Date:
+                                  {{ $t("date") }}:
                                 </div>
                                 <!--end::Date-->
                                 <!--begin::Input-->
@@ -248,7 +250,7 @@
                                   <el-date-picker
                                     class="form-control-transparent pe-5 w-150px"
                                     name="invoice_date"
-                                    placeholder="Select date"
+                                    :placeholder="$t('selectDate')"
                                     v-model="invoice_date"
                                   />
                                   <!--end::Input-->
@@ -263,10 +265,10 @@
                                 class="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4"
                                 data-bs-toggle="tooltip"
                                 data-bs-trigger="hover"
-                                title="Enter invoice number"
+                                :title="$t('enterInvoiceNumber')"
                               >
                                 <span class="fs-2x fw-bolder text-gray-800"
-                                  >Invoice #</span
+                                  >{{ $t("invoice") }} #</span
                                 >
 
                                 <input
@@ -282,13 +284,13 @@
                                 class="d-flex align-items-center justify-content-end flex-equal order-3 gap-3 fw-row"
                                 data-bs-toggle="tooltip"
                                 data-bs-trigger="hover"
-                                title="Specify invoice due date"
+                                :title="$t('specifyInvoiceDueDate')"
                               >
                                 <!--begin::Date-->
                                 <div
                                   class="fs-6 fw-bolder text-gray-700 text-nowrap"
                                 >
-                                  Due Date:
+                                  {{ $t("dueDate") }}:
                                 </div>
                                 <!--end::Date-->
                                 <!--begin::Input-->
@@ -301,7 +303,7 @@
                                     type="text"
                                     class="form-control-transparent pe-5 w-150px"
                                     name="invoice_date"
-                                    placeholder="Select date"
+                                    :placeholder="$t('selectDate')"
                                     v-model="invoice_duo_date"
                                   />
                                   <!--end::Input-->
@@ -327,14 +329,15 @@
                                 <div class="col-lg-6">
                                   <label
                                     class="form-label fs-6 fw-bolder text-gray-700 mb-3"
-                                    >Bill From</label
                                   >
+                                    {{ $t("billFrom") }}
+                                  </label>
                                   <!--begin::Input group-->
                                   <div class="mb-5">
                                     <input
                                       type="text"
                                       class="form-control form-control-solid"
-                                      placeholder="Name"
+                                      :placeholder="$t('name')"
                                     />
                                   </div>
                                   <!--end::Input group-->
@@ -343,7 +346,7 @@
                                     <input
                                       type="text"
                                       class="form-control form-control-solid"
-                                      placeholder="Email"
+                                      :placeholder="$t('email')"
                                     />
                                   </div>
                                   <!--end::Input group-->
@@ -353,14 +356,15 @@
                                 <div class="col-lg-6">
                                   <label
                                     class="form-label fs-6 fw-bolder text-gray-700 mb-3"
-                                    >Bill To</label
                                   >
+                                    {{ $t("billTo") }}
+                                  </label>
                                   <!--begin::Input group-->
                                   <div class="mb-5">
                                     <input
                                       type="text"
                                       class="form-control form-control-solid"
-                                      placeholder="Name"
+                                      :placeholder="$t('name')"
                                     />
                                   </div>
                                   <!--end::Input group-->
@@ -369,7 +373,7 @@
                                     <input
                                       type="text"
                                       class="form-control form-control-solid"
-                                      placeholder="Email"
+                                      :placeholder="$t('email')"
                                     />
                                   </div>
                                   <!--end::Input group-->
@@ -389,14 +393,20 @@
                                     <tr
                                       class="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase"
                                     >
-                                      <th class="min-w-300px w-475px">Item</th>
-                                      <th class="min-w-100px w-100px">QTY</th>
-                                      <th class="min-w-150px w-150px">Price</th>
+                                      <th class="min-w-300px w-475px">
+                                        {{ $t("item") }}
+                                      </th>
+                                      <th class="min-w-100px w-100px">
+                                        {{ $t("quantity") }}
+                                      </th>
+                                      <th class="min-w-150px w-150px">
+                                        {{ $t("price") }}
+                                      </th>
                                       <th class="min-w-100px w-150px text-end">
-                                        Total
+                                        {{ $t("total") }}
                                       </th>
                                       <th class="min-w-75px w-75px text-end">
-                                        Action
+                                        {{ $t("action") }}
                                       </th>
                                     </tr>
                                   </thead>
@@ -414,13 +424,13 @@
                                           type="text"
                                           class="form-control form-control-solid mb-2"
                                           v-model="item.name"
-                                          placeholder="Item name"
+                                          :placeholder="$t('itemName')"
                                         />
                                         <input
                                           type="text"
                                           class="form-control form-control-solid"
                                           v-model="item.description"
-                                          placeholder="Description"
+                                          :placeholder="$t('description')"
                                         />
                                       </td>
                                       <td class="ps-0">
@@ -444,7 +454,7 @@
                                         />
                                       </td>
                                       <td class="pt-8 text-end text-nowrap">
-                                        $
+                                        {{ $store.state.currency.code }}
                                         <span data-kt-element="total">
                                           {{
                                             item.quantity && item.price
@@ -504,7 +514,7 @@
                                           data-kt-element="add-item"
                                           @click.prevent="addItem"
                                         >
-                                          Add item
+                                          {{ $t("addItem") }}
                                         </button>
                                       </th>
                                       <th
@@ -519,7 +529,7 @@
                                             <input
                                               type="number"
                                               class="form-control form-control-solid"
-                                              placeholder="Add discount"
+                                              :placeholder="$t('addDiscount')"
                                               v-model="formData.invoiceDiscount"
                                             />
                                           </div>
@@ -538,7 +548,9 @@
                                         <div
                                           class="d-flex flex-column align-items-start"
                                         >
-                                          <div>Subtotal</div>
+                                          <div>
+                                            {{ $t("subTotal") }}
+                                          </div>
                                         </div>
                                       </th>
 
@@ -546,7 +558,7 @@
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
-                                        $
+                                        {{ $store.state.currency.code }}
                                         <span>{{
                                           totalInvoice.toFixed(2)
                                         }}</span>
@@ -557,12 +569,14 @@
                                       class="align-top fw-bolder text-gray-500"
                                     >
                                       <th></th>
-                                      <th colspan="2" class="ps-0">Discount</th>
+                                      <th colspan="2" class="ps-0">
+                                        {{ $t("discount") }}
+                                      </th>
                                       <th
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
-                                        $
+                                        {{ $store.state.currency.code }}
                                         <span>
                                           {{
                                             formData.invoiceDiscount
@@ -578,12 +592,14 @@
                                       class="align-top fw-bolder text-gray-500"
                                     >
                                       <th></th>
-                                      <th colspan="2" class="ps-0">Tax</th>
+                                      <th colspan="2" class="ps-0">
+                                        {{ $t("tax") }}
+                                      </th>
                                       <th
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
-                                        $
+                                        {{ $store.state.currency.code }}
                                         <span>
                                           {{
                                             (
@@ -599,13 +615,13 @@
                                     >
                                       <th></th>
                                       <th colspan="2" class="fs-4 ps-0">
-                                        Total
+                                        {{ $t("total") }}
                                       </th>
                                       <th
                                         colspan="2"
                                         class="text-end fs-4 text-nowrap"
                                       >
-                                        $
+                                        {{ $store.state.currency.code }}
                                         <span data-kt-element="grand-total">
                                           {{
                                             (
@@ -633,7 +649,7 @@
                                     colspan="5"
                                     class="text-muted text-center py-10"
                                   >
-                                    No items
+                                    {{ $t("noItems") }}
                                   </th>
                                 </tr>
                               </table>
@@ -670,7 +686,8 @@
                               >
                                 <span
                                   class="form-check-label ms-0 fw-bolder fs-6 text-gray-700"
-                                  >Payment method
+                                >
+                                  {{ $t("paymentMethod") }}
                                 </span>
                                 <input
                                   class="form-check-input"
@@ -686,8 +703,9 @@
                               >
                                 <span
                                   class="form-check-label ms-0 fw-bolder fs-6 text-gray-700"
-                                  >Notes</span
                                 >
+                                  {{ $t("notes") }}
+                                </span>
                                 <input
                                   class="form-check-input"
                                   type="checkbox"
@@ -705,7 +723,7 @@
                               <input
                                 type="text"
                                 class="form-control form-control-solid mb-2"
-                                placeholder="Payment Url"
+                                :placeholder="$t('paymentUrl')"
                                 v-model="paymentUrl"
                               />
                               <!--begin::Separator-->
@@ -719,13 +737,14 @@
                             <div class="mb-0" v-if="toggleNotes">
                               <label
                                 class="form-label fs-6 fw-bolder text-gray-700"
-                                >Notes</label
+                              >
+                                {{ $t("notes") }}</label
                               >
                               <textarea
                                 name="notes"
                                 class="form-control form-control-solid"
                                 rows="3"
-                                placeholder="Thanks for your business"
+                                :placeholder="$t('yourNotesHere')"
                               ></textarea>
                               <!--begin::Separator-->
                               <div
@@ -763,7 +782,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <span class="indicator-label">
-                                  Send Invoice
+                                  {{ $t("sendInvoice") }}
                                   <span class="svg-icon svg-icon-3 ms-2 me-0">
                                     <inline-svg
                                       src="icons/duotune/arrows/arr064.svg"
@@ -771,7 +790,7 @@
                                   </span>
                                 </span>
                                 <span class="indicator-progress">
-                                  Please wait...
+                                  {{ $t("pleaseWait") }}
                                   <span
                                     class="spinner-border spinner-border-sm align-middle ms-2"
                                   ></span>
@@ -874,9 +893,13 @@
                     @click="previousStep()"
                   >
                     <span class="svg-icon svg-icon-3 me-1">
-                      <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
+                      <inline-svg
+                        :src="`media/icons/duotune/arrows/arr06${
+                          il8n.locale.value == 'ar' ? '4' : '3'
+                        }.svg`"
+                      />
                     </span>
-                    Back
+                    {{ $t("back") }}
                   </button>
                 </div>
                 <!--end::Wrapper-->
@@ -888,9 +911,13 @@
                     class="btn btn-lg btn-primary"
                     v-if="currentStepIndex !== totalSteps - 1"
                   >
-                    Continue
+                    {{ $t("continue") }}
                     <span class="svg-icon svg-icon-3 ms-1 me-0">
-                      <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
+                      <inline-svg
+                        :src="`media/icons/duotune/arrows/arr06${
+                          il8n.locale.value == 'ar' ? '3' : '4'
+                        }.svg`"
+                      />
                     </span>
                   </button>
                 </div>
@@ -914,6 +941,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { hideModal } from "@/core/helpers/dom";
+import { useI18n } from "vue-i18n/index";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
@@ -957,6 +985,7 @@ export default defineComponent({
     const paymentUrl = ref("");
     const invoice_date = ref(new Date());
     const invoice_duo_date = ref("");
+    const il8n = useI18n();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const items = ref<any[]>([
       {
@@ -1107,6 +1136,7 @@ export default defineComponent({
       currentStepIndex,
       invoice_date,
       totalInvoice,
+      il8n,
       items,
       invoice_duo_date,
       formData,

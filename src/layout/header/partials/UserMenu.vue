@@ -211,71 +211,11 @@
             <span class="symbol symbol-20px me-4">
               <img
                 class="rounded-1"
-                src="media/flags/spain.svg"
+                src="media/flags/saudi-arabia.svg"
                 alt="metronic"
               />
             </span>
-            Spanish
-          </a>
-        </div>
-        <!--end::Menu item-->
-
-        <!--begin::Menu item-->
-        <div class="menu-item px-3">
-          <a
-            @click="setLang('de')"
-            href="#"
-            class="menu-link d-flex px-5"
-            :class="{ active: currentLanguage('de') }"
-          >
-            <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/germany.svg"
-                alt="metronic"
-              />
-            </span>
-            German
-          </a>
-        </div>
-        <!--end::Menu item-->
-
-        <!--begin::Menu item-->
-        <div class="menu-item px-3">
-          <a
-            @click="setLang('ja')"
-            href="#"
-            class="menu-link d-flex px-5"
-            :class="{ active: currentLanguage('ja') }"
-          >
-            <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/japan.svg"
-                alt="metronic"
-              />
-            </span>
-            Japanese
-          </a>
-        </div>
-        <!--end::Menu item-->
-
-        <!--begin::Menu item-->
-        <div class="menu-item px-3">
-          <a
-            @click="setLang('fr')"
-            href="#"
-            class="menu-link d-flex px-5"
-            :class="{ active: currentLanguage('fr') }"
-          >
-            <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/france.svg"
-                alt="metronic"
-              />
-            </span>
-            French
+            Arabic
           </a>
         </div>
         <!--end::Menu item-->
@@ -326,7 +266,7 @@ export default defineComponent({
         name: "English",
       },
       ar: {
-        flag: "media/flags/united-states.svg",
+        flag: "media/flags/saudi-arabia.svg",
         name: "Arabic",
       },
     };
@@ -339,11 +279,7 @@ export default defineComponent({
     const setLang = (lang) => {
       localStorage.setItem("lang", lang);
       i18n.locale.value = lang;
-      if (i18n.locale.value == "ar") {
-        document.body.classList.add("rtl");
-      } else {
-        document.body.classList.remove("rtl");
-      }
+      router.replace("/");
     };
 
     const currentLanguage = (lang) => {
