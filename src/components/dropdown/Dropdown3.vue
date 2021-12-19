@@ -6,14 +6,6 @@
   >
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
-        Payments
-      </div>
-    </div>
-    <!--end::Menu item-->
-
-    <!--begin::Menu item-->
-    <div class="menu-item px-5">
       <a href="#" class="menu-link px-5"> Create invoice </a>
     </div>
     <!--end::Menu item-->

@@ -1,35 +1,32 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import store from "@/store";
 import { Mutations, Actions } from "@/store/enums/StoreEnums";
-
+const currentLanguage =
+  localStorage.getItem("lang") || store.getters.getLanguage;
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/home",
+    redirect: `/${currentLanguage}/home`,
     component: () => import("@/layout/Layout.vue"),
     children: [
       {
-        path: "/home",
+        path: "/:lang/home",
         name: "home",
         component: () => import("@/views/Home.vue"),
       },
       {
-        path: "/invoices",
+        path: "/:lang/invoices",
         name: "invoices",
         component: () => import("@/views/Invoices.vue"),
       },
       {
-        path: "/invoice/:id",
+        path: "/:lang/invoice/:id",
         name: "invoice-view",
         component: () => import("@/views/Invoice-view.vue"),
       },
+
       {
-        path: "/builder",
-        name: "builder",
-        component: () => import("@/views/Builder.vue"),
-      },
-      {
-        path: "/crafted/pages/profile",
+        path: "/:lang/profile",
         name: "profile",
         component: () => import("@/components/page-layouts/Profile.vue"),
         children: [
@@ -71,18 +68,9 @@ const routes: Array<RouteRecordRaw> = [
           },
         ],
       },
+
       {
-        path: "/crafted/pages/wizards/horizontal",
-        name: "horizontal-wizard",
-        component: () => import("@/views/crafted/pages/wizards/Horizontal.vue"),
-      },
-      {
-        path: "/crafted/pages/wizards/vertical",
-        name: "vertical-wizard",
-        component: () => import("@/views/crafted/pages/wizards/Vertical.vue"),
-      },
-      {
-        path: "/crafted/account",
+        path: "/:lang/account",
         name: "account",
         component: () => import("@/views/crafted/account/Account.vue"),
         children: [
@@ -104,12 +92,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/apps/customers/GettingStarted.vue"),
       },
       {
-        path: "/apps/customers/customers-listing",
-        name: "apps-customers-listing",
+        path: "/:lang/customers/customers-listing",
+        name: "customers-listing",
         component: () => import("@/views/apps/customers/CustomersListing.vue"),
       },
       {
-        path: "/apps/customers/customer-details",
+        path: "/:lang/customers/customer-details",
         name: "apps-customers-details",
         component: () => import("@/views/apps/customers/CustomerDetails.vue"),
       },
@@ -296,7 +284,11 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(() => {
+router.beforeEach((to, from, next) => {
+  const language = to.params.lang;
+  if (language) {
+    store.commit(Mutations.SET_LANG, language);
+  }
   // reset config to initial state
   store.commit(Mutations.RESET_LAYOUT_CONFIG);
 
@@ -306,6 +298,8 @@ router.beforeEach(() => {
   setTimeout(() => {
     window.scrollTo(0, 0);
   }, 100);
+
+  next();
 });
 
 export default router;

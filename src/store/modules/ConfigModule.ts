@@ -7,6 +7,7 @@ import LayoutConfigTypes from "@/core/config/LayoutConfigTypes";
 
 interface StoreInfo {
   config: LayoutConfigTypes;
+  lang: string;
   initial: LayoutConfigTypes;
 }
 
@@ -14,6 +15,7 @@ interface StoreInfo {
 export default class ConfigModule extends VuexModule implements StoreInfo {
   config = layoutConfig;
   initial = layoutConfig;
+  lang = "en";
 
   /**
    * Get config from layout config
@@ -25,9 +27,18 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
     };
   }
 
+  get getLanguage() {
+    return this.lang;
+  }
   @Mutation
   [Mutations.SET_LAYOUT_CONFIG](payload): void {
     this.config = payload;
+  }
+
+  @Mutation
+  [Mutations.SET_LANG](payload): void {
+    localStorage.setItem("lang", payload);
+    this.lang = payload;
   }
 
   @Mutation

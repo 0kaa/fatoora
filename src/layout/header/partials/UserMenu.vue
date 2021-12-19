@@ -37,7 +37,10 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link to="/crafted/account/overview" class="menu-link px-5">
+      <router-link
+        :to="{ name: 'account-overview', params: { lang: i18n.locale.value } }"
+        class="menu-link px-5"
+      >
         {{ $t("my_profile") }}
       </router-link>
     </div>
@@ -45,13 +48,11 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link to="/invoices" class="menu-link px-5">
+      <router-link
+        :to="{ name: 'invoices', params: { lang: i18n.locale.value } }"
+        class="menu-link px-5"
+      >
         <span class="menu-text">{{ $t("my_invoices") }}</span>
-        <span class="menu-badge">
-          <span class="badge badge-light-danger badge-circle fw-bolder fs-7"
-            >3</span
-          >
-        </span>
       </router-link>
     </div>
     <!--end::Menu item-->
@@ -143,7 +144,7 @@
     <!--begin::Menu item-->
     <div class="menu-item px-5">
       <router-link
-        to="/apps/customers/customers-listing"
+        :to="{ name: 'customers-listing', params: { lang: i18n.locale.value } }"
         class="menu-link px-5"
       >
         {{ $t("my_customers") }}
@@ -255,11 +256,8 @@ export default defineComponent({
     const router = useRouter();
     const i18n = useI18n();
     const store = useStore();
-
-    i18n.locale.value = localStorage.getItem("lang")
-      ? (localStorage.getItem("lang") as string)
-      : "en";
-
+    const lang = localStorage.getItem("lang") || store.state.lang;
+    i18n.locale.value = lang;
     const countries = {
       en: {
         flag: "media/flags/united-states.svg",
@@ -277,9 +275,14 @@ export default defineComponent({
         .then(() => router.push({ name: "sign-in" }));
     };
     const setLang = (lang) => {
-      localStorage.setItem("lang", lang);
       i18n.locale.value = lang;
-      router.replace("/");
+      if (i18n.locale.value == "ar") {
+        document.body.classList.add("rtl");
+      } else {
+        document.body.classList.remove("rtl");
+      }
+      store.commit("setLang", lang);
+      router.push({ name: "home", params: { lang: i18n.locale.value } });
     };
 
     const currentLanguage = (lang) => {
@@ -296,6 +299,7 @@ export default defineComponent({
       currentLanguage,
       currentLangugeLocale,
       countries,
+      i18n,
     };
   },
 });

@@ -107,11 +107,7 @@ export default defineComponent({
       nextTick(() => {
         reinitializeComponents();
       });
-      if (i18n.locale.value == "ar") {
-        document.body.classList.add("rtl");
-      } else {
-        document.body.classList.remove("rtl");
-      }
+
       // Simulate the delay page loading
       setTimeout(() => {
         // Remove page loader after some time

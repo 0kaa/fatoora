@@ -250,7 +250,10 @@
           <!--begin::Nav item-->
           <li class="nav-item">
             <router-link
-              to="/crafted/account/overview"
+              :to="{
+                name: 'account-overview',
+                params: { lang },
+              }"
               class="nav-link text-active-primary me-6"
               active-class="active"
             >
@@ -279,13 +282,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
 import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 
 export default defineComponent({
   name: "kt-account",
   components: {
     Dropdown3,
+  },
+  setup() {
+    const store = useStore();
+    const lang = computed(() => store.getters.getLanguage);
+    return {
+      lang,
+    };
   },
 });
 </script>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 enum Actions {
   // action types
   ADD_BODY_CLASSNAME = "addBodyClassName",
@@ -22,6 +23,7 @@ enum Mutations {
   SET_USER = "setUser",
   SET_PASSWORD = "setPassword",
   SET_ERROR = "setError",
+  SET_LANG = "setLang",
   SET_BREADCRUMB_MUTATION = "setBreadcrumbMutation",
   SET_LAYOUT_CONFIG = "setLayoutConfig",
   RESET_LAYOUT_CONFIG = "resetLayoutConfig",

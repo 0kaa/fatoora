@@ -14,6 +14,7 @@ const store = createStore({
       symbol: "Riyal saudi",
       code: "SAR",
     },
+    lang: "en",
   },
   modules: {
     AuthModule,

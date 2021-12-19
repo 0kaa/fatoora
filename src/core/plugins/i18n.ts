@@ -119,7 +119,7 @@ const messages = {
     addDiscount: "إضافة خصم",
     subTotal: "المجموع الفرعي",
     discount: "خصم",
-    tax: "ضريبة",
+    tax: "ضريبة القيمة المضافة",
     noItems: "لا توجد عناصر",
     paymentMethod: "طريقة الدفع",
     paymentUrl: "رابط الدفع",
