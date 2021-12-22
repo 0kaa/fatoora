@@ -15,7 +15,7 @@ interface StoreInfo {
 export default class ConfigModule extends VuexModule implements StoreInfo {
   config = layoutConfig;
   initial = layoutConfig;
-  lang = "en";
+  lang = "ar";
 
   /**
    * Get config from layout config

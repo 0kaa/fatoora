@@ -122,7 +122,7 @@
       </div>
       <!--end::Row-->
     </div>
-    <!-- <SidebarDefault></SidebarDefault> -->
+    <SidebarDefault></SidebarDefault>
   </div>
 </template>
 
@@ -132,7 +132,7 @@ import { setCurrentPageTitle } from "@/core/helpers/breadcrumb";
 import CardCreateModal from "../components/cards/CardCreateModal.vue";
 import UserMenu from "@/layout/header/partials/UserMenu.vue";
 import Logo from "@/components/Logo.vue";
-// import SidebarDefault from "@/components/sidebar/Sidebar-default.vue";
+import SidebarDefault from "@/components/sidebar/Sidebar-default.vue";
 
 export default defineComponent({
   name: "dashboard",
@@ -140,7 +140,7 @@ export default defineComponent({
     CardCreateModal,
     UserMenu,
     Logo,
-    // SidebarDefault,
+    SidebarDefault,
   },
   setup() {
     onMounted(() => {

@@ -72,7 +72,7 @@
 
             <!--begin::Label-->
             <div class="stepper-label">
-              <h3 class="stepper-title">Establishment</h3>
+              <h3 class="stepper-title">Enterprise</h3>
             </div>
             <!--end::Label-->
           </div>
@@ -459,37 +459,37 @@
               <div class="row mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="form-label required">Facility Name</label>
+                  <label class="form-label required">Enterprise Name</label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="facilityName"
+                    name="enterpriseName"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="facilityName"
+                    name="enterpriseName"
                   />
                   <!--end::Input-->
                 </div>
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="d-flex align-items-center form-label">
-                    <span class="required">Facility Address</span>
+                    <span class="required">Enterprise Address</span>
                   </label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="facilityAddress"
+                    name="enterpriseAddress"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="facilityAddress"
+                    name="enterpriseAddress"
                   />
                   <!--end::Input-->
                 </div>
@@ -500,18 +500,18 @@
               <div class="row mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="form-label">Establishment Tax Number</label>
+                  <label class="form-label">Enterprise Tax Number</label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="establishmentTaxNumber"
+                    name="enterpriseTaxNumber"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="establishmentTaxNumber"
+                    name="enterpriseTaxNumber"
                   />
                   <!--end::Input-->
                 </div>
@@ -541,38 +541,38 @@
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="fs-6 fw-bold form-label"
-                    >Number of the facility</label
+                    >Number of the enterprise</label
                   >
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="numberOfTheFacility"
+                    name="numberOfTheEnterprise"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="numberOfTheFacility"
+                    name="numberOfTheEnterprise"
                   />
                   <!--end::Input-->
                 </div>
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="fs-6 fw-bold form-label"
-                    >Establishment website</label
+                    >Enterprise website</label
                   >
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="establishmentWebsite"
+                    name="enterpriseWebsite"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="establishmentWebsite"
+                    name="enterpriseWebsite"
                   />
                   <!--end::Input-->
                 </div>
@@ -584,37 +584,37 @@
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="fs-6 fw-bold form-label"
-                    >Establishment Email</label
+                    >Enterprise Email</label
                   >
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="establishmentEmail"
+                    name="enterpriseEmail"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="establishmentEmail"
+                    name="enterpriseEmail"
                   />
                   <!--end::Input-->
                 </div>
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="fs-6 fw-bold form-label"
-                    >Establishment Phone</label
+                    >Enterprise Phone</label
                   >
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="establishmentPhone"
+                    name="enterprisePhone"
                     class="form-control form-control-lg form-control-solid"
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="establishmentPhone"
+                    name="enterprisePhone"
                   />
                   <!--end::Input-->
                 </div>
@@ -630,14 +630,14 @@
               >
                 <!--begin::Label-->
                 <label class="fs-6 fw-bold form-label"
-                  >Establishment Logo</label
+                  >Enterprise Logo</label
                 >
                 <!--end::Label-->
                 <!--begin::Input-->
                 <Field
                   type="file"
                   class="btn-check"
-                  name="establishmentLogo"
+                  name="enterpriseLogo"
                   id="kt_logo_select"
                   @change="onFileChange"
                 />
@@ -660,7 +660,7 @@
                 </label>
                 <ErrorMessage
                   class="fv-plugins-message-container invalid-feedback"
-                  name="establishmentLogo"
+                  name="enterpriseLogo"
                 />
                 <!--end::Input-->
               </div>
@@ -831,17 +831,17 @@ interface Step2 {
   password: string;
 }
 
-// Establishment Info
+// Enterprise Info
 interface Step3 {
-  facilityName: string;
-  facilityAddress: string;
-  establishmentTaxNumber: string;
+  enterpriseName: string;
+  enterpriseAddress: string;
+  enterpriseTaxNumber: string;
   recordNumber: string;
-  numberOfTheFacility: string;
-  establishmentWebsite: string;
-  establishmentEmail: string;
-  establishmentPhone: string;
-  establishmentLogo: string;
+  numberOfTheEnterprise: string;
+  enterpriseWebsite: string;
+  enterpriseEmail: string;
+  enterprisePhone: string;
+  enterpriseLogo: string;
 }
 
 interface KTCreateApp extends Step1, Step2, Step3 {}
@@ -866,15 +866,15 @@ export default defineComponent({
       email: "",
       phone: "",
       password: "",
-      facilityName: "",
-      facilityAddress: "",
-      establishmentTaxNumber: "",
+      enterpriseName: "",
+      enterpriseAddress: "",
+      enterpriseTaxNumber: "",
       recordNumber: "",
-      numberOfTheFacility: "",
-      establishmentWebsite: "",
-      establishmentEmail: "",
-      establishmentPhone: "",
-      establishmentLogo: "",
+      numberOfTheEnterprise: "",
+      enterpriseWebsite: "",
+      enterpriseEmail: "",
+      enterprisePhone: "",
+      enterpriseLogo: "",
     });
 
     onMounted(() => {
@@ -905,8 +905,8 @@ export default defineComponent({
       }),
 
       Yup.object({
-        facilityName: Yup.string().required().label("Facility Name"),
-        facilityAddress: Yup.string().required().label("Facility Address"),
+        enterpriseName: Yup.string().required().label("Enterprise Name"),
+        enterpriseAddress: Yup.string().required().label("Enterprise Address"),
       }),
     ];
 
@@ -981,7 +981,7 @@ export default defineComponent({
       const file = e.target.files[0];
       if (file) {
         imgPreview.value = URL.createObjectURL(e.target.files[0]);
-        formData.value.establishmentLogo = file;
+        formData.value.enterpriseLogo = file;
       } else {
         imgPreview.value = "";
       }

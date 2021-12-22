@@ -39,13 +39,15 @@
     <!--begin::Action menu-->
     <a
       href="#"
-      class="btn btn-primary ps-7"
-      data-kt-menu-trigger="click"
+      class="btn btn-flex flex-center btn-bg-white btn-text-gray-500 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
+      data-kt-menu-trigger="hover"
       data-kt-menu-attach="parent"
-      data-kt-menu-placement="bottom-end"
+      :data-kt-menu-placement="
+        currentLang == 'en' ? 'bottom-end' : 'bottom-start'
+      "
     >
       <img
-        class="w-15px h-15px rounded-1 ms-2"
+        class="w-20px h-20px rounded-1 ms-2"
         :src="currentLangugeLocale.flag"
         alt="metronic"
       />
@@ -54,72 +56,8 @@
       </span>
     </a>
     <Dropdown3></Dropdown3>
+
     <!--end::Menu-->
-
-    <!--begin::Menu item-->
-    <div
-      class="menu-item px-5"
-      data-kt-menu-trigger="hover"
-      data-kt-menu-placement="left-start"
-      data-kt-menu-flip="center, top"
-    >
-      <router-link to="/pages/profile/overview" class="menu-link px-5">
-        <span class="menu-title position-relative">
-          <span
-            class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0"
-          >
-            <img
-              class="w-15px h-15px rounded-1 ms-2"
-              :src="currentLangugeLocale.flag"
-              alt="metronic"
-            />
-          </span>
-        </span>
-      </router-link>
-
-      <!--begin::Menu sub-->
-      <div class="menu-sub menu-sub-dropdown w-175px py-4">
-        <!--begin::Menu item-->
-        <div class="menu-item px-3">
-          <a
-            @click.prevent="setLang('en')"
-            href="#"
-            class="menu-link d-flex px-5"
-            :class="{ active: currentLanguage('en') }"
-          >
-            <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/united-states.svg"
-                alt="metronic"
-              />
-            </span>
-          </a>
-        </div>
-        <!--end::Menu item-->
-
-        <!--begin::Menu item-->
-        <div class="menu-item px-3">
-          <a
-            @click.prevent="setLang('ar')"
-            href="#"
-            class="menu-link d-flex px-5"
-            :class="{ active: currentLanguage('ar') }"
-          >
-            <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/saudi-arabia.svg"
-                alt="metronic"
-              />
-            </span>
-          </a>
-        </div>
-        <!--end::Menu item-->
-      </div>
-      <!--end::Menu sub-->
-    </div>
-    <!--end::Menu item-->
   </div>
   <!--end::Toolbar wrapper-->
 </template>
@@ -128,7 +66,7 @@
 import { defineComponent, computed } from "vue";
 import { useI18n } from "vue-i18n/index";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 
 export default defineComponent({
@@ -136,8 +74,13 @@ export default defineComponent({
   components: { Dropdown3 },
   setup() {
     const router = useRouter();
+    const route = useRoute();
     const i18n = useI18n();
     const store = useStore();
+
+    const currentLang = computed(() => {
+      return store.getters.getLanguage;
+    });
 
     const countries = {
       en: {
@@ -157,7 +100,10 @@ export default defineComponent({
         document.body.classList.remove("rtl");
       }
       store.commit("setLang", lang);
-      router.push({ name: "home", params: { lang: i18n.locale.value } });
+      router.push({
+        name: route.name?.toString(),
+        params: { lang: i18n.locale.value },
+      });
     };
 
     const currentLanguage = (lang) => {
@@ -173,6 +119,7 @@ export default defineComponent({
       currentLanguage,
       currentLangugeLocale,
       countries,
+      currentLang,
     };
   },
 });

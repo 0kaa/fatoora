@@ -43,8 +43,9 @@
                   class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3"
                   data-bs-toggle="modal"
                   data-bs-target="#kt_modal_upgrade_plan"
-                  >Upgrade to Pro</a
                 >
+                  {{ $t("upgradePlanToPro") }}
+                </a>
               </div>
               <!--end::Name-->
 
@@ -88,25 +89,6 @@
 
             <!--begin::Actions-->
             <div class="d-flex my-4">
-              <a
-                href="#"
-                class="btn btn-sm btn-light me-2"
-                id="kt_user_follow_button"
-              >
-                <span class="svg-icon svg-icon-3 d-none">
-                  <inline-svg src="media/icons/duotune/arrows/arr012.svg" />
-                </span>
-                Follow
-              </a>
-
-              <a
-                href="#"
-                class="btn btn-sm btn-primary me-3"
-                data-bs-toggle="modal"
-                data-bs-target="#kt_modal_offer_a_deal"
-                >Hire Me</a
-              >
-
               <!--begin::Menu-->
               <div class="me-0">
                 <button
@@ -117,7 +99,7 @@
                 >
                   <i class="bi bi-three-dots fs-3"></i>
                 </button>
-                <Dropdown3></Dropdown3>
+                <Dropdown2></Dropdown2>
               </div>
               <!--end::Menu-->
             </div>
@@ -162,7 +144,7 @@
                   class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
                 >
                   <!--begin::Number-->
-                  <div class="d-flex align-items-center">
+                  <div class="d-flex align-items-center justify-content-center">
                     <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
                       <inline-svg src="media/icons/duotune/arrows/arr065.svg" />
                     </span>
@@ -177,7 +159,9 @@
                   <!--end::Number-->
 
                   <!--begin::Label-->
-                  <div class="fw-bold fs-6 text-gray-400">Projects</div>
+                  <div class="fw-bold fs-6 text-gray-400 text-center">
+                    {{ $t("invoices") }}
+                  </div>
                   <!--end::Label-->
                 </div>
                 <!--end::Stat-->
@@ -211,30 +195,6 @@
               <!--end::Stats-->
             </div>
             <!--end::Wrapper-->
-
-            <!--begin::Progress-->
-            <div
-              class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3"
-            >
-              <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                <span class="fw-bold fs-6 text-gray-400"
-                  >Profile Compleation</span
-                >
-                <span class="fw-bolder fs-6">50%</span>
-              </div>
-
-              <div class="h-5px mx-3 w-100 bg-light mb-3">
-                <div
-                  class="bg-success rounded h-5px"
-                  role="progressbar"
-                  style="width: 50%"
-                  aria-valuenow="50"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-            <!--end::Progress-->
           </div>
           <!--end::Stats-->
         </div>
@@ -257,18 +217,21 @@
               class="nav-link text-active-primary me-6"
               active-class="active"
             >
-              Overview
+              {{ $t("overview") }}
             </router-link>
           </li>
           <!--end::Nav item-->
           <!--begin::Nav item-->
           <li class="nav-item">
             <router-link
-              to="/crafted/account/settings"
+              :to="{
+                name: 'account-settings',
+                params: { lang },
+              }"
               class="nav-link text-active-primary me-6"
               active-class="active"
             >
-              Settings
+              {{ $t("settings") }}
             </router-link>
           </li>
           <!--end::Nav item-->
@@ -284,12 +247,12 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
-import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
+import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
 
 export default defineComponent({
   name: "kt-account",
   components: {
-    Dropdown3,
+    Dropdown2,
   },
   setup() {
     const store = useStore();

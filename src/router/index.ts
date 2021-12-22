@@ -243,13 +243,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/components/page-layouts/Auth.vue"),
     children: [
       {
-        path: "/sign-in",
+        path: "/:lang/sign-in",
         name: "sign-in",
         component: () =>
           import("@/views/crafted/authentication/basic-flow/SignIn.vue"),
       },
       {
-        path: "/sign-up",
+        path: "/:lang/sign-up",
         name: "sign-up",
         component: () =>
           import("@/views/crafted/authentication/basic-flow/SignUp.vue"),

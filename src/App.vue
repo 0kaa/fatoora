@@ -5,7 +5,6 @@
 <script lang="ts">
 import { defineComponent, nextTick, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
-import { useI18n } from "vue-i18n/index";
 import { Mutations } from "@/store/enums/StoreEnums";
 import { initializeComponents } from "@/core/plugins/keenthemes";
 
@@ -13,23 +12,20 @@ export default defineComponent({
   name: "app",
   setup() {
     const store = useStore();
-    const i18n = useI18n();
     const currentLanguage = computed(() => {
       return store.getters.getLanguage;
     });
 
     onMounted(() => {
-      /**
-       * this is to override the layout config using saved data from localStorage
-       * remove this to use config only from static config (@/core/config/DefaultLayoutConfig.ts)
-       */
-      // store.commit(Mutations.OVERRIDE_LAYOUT_CONFIG);
-      store.commit(Mutations.SET_LANG, localStorage.getItem("lang") || "en");
+      store.commit(
+        Mutations.SET_LANG,
+        localStorage.getItem("lang") || currentLanguage.value
+      );
 
       nextTick(() => {
         initializeComponents();
       });
-      if (i18n.locale.value == "ar") {
+      if (currentLanguage.value == "ar") {
         document.body.classList.add("rtl");
       } else {
         document.body.classList.remove("rtl");

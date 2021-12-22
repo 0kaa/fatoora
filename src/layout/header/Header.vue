@@ -1,12 +1,6 @@
 <template>
   <!--begin::Header-->
-  <div
-    id="kt_header"
-    class="header"
-    :data-kt-sticky="isHeaderSticky"
-    data-kt-sticky-name="header"
-    data-kt-sticky-offset="{default: '200px', lg: '300px'}"
-  >
+  <div id="kt_header" class="header">
     <!--begin::Container-->
     <div
       class="d-flex align-items-center justify-content-between"
@@ -33,12 +27,12 @@
               :to="{ name: 'home', params: { lang } }"
               class="text-muted"
             >
-              Home
+              {{ $t("home") }}
             </router-link>
           </li>
           <template v-for="(item, index) in breadcrumbs" :key="index">
             <li class="breadcrumb-item text-dark">
-              {{ item }}
+              {{ $t(item) }}
             </li>
           </template>
         </ul>

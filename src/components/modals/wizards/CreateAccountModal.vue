@@ -184,7 +184,7 @@
                   <div class="pb-10 pb-lg-12">
                     <!--begin::Title-->
                     <h2 class="fw-bolder text-dark">
-                      {{ $t("establishmentDetails") }}
+                      {{ $t("enterpriseDetails") }}
                     </h2>
                     <!--end::Title-->
 
@@ -201,19 +201,19 @@
                   <div class="fv-row mb-10">
                     <!--begin::Label-->
                     <label class="form-label required">
-                      {{ $t("establishmentName") }}
+                      {{ $t("enterpriseName") }}
                     </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="establishmentName"
+                      name="enterpriseName"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="establishmentName"
+                      name="enterpriseName"
                     />
                     <!--end::Input-->
                   </div>
@@ -224,20 +224,20 @@
                     <!--begin::Label-->
                     <label class="d-flex align-items-center form-label">
                       <span class="required">
-                        {{ $t("establishmentAddress") }}
+                        {{ $t("enterpriseAddress") }}
                       </span>
                     </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="establishmentAddress"
+                      name="enterpriseAddress"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="establishmentAddress"
+                      name="enterpriseAddress"
                     />
                     <!--end::Input-->
                   </div>
@@ -247,19 +247,19 @@
                   <div class="fv-row mb-10">
                     <!--begin::Label-->
                     <label class="form-label">
-                      {{ $t("establishmentTaxNumber") }}
+                      {{ $t("enterpriseTaxNumber") }}
                     </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="establishmentTaxNumber"
+                      name="enterpriseTaxNumber"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="establishmentTaxNumber"
+                      name="enterpriseTaxNumber"
                     />
                     <!--end::Input-->
                   </div>
@@ -291,19 +291,19 @@
                   <div class="fv-row mb-0">
                     <!--begin::Label-->
                     <label class="fs-6 fw-bold form-label">
-                      {{ $t("numberOfTheEstablishment") }}
+                      {{ $t("numberOfTheEnterprise") }}
                     </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="numberOfTheEstablishment"
+                      name="numberOfTheEnterprise"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="numberOfTheEstablishment"
+                      name="numberOfTheEnterprise"
                     />
                     <!--end::Input-->
                   </div>
@@ -473,11 +473,11 @@ interface Step1 {
 }
 
 interface Step2 {
-  establishmentName: string;
-  establishmentAddress: string;
-  establishmentTaxNumber: string;
+  enterpriseName: string;
+  enterpriseAddress: string;
+  enterpriseTaxNumber: string;
   recordNumber: string;
-  numberOfTheFacility: string;
+  numberOfTheEnterprise: string;
 }
 
 interface KTCreateApp extends Step1, Step2 {}
@@ -496,11 +496,11 @@ export default defineComponent({
     const il8n = useI18n();
     const formData = ref<KTCreateApp>({
       accountType: "personal",
-      establishmentName: "",
-      establishmentAddress: "",
-      establishmentTaxNumber: "",
+      enterpriseName: "",
+      enterpriseAddress: "",
+      enterpriseTaxNumber: "",
       recordNumber: "",
-      numberOfTheFacility: "",
+      numberOfTheEnterprise: "",
     });
 
     onMounted(() => {
@@ -513,10 +513,10 @@ export default defineComponent({
       Yup.object({}),
 
       Yup.object({
-        establishmentName: Yup.string().required(
-          il8n.t("establishment_name_required")
+        enterpriseName: Yup.string().required(
+          il8n.t("enterprise_name_required")
         ),
-        establishmentAddress: Yup.string().required("Establishment Address"),
+        enterpriseAddress: Yup.string().required("Enterprise Address"),
       }),
     ];
 

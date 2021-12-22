@@ -246,7 +246,7 @@
 import { defineComponent, computed } from "vue";
 import { useI18n } from "vue-i18n/index";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { Actions } from "@/store/enums/StoreEnums";
 
 export default defineComponent({
@@ -254,9 +254,10 @@ export default defineComponent({
   components: {},
   setup() {
     const router = useRouter();
+    const route = useRoute();
     const i18n = useI18n();
     const store = useStore();
-    const lang = localStorage.getItem("lang") || store.state.lang;
+    const lang = localStorage.getItem("lang") || store.getters.getLanguage;
     i18n.locale.value = lang;
     const countries = {
       en: {
@@ -282,7 +283,10 @@ export default defineComponent({
         document.body.classList.remove("rtl");
       }
       store.commit("setLang", lang);
-      router.push({ name: "home", params: { lang: i18n.locale.value } });
+      router.push({
+        name: route.name?.toString(),
+        params: { lang: i18n.locale.value },
+      });
     };
 
     const currentLanguage = (lang) => {

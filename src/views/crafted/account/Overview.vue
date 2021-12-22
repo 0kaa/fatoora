@@ -5,7 +5,9 @@
     <div class="card-header cursor-pointer">
       <!--begin::Card title-->
       <div class="card-title m-0">
-        <h3 class="fw-bolder m-0">Profile Details</h3>
+        <h3 class="fw-bolder m-0">
+          {{ $t("profileDetails") }}
+        </h3>
       </div>
       <!--end::Card title-->
 
@@ -13,8 +15,9 @@
       <router-link
         to="/account/settings"
         class="btn btn-primary align-self-center"
-        >Edit Profile</router-link
       >
+        {{ $t("editProfile") }}
+      </router-link>
       <!--end::Action-->
     </div>
     <!--begin::Card header-->
@@ -24,7 +27,9 @@
       <!--begin::Row-->
       <div class="row mb-7">
         <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">Full Name</label>
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("fullname") }}
+        </label>
         <!--end::Label-->
 
         <!--begin::Col-->
@@ -38,7 +43,9 @@
       <!--begin::Input group-->
       <div class="row mb-7">
         <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">Company</label>
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterpriseName") }}
+        </label>
         <!--end::Label-->
 
         <!--begin::Col-->
@@ -53,7 +60,7 @@
       <div class="row mb-7">
         <!--begin::Label-->
         <label class="col-lg-4 fw-bold text-muted">
-          Contact Phone
+          {{ $t("enterpriseAddress") }}
           <i
             class="fas fa-exclamation-circle ms-1 fs-7"
             data-bs-toggle="tooltip"
@@ -75,7 +82,9 @@
       <!--begin::Input group-->
       <div class="row mb-7">
         <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">Company Site</label>
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterpriseTaxNumber") }}
+        </label>
         <!--end::Label-->
 
         <!--begin::Col-->
@@ -92,7 +101,7 @@
       <div class="row mb-7">
         <!--begin::Label-->
         <label class="col-lg-4 fw-bold text-muted">
-          Country
+          {{ $t("recordNumber") }}
           <i
             class="fas fa-exclamation-circle ms-1 fs-7"
             data-bs-toggle="tooltip"
@@ -112,7 +121,57 @@
       <!--begin::Input group-->
       <div class="row mb-7">
         <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">Communication</label>
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("numberOfTheEnterprise") }}
+        </label>
+        <!--end::Label-->
+
+        <!--begin::Col-->
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-7">
+        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterpriseWebsite") }}
+        </label>
+        <!--end::Label-->
+
+        <!--begin::Col-->
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-7">
+        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterpriseEmail") }}
+        </label>
+        <!--end::Label-->
+
+        <!--begin::Col-->
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-7">
+        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterprisePhone") }}
+        </label>
         <!--end::Label-->
 
         <!--begin::Col-->
@@ -126,14 +185,16 @@
       <!--begin::Input group-->
       <div class="row mb-10">
         <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">Allow Changes</label>
-        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterpriseLogo") }}
+        </label>
+        <!--end::Label-->
 
-        <!--begin::Label-->
+        <!--begin::Col-->
         <div class="col-lg-8">
-          <span class="fw-bold fs-6">Yes</span>
+          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
         </div>
-        <!--begin::Label-->
+        <!--end::Col-->
       </div>
       <!--end::Input group-->
     </div>
@@ -203,7 +264,7 @@ export default defineComponent({
   },
   setup() {
     onMounted(() => {
-      setCurrentPageBreadcrumbs("Overview", ["Account"]);
+      setCurrentPageBreadcrumbs("overview", ["account"]);
     });
   },
 });
