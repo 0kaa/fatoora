@@ -40,37 +40,37 @@ export default defineComponent({
   setup() {
     const list = ref([
       {
-        avatar: "media/avatars/150-1.jpg",
+        avatar: "/media/avatars/150-1.jpg",
         name: "Emma Smith",
         description: "Project Manager",
       },
       {
-        avatar: "media/avatars/150-4.jpg",
+        avatar: "/media/avatars/150-4.jpg",
         name: "Sean Bean",
         description: "PHP, SQLite, Artisan CLI",
       },
       {
-        avatar: "media/avatars/150-12.jpg",
+        avatar: "/media/avatars/150-12.jpg",
         name: "Brian Cox",
         description: "PHP, SQLite, Artisan CLI",
       },
       {
-        avatar: "media/avatars/150-6.jpg",
+        avatar: "/media/avatars/150-6.jpg",
         name: "Dan Wilson",
         description: "PHP, SQLite, Artisan CLI",
       },
       {
-        avatar: "media/avatars/150-9.jpg",
+        avatar: "/media/avatars/150-9.jpg",
         name: "Natali Trump",
         description: "NET, Oracle, MySQL",
       },
       {
-        avatar: "media/avatars/150-8.jpg",
+        avatar: "/media/avatars/150-8.jpg",
         name: "Francis Mitcham",
         description: "PHP, SQLite, Artisan CLI",
       },
       {
-        avatar: "media/avatars/150-7.jpg",
+        avatar: "/media/avatars/150-7.jpg",
         name: "Jessie Clarcson",
         description: "Angular, React",
       },

@@ -53,43 +53,43 @@ export default defineComponent({
   setup() {
     const items = [
       {
-        icon: "media/icons/duotune/abstract/abs027.svg",
+        icon: "/media/icons/duotune/abstract/abs027.svg",
         color: "success",
         title: "Project Briefing",
         description: "Project Manager",
       },
       {
-        icon: "media/icons/duotune/art/art005.svg",
+        icon: "/media/icons/duotune/art/art005.svg",
         color: "warning",
         title: "Concept Design",
         description: "Art Director",
       },
       {
-        icon: "media/icons/duotune/communication/com012.svg",
+        icon: "/media/icons/duotune/communication/com012.svg",
         color: "primary",
         title: "Functional Logics",
         description: "Lead Developer",
       },
       {
-        icon: "media/icons/duotune/coding/cod008.svg",
+        icon: "/media/icons/duotune/coding/cod008.svg",
         color: "danger",
         title: "Development",
         description: "DevOps",
       },
       {
-        icon: "media/icons/duotune/general/gen049.svg",
+        icon: "/media/icons/duotune/general/gen049.svg",
         color: "info",
         title: "Testing",
         description: "QA Managers",
       },
       {
-        icon: "media/icons/duotune/files/fil010.svg",
+        icon: "/media/icons/duotune/files/fil010.svg",
         color: "success",
         title: "HTML, CSS Coding",
         description: "Art Director",
       },
       {
-        icon: "media/icons/duotune/graphs/gra008.svg",
+        icon: "/media/icons/duotune/graphs/gra008.svg",
         color: "danger",
         title: "ReactJS Developer",
         description: "Web, UI/UX Design",

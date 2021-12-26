@@ -15,7 +15,7 @@
         <span class="symbol symbol-20px me-4">
           <img
             class="rounded-1"
-            src="media/flags/united-states.svg"
+            src="/media/flags/united-states.svg"
             alt="metronic"
           />
         </span>
@@ -34,7 +34,7 @@
         <span class="symbol symbol-20px me-4">
           <img
             class="rounded-1"
-            src="media/flags/saudi-arabia.svg"
+            src="/media/flags/saudi-arabia.svg"
             alt="metronic"
           />
         </span>
@@ -63,11 +63,11 @@ export default defineComponent({
     i18n.locale.value = lang;
     const countries = {
       en: {
-        flag: "media/flags/united-states.svg",
+        flag: "/media/flags/united-states.svg",
         name: "English",
       },
       ar: {
-        flag: "media/flags/saudi-arabia.svg",
+        flag: "/media/flags/saudi-arabia.svg",
         name: "Arabic",
       },
     };

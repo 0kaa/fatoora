@@ -11,7 +11,7 @@
         data-bs-target="#kt_modal_create_account"
       >
         <span class="svg-icon svg-icon-2 svg-icon-primary me-0 me-md-2">
-          <inline-svg src="media/icons/duotune/arrows/arr075.svg" />
+          <inline-svg src="/media/icons/duotune/arrows/arr075.svg" />
         </span>
         <span class="d-none d-md-inline">New Customer</span>
       </a>
@@ -29,7 +29,7 @@
         id="kt_toolbar_primary_button"
       >
         <span class="svg-icon svg-icon-2 svg-icon-primary me-0 me-md-2">
-          <inline-svg src="media/icons/duotune/general/gen005.svg" />
+          <inline-svg src="/media/icons/duotune/general/gen005.svg" />
         </span>
         <span class="d-none d-md-inline">New Invoice</span>
       </a>
@@ -39,7 +39,7 @@
     <!--begin::Action menu-->
     <a
       href="#"
-      class="btn btn-flex flex-center btn-bg-white btn-text-gray-500 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
+      class="btn ms-3 btn-flex flex-center btn-bg-white btn-text-gray-500 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
       data-kt-menu-trigger="hover"
       data-kt-menu-attach="parent"
       :data-kt-menu-placement="
@@ -52,7 +52,7 @@
         alt="metronic"
       />
       <span class="svg-icon svg-icon-2 me-0">
-        <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+        <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
       </span>
     </a>
     <Dropdown3></Dropdown3>
@@ -84,11 +84,11 @@ export default defineComponent({
 
     const countries = {
       en: {
-        flag: "media/flags/united-states.svg",
+        flag: "/media/flags/united-states.svg",
         name: "English",
       },
       ar: {
-        flag: "media/flags/saudi-arabia.svg",
+        flag: "/media/flags/saudi-arabia.svg",
         name: "Arabic",
       },
     };

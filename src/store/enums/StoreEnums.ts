@@ -21,7 +21,7 @@ enum Mutations {
   PURGE_AUTH = "logOut",
   SET_AUTH = "setAuth",
   SET_USER = "setUser",
-  SET_PASSWORD = "setPassword",
+  SET_TOKEN = "setToken",
   SET_ERROR = "setError",
   SET_LANG = "setLang",
   SET_BREADCRUMB_MUTATION = "setBreadcrumbMutation",

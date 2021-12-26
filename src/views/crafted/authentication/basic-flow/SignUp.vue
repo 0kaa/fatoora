@@ -30,7 +30,7 @@
 
             <!--begin::Label-->
             <div class="stepper-label">
-              <h3 class="stepper-title">Account Type</h3>
+              <h3 class="stepper-title">{{ $t("accountType") }}</h3>
             </div>
             <!--end::Label-->
           </div>
@@ -136,7 +136,12 @@
                 <!--begin::Notice-->
                 <div class="text-gray-400 fw-bold fs-6">
                   If you have account, please
-                  <router-link to="/sign-in" class="link-primary fw-bolder"
+                  <router-link
+                    :to="{
+                      name: 'sign-in',
+                      params: { lang: currentLanguage },
+                    }"
+                    class="link-primary fw-bolder"
                     >Sign in</router-link
                   >.
                 </div>
@@ -165,7 +170,7 @@
                     >
                       <span class="svg-icon svg-icon-3x me-5">
                         <inline-svg
-                          src="media/icons/duotune/communication/com005.svg"
+                          src="/media/icons/duotune/communication/com005.svg"
                         />
                       </span>
 
@@ -200,7 +205,7 @@
                     >
                       <span class="svg-icon svg-icon-3x me-5">
                         <inline-svg
-                          src="media/icons/duotune/finance/fin006.svg"
+                          src="/media/icons/duotune/finance/fin006.svg"
                         />
                       </span>
 
@@ -629,9 +634,7 @@
                 "
               >
                 <!--begin::Label-->
-                <label class="fs-6 fw-bold form-label"
-                  >Enterprise Logo</label
-                >
+                <label class="fs-6 fw-bold form-label">Enterprise Logo</label>
                 <!--end::Label-->
                 <!--begin::Input-->
                 <Field
@@ -707,7 +710,7 @@
                 >
                   <!--begin::Icon-->
                   <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                    <inline-svg src="media/icons/duotune/general/gen044.svg" />
+                    <inline-svg src="/media/icons/duotune/general/gen044.svg" />
                   </span>
                   <!--end::Icon-->
                   <!--begin::Wrapper-->
@@ -745,7 +748,7 @@
                 @click="previousStep()"
               >
                 <span class="svg-icon svg-icon-3 me-1">
-                  <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
+                  <inline-svg src="/media/icons/duotune/arrows/arr063.svg" />
                 </span>
                 Back
               </button>
@@ -777,7 +780,7 @@
               <button type="submit" class="btn btn-lg btn-primary" v-else>
                 Continue
                 <span class="svg-icon svg-icon-3 ms-1 me-0">
-                  <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
+                  <inline-svg src="/media/icons/duotune/arrows/arr064.svg" />
                 </span>
               </button>
             </div>
@@ -786,7 +789,9 @@
           <!--end::Actions-->
         </div>
         <!--begin::Footer-->
-        <div class="d-flex flex-center flex-column-auto p-10">
+        <div
+          class="d-flex flex-center justify-content-between flex-column-auto p-10"
+        >
           <!--begin::Links-->
           <div class="d-flex align-items-center fw-bold fs-6">
             <a href="#" class="text-muted text-hover-primary px-2">About</a>
@@ -798,6 +803,27 @@
             >
           </div>
           <!--end::Links-->
+          <div>
+            <a
+              href="#"
+              class="btn btn-flex flex-center btn-bg-white btn-text-gray-500 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
+              data-kt-menu-trigger="hover"
+              data-kt-menu-attach="parent"
+              :data-kt-menu-placement="
+                currentLanguage == 'en' ? 'top-end' : 'top-start'
+              "
+            >
+              <img
+                class="w-20px h-20px rounded-1 ms-2"
+                :src="currentLangugeLocale.flag"
+                alt="metronic"
+              />
+              <span class="svg-icon svg-icon-2 me-0">
+                <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
+              </span>
+            </a>
+            <Dropdown3></Dropdown3>
+          </div>
         </div>
         <!--end::Footer-->
       </form>
@@ -808,14 +834,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { computed, defineComponent, onMounted, nextTick, ref } from "vue";
 import { hideModal } from "@/core/helpers/dom";
+import { useStore } from "vuex";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Logo from "@/components/Logo.vue";
+import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
 import { Field, ErrorMessage } from "vee-validate";
 import * as Yup from "yup";
+import { reinitializeComponents } from "@/core/plugins/keenthemes";
 
 // Account type
 interface Step1 {
@@ -852,6 +881,7 @@ export default defineComponent({
     Field,
     ErrorMessage,
     Logo,
+    Dropdown3,
   },
   setup() {
     const _stepperObj = ref<StepperComponent | null>(null);
@@ -859,6 +889,7 @@ export default defineComponent({
     const createAccountModalRef = ref<HTMLElement | null>(null);
     const currentStepIndex = ref(0);
     const imgPreview = ref<string>("");
+    const store = useStore();
     const formData = ref<KTCreateApp>({
       accountType: "cloud",
       invoicePlan: "100",
@@ -878,9 +909,31 @@ export default defineComponent({
     });
 
     onMounted(() => {
+      nextTick(() => {
+        reinitializeComponents();
+      });
       _stepperObj.value = StepperComponent.createInsance(
         createAccountRef.value as HTMLElement
       );
+    });
+
+    const countries = {
+      en: {
+        flag: "/media/flags/united-states.svg",
+        name: "English",
+      },
+      ar: {
+        flag: "/media/flags/saudi-arabia.svg",
+        name: "Arabic",
+      },
+    };
+
+    const currentLanguage = computed(() => {
+      return store.getters.getLanguage;
+    });
+
+    const currentLangugeLocale = computed(() => {
+      return countries[currentLanguage.value];
     });
 
     const createAppSchema = [
@@ -1001,6 +1054,8 @@ export default defineComponent({
       formSubmit,
       onFileChange,
       imgPreview,
+      currentLanguage,
+      currentLangugeLocale,
       currentStepIndex,
       formData,
       createAccountModalRef,

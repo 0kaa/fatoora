@@ -827,7 +827,7 @@ export default defineComponent({
     });
 
     const profileDetails = ref<ProfileDetails>({
-      avatar: "media/avatars/150-2.jpg",
+      avatar: "/media/avatars/150-2.jpg",
       name: "Max",
       surname: "Smith",
       company: "Keenthemes",
@@ -950,7 +950,7 @@ export default defineComponent({
     };
 
     const removeImage = () => {
-      profileDetails.value.avatar = "media/avatars/blank.png";
+      profileDetails.value.avatar = "/media/avatars/blank.png";
     };
 
     onMounted(() => {

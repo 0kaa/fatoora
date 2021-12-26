@@ -29,7 +29,7 @@
           data-kt-menu-placement="bottom-end"
         >
           <span class="svg-icon svg-icon-3">
-            <inline-svg src="media/icons/duotune/general/gen052.svg" />
+            <inline-svg src="/media/icons/duotune/general/gen052.svg" />
           </span>
         </a>
         <UserMenu></UserMenu>
@@ -47,7 +47,7 @@
         <div class="d-flex align-items-center">
           <!--begin::Avatar-->
           <div class="symbol symbol-60px symbol-circle me-3">
-            <img alt="Pic" src="media/avatars/150-4.jpg" />
+            <img alt="Pic" src="/media/avatars/150-4.jpg" />
           </div>
           <!--end::Avatar-->
 
@@ -114,7 +114,7 @@
             Mastercard
 
             <img
-              src="media/svg/card-logos/mastercard.svg"
+              src="/media/svg/card-logos/mastercard.svg"
               class="w-35px ms-2"
               alt=""
             />

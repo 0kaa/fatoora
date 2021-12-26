@@ -31,7 +31,7 @@
         <img
           class="mw-100 mh-300px"
           alt=""
-          src="media/illustrations/dozzy-1/5.png"
+          src="/media/illustrations/dozzy-1/5.png"
         />
       </div>
       <!--end::Illustration-->

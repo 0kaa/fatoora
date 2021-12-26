@@ -3,7 +3,7 @@
     <a href="/metronic8/demo10/../demo10/index.html">
       <img
         alt="Logo"
-        src="media/logos/logo-main.svg"
+        src="/media/logos/logo-main.svg"
         class="h-75px h-lg-80px"
       />
     </a>

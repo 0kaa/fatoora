@@ -88,6 +88,13 @@ const messages = {
     newPassword: "New Password",
     confirmNewPassword: "Confirm New Password",
     cancel: "Cancel",
+    signInToFatora: "Sign In To Fatora",
+    returnHome: "Return Home",
+    seems_nothing_here: "Seems there is nothing here",
+    newHere: "New Here?",
+    forgetPassword: "Forget Password?",
+    or: "Or",
+    enterEmailToResetPassword: "Enter your email to reset your password.",
   },
   ar: {
     create_account: "إنشاء حساب",
@@ -176,12 +183,19 @@ const messages = {
     newPassword: "كلمة المرور الجديدة",
     confirmNewPassword: "تأكيد كلمة المرور الجديدة",
     cancel: "إلغاء",
+    signInToFatora: "تسجيل الدخول إلى فاتورة",
+    returnHome: "العودة إلى الصفحة الرئيسية",
+    seems_nothing_here: "لا يبدو أن هناك شيئا",
+    newHere: "جديد هنا؟",
+    forgetPassword: "نسيت كلمة المرور؟",
+    or: "أو",
+    enterEmailToResetPassword: "أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور",
   },
 };
 
 const i18n = createI18n({
-  legacy: true,
-  locale: "en",
+  legacy: false,
+  locale: "ar",
   globalInjection: true,
   messages,
 });

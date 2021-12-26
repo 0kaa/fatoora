@@ -23,7 +23,7 @@
       <div class="d-flex align-items-center p-3 mb-2">
         <!--begin::Avatar-->
         <div class="symbol symbol-60px symbol-circle me-3">
-          <img alt="Pic" src="media/avatars/150-4.jpg" />
+          <img alt="Pic" src="/media/avatars/150-4.jpg" />
         </div>
         <!--end::Avatar-->
 

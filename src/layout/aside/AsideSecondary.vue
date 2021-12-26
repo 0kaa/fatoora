@@ -46,7 +46,7 @@
                         class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-5"
                       >
                         <inline-svg
-                          src="media/icons/duotune/general/gen021.svg"
+                          src="/media/icons/duotune/general/gen021.svg"
                         />
                       </span>
 
@@ -74,7 +74,7 @@
                       >
                         <span class="svg-icon svg-icon-2 svg-icon-lg-1 me-0">
                           <inline-svg
-                            src="media/icons/duotune/arrows/arr061.svg"
+                            src="/media/icons/duotune/arrows/arr061.svg"
                           />
                         </span>
                       </span>
@@ -101,7 +101,7 @@
                               class="d-flex text-dark text-hover-primary align-items-center mb-5"
                             >
                               <div class="symbol symbol-40px me-4">
-                                <img src="media/avatars/150-1.jpg" alt="" />
+                                <img src="/media/avatars/150-1.jpg" alt="" />
                               </div>
 
                               <div
@@ -119,7 +119,7 @@
                               class="d-flex text-dark text-hover-primary align-items-center mb-5"
                             >
                               <div class="symbol symbol-40px me-4">
-                                <img src="media/avatars/150-3.jpg" alt="" />
+                                <img src="/media/avatars/150-3.jpg" alt="" />
                               </div>
 
                               <div
@@ -137,7 +137,7 @@
                               class="d-flex text-dark text-hover-primary align-items-center mb-5"
                             >
                               <div class="symbol symbol-40px me-4">
-                                <img src="media/avatars/150-8.jpg" alt="" />
+                                <img src="/media/avatars/150-8.jpg" alt="" />
                               </div>
 
                               <div
@@ -155,7 +155,7 @@
                               class="d-flex text-dark text-hover-primary align-items-center mb-5"
                             >
                               <div class="symbol symbol-40px me-4">
-                                <img src="media/avatars/150-11.jpg" alt="" />
+                                <img src="/media/avatars/150-11.jpg" alt="" />
                               </div>
 
                               <div
@@ -173,7 +173,7 @@
                               class="d-flex text-dark text-hover-primary align-items-center mb-5"
                             >
                               <div class="symbol symbol-40px me-4">
-                                <img src="media/avatars/150-12.jpg" alt="" />
+                                <img src="/media/avatars/150-12.jpg" alt="" />
                               </div>
 
                               <div
@@ -201,7 +201,7 @@
                                 <span class="symbol-label bg-light">
                                   <img
                                     class="w-20px h-20px"
-                                    src="media/svg/brand-logos/volicity-9.svg"
+                                    src="/media/svg/brand-logos/volicity-9.svg"
                                     alt=""
                                   />
                                 </span>
@@ -227,7 +227,7 @@
                                 <span class="symbol-label bg-light">
                                   <img
                                     class="w-20px h-20px"
-                                    src="media/svg/brand-logos/tvit.svg"
+                                    src="/media/svg/brand-logos/tvit.svg"
                                     alt=""
                                   />
                                 </span>
@@ -253,7 +253,7 @@
                                 <span class="symbol-label bg-light">
                                   <img
                                     class="w-20px h-20px"
-                                    src="media/svg/misc/infography.svg"
+                                    src="/media/svg/misc/infography.svg"
                                     alt=""
                                   />
                                 </span>
@@ -279,7 +279,7 @@
                                 <span class="symbol-label bg-light">
                                   <img
                                     class="w-20px h-20px"
-                                    src="media/svg/brand-logos/leaf.svg"
+                                    src="/media/svg/brand-logos/leaf.svg"
                                     alt=""
                                   />
                                 </span>
@@ -305,7 +305,7 @@
                                 <span class="symbol-label bg-light">
                                   <img
                                     class="w-20px h-20px"
-                                    src="media/svg/brand-logos/tower.svg"
+                                    src="/media/svg/brand-logos/tower.svg"
                                     alt=""
                                   />
                                 </span>
@@ -340,7 +340,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/general/gen005.svg"
+                                      src="/media/icons/duotune/general/gen005.svg"
                                     />
                                   </span>
                                 </span>
@@ -366,7 +366,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/general/gen032.svg"
+                                      src="/media/icons/duotune/general/gen032.svg"
                                     />
                                   </span>
                                 </span>
@@ -392,7 +392,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/communication/com012.svg"
+                                      src="/media/icons/duotune/communication/com012.svg"
                                     />
                                   </span>
                                 </span>
@@ -418,7 +418,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/communication/com006.svg"
+                                      src="/media/icons/duotune/communication/com006.svg"
                                     />
                                   </span>
                                 </span>
@@ -453,7 +453,7 @@
                               >
                                 <span class="svg-icon svg-icon-1">
                                   <inline-svg
-                                    src="media/icons/duotune/coding/cod001.svg"
+                                    src="/media/icons/duotune/coding/cod001.svg"
                                   />
                                 </span>
                               </div>
@@ -467,7 +467,7 @@
                               >
                                 <span class="svg-icon svg-icon-2">
                                   <inline-svg
-                                    src="media/icons/duotune/arrows/arr072.svg"
+                                    src="/media/icons/duotune/arrows/arr072.svg"
                                   />
                                 </span>
                               </div>
@@ -482,7 +482,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/electronics/elc004.svg"
+                                      src="/media/icons/duotune/electronics/elc004.svg"
                                     />
                                   </span>
                                 </span>
@@ -507,7 +507,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/graphs/gra001.svg"
+                                      src="/media/icons/duotune/graphs/gra001.svg"
                                     />
                                   </span>
                                 </span>
@@ -532,7 +532,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/graphs/gra006.svg"
+                                      src="/media/icons/duotune/graphs/gra006.svg"
                                     />
                                   </span>
                                 </span>
@@ -557,7 +557,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/graphs/gra003.svg"
+                                      src="/media/icons/duotune/graphs/gra003.svg"
                                     />
                                   </span>
                                 </span>
@@ -582,7 +582,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/communication/com010.svg"
+                                      src="/media/icons/duotune/communication/com010.svg"
                                     />
                                   </span>
                                 </span>
@@ -607,7 +607,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/finance/fin001.svg"
+                                      src="/media/icons/duotune/finance/fin001.svg"
                                     />
                                   </span>
                                 </span>
@@ -632,7 +632,7 @@
                                     class="svg-icon svg-icon-2 svg-icon-primary"
                                   >
                                     <inline-svg
-                                      src="media/icons/duotune/graphs/gra002.svg"
+                                      src="/media/icons/duotune/graphs/gra002.svg"
                                     />
                                   </span>
                                 </span>
@@ -659,7 +659,7 @@
                           <div class="pt-10 pb-10">
                             <span class="svg-icon svg-icon-4x opacity-50">
                               <inline-svg
-                                src="media/icons/duotune/files/fil024.svg"
+                                src="/media/icons/duotune/files/fil024.svg"
                               />
                             </span>
                           </div>
@@ -1057,7 +1057,7 @@
                     >
                       <span class="svg-icon svg-icon-2">
                         <inline-svg
-                          src="media/icons/duotune/general/gen031.svg"
+                          src="/media/icons/duotune/general/gen031.svg"
                         />
                       </span>
                     </button>
@@ -1077,7 +1077,7 @@
                       <div class="symbol symbol-40px me-5">
                         <span class="symbol-label">
                           <img
-                            src="media/svg/brand-logos/bebo.svg"
+                            src="/media/svg/brand-logos/bebo.svg"
                             class="h-50 align-self-center"
                             alt=""
                           />
@@ -1102,7 +1102,7 @@
                       <div class="symbol symbol-40px me-5">
                         <span class="symbol-label">
                           <img
-                            src="media/svg/brand-logos/vimeo.svg"
+                            src="/media/svg/brand-logos/vimeo.svg"
                             class="h-50 align-self-center"
                             alt=""
                           />
@@ -1127,7 +1127,7 @@
                       <div class="symbol symbol-40px me-5">
                         <span class="symbol-label">
                           <img
-                            src="media/svg/brand-logos/kickstarter.svg"
+                            src="/media/svg/brand-logos/kickstarter.svg"
                             class="h-50 align-self-center"
                             alt=""
                           />
@@ -1152,7 +1152,7 @@
                       <div class="symbol symbol-40px me-5">
                         <span class="symbol-label">
                           <img
-                            src="media/svg/brand-logos/balloon.svg"
+                            src="/media/svg/brand-logos/balloon.svg"
                             class="h-50 align-self-center"
                             alt=""
                           />
@@ -1177,7 +1177,7 @@
                       <div class="symbol symbol-40px me-5">
                         <span class="symbol-label">
                           <img
-                            src="media/svg/brand-logos/infography.svg"
+                            src="/media/svg/brand-logos/infography.svg"
                             class="h-50 align-self-center"
                             alt=""
                           />
@@ -1202,7 +1202,7 @@
                       <div class="symbol symbol-40px me-5">
                         <span class="symbol-label">
                           <img
-                            src="media/svg/brand-logos/disqus.svg"
+                            src="/media/svg/brand-logos/disqus.svg"
                             class="h-50 align-self-center"
                             alt=""
                           />
@@ -1229,7 +1229,7 @@
                       <div class="symbol symbol-40px me-5">
                         <span class="symbol-label">
                           <img
-                            src="media/svg/brand-logos/plurk.svg"
+                            src="/media/svg/brand-logos/plurk.svg"
                             class="h-50 align-self-center"
                             alt=""
                           />
@@ -1298,7 +1298,7 @@
                   <img
                     class="mw-100 mh-300px"
                     alt=""
-                    src="media/illustrations/sigma-1/18.png"
+                    src="/media/illustrations/sigma-1/18.png"
                   />
                 </div>
                 <!--end::Illustration-->
@@ -1344,7 +1344,7 @@
           >
             <span class="btn-label"> Docs & Components </span>
             <span class="svg-icon btn-icon svg-icon-4 ms-2">
-              <inline-svg src="media/icons/duotune/general/gen005.svg" />
+              <inline-svg src="/media/icons/duotune/general/gen005.svg" />
             </span>
           </a>
         </div>
@@ -1363,7 +1363,7 @@
     style="margin-bottom: 1.35rem"
   >
     <span class="svg-icon svg-icon-2 rotate-180">
-      <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
+      <inline-svg src="/media/icons/duotune/arrows/arr063.svg" />
     </span>
   </button>
 </template>

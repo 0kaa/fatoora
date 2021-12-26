@@ -5,18 +5,20 @@
 <script lang="ts">
 import { defineComponent, nextTick, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
-import { Mutations } from "@/store/enums/StoreEnums";
+import { Mutations, Actions } from "@/store/enums/StoreEnums";
 import { initializeComponents } from "@/core/plugins/keenthemes";
 
 export default defineComponent({
   name: "app",
   setup() {
     const store = useStore();
+
     const currentLanguage = computed(() => {
       return store.getters.getLanguage;
     });
 
     onMounted(() => {
+      store.dispatch(Actions.VERIFY_AUTH);
       store.commit(
         Mutations.SET_LANG,
         localStorage.getItem("lang") || currentLanguage.value
@@ -33,7 +35,6 @@ export default defineComponent({
     });
 
     watch(currentLanguage, (newLanguage) => {
-      console.log(newLanguage);
       if (newLanguage == "ar") {
         document.body.classList.add("rtl");
       } else {
@@ -65,5 +66,5 @@ export default defineComponent({
 @import "assets/sass/style";
 
 //RTL version styles
-@import "assets/css/style.rtl.css";
+// @import "assets/css/style.rtl.css";
 </style>

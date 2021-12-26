@@ -7,7 +7,7 @@
       id="kt_aside_logo"
     >
       <a href="#">
-        <img alt="Logo" src="media/logos/logo-demo7.svg" class="h-30px" />
+        <img alt="Logo" src="/media/logos/logo-demo7.svg" class="h-30px" />
       </a>
     </div>
 
@@ -40,7 +40,7 @@
               href="#kt_aside_nav_tab_projects"
             >
               <span class="svg-icon svg-icon-2x">
-                <inline-svg src="media/icons/duotune/general/gen025.svg" />
+                <inline-svg src="/media/icons/duotune/general/gen025.svg" />
               </span>
             </a>
           </li>
@@ -60,7 +60,7 @@
               href="#kt_aside_nav_tab_menu"
             >
               <span class="svg-icon svg-icon-2x">
-                <inline-svg src="media/icons/duotune/finance/fin006.svg" />
+                <inline-svg src="/media/icons/duotune/finance/fin006.svg" />
               </span>
             </a>
           </li>
@@ -80,7 +80,7 @@
               href="#kt_aside_nav_tab_subscription"
             >
               <span class="svg-icon svg-icon-2x">
-                <inline-svg src="media/icons/duotune/general/gen032.svg" />
+                <inline-svg src="/media/icons/duotune/general/gen032.svg" />
               </span>
             </a>
           </li>
@@ -100,7 +100,7 @@
               href="#kt_aside_nav_tab_tasks"
             >
               <span class="svg-icon svg-icon-2x">
-                <inline-svg src="media/icons/duotune/general/gen048.svg" />
+                <inline-svg src="/media/icons/duotune/general/gen048.svg" />
               </span>
             </a>
           </li>
@@ -120,7 +120,7 @@
               href="#kt_aside_nav_tab_notifications"
             >
               <span class="svg-icon svg-icon-2x">
-                <inline-svg src="media/icons/duotune/abstract/abs027.svg" />
+                <inline-svg src="/media/icons/duotune/abstract/abs027.svg" />
               </span>
             </a>
           </li>
@@ -140,7 +140,7 @@
               href="#kt_aside_nav_tab_authors"
             >
               <span class="svg-icon svg-icon-2x">
-                <inline-svg src="media/icons/duotune/files/fil005.svg" />
+                <inline-svg src="/media/icons/duotune/files/fil005.svg" />
               </span>
             </a>
           </li>
@@ -165,7 +165,7 @@
           title="Quick links"
         >
           <span class="svg-icon svg-icon-2 svg-icon-lg-1">
-            <inline-svg src="media/icons/duotune/general/gen022.svg" />
+            <inline-svg src="/media/icons/duotune/general/gen022.svg" />
           </span>
         </div>
         <KTQuickLinksMenu></KTQuickLinksMenu>
@@ -184,7 +184,7 @@
           title="Notifications"
         >
           <span class="svg-icon svg-icon-2 svg-icon-lg-1">
-            <inline-svg src="media/icons/duotune/general/gen025.svg" />
+            <inline-svg src="/media/icons/duotune/general/gen025.svg" />
           </span>
         </div>
         <KTNotificationsMenu></KTNotificationsMenu>
@@ -204,7 +204,7 @@
           id="kt_activities_toggle"
         >
           <span class="svg-icon svg-icon-2 svg-icon-lg-1">
-            <inline-svg src="media/icons/duotune/general/gen032.svg" />
+            <inline-svg src="/media/icons/duotune/general/gen032.svg" />
           </span>
         </div>
       </div>
@@ -224,7 +224,7 @@
           data-bs-dismiss="click"
           title="User profile"
         >
-          <img src="media/avatars/150-26.jpg" alt="metronic" />
+          <img src="/media/avatars/150-26.jpg" alt="metronic" />
         </div>
         <KTUserMenu></KTUserMenu>
       </div>

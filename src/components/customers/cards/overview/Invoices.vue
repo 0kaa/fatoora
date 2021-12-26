@@ -110,7 +110,7 @@
                 data-kt-menu-flip="top-end"
                 >Actions
                 <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
                 </span>
               </a>
               <!--begin::Menu-->
@@ -176,7 +176,7 @@
                 data-kt-menu-flip="top-end"
                 >Actions
                 <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
                 </span>
               </a>
               <!--begin::Menu-->
@@ -239,7 +239,7 @@
                 data-kt-menu-flip="top-end"
                 >Actions
                 <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
                 </span>
               </a>
               <!--begin::Menu-->
@@ -302,7 +302,7 @@
                 data-kt-menu-flip="top-end"
                 >Actions
                 <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
                 </span>
               </a>
               <!--begin::Menu-->

@@ -101,7 +101,7 @@
           <a href="#" class="btn btn-color-gray-600 btn-active-color-primary">
             View All
             <span class="svg-icon svg-icon-5">
-              <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
+              <inline-svg src="/media/icons/duotune/arrows/arr064.svg" />
             </span>
           </a>
         </div>
@@ -148,7 +148,7 @@
           <img
             class="mw-100 mh-200px"
             alt="metronic"
-            src="media/illustrations/sketchy-1/1.png"
+            src="/media/illustrations/sketchy-1/1.png"
           />
           <!--end::Illustration-->
         </div>
@@ -195,7 +195,7 @@
           <a href="#" class="btn btn-color-gray-600 btn-active-color-primary">
             View All
             <span class="svg-icon-svg-icon-5">
-              <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
+              <inline-svg src="/media/icons/duotune/arrows/arr064.svg" />
             </span>
           </a>
         </div>
@@ -220,49 +220,49 @@ export default defineComponent({
         title: "Project Alice",
         description: "Phase 1 development",
         time: "1 hr",
-        icon: "media/icons/duotune/technology/teh008.svg",
+        icon: "/media/icons/duotune/technology/teh008.svg",
         state: "primary",
       },
       {
         title: "HR Confidential",
         description: "Confidential staff documents",
         time: "2 hrs",
-        icon: "media/icons/duotune/general/gen044.svg",
+        icon: "/media/icons/duotune/general/gen044.svg",
         state: "danger",
       },
       {
         title: "Company HR",
         description: "Corporeate staff profiles",
         time: "5 hrs",
-        icon: "media/icons/duotune/finance/fin006.svg",
+        icon: "/media/icons/duotune/finance/fin006.svg",
         state: "warning",
       },
       {
         title: "Project Redux",
         description: "New frontend admin theme",
         time: "2 days",
-        icon: "media/icons/duotune/files/fil023.svg",
+        icon: "/media/icons/duotune/files/fil023.svg",
         state: "success",
       },
       {
         title: "Project Breafing",
         description: "Product launch status update",
         time: "21 Jan",
-        icon: "media/icons/duotune/maps/map001.svg",
+        icon: "/media/icons/duotune/maps/map001.svg",
         state: "primary",
       },
       {
         title: "Banner Assets",
         description: "Collection of banner images",
         time: "21 Jan",
-        icon: "media/icons/duotune/general/gen006.svg",
+        icon: "/media/icons/duotune/general/gen006.svg",
         state: "info",
       },
       {
         title: "Icon Assets",
         description: "Collection of SVG icons",
         time: "20 March",
-        icon: "media/icons/duotune/art/art002.svg",
+        icon: "/media/icons/duotune/art/art002.svg",
         state: "warning",
       },
     ];

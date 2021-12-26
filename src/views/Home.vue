@@ -54,7 +54,7 @@
               <!--begin::Card-->
               <CardCreateModal
                 :buttonText="$t('create_account')"
-                image="media/illustrations/sigma-1/4.png"
+                image="/media/illustrations/sigma-1/4.png"
                 modalId="kt_modal_create_account"
                 color="#f9666e"
               ></CardCreateModal>
@@ -67,7 +67,7 @@
 
               <CardCreateModal
                 :buttonText="$t('create_invoice')"
-                image="media/illustrations/sigma-1/5.png"
+                image="/media/illustrations/sigma-1/5.png"
                 modalId="kt_modal_create_invoice"
                 color="#35d29a"
               ></CardCreateModal>
@@ -86,7 +86,7 @@
               <!--begin::Illustrations-->
               <img
                 class="mw-100 h-200px me-4 mb-5 mb-lg-0"
-                src="media/illustrations/sigma-1/11.png"
+                src="/media/illustrations/sigma-1/11.png"
               />
               <!--end::Illustrations-->
               <!--begin::Wrapper-->

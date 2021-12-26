@@ -1,6 +1,6 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import store from "@/store";
-import { Mutations, Actions } from "@/store/enums/StoreEnums";
+import { Mutations } from "@/store/enums/StoreEnums";
 const currentLanguage =
   localStorage.getItem("lang") || store.getters.getLanguage;
 const routes: Array<RouteRecordRaw> = [
@@ -86,11 +86,7 @@ const routes: Array<RouteRecordRaw> = [
           },
         ],
       },
-      {
-        path: "/apps/customers/getting-started",
-        name: "apps-customers-getting-started",
-        component: () => import("@/views/apps/customers/GettingStarted.vue"),
-      },
+
       {
         path: "/:lang/customers/customers-listing",
         name: "customers-listing",
@@ -255,7 +251,7 @@ const routes: Array<RouteRecordRaw> = [
           import("@/views/crafted/authentication/basic-flow/SignUp.vue"),
       },
       {
-        path: "/password-reset",
+        path: "/:lang/password-reset",
         name: "password-reset",
         component: () =>
           import("@/views/crafted/authentication/basic-flow/PasswordReset.vue"),
@@ -264,42 +260,47 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     // the 404 route, when none of the above matches
-    path: "/404",
+    path: "/:lang/404",
     name: "404",
     component: () => import("@/views/crafted/authentication/Error404.vue"),
   },
   {
-    path: "/500",
+    path: "/:lang/500",
     name: "500",
     component: () => import("@/views/crafted/authentication/Error500.vue"),
   },
   {
     path: "/:pathMatch(.*)*",
-    redirect: "/404",
+    redirect: `/${currentLanguage}/404`,
   },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
 router.beforeEach((to, from, next) => {
   const language = to.params.lang;
-  if (language) {
-    store.commit(Mutations.SET_LANG, language);
-  }
+  const availableLanguages = ["en", "ar"];
+
   // reset config to initial state
   store.commit(Mutations.RESET_LAYOUT_CONFIG);
 
-  store.dispatch(Actions.VERIFY_AUTH);
+  //store.dispatch(Actions.VERIFY_AUTH);
 
   // Scroll page to top on every route change
   setTimeout(() => {
     window.scrollTo(0, 0);
   }, 100);
-
-  next();
+  if (language && availableLanguages.includes(language.toString())) {
+    store.commit(Mutations.SET_LANG, language);
+    next();
+  } else {
+    store.commit(Mutations.SET_LANG, "ar");
+    to.params.lang = "ar";
+    next(`/ar/${to.name?.toString()}`);
+  }
 });
 
 export default router;

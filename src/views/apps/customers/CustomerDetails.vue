@@ -11,7 +11,7 @@
           <div class="d-flex flex-center flex-column mb-5">
             <!--begin::Avatar-->
             <div class="symbol symbol-100px symbol-circle mb-7">
-              <img src="media/avatars/150-26.jpg" alt="image" />
+              <img src="/media/avatars/150-26.jpg" alt="image" />
             </div>
             <!--end::Avatar-->
 
@@ -33,7 +33,7 @@
                 <div class="fs-4 fw-bolder text-gray-700">
                   <span class="w-75px">6,900</span>
                   <span class="svg-icon svg-icon-3 svg-icon-success">
-                    <inline-svg src="media/icons/duotune/arrows/arr066.svg" />
+                    <inline-svg src="/media/icons/duotune/arrows/arr066.svg" />
                   </span>
                 </div>
                 <div class="fw-bold text-muted">Earnings</div>
@@ -47,7 +47,7 @@
                 <div class="fs-4 fw-bolder text-gray-700">
                   <span class="w-50px">130</span>
                   <span class="svg-icon svg-icon-3 svg-icon-danger">
-                    <inline-svg src="media/icons/duotune/arrows/arr065.svg" />
+                    <inline-svg src="/media/icons/duotune/arrows/arr065.svg" />
                   </span>
                 </div>
                 <div class="fw-bold text-muted">Tasks</div>
@@ -61,7 +61,7 @@
                 <div class="fs-4 fw-bolder text-gray-700">
                   <span class="w-50px">500</span>
                   <span class="svg-icon svg-icon-3 svg-icon-success">
-                    <inline-svg src="media/icons/duotune/arrows/arr066.svg" />
+                    <inline-svg src="/media/icons/duotune/arrows/arr066.svg" />
                   </span>
                 </div>
                 <div class="fw-bold text-muted">Hours</div>
@@ -85,7 +85,7 @@
               Details
               <span class="ms-2 rotate-180">
                 <span class="svg-icon svg-icon-3">
-                  <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
                 </span>
               </span>
             </div>

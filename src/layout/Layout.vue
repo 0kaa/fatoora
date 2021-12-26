@@ -41,7 +41,7 @@
 import { defineComponent, computed, onMounted, watch, nextTick } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n/index";
-import { useRoute /*,useRouter*/ } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import KTHeader from "@/layout/header/Header.vue";
 import KTFooter from "@/layout/footer/Footer.vue";
 import HtmlClass from "@/core/services/LayoutService";
@@ -82,7 +82,7 @@ export default defineComponent({
     const store = useStore();
     const route = useRoute();
     const i18n = useI18n();
-    // const router = useRouter();
+    const router = useRouter();
 
     // show page loading
     store.dispatch(Actions.ADD_BODY_CLASSNAME, "page-loading");
@@ -98,12 +98,18 @@ export default defineComponent({
       return store.getters.pageBreadcrumbPath;
     });
 
+    const currentLanguage = computed(() => {
+      return store.getters.getLanguage;
+    });
+
     onMounted(() => {
       //check if current user is authenticated
-      // if (!store.getters.isUserAuthenticated) {
-      //   router.push({ name: "sign-in" });
-      // }
-
+      if (!store.getters.isUserAuthenticated) {
+        router.push({
+          name: "sign-in",
+          params: { lang: currentLanguage.value },
+        });
+      }
       nextTick(() => {
         reinitializeComponents();
       });
@@ -125,9 +131,12 @@ export default defineComponent({
           document.body.classList.remove("rtl");
         }
         // check if current user is authenticated
-        // if (!store.getters.isUserAuthenticated) {
-        //   router.push({ name: "sign-in" });
-        // }
+        if (!store.getters.isUserAuthenticated) {
+          router.push({
+            name: "sign-in",
+            params: { lang: currentLanguage.value },
+          });
+        }
 
         nextTick(() => {
           reinitializeComponents();

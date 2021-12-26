@@ -152,7 +152,7 @@
                   <span class="menu-icon">
                     <span class="svg-icon svg-icon-2">
                       <inline-svg
-                        src="media/icons/duotune/layouts/lay009.svg"
+                        src="/media/icons/duotune/layouts/lay009.svg"
                       />
                     </span>
                   </span>
@@ -189,7 +189,7 @@
                   v-if="headerMenuIcons === 'svg'"
                   class="svg-icon svg-icon-2"
                 >
-                  <inline-svg src="media/icons/duotune/general/gen002.svg" />
+                  <inline-svg src="/media/icons/duotune/general/gen002.svg" />
                 </span>
               </span>
               <span class="menu-title">{{ translate("components") }}</span>
@@ -209,7 +209,7 @@
                   v-else-if="headerMenuIcons === 'svg'"
                   class="svg-icon svg-icon-2"
                 >
-                  <inline-svg src="media/icons/duotune/abstract/abs027.svg" />
+                  <inline-svg src="/media/icons/duotune/abstract/abs027.svg" />
                 </span>
               </span>
               <span class="menu-title">{{ translate("documentation") }}</span>
@@ -229,7 +229,7 @@
                   v-else-if="headerMenuIcons === 'svg'"
                   class="svg-icon svg-icon-2"
                 >
-                  <inline-svg src="media/icons/duotune/coding/cod003.svg" />
+                  <inline-svg src="/media/icons/duotune/coding/cod003.svg" />
                 </span>
               </span>
               <span class="menu-title"

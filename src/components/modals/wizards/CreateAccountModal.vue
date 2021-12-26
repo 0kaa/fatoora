@@ -25,7 +25,7 @@
             data-bs-dismiss="modal"
           >
             <span class="svg-icon svg-icon-1">
-              <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
+              <inline-svg src="/media/icons/duotune/arrows/arr061.svg" />
             </span>
           </div>
           <!--end::Close-->
@@ -114,7 +114,7 @@
                         >
                           <span class="svg-icon svg-icon-3x me-5">
                             <inline-svg
-                              src="media/icons/duotune/communication/com005.svg"
+                              src="/media/icons/duotune/communication/com005.svg"
                             />
                           </span>
 
@@ -149,7 +149,7 @@
                         >
                           <span class="svg-icon svg-icon-3x me-5">
                             <inline-svg
-                              src="media/icons/duotune/finance/fin006.svg"
+                              src="/media/icons/duotune/finance/fin006.svg"
                             />
                           </span>
 
@@ -352,7 +352,7 @@
                       <!--begin::Icon-->
                       <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
                         <inline-svg
-                          src="media/icons/duotune/general/gen044.svg"
+                          src="/media/icons/duotune/general/gen044.svg"
                         />
                       </span>
                       <!--end::Icon-->
@@ -394,7 +394,7 @@
                   >
                     <span class="svg-icon svg-icon-3 me-1">
                       <inline-svg
-                        :src="`media/icons/duotune/arrows/arr06${
+                        :src="`/media/icons/duotune/arrows/arr06${
                           il8n.locale.value == 'ar' ? '4' : '3'
                         }.svg`"
                       />
@@ -416,7 +416,7 @@
                       {{ $t("submit") }}
                       <span class="svg-icon svg-icon-3 ms-2 me-0">
                         <inline-svg
-                          :src="`media/icons/duotune/arrows/arr06${
+                          :src="`/media/icons/duotune/arrows/arr06${
                             il8n.locale.value == 'ar' ? '3' : '4'
                           }.svg`"
                         />
@@ -434,7 +434,7 @@
                     {{ $t("continue") }}
                     <span class="svg-icon svg-icon-3 ms-1 me-0">
                       <inline-svg
-                        :src="`media/icons/duotune/arrows/arr06${
+                        :src="`/media/icons/duotune/arrows/arr06${
                           il8n.locale.value == 'ar' ? '3' : '4'
                         }.svg`"
                       />

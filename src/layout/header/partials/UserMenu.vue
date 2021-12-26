@@ -9,22 +9,22 @@
       <div class="menu-content d-flex align-items-center px-3">
         <!--begin::Avatar-->
         <div class="symbol symbol-50px me-5">
-          <img alt="Logo" src="media/avatars/150-26.jpg" />
+          <img alt="Logo" src="/media/avatars/150-26.jpg" />
         </div>
         <!--end::Avatar-->
 
         <!--begin::Username-->
         <div class="d-flex flex-column">
           <div class="fw-bolder d-flex align-items-center fs-5">
-            Max Smith
+            {{ user?.name }}
             <span
               class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"
               >Pro</span
             >
           </div>
-          <a href="#" class="fw-bold text-muted text-hover-primary fs-7"
-            >max@kt.com</a
-          >
+          <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{
+            user?.email
+          }}</a>
         </div>
         <!--end::Username-->
       </div>
@@ -192,7 +192,7 @@
             <span class="symbol symbol-20px me-4">
               <img
                 class="rounded-1"
-                src="media/flags/united-states.svg"
+                src="/media/flags/united-states.svg"
                 alt="metronic"
               />
             </span>
@@ -212,7 +212,7 @@
             <span class="symbol symbol-20px me-4">
               <img
                 class="rounded-1"
-                src="media/flags/saudi-arabia.svg"
+                src="/media/flags/saudi-arabia.svg"
                 alt="metronic"
               />
             </span>
@@ -257,15 +257,19 @@ export default defineComponent({
     const route = useRoute();
     const i18n = useI18n();
     const store = useStore();
-    const lang = localStorage.getItem("lang") || store.getters.getLanguage;
+    const currentLang = computed(() => {
+      return store.getters.getLanguage;
+    });
+    const lang = localStorage.getItem("lang") || currentLang.value;
+
     i18n.locale.value = lang;
     const countries = {
       en: {
-        flag: "media/flags/united-states.svg",
+        flag: "/media/flags/united-states.svg",
         name: "English",
       },
       ar: {
-        flag: "media/flags/saudi-arabia.svg",
+        flag: "/media/flags/saudi-arabia.svg",
         name: "Arabic",
       },
     };
@@ -273,8 +277,11 @@ export default defineComponent({
     const signOut = () => {
       store
         .dispatch(Actions.LOGOUT)
-        .then(() => router.push({ name: "sign-in" }));
+        .then(() =>
+          router.push({ name: "sign-in", params: { lang: currentLang.value } })
+        );
     };
+
     const setLang = (lang) => {
       i18n.locale.value = lang;
       if (i18n.locale.value == "ar") {
@@ -297,12 +304,17 @@ export default defineComponent({
       return countries[i18n.locale.value];
     });
 
+    const user = computed(() => {
+      return store.getters.currentUser;
+    });
+
     return {
       signOut,
       setLang,
       currentLanguage,
       currentLangugeLocale,
       countries,
+      user,
       i18n,
     };
   },
