@@ -51,7 +51,7 @@
 
             <!--begin::Label-->
             <div class="stepper-label">
-              <h3 class="stepper-title">Account Info</h3>
+              <h3 class="stepper-title">{{ $t("accountInfo") }}</h3>
             </div>
             <!--begin::Label-->
           </div>
@@ -72,7 +72,7 @@
 
             <!--begin::Label-->
             <div class="stepper-label">
-              <h3 class="stepper-title">Enterprise</h3>
+              <h3 class="stepper-title">{{ $t("enterpriseDetails") }}</h3>
             </div>
             <!--end::Label-->
           </div>
@@ -93,7 +93,7 @@
 
             <!--begin::Label-->
             <div class="stepper-label">
-              <h3 class="stepper-title">Confirm</h3>
+              <h3 class="stepper-title">{{ $t("confirm") }}</h3>
             </div>
             <!--end::Label-->
           </div>
@@ -104,7 +104,7 @@
 
       <!--begin::Form-->
       <form
-        class="w-100 h-100 d-flex flex-column py-lg-0 px-lg-20 p-10"
+        class="w-100 h-100 d-flex flex-column pb-lg-0 px-lg-20 p-10"
         novalidate="novalidate"
         id="kt_create_account_form"
         @submit="handleStep"
@@ -123,7 +123,7 @@
               <div class="pb-10 pb-lg-15">
                 <!--begin::Title-->
                 <h2 class="fw-bolder d-flex align-items-center text-dark">
-                  Choose Account Type
+                  {{ $t("chooseAccountType") }}
                   <i
                     class="fas fa-exclamation-circle ms-2 fs-7"
                     data-bs-toggle="tooltip"
@@ -135,14 +135,15 @@
 
                 <!--begin::Notice-->
                 <div class="text-gray-400 fw-bold fs-6">
-                  If you have account, please
+                  {{ $t("ifYouHaveAccount") }}
                   <router-link
                     :to="{
                       name: 'sign-in',
                       params: { lang: currentLanguage },
                     }"
                     class="link-primary fw-bolder"
-                    >Sign in</router-link
+                  >
+                    {{ $t("signIn") }} </router-link
                   >.
                 </div>
                 <!--end::Notice-->
@@ -160,7 +161,7 @@
                     <Field
                       type="radio"
                       class="btn-check"
-                      name="accountType"
+                      name="account_type"
                       value="cloud"
                       id="kt_create_account_form_account_type_cloud"
                     />
@@ -177,11 +178,11 @@
                       <!--begin::Info-->
                       <span class="d-block fw-bold text-start">
                         <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                          Cloud Account
+                          {{ $t("cloudAccount") }}
                         </span>
-                        <span class="text-gray-400 fw-bold fs-6"
-                          >If you need more info, please check it out</span
-                        >
+                        <span class="text-gray-400 fw-bold fs-6">
+                          {{ $t("checkItOut") }}
+                        </span>
                       </span>
                       <!--end::Info-->
                     </label>
@@ -195,7 +196,7 @@
                     <Field
                       type="radio"
                       class="btn-check"
-                      name="accountType"
+                      name="account_type"
                       value="custom"
                       id="kt_create_account_form_account_type_custom"
                     />
@@ -211,12 +212,12 @@
 
                       <!--begin::Info-->
                       <span class="d-block fw-bold text-start">
-                        <span class="text-dark fw-bolder d-block fs-4 mb-2"
-                          >Custom Account</span
-                        >
-                        <span class="text-gray-400 fw-bold fs-6"
-                          >Create corporate account to mane users</span
-                        >
+                        <span class="text-dark fw-bolder d-block fs-4 mb-2">{{
+                          $t("customAccount")
+                        }}</span>
+                        <span class="text-gray-400 fw-bold fs-6">
+                          {{ $t("createCorpAccount") }}
+                        </span>
                       </span>
                       <!--end::Info-->
                     </label>
@@ -237,8 +238,8 @@
             <!--begin::Wrapper-->
             <div class="w-100">
               <!--end::Heading-->
-              <label class="d-flex align-items-center form-label mb-3"
-                >Specify Team Size
+              <label class="d-flex align-items-center form-label mb-3">
+                {{ $t("specify_invoice_size") }}
                 <i
                   class="fas fa-exclamation-circle ms-2 fs-7"
                   data-bs-toggle="tooltip"
@@ -259,7 +260,7 @@
                   <Field
                     type="radio"
                     class="btn-check"
-                    name="invoicePlan"
+                    name="invoice_plan"
                     value="100"
                     id="kt_hundred_select"
                   />
@@ -278,7 +279,7 @@
                   <Field
                     type="radio"
                     class="btn-check"
-                    name="invoicePlan"
+                    name="invoice_plan"
                     value="1000"
                     id="kt_one_thousand_select"
                   />
@@ -298,7 +299,7 @@
                   <Field
                     type="radio"
                     class="btn-check"
-                    name="invoicePlan"
+                    name="invoice_plan"
                     value="5000"
                     id="kt_five_thousand_select"
                   />
@@ -318,7 +319,7 @@
                   <Field
                     type="radio"
                     class="btn-check"
-                    name="invoicePlan"
+                    name="invoice_plan"
                     value="10000"
                     id="kt_ten_thousand_select"
                   />
@@ -338,7 +339,7 @@
                   <Field
                     type="radio"
                     class="btn-check"
-                    name="invoicePlan"
+                    name="invoice_plan"
                     value="other"
                     id="kt_other_select"
                   />
@@ -346,7 +347,7 @@
                     class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
                     for="kt_other_select"
                   >
-                    <span class="fw-bolder fs-3">Other</span>
+                    <span class="fw-bolder fs-3">{{ $t("other") }}</span>
                   </label>
                   <!--end::Option-->
                 </div>
@@ -357,7 +358,7 @@
               <div class="row mb-5">
                 <div class="col-lg-6 mb-5">
                   <!--begin::Label-->
-                  <label class="form-label required">Name</label>
+                  <label class="form-label required">{{ $t("name") }}</label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
@@ -374,7 +375,9 @@
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="d-flex align-items-center form-label">
-                    <span class="required">Email Address</span>
+                    <span class="required">
+                      {{ $t("email") }}
+                    </span>
                   </label>
                   <!--end::Label-->
 
@@ -388,6 +391,10 @@
                     class="fv-plugins-message-container invalid-feedback"
                     name="email"
                   />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="emailExists"
+                  />
                   <!--end::Input-->
                 </div>
               </div>
@@ -399,7 +406,7 @@
                   <!--begin::Label-->
 
                   <label class="d-flex align-items-center form-label">
-                    <span class="required">Phone</span>
+                    <span class="required">{{ $t("phone") }}</span>
                   </label>
                   <!--end::Label-->
 
@@ -417,7 +424,7 @@
                 <div class="col-lg-6">
                   <!--end::Label-->
                   <label class="d-flex align-items-center form-label">
-                    <span class="required">Password</span>
+                    <span class="required">{{ $t("password") }}</span>
                   </label>
 
                   <!--end::Label-->
@@ -448,15 +455,10 @@
               <!--begin::Heading-->
               <div class="pb-10 pb-lg-12">
                 <!--begin::Title-->
-                <h2 class="fw-bolder text-dark">Business Details</h2>
+                <h2 class="fw-bolder text-dark">
+                  {{ $t("enterpriseDetails") }}
+                </h2>
                 <!--end::Title-->
-
-                <!--begin::Notice-->
-                <div class="text-gray-400 fw-bold fs-6">
-                  If you need more info, please check out
-                  <a href="#" class="link-primary fw-bolder">Help Page</a>.
-                </div>
-                <!--end::Notice-->
               </div>
               <!--end::Heading-->
 
@@ -464,37 +466,41 @@
               <div class="row mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="form-label required">Enterprise Name</label>
+                  <label class="form-label required">
+                    {{ $t("enterpriseName") }}
+                  </label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="enterpriseName"
+                    name="market_name_ar"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="enterpriseName"
+                    name="market_name_ar"
                   />
                   <!--end::Input-->
                 </div>
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="d-flex align-items-center form-label">
-                    <span class="required">Enterprise Address</span>
+                    <span class="required">
+                      {{ $t("enterpriseAddress") }}
+                    </span>
                   </label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="enterpriseAddress"
+                    name="market_address_ar"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="enterpriseAddress"
+                    name="market_address_ar"
                   />
                   <!--end::Input-->
                 </div>
@@ -505,36 +511,40 @@
               <div class="row mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="form-label">Enterprise Tax Number</label>
+                  <label class="form-label">
+                    {{ $t("enterpriseTaxNumber") }}
+                  </label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="enterpriseTaxNumber"
+                    name="market_tax_number"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="enterpriseTaxNumber"
+                    name="market_tax_number"
                   />
                   <!--end::Input-->
                 </div>
 
                 <div class="col-lg-6">
                   <!--end::Label-->
-                  <label class="form-label">Record Number</label>
+                  <label class="form-label">
+                    {{ $t("recordNumber") }}
+                  </label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="recordNumber"
+                    name="market_commercial_number"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="recordNumber"
+                    name="market_commercial_number"
                   />
                   <!--end::Input-->
                 </div>
@@ -545,39 +555,39 @@
               <div class="row mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label"
-                    >Number of the enterprise</label
+                  <label class="fs-6 fw-bold form-label">
+                    {{ $t("numberOfTheEnterprise") }}</label
                   >
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="numberOfTheEnterprise"
+                    name="market_standard_number"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="numberOfTheEnterprise"
+                    name="market_standard_number"
                   />
                   <!--end::Input-->
                 </div>
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label"
-                    >Enterprise website</label
+                  <label class="fs-6 fw-bold form-label">
+                    {{ $t("enterpriseWebsite") }}</label
                   >
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="enterpriseWebsite"
+                    name="market_site_url"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="enterpriseWebsite"
+                    name="market_site_url"
                   />
                   <!--end::Input-->
                 </div>
@@ -588,38 +598,38 @@
               <div class="row mb-10">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label"
-                    >Enterprise Email</label
-                  >
+                  <label class="fs-6 fw-bold form-label">
+                    {{ $t("enterpriseEmail") }}
+                  </label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="enterpriseEmail"
+                    name="market_email"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="enterpriseEmail"
+                    name="market_email"
                   />
                   <!--end::Input-->
                 </div>
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label"
-                    >Enterprise Phone</label
-                  >
+                  <label class="fs-6 fw-bold form-label">
+                    {{ $t("enterprisePhone") }}
+                  </label>
                   <!--end::Label-->
 
                   <!--begin::Input-->
                   <Field
-                    name="enterprisePhone"
+                    name="market_phone"
                     class="form-control form-control-lg form-control-solid"
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="enterprisePhone"
+                    name="market_phone"
                   />
                   <!--end::Input-->
                 </div>
@@ -634,13 +644,16 @@
                 "
               >
                 <!--begin::Label-->
-                <label class="fs-6 fw-bold form-label">Enterprise Logo</label>
+                <label class="fs-6 fw-bold form-label">
+                  {{ $t("enterpriseLogo") }}
+                </label>
                 <!--end::Label-->
                 <!--begin::Input-->
                 <Field
                   type="file"
+                  accept="image/*"
                   class="btn-check"
-                  name="enterpriseLogo"
+                  name="market_icon"
                   id="kt_logo_select"
                   @change="onFileChange"
                 />
@@ -650,9 +663,9 @@
                   :class="!imgPreview ? 'w-100' : ''"
                   for="kt_logo_select"
                 >
-                  <span v-if="!imgPreview" class="fw-bolder fs-3"
-                    >Upload Logo</span
-                  >
+                  <span v-if="!imgPreview" class="fw-bolder fs-3">
+                    {{ $t("uploadLogo") }}
+                  </span>
                   <img
                     v-else
                     width="150"
@@ -750,7 +763,7 @@
                 <span class="svg-icon svg-icon-3 me-1">
                   <inline-svg src="/media/icons/duotune/arrows/arr063.svg" />
                 </span>
-                Back
+                {{ $t("back") }}
               </button>
             </div>
             <!--end::Wrapper-->
@@ -764,13 +777,13 @@
                 @click="formSubmit()"
               >
                 <span class="indicator-label">
-                  Submit
+                  {{ $t("submit") }}
                   <span class="svg-icon svg-icon-3 ms-2 me-0">
                     <inline-svg src="icons/duotune/arrows/arr064.svg" />
                   </span>
                 </span>
                 <span class="indicator-progress">
-                  Please wait...
+                  {{ $t("pleaseWait") }}
                   <span
                     class="spinner-border spinner-border-sm align-middle ms-2"
                   ></span>
@@ -778,7 +791,7 @@
               </button>
 
               <button type="submit" class="btn btn-lg btn-primary" v-else>
-                Continue
+                {{ $t("continue") }}
                 <span class="svg-icon svg-icon-3 ms-1 me-0">
                   <inline-svg src="/media/icons/duotune/arrows/arr064.svg" />
                 </span>
@@ -841,19 +854,21 @@ import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Logo from "@/components/Logo.vue";
 import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
-import { useForm } from "vee-validate";
-import { Field, ErrorMessage } from "vee-validate";
+import { useForm, Field, ErrorMessage } from "vee-validate";
+
 import * as Yup from "yup";
 import { reinitializeComponents } from "@/core/plugins/keenthemes";
+import ApiService from "@/core/services/ApiService";
+import { AxiosRequestConfig } from "axios";
 
 // Account type
 interface Step1 {
-  accountType: string;
+  account_type: string;
 }
 
 // Account info
 interface Step2 {
-  invoicePlan: string;
+  invoice_plan: string;
   name: string;
   email: string;
   phone: string;
@@ -862,15 +877,15 @@ interface Step2 {
 
 // Enterprise Info
 interface Step3 {
-  enterpriseName: string;
-  enterpriseAddress: string;
-  enterpriseTaxNumber: string;
-  recordNumber: string;
-  numberOfTheEnterprise: string;
-  enterpriseWebsite: string;
-  enterpriseEmail: string;
-  enterprisePhone: string;
-  enterpriseLogo: string;
+  market_name_ar: string;
+  market_address_ar: string;
+  market_tax_number: string;
+  market_commercial_number: string;
+  market_standard_number: string;
+  market_site_url: string;
+  market_email: string;
+  market_phone: string;
+  market_icon: string;
 }
 
 interface KTCreateApp extends Step1, Step2, Step3 {}
@@ -891,27 +906,28 @@ export default defineComponent({
     const imgPreview = ref<string>("");
     const store = useStore();
     const formData = ref<KTCreateApp>({
-      accountType: "cloud",
-      invoicePlan: "100",
+      account_type: "cloud",
+      invoice_plan: "100",
       name: "",
       email: "",
       phone: "",
       password: "",
-      enterpriseName: "",
-      enterpriseAddress: "",
-      enterpriseTaxNumber: "",
-      recordNumber: "",
-      numberOfTheEnterprise: "",
-      enterpriseWebsite: "",
-      enterpriseEmail: "",
-      enterprisePhone: "",
-      enterpriseLogo: "",
+      market_name_ar: "",
+      market_address_ar: "",
+      market_tax_number: "",
+      market_commercial_number: "",
+      market_standard_number: "",
+      market_site_url: "",
+      market_email: "",
+      market_phone: "",
+      market_icon: "",
     });
 
     onMounted(() => {
       nextTick(() => {
         reinitializeComponents();
       });
+
       _stepperObj.value = StepperComponent.createInsance(
         createAccountRef.value as HTMLElement
       );
@@ -937,20 +953,18 @@ export default defineComponent({
     });
 
     const createAppSchema = [
-      // Yup.object({}),
       Yup.object({
-        accountType: Yup.string().required("Account Type is required"),
+        account_type: Yup.string().required("Account Type is required"),
       }),
 
       Yup.object({
-        invoicePlan: Yup.string().required("Invoice Plan is required"),
+        invoice_plan: Yup.string().required("Invoice Plan is required"),
         name: Yup.string().required("Name is required"),
         password: Yup.string()
           .min(8, "Password must be at least 8 characters")
           .required("Password is required"),
-        // phone validation
         phone: Yup.string()
-          // .matches(/^[0-9]/, "Phone number must be 10 digits long")
+          .matches(/^[0-9]/, "Phone number must be 10 digits long")
           .required("Phone number is required"),
         email: Yup.string()
           .email("Invalid email")
@@ -958,8 +972,8 @@ export default defineComponent({
       }),
 
       Yup.object({
-        enterpriseName: Yup.string().required().label("Enterprise Name"),
-        enterpriseAddress: Yup.string().required().label("Enterprise Address"),
+        market_name_ar: Yup.string().required().label("Enterprise Name"),
+        market_address_ar: Yup.string().required().label("Enterprise Address"),
       }),
     ];
 
@@ -999,6 +1013,15 @@ export default defineComponent({
           }
         }
       }
+      // if (currentStepIndex.value == 1) {
+      //   const body = {
+      //     phone: formData.value.phone,
+      //     email: formData.value.email,
+      //   };
+      //   ApiService.post("check_mail_or_phone", body as AxiosRequestConfig).then(
+      //     () => {}
+      //   );
+      // }
 
       currentStepIndex.value++;
 
@@ -1034,7 +1057,7 @@ export default defineComponent({
       const file = e.target.files[0];
       if (file) {
         imgPreview.value = URL.createObjectURL(e.target.files[0]);
-        formData.value.enterpriseLogo = file;
+        formData.value.market_icon = file;
       } else {
         imgPreview.value = "";
       }
