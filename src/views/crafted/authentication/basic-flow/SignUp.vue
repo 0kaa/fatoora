@@ -855,7 +855,7 @@ import Logo from "@/components/Logo.vue";
 import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm, Field, ErrorMessage } from "vee-validate";
-
+import { useI18n } from "vue-i18n/index";
 import * as Yup from "yup";
 import { reinitializeComponents } from "@/core/plugins/keenthemes";
 import ApiService from "@/core/services/ApiService";
@@ -905,6 +905,8 @@ export default defineComponent({
     const currentStepIndex = ref(0);
     const imgPreview = ref<string>("");
     const store = useStore();
+    const { t, te } = useI18n();
+
     const formData = ref<KTCreateApp>({
       account_type: "cloud",
       invoice_plan: "100",
@@ -932,6 +934,14 @@ export default defineComponent({
         createAccountRef.value as HTMLElement
       );
     });
+
+    const translate = (text) => {
+      if (te(text)) {
+        return t(text);
+      } else {
+        return text;
+      }
+    };
 
     const countries = {
       en: {
@@ -1013,23 +1023,89 @@ export default defineComponent({
           }
         }
       }
-      // if (currentStepIndex.value == 1) {
-      //   const body = {
-      //     phone: formData.value.phone,
-      //     email: formData.value.email,
-      //   };
-      //   ApiService.post("check_mail_or_phone", body as AxiosRequestConfig).then(
-      //     () => {}
-      //   );
-      // }
+      if (currentStepIndex.value == 1) {
+        const body = {
+          phone: formData.value.phone,
+          email: formData.value.email,
+        };
+        ApiService.post("check_mail_or_phone", body as AxiosRequestConfig).then(
+          ({ data }) => {
+            if (data.email_found) {
+              return Swal.fire({
+                text: translate("email_exist"),
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "OK",
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary",
+                },
+              });
+            } else if (data.phone_found) {
+              return Swal.fire({
+                text: translate("phone_exist"),
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "OK",
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary",
+                },
+              });
+            } else {
+              currentStepIndex.value++;
 
-      currentStepIndex.value++;
+              if (!_stepperObj.value) {
+                return;
+              }
+              _stepperObj.value.goNext();
+            }
+          }
+        );
+      } else if (currentStepIndex.value == 1) {
+        const body = {
+          market_phone: formData.value.market_phone,
+          market_email: formData.value.market_email,
+        };
+        ApiService.post("check_mail_or_phone", body as AxiosRequestConfig).then(
+          ({ data }) => {
+            if (data.market_email_found) {
+              return Swal.fire({
+                text: translate("email_exist"),
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "OK",
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary",
+                },
+              });
+            } else if (data.market_phone_found) {
+              return Swal.fire({
+                text: translate("phone_exist"),
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "OK",
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary",
+                },
+              });
+            } else {
+              currentStepIndex.value++;
 
-      if (!_stepperObj.value) {
-        return;
+              if (!_stepperObj.value) {
+                return;
+              }
+              _stepperObj.value.goNext();
+            }
+          }
+        );
+      } else {
+        currentStepIndex.value++;
+
+        if (!_stepperObj.value) {
+          return;
+        }
+
+        _stepperObj.value.goNext();
       }
-
-      _stepperObj.value.goNext();
     });
 
     const formSubmit = () => {

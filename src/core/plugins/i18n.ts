@@ -107,6 +107,8 @@ const messages = {
     specify_invoice_size: "Specify Invoices Number",
     other: "Other",
     uploadLogo: "Upload Logo",
+    email_exist: "This Email address is already registered",
+    phone_exist: "This Phone number is already registered",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -214,6 +216,8 @@ const messages = {
     specify_invoice_size: "حدد عدد الفواتير",
     other: "آخر",
     uploadLogo: "تحميل شعار",
+    email_exist: "البريد الإلكتروني مسجل بالفعل",
+    phone_exist: "رقم الهاتف مسجل بالفعل",
   },
 };
 
