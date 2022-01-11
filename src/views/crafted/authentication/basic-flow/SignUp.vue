@@ -1060,7 +1060,7 @@ export default defineComponent({
             }
           }
         );
-      } else if (currentStepIndex.value == 1) {
+      } else if (currentStepIndex.value == 2) {
         const body = {
           market_phone: formData.value.market_phone,
           market_email: formData.value.market_email,
@@ -1109,23 +1109,26 @@ export default defineComponent({
     });
 
     const formSubmit = () => {
-      Swal.fire({
-        text: "All is cool! Now you submit this form",
-        icon: "success",
-        buttonsStyling: false,
-        confirmButtonText: "Ok, got it!",
-        customClass: {
-          confirmButton: "btn fw-bold btn-light-primary",
-        },
-      }).then(() => {
-        hideModal(createAccountModalRef.value);
-        resetForm();
-        if (!_stepperObj.value) {
-          return;
-        }
-        currentStepIndex.value = 0;
-        imgPreview.value = "";
-        _stepperObj.value.goFirst();
+      const body = formData.value;
+      ApiService.post("register", body as AxiosRequestConfig).then(() => {
+        Swal.fire({
+          text: "All is cool! Now you submit this form",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+            confirmButton: "btn fw-bold btn-light-primary",
+          },
+        }).then(() => {
+          hideModal(createAccountModalRef.value);
+          resetForm();
+          if (!_stepperObj.value) {
+            return;
+          }
+          currentStepIndex.value = 0;
+          imgPreview.value = "";
+          _stepperObj.value.goFirst();
+        });
       });
     };
 
