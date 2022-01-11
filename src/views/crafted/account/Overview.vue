@@ -13,7 +13,7 @@
 
       <!--begin::Action-->
       <router-link
-        to="/account/settings"
+        :to="{ name: 'account-settings', params: { lang } }"
         class="btn btn-primary align-self-center"
       >
         {{ $t("editProfile") }}
@@ -28,17 +28,55 @@
       <div class="row mb-7">
         <!--begin::Label-->
         <label class="col-lg-4 fw-bold text-muted">
-          {{ $t("fullname") }}
+          {{ $t("name") }}
         </label>
         <!--end::Label-->
 
         <!--begin::Col-->
         <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Max Smith</span>
+          <span class="fw-bolder fs-6 text-dark">
+            {{ user?.name }}
+          </span>
         </div>
         <!--end::Col-->
       </div>
       <!--end::Row-->
+
+      <!--begin::Input group-->
+      <div class="row mb-7">
+        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("email") }}
+        </label>
+        <!--end::Label-->
+
+        <!--begin::Col-->
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">
+            {{ user?.email }}
+          </span>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-7">
+        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("phone") }}
+        </label>
+        <!--end::Label-->
+
+        <!--begin::Col-->
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">
+            {{ user?.phone }}
+          </span>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Input group-->
 
       <!--begin::Input group-->
       <div class="row mb-7">
@@ -50,7 +88,45 @@
 
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
-          <span class="fw-bold fs-6">Keenthemes</span>
+          <span class="fw-bold fs-6">
+            {{ user?.market_name_ar }}
+          </span>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-7">
+        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterpriseEmail") }}
+        </label>
+        <!--end::Label-->
+
+        <!--begin::Col-->
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">
+            {{ user?.market_email }}
+          </span>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-7">
+        <!--begin::Label-->
+        <label class="col-lg-4 fw-bold text-muted">
+          {{ $t("enterprisePhone") }}
+        </label>
+        <!--end::Label-->
+
+        <!--begin::Col-->
+        <div class="col-lg-8">
+          <span class="fw-bold fs-6">
+            {{ user?.market_phone }}
+          </span>
         </div>
         <!--end::Col-->
       </div>
@@ -61,19 +137,14 @@
         <!--begin::Label-->
         <label class="col-lg-4 fw-bold text-muted">
           {{ $t("enterpriseAddress") }}
-          <i
-            class="fas fa-exclamation-circle ms-1 fs-7"
-            data-bs-toggle="tooltip"
-            title="Phone number must be active"
-          ></i>
         </label>
         <!--end::Label-->
 
         <!--begin::Col-->
-        <div class="col-lg-8 d-flex align-items-center">
-          <span class="fw-bolder fs-6 me-2">044 3276 454 935</span>
-
-          <span class="badge badge-success">Verified</span>
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">
+            {{ user?.market_address_ar }}
+          </span>
         </div>
         <!--end::Col-->
       </div>
@@ -88,10 +159,10 @@
         <!--end::Label-->
 
         <!--begin::Col-->
-        <div class="col-lg-8">
-          <a href="#" class="fw-bold fs-6 text-dark text-hover-primary"
-            >keenthemes.com</a
-          >
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">
+            {{ user?.market_tax_number }}
+          </span>
         </div>
         <!--end::Col-->
       </div>
@@ -112,7 +183,9 @@
 
         <!--begin::Col-->
         <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Germany</span>
+          <span class="fw-bold fs-6">
+            {{ user?.market_standard_number }}
+          </span>
         </div>
         <!--end::Col-->
       </div>
@@ -128,7 +201,9 @@
 
         <!--begin::Col-->
         <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
+          <span class="fw-bold fs-6">
+            {{ user?.market_commercial_number }}
+          </span>
         </div>
         <!--end::Col-->
       </div>
@@ -144,55 +219,9 @@
 
         <!--begin::Col-->
         <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">
-          {{ $t("enterpriseEmail") }}
-        </label>
-        <!--end::Label-->
-
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">
-          {{ $t("enterprisePhone") }}
-        </label>
-        <!--end::Label-->
-
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-
-      <!--begin::Input group-->
-      <div class="row mb-10">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-bold text-muted">
-          {{ $t("enterpriseLogo") }}
-        </label>
-        <!--end::Label-->
-
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Email, Phone</span>
+          <span class="fw-bold fs-6">
+            {{ user?.market_site_url }}
+          </span>
         </div>
         <!--end::Col-->
       </div>
@@ -252,10 +281,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, computed } from "vue";
 import StatisticsWidget5 from "@/components/widgets/statsistics/Widget5.vue";
-
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "account-overview",
@@ -263,9 +292,14 @@ export default defineComponent({
     StatisticsWidget5,
   },
   setup() {
+    const store = useStore();
+    const lang = computed(() => store.getters.getLanguage);
+    const user = computed(() => store.getters.currentUser);
     onMounted(() => {
       setCurrentPageBreadcrumbs("overview", ["account"]);
     });
+
+    return { lang, user };
   },
 });
 </script>

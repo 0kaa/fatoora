@@ -10,10 +10,21 @@ config.rawError = true;
 
 const store = createStore({
   state: {
-    currency: {
-      symbol: "Riyal saudi",
-      code: "SAR",
-    },
+    currency: window.localStorage.getItem("currency") || "SAR",
+    currencies: [
+      {
+        name: "Riyal saudi",
+        code: "SAR",
+        symbol_ar: "ر.س",
+        symbol_en: "SAR",
+      },
+      {
+        name: "USA dollar",
+        code: "USD",
+        symbol_ar: "$",
+        symbol_en: "$",
+      },
+    ],
     lang: "ar",
   },
   modules: {

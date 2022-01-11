@@ -454,7 +454,7 @@
                                         />
                                       </td>
                                       <td class="pt-8 text-end text-nowrap">
-                                        {{ $store.state.currency.code }}
+                                        {{ $store.state.currency }}
                                         <span data-kt-element="total">
                                           {{
                                             item.quantity && item.price
@@ -558,7 +558,7 @@
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
-                                        {{ $store.state.currency.code }}
+                                        {{ $store.state.currency }}
                                         <span>{{
                                           totalInvoice.toFixed(2)
                                         }}</span>
@@ -576,7 +576,7 @@
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
-                                        {{ $store.state.currency.code }}
+                                        {{ $store.state.currency }}
                                         <span>
                                           {{
                                             formData.invoiceDiscount
@@ -599,7 +599,7 @@
                                         colspan="2"
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
-                                        {{ $store.state.currency.code }}
+                                        {{ $store.state.currency }}
                                         <span>
                                           {{
                                             (
@@ -621,7 +621,7 @@
                                         colspan="2"
                                         class="text-end fs-4 text-nowrap"
                                       >
-                                        {{ $store.state.currency.code }}
+                                        {{ $store.state.currency }}
                                         <span data-kt-element="grand-total">
                                           {{
                                             (

@@ -9,7 +9,7 @@
           <div
             class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
           >
-            <img src="/media/avatars/150-2.jpg" alt="image" />
+            <img :src="user?.market_icon" alt="image" />
             <div
               class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
             ></div>
@@ -30,8 +30,9 @@
                 <a
                   href="#"
                   class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1"
-                  >Max SmitWh</a
                 >
+                  {{ user?.name }}
+                </a>
                 <a href="#">
                   <span class="svg-icon svg-icon-1 svg-icon-primary">
                     <inline-svg src="/media/icons/duotune/general/gen026.svg" />
@@ -69,7 +70,7 @@
                   <span class="svg-icon svg-icon-4 me-1">
                     <inline-svg src="/media/icons/duotune/general/gen018.svg" />
                   </span>
-                  SF, Bay Area
+                  {{ user?.market_address_ar }}
                 </a>
                 <a
                   href="#"
@@ -80,7 +81,7 @@
                       src="/media/icons/duotune/communication/com011.svg"
                     />
                   </span>
-                  max@kt.com
+                  {{ user?.email }}
                 </a>
               </div>
               <!--end::Info-->
@@ -120,7 +121,9 @@
                   <!--begin::Number-->
                   <div class="d-flex align-items-center">
                     <span class="svg-icon svg-icon-success me-2">
-                      <inline-svg src="/media/icons/duotune/arrows/arr066.svg" />
+                      <inline-svg
+                        src="/media/icons/duotune/arrows/arr066.svg"
+                      />
                     </span>
                     <div
                       class="fs-2 fw-bolder"
@@ -146,7 +149,9 @@
                   <!--begin::Number-->
                   <div class="d-flex align-items-center justify-content-center">
                     <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
-                      <inline-svg src="/media/icons/duotune/arrows/arr065.svg" />
+                      <inline-svg
+                        src="/media/icons/duotune/arrows/arr065.svg"
+                      />
                     </span>
                     <div
                       class="fs-2 fw-bolder"
@@ -173,7 +178,9 @@
                   <!--begin::Number-->
                   <div class="d-flex align-items-center">
                     <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                      <inline-svg src="/media/icons/duotune/arrows/arr066.svg" />
+                      <inline-svg
+                        src="/media/icons/duotune/arrows/arr066.svg"
+                      />
                     </span>
                     <div
                       class="fs-2 fw-bolder"
@@ -257,9 +264,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const lang = computed(() => store.getters.getLanguage);
-    return {
-      lang,
-    };
+    const user = computed(() => store.getters.currentUser);
+    return { lang, user };
   },
 });
 </script>

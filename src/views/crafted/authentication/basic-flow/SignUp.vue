@@ -850,6 +850,8 @@
 import { computed, defineComponent, onMounted, nextTick, ref } from "vue";
 import { hideModal } from "@/core/helpers/dom";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { Actions } from "@/store/enums/StoreEnums";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Logo from "@/components/Logo.vue";
 import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
@@ -885,7 +887,6 @@ interface Step3 {
   market_site_url: string;
   market_email: string;
   market_phone: string;
-  market_icon: string;
 }
 
 interface KTCreateApp extends Step1, Step2, Step3 {}
@@ -905,8 +906,11 @@ export default defineComponent({
     const currentStepIndex = ref(0);
     const imgPreview = ref<string>("");
     const store = useStore();
-    const { t, te } = useI18n();
+    const router = useRouter();
 
+    const { t, te } = useI18n();
+    // market_icon file
+    const market_icon = ref<File | null>(null);
     const formData = ref<KTCreateApp>({
       account_type: "cloud",
       invoice_plan: "100",
@@ -922,7 +926,6 @@ export default defineComponent({
       market_site_url: "",
       market_email: "",
       market_phone: "",
-      market_icon: "",
     });
 
     onMounted(() => {
@@ -1108,35 +1111,114 @@ export default defineComponent({
       }
     });
 
+    //Form submit function
     const formSubmit = () => {
       const body = formData.value;
-      ApiService.post("register", body as AxiosRequestConfig).then(() => {
-        Swal.fire({
-          text: "All is cool! Now you submit this form",
-          icon: "success",
-          buttonsStyling: false,
-          confirmButtonText: "Ok, got it!",
-          customClass: {
-            confirmButton: "btn fw-bold btn-light-primary",
-          },
-        }).then(() => {
-          hideModal(createAccountModalRef.value);
-          resetForm();
-          if (!_stepperObj.value) {
-            return;
-          }
-          currentStepIndex.value = 0;
-          imgPreview.value = "";
-          _stepperObj.value.goFirst();
+      // upload image to server
+      const form = new FormData();
+      // loop to append all form values
+      for (const key in body) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (body.hasOwnProperty(key)) {
+          form.append(key, body[key]);
+        }
+      }
+      form.append("market_icon", market_icon.value as File);
+      // Clear existing errors
+      store.dispatch(Actions.LOGOUT);
+
+      store
+        .dispatch(Actions.REGISTER, form as AxiosRequestConfig)
+        .then(() => {
+          Swal.fire({
+            text: "You have successfully logged in!",
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+              confirmButton: "btn fw-bold btn-light-primary",
+            },
+          }).then(function () {
+            hideModal(createAccountModalRef.value);
+            resetForm();
+            if (!_stepperObj.value) {
+              return;
+            }
+            currentStepIndex.value = 0;
+            imgPreview.value = "";
+            _stepperObj.value.goFirst();
+
+            router.push({
+              name: "home",
+              params: { lang: currentLanguage.value },
+            });
+          });
+        })
+        .catch(() => {
+          Swal.fire({
+            text: store.getters.getErrors,
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Try again!",
+            customClass: {
+              confirmButton: "btn fw-bold btn-light-danger",
+            },
+          });
         });
-      });
     };
+    // const formSubmit = () => {
+    //   const body = formData.value;
+    //   // upload image to server
+    //   const form = new FormData();
+    //   // loop to append all form values
+    //   for (const key in body) {
+    //     // eslint-disable-next-line no-prototype-builtins
+    //     if (body.hasOwnProperty(key)) {
+    //       form.append(key, body[key]);
+    //     }
+    //   }
+    //   form.append("market_icon", market_icon.value as File);
+
+    //   ApiService.post("register", form as AxiosRequestConfig)
+    //     .then(() => {
+    //       Swal.fire({
+    //         text: "All is cool! Now you submit this form",
+    //         icon: "success",
+    //         buttonsStyling: false,
+    //         confirmButtonText: "Ok, got it!",
+    //         customClass: {
+    //           confirmButton: "btn fw-bold btn-light-primary",
+    //         },
+    //       }).then(() => {
+    //         hideModal(createAccountModalRef.value);
+    //         resetForm();
+    //         if (!_stepperObj.value) {
+    //           return;
+    //         }
+    //         currentStepIndex.value = 0;
+    //         imgPreview.value = "";
+    //         _stepperObj.value.goFirst();
+    //       });
+    //     })
+    //     .catch((e) => {
+    //       Swal.fire({
+    //         text: e.message,
+    //         icon: "error",
+    //         buttonsStyling: false,
+    //         confirmButtonText: "OK",
+    //         customClass: {
+    //           confirmButton: "btn fw-bold btn-light-primary",
+    //         },
+    //       });
+    //       previousStep();
+    //     });
+    // };
 
     const onFileChange = (e) => {
       const file = e.target.files[0];
       if (file) {
-        imgPreview.value = URL.createObjectURL(e.target.files[0]);
-        formData.value.market_icon = file;
+        imgPreview.value = URL.createObjectURL(file);
+        market_icon.value = file;
       } else {
         imgPreview.value = "";
       }

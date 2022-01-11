@@ -16,6 +16,7 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
   config = layoutConfig;
   initial = layoutConfig;
   lang = "ar";
+  backendURL = "https://fatora.jadara.work/public/storage/";
 
   /**
    * Get config from layout config
@@ -30,6 +31,11 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
   get getLanguage() {
     return this.lang;
   }
+
+  get getBackendURL() {
+    return this.backendURL;
+  }
+
   @Mutation
   [Mutations.SET_LAYOUT_CONFIG](payload): void {
     this.config = payload;

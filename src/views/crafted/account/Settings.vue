@@ -36,68 +36,7 @@
           <div class="row mb-6">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
-              {{ $t("profileImage") }}
-            </label>
-            <!--end::Label-->
-
-            <!--begin::Col-->
-            <div class="col-lg-8">
-              <!--begin::Image input-->
-              <div
-                class="image-input image-input-outline"
-                data-kt-image-input="true"
-                style="background-image: url(media/avatars/blank.png)"
-              >
-                <!--begin::Preview existing avatar-->
-                <div
-                  class="image-input-wrapper w-125px h-125px"
-                  :style="`background-image: url(${profileDetails.avatar})`"
-                ></div>
-                <!--end::Preview existing avatar-->
-
-                <!--begin::Label-->
-                <label
-                  class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                  data-kt-image-input-action="change"
-                  data-bs-toggle="tooltip"
-                  title="Change avatar"
-                >
-                  <i class="bi bi-pencil-fill fs-7"></i>
-
-                  <!--begin::Inputs-->
-                  <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                  <input type="hidden" name="avatar_remove" />
-                  <!--end::Inputs-->
-                </label>
-                <!--end::Label-->
-
-                <!--begin::Remove-->
-                <span
-                  class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                  data-kt-image-input-action="remove"
-                  data-bs-toggle="tooltip"
-                  @click="removeImage()"
-                  title="Remove avatar"
-                >
-                  <i class="bi bi-x fs-2"></i>
-                </span>
-                <!--end::Remove-->
-              </div>
-              <!--end::Image input-->
-
-              <!--begin::Hint-->
-              <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-              <!--end::Hint-->
-            </div>
-            <!--end::Col-->
-          </div>
-          <!--end::Input group-->
-
-          <!--begin::Input group-->
-          <div class="row mb-6">
-            <!--begin::Label-->
-            <label class="col-lg-4 col-form-label fw-bold fs-6">
-              {{ $t("fullname") }}
+              {{ $t("name") }}
             </label>
             <!--end::Label-->
 
@@ -105,14 +44,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="fullname"
+                name="name"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('fullname')"
+                :placeholder="$t('name')"
                 v-model="profileDetails.name"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="fname" />
+                  <ErrorMessage name="name" />
                 </div>
               </div>
             </div>
@@ -172,26 +111,13 @@
                 class="form-select form-select-solid form-select-lg"
                 v-model="profileDetails.currency"
               >
-                <option data-kt-flag="flags/united-states.svg" value="USD">
-                  <b>USD</b>&#160;-&#160;USA dollar
-                </option>
-                <option data-kt-flag="flags/united-kingdom.svg" value="GBP">
-                  <b>GBP</b>&#160;-&#160;British pound
-                </option>
-                <option data-kt-flag="flags/australia.svg" value="AUD">
-                  <b>AUD</b>&#160;-&#160;Australian dollar
-                </option>
-                <option data-kt-flag="flags/japan.svg" value="JPY">
-                  <b>JPY</b>&#160;-&#160;Japanese yen
-                </option>
-                <option data-kt-flag="flags/sweden.svg" value="SEK">
-                  <b>SEK</b>&#160;-&#160;Swedish krona
-                </option>
-                <option data-kt-flag="flags/canada.svg" value="CAD">
-                  <b>CAD</b>&#160;-&#160;Canadian dollar
-                </option>
-                <option data-kt-flag="flags/switzerland.svg" value="CHF">
-                  <b>CHF</b>&#160;-&#160;Swiss franc
+                <option
+                  v-for="(currency, index) in $store.state.currencies"
+                  :key="index"
+                  :value="currency.code"
+                >
+                  <b>{{ currency.code }}</b
+                  >&#160;-&#160;{{ currency.name }}
                 </option>
               </Field>
               <div class="fv-plugins-message-container">
@@ -208,13 +134,6 @@
 
         <!--begin::Actions-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-          <button
-            type="reset"
-            class="btn btn-white btn-active-light-primary me-2"
-          >
-            {{ $t("discard") }}
-          </button>
-
           <button
             type="submit"
             id="kt_account_profile_details_submit"
@@ -580,7 +499,7 @@
               {{ $t("saveChanges") }}
             </span>
             <span class="indicator-progress">
-              {{ $t("discard") }}
+              {{ $t("pleaseWait") }}
               <span
                 class="spinner-border spinner-border-sm align-middle ms-2"
               ></span>
@@ -759,28 +678,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, computed, ref } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
+import { useStore } from "vuex";
 
 interface ProfileDetails {
-  avatar: string;
   name: string;
-  surname: string;
-  company: string;
-  contactPhone: string;
-  companySite: string;
-  country: string;
-  language: string;
-  timezone: string;
+  phone: string;
+  market_name_ar: string;
+  market_address_ar: string;
+  market_tax_number: string;
+  market_commercial_number: string;
+  market_standard_number: string;
+  market_site_url: string;
+  market_email: string;
+  market_phone: string;
+  market_icon: string;
   currency: string;
-  communications: {
-    email: boolean;
-    phone: boolean;
-  };
-  allowMarketing: boolean;
 }
 
 export default defineComponent({
@@ -802,13 +719,14 @@ export default defineComponent({
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
 
+    // const user_avatar = ref<File | null>(null);
+    const store = useStore();
+    const lang = computed(() => store.getters.getLanguage);
+    const user = computed(() => store.getters.currentUser);
+
     const profileDetailsValidator = Yup.object().shape({
       name: Yup.string().required().label("name"),
       phone: Yup.string().required().label("phone"),
-      country: Yup.string().required().label("Country"),
-      language: Yup.string().required().label("Language"),
-      timezone: Yup.string().required().label("Timezone"),
-      currency: Yup.string().required().label("Currency"),
     });
 
     const changeEmail = Yup.object().shape({
@@ -827,21 +745,18 @@ export default defineComponent({
     });
 
     const profileDetails = ref<ProfileDetails>({
-      avatar: "/media/avatars/150-2.jpg",
-      name: "Max",
-      surname: "Smith",
-      company: "Keenthemes",
-      contactPhone: "044 3276 454 935",
-      companySite: "keenthemes.com",
-      country: "MY",
-      language: "msa",
-      timezone: "Kuala Lumpur",
-      currency: "USD",
-      communications: {
-        email: false,
-        phone: false,
-      },
-      allowMarketing: false,
+      name: "",
+      phone: "",
+      market_name_ar: "",
+      market_address_ar: "",
+      market_tax_number: "",
+      market_commercial_number: "",
+      market_standard_number: "",
+      market_site_url: "",
+      market_email: "",
+      market_phone: "",
+      market_icon: "",
+      currency: "",
     });
 
     const saveChanges1 = () => {
@@ -950,11 +865,15 @@ export default defineComponent({
     };
 
     const removeImage = () => {
-      profileDetails.value.avatar = "/media/avatars/blank.png";
+      profileDetails.value.market_icon = "/media/avatars/blank.png";
     };
 
     onMounted(() => {
       setCurrentPageBreadcrumbs("settings", ["account", "settings"]);
+      setTimeout(() => {
+        profileDetails.value = user.value;
+        profileDetails.value.currency = store.state.currency;
+      }, 1000);
     });
 
     return {
@@ -979,6 +898,8 @@ export default defineComponent({
       updatePasswordButton,
       updateEmail,
       updatePassword,
+      lang,
+      user,
     };
   },
 });
