@@ -172,7 +172,7 @@
       <div class="row mb-7">
         <!--begin::Label-->
         <label class="col-lg-4 fw-bold text-muted">
-          {{ $t("recordNumber") }}
+          {{ $t("enterpriseRecordNumber") }}
           <i
             class="fas fa-exclamation-circle ms-1 fs-7"
             data-bs-toggle="tooltip"

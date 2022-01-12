@@ -269,19 +269,19 @@
                   <div class="fv-row mb-10">
                     <!--end::Label-->
                     <label class="form-label">
-                      {{ $t("recordNumber") }}
+                      {{ $t("enterpriseRecordNumber") }}
                     </label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <Field
-                      name="recordNumber"
+                      name="enterpriseRecordNumber"
                       class="form-control form-control-lg form-control-solid"
                       value=""
                     />
                     <ErrorMessage
                       class="fv-plugins-message-container invalid-feedback"
-                      name="recordNumber"
+                      name="enterpriseRecordNumber"
                     />
                     <!--end::Input-->
                   </div>
@@ -476,7 +476,7 @@ interface Step2 {
   enterpriseName: string;
   enterpriseAddress: string;
   enterpriseTaxNumber: string;
-  recordNumber: string;
+  enterpriseRecordNumber: string;
   numberOfTheEnterprise: string;
 }
 
@@ -499,7 +499,7 @@ export default defineComponent({
       enterpriseName: "",
       enterpriseAddress: "",
       enterpriseTaxNumber: "",
-      recordNumber: "",
+      enterpriseRecordNumber: "",
       numberOfTheEnterprise: "",
     });
 

@@ -532,7 +532,7 @@
                 <div class="col-lg-6">
                   <!--end::Label-->
                   <label class="form-label">
-                    {{ $t("recordNumber") }}
+                    {{ $t("enterpriseRecordNumber") }}
                   </label>
                   <!--end::Label-->
 
@@ -1166,53 +1166,7 @@ export default defineComponent({
           });
         });
     };
-    // const formSubmit = () => {
-    //   const body = formData.value;
-    //   // upload image to server
-    //   const form = new FormData();
-    //   // loop to append all form values
-    //   for (const key in body) {
-    //     // eslint-disable-next-line no-prototype-builtins
-    //     if (body.hasOwnProperty(key)) {
-    //       form.append(key, body[key]);
-    //     }
-    //   }
-    //   form.append("market_icon", market_icon.value as File);
 
-    //   ApiService.post("register", form as AxiosRequestConfig)
-    //     .then(() => {
-    //       Swal.fire({
-    //         text: "All is cool! Now you submit this form",
-    //         icon: "success",
-    //         buttonsStyling: false,
-    //         confirmButtonText: "Ok, got it!",
-    //         customClass: {
-    //           confirmButton: "btn fw-bold btn-light-primary",
-    //         },
-    //       }).then(() => {
-    //         hideModal(createAccountModalRef.value);
-    //         resetForm();
-    //         if (!_stepperObj.value) {
-    //           return;
-    //         }
-    //         currentStepIndex.value = 0;
-    //         imgPreview.value = "";
-    //         _stepperObj.value.goFirst();
-    //       });
-    //     })
-    //     .catch((e) => {
-    //       Swal.fire({
-    //         text: e.message,
-    //         icon: "error",
-    //         buttonsStyling: false,
-    //         confirmButtonText: "OK",
-    //         customClass: {
-    //           confirmButton: "btn fw-bold btn-light-primary",
-    //         },
-    //       });
-    //       previousStep();
-    //     });
-    // };
 
     const onFileChange = (e) => {
       const file = e.target.files[0];

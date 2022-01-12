@@ -187,7 +187,7 @@
         id="kt_account_enterprise_details_form"
         class="form"
         novalidate="novalidate"
-        @submit="saveChanges1()"
+        @submit="saveChanges2()"
         :validation-schema="enterpriseDetailsValidator"
       >
         <!--begin::Card body-->
@@ -209,9 +209,12 @@
                 style="background-image: url(media/avatars/blank.png)"
               >
                 <!--begin::Preview existing avatar-->
+
                 <div
                   class="image-input-wrapper w-125px h-125px"
-                  :style="`background-image: url(${profileDetails.avatar})`"
+                  :style="`background-image: url(${
+                    imgPreview ? imgPreview : profileDetails.market_icon
+                  })`"
                 ></div>
                 <!--end::Preview existing avatar-->
 
@@ -225,7 +228,12 @@
                   <i class="bi bi-pencil-fill fs-7"></i>
 
                   <!--begin::Inputs-->
-                  <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    accept=".png, .jpg, .jpeg"
+                    @change="onFileChange"
+                  />
                   <input type="hidden" name="avatar_remove" />
                   <!--end::Inputs-->
                 </label>
@@ -265,14 +273,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="enterpriseName"
+                name="market_name_ar"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('enterpriseName')"
-                v-model="profileDetails.enterpriseName"
+                v-model="profileDetails.market_name_ar"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="enterpriseName" />
+                  <ErrorMessage name="market_name_ar" />
                 </div>
               </div>
             </div>
@@ -292,14 +300,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="email"
-                name="enterpriseEmail"
+                name="market_email"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('enterpriseEmail')"
-                v-model="profileDetails.enterpriseEmail"
+                v-model="profileDetails.market_email"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="enterpriseEmail" />
+                  <ErrorMessage name="market_email" />
                 </div>
               </div>
             </div>
@@ -319,14 +327,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="url"
-                name="enterpriseWebsite"
+                name="market_site_url"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('enterpriseWebsite')"
-                v-model="profileDetails.enterpriseWebsite"
+                v-model="profileDetails.market_site_url"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="enterpriseWebsite" />
+                  <ErrorMessage name="market_site_url" />
                 </div>
               </div>
             </div>
@@ -346,14 +354,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="numberOfTheEnterprise"
+                name="market_commercial_number"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('numberOfTheEnterprise')"
-                v-model="profileDetails.numberOfTheEnterprise"
+                v-model="profileDetails.market_commercial_number"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="numberOfTheEnterprise" />
+                  <ErrorMessage name="market_commercial_number" />
                 </div>
               </div>
             </div>
@@ -365,7 +373,7 @@
           <div class="row mb-6">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
-              {{ $t("recordNumber") }}
+              {{ $t("enterpriseRecordNumber") }}
             </label>
             <!--end::Label-->
 
@@ -373,14 +381,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="recordNumber"
+                name="market_standard_number"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('recordNumber')"
-                v-model="profileDetails.recordNumber"
+                :placeholder="$t('enterpriseRecordNumber')"
+                v-model="profileDetails.market_standard_number"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="recordNumber" />
+                  <ErrorMessage name="market_standard_number" />
                 </div>
               </div>
             </div>
@@ -400,14 +408,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="enterpriseTaxNumber"
+                name="market_tax_number"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('enterpriseTaxNumber')"
-                v-model="profileDetails.enterpriseTaxNumber"
+                v-model="profileDetails.market_tax_number"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="enterpriseTaxNumber" />
+                  <ErrorMessage name="market_tax_number" />
                 </div>
               </div>
             </div>
@@ -427,14 +435,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="enterpriseAddress"
+                name="market_address_ar"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('enterpriseAddress')"
-                v-model="profileDetails.enterpriseAddress"
+                v-model="profileDetails.market_address_ar"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="enterpriseAddress" />
+                  <ErrorMessage name="market_address_ar" />
                 </div>
               </div>
             </div>
@@ -462,15 +470,15 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="number"
-                name="enterprisePhone"
+                name="market_phone"
                 class="form-control form-control-lg form-control-solid"
                 :placeholder="$t('enterprisePhone')"
                 style="direction: inherit"
-                v-model="profileDetails.enterprisePhone"
+                v-model="profileDetails.market_phone"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="enterprisePhone" />
+                  <ErrorMessage name="market_phone" />
                 </div>
               </div>
             </div>
@@ -718,6 +726,8 @@ export default defineComponent({
 
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
+    const imgPreview = ref<string>("");
+    const market_icon = ref<File | null>(null);
 
     // const user_avatar = ref<File | null>(null);
     const store = useStore();
@@ -727,6 +737,16 @@ export default defineComponent({
     const profileDetailsValidator = Yup.object().shape({
       name: Yup.string().required().label("name"),
       phone: Yup.string().required().label("phone"),
+    });
+
+    const enterpriseDetailsValidator = Yup.object().shape({
+      market_name_ar: Yup.string().required().label("Enterprise"),
+      market_address_ar: Yup.string().required().label("Market Address"),
+      market_tax_number: Yup.string()
+        .min(15)
+        .required()
+        .label("market_tax_number"),
+      market_commercial_number: Yup.string().label("Market Commercial Number"),
     });
 
     const changeEmail = Yup.object().shape({
@@ -865,7 +885,18 @@ export default defineComponent({
     };
 
     const removeImage = () => {
-      profileDetails.value.market_icon = "/media/avatars/blank.png";
+      profileDetails.value.market_icon = user.value.market_icon;
+      imgPreview.value = "";
+    };
+
+    const onFileChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        imgPreview.value = URL.createObjectURL(file);
+        market_icon.value = file;
+      } else {
+        imgPreview.value = "";
+      }
     };
 
     onMounted(() => {
@@ -891,7 +922,10 @@ export default defineComponent({
       emailFormDisplay,
       passwordFormDisplay,
       removeImage,
+      onFileChange,
+      imgPreview,
       profileDetailsValidator,
+      enterpriseDetailsValidator,
       changeEmail,
       changePassword,
       updateEmailButton,
