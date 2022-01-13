@@ -213,7 +213,7 @@
                 <div
                   class="image-input-wrapper w-125px h-125px"
                   :style="`background-image: url(${
-                    imgPreview ? imgPreview : profileDetails.market_icon
+                    imgPreview ? imgPreview : profileDetails.market_image
                   })`"
                 ></div>
                 <!--end::Preview existing avatar-->
@@ -273,14 +273,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="market_name_ar"
+                name="market_name"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('enterpriseName')"
-                v-model="profileDetails.market_name_ar"
+                v-model="profileDetails.market_name"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="market_name_ar" />
+                  <ErrorMessage name="market_name" />
                 </div>
               </div>
             </div>
@@ -435,14 +435,14 @@
             <div class="col-lg-8 fv-row">
               <Field
                 type="text"
-                name="market_address_ar"
+                name="market_address"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 :placeholder="$t('enterpriseAddress')"
-                v-model="profileDetails.market_address_ar"
+                v-model="profileDetails.market_address"
               />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="market_address_ar" />
+                  <ErrorMessage name="market_address" />
                 </div>
               </div>
             </div>
@@ -491,16 +491,9 @@
         <!--begin::Actions-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
           <button
-            type="reset"
-            class="btn btn-white btn-active-light-primary me-2"
-          >
-            {{ $t("discard") }}
-          </button>
-
-          <button
             type="submit"
             id="kt_account_profile_details_submit"
-            ref="submitButton1"
+            ref="submitButton2"
             class="btn btn-primary"
           >
             <span class="indicator-label">
@@ -689,6 +682,7 @@
 import { defineComponent, onMounted, computed, ref } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
+import { Actions } from "@/store/enums/StoreEnums";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 import { useStore } from "vuex";
@@ -696,15 +690,15 @@ import { useStore } from "vuex";
 interface ProfileDetails {
   name: string;
   phone: string;
-  market_name_ar: string;
-  market_address_ar: string;
+  market_name: string;
+  market_address: string;
   market_tax_number: string;
   market_commercial_number: string;
   market_standard_number: string;
   market_site_url: string;
   market_email: string;
   market_phone: string;
-  market_icon: string;
+  market_image: string;
   currency: string;
 }
 
@@ -727,7 +721,7 @@ export default defineComponent({
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
     const imgPreview = ref<string>("");
-    const market_icon = ref<File | null>(null);
+    const market_image = ref<File | null>(null);
 
     // const user_avatar = ref<File | null>(null);
     const store = useStore();
@@ -736,12 +730,15 @@ export default defineComponent({
 
     const profileDetailsValidator = Yup.object().shape({
       name: Yup.string().required().label("name"),
-      phone: Yup.string().required().label("phone"),
+      phone: Yup.string()
+        .matches(/^[0-9]/, "Phone number must be 10 digits long")
+        .min(10, "Phone number must be 10 digits long")
+        .required("Phone number is required"),
     });
 
     const enterpriseDetailsValidator = Yup.object().shape({
-      market_name_ar: Yup.string().required().label("Enterprise"),
-      market_address_ar: Yup.string().required().label("Market Address"),
+      market_name: Yup.string().required().label("Enterprise"),
+      market_address: Yup.string().required().label("Market Address"),
       market_tax_number: Yup.string()
         .min(15)
         .required()
@@ -767,37 +764,78 @@ export default defineComponent({
     const profileDetails = ref<ProfileDetails>({
       name: "",
       phone: "",
-      market_name_ar: "",
-      market_address_ar: "",
+      market_name: "",
+      market_address: "",
       market_tax_number: "",
       market_commercial_number: "",
       market_standard_number: "",
       market_site_url: "",
       market_email: "",
       market_phone: "",
-      market_icon: "",
+      market_image: "",
       currency: "",
     });
 
     const saveChanges1 = () => {
       if (submitButton1.value) {
+        const userDetails = {
+          name: profileDetails.value.name,
+          phone: profileDetails.value.phone,
+        };
         // Activate indicator
         submitButton1.value.setAttribute("data-kt-indicator", "on");
-
-        setTimeout(() => {
+        store.dispatch(Actions.UPDATE_USER, userDetails).then((response) => {
           submitButton1.value?.removeAttribute("data-kt-indicator");
-        }, 2000);
+          Swal.fire({
+            text: response.message,
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+              confirmButton: "btn fw-bold btn-light-primary",
+            },
+          });
+        });
       }
     };
 
     const saveChanges2 = () => {
       if (submitButton2.value) {
+        const formData = new FormData();
+
+        const enterpriseDetails = {
+          market_name: profileDetails.value.market_name,
+          market_address: profileDetails.value.market_address,
+          market_tax_number: profileDetails.value.market_tax_number,
+          market_commercial_number:
+            profileDetails.value.market_commercial_number,
+          market_standard_number: profileDetails.value.market_standard_number,
+          market_site_url: profileDetails.value.market_site_url,
+          market_phone: profileDetails.value.market_phone,
+        };
+
+        if (market_image.value) {
+          formData.append("market_image", market_image.value);
+        }
+        for (let key in enterpriseDetails) {
+          formData.append(key, enterpriseDetails[key]);
+        }
+
         // Activate indicator
         submitButton2.value.setAttribute("data-kt-indicator", "on");
 
-        setTimeout(() => {
+        store.dispatch(Actions.UPDATE_USER, formData).then((response) => {
           submitButton2.value?.removeAttribute("data-kt-indicator");
-        }, 2000);
+          Swal.fire({
+            text: response.message,
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+              confirmButton: "btn fw-bold btn-light-primary",
+            },
+          });
+        });
       }
     };
 
@@ -885,7 +923,7 @@ export default defineComponent({
     };
 
     const removeImage = () => {
-      profileDetails.value.market_icon = user.value.market_icon;
+      profileDetails.value.market_image = user.value.market_image;
       imgPreview.value = "";
     };
 
@@ -893,7 +931,7 @@ export default defineComponent({
       const file = e.target.files[0];
       if (file) {
         imgPreview.value = URL.createObjectURL(file);
-        market_icon.value = file;
+        market_image.value = file;
       } else {
         imgPreview.value = "";
       }

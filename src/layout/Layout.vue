@@ -103,13 +103,6 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      //check if current user is authenticated
-      if (!store.getters.isUserAuthenticated) {
-        router.push({
-          name: "sign-in",
-          params: { lang: currentLanguage.value },
-        });
-      }
       nextTick(() => {
         reinitializeComponents();
       });

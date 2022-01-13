@@ -473,13 +473,13 @@
 
                   <!--begin::Input-->
                   <Field
-                    name="market_name_ar"
+                    name="market_name"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="market_name_ar"
+                    name="market_name"
                   />
                   <!--end::Input-->
                 </div>
@@ -494,13 +494,13 @@
 
                   <!--begin::Input-->
                   <Field
-                    name="market_address_ar"
+                    name="market_address"
                     class="form-control form-control-lg form-control-solid"
                     value=""
                   />
                   <ErrorMessage
                     class="fv-plugins-message-container invalid-feedback"
-                    name="market_address_ar"
+                    name="market_address"
                   />
                   <!--end::Input-->
                 </div>
@@ -653,7 +653,7 @@
                   type="file"
                   accept="image/*"
                   class="btn-check"
-                  name="market_icon"
+                  name="market_image"
                   id="kt_logo_select"
                   @change="onFileChange"
                 />
@@ -879,8 +879,8 @@ interface Step2 {
 
 // Enterprise Info
 interface Step3 {
-  market_name_ar: string;
-  market_address_ar: string;
+  market_name: string;
+  market_address: string;
   market_tax_number: string;
   market_commercial_number: string;
   market_standard_number: string;
@@ -909,8 +909,8 @@ export default defineComponent({
     const router = useRouter();
 
     const { t, te } = useI18n();
-    // market_icon file
-    const market_icon = ref<File | null>(null);
+    // market_image file
+    const market_image = ref<File | null>(null);
     const formData = ref<KTCreateApp>({
       account_type: "cloud",
       invoice_plan: "100",
@@ -918,8 +918,8 @@ export default defineComponent({
       email: "",
       phone: "",
       password: "",
-      market_name_ar: "",
-      market_address_ar: "",
+      market_name: "",
+      market_address: "",
       market_tax_number: "",
       market_commercial_number: "",
       market_standard_number: "",
@@ -978,6 +978,7 @@ export default defineComponent({
           .required("Password is required"),
         phone: Yup.string()
           .matches(/^[0-9]/, "Phone number must be 10 digits long")
+          .min(10, "Phone number must be 10 digits long")
           .required("Phone number is required"),
         email: Yup.string()
           .email("Invalid email")
@@ -985,8 +986,8 @@ export default defineComponent({
       }),
 
       Yup.object({
-        market_name_ar: Yup.string().required().label("Enterprise Name"),
-        market_address_ar: Yup.string().required().label("Enterprise Address"),
+        market_name: Yup.string().required().label("Enterprise Name"),
+        market_address: Yup.string().required().label("Enterprise Address"),
       }),
     ];
 
@@ -1123,7 +1124,7 @@ export default defineComponent({
           form.append(key, body[key]);
         }
       }
-      form.append("market_icon", market_icon.value as File);
+      form.append("market_image", market_image.value as File);
       // Clear existing errors
       store.dispatch(Actions.LOGOUT);
 
@@ -1172,7 +1173,7 @@ export default defineComponent({
       const file = e.target.files[0];
       if (file) {
         imgPreview.value = URL.createObjectURL(file);
-        market_icon.value = file;
+        market_image.value = file;
       } else {
         imgPreview.value = "";
       }

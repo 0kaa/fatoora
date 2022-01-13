@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent, nextTick, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import { Mutations, Actions } from "@/store/enums/StoreEnums";
 import { initializeComponents } from "@/core/plugins/keenthemes";
 
@@ -12,6 +13,7 @@ export default defineComponent({
   name: "app",
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const currentLanguage = computed(() => {
       return store.getters.getLanguage;
@@ -23,6 +25,13 @@ export default defineComponent({
         Mutations.SET_LANG,
         localStorage.getItem("lang") || currentLanguage.value
       );
+      //check if current user is authenticated
+      if (!store.getters.isUserAuthenticated) {
+        router.push({
+          name: "sign-in",
+          params: { lang: currentLanguage.value },
+        });
+      }
 
       nextTick(() => {
         initializeComponents();

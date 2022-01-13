@@ -10,15 +10,15 @@ export interface User {
   name: string;
   email: string;
   phone: string;
-  market_name_ar: string;
-  market_address_ar: string;
+  market_name: string;
+  market_address: string;
   market_tax_number: string;
   market_commercial_number: string;
   market_standard_number: string;
   market_site_url: string;
   market_email: string;
   market_phone: string;
-  market_icon: string;
+  market_image: string;
 }
 
 export interface UserAuthInfo {
@@ -93,6 +93,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
 
   @Action
   [Actions.LOGIN](credentials) {
+    ApiService.setLang();
     const body = {
       ...credentials,
     };
@@ -120,6 +121,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
 
   @Action
   [Actions.REGISTER](credentials) {
+    ApiService.setLang();
     return new Promise<void>((resolve, reject) => {
       ApiService.post("register", credentials)
         .then(({ data }) => {
@@ -173,19 +175,19 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
     }
   }
 
-  // @Action
-  // [Actions.UPDATE_USER](payload) {
-  //   ApiService.setHeader();
-  //   return new Promise<void>((resolve, reject) => {
-  //     ApiService.post("update_user", payload)
-  //       .then(({ data }) => {
-  //         this.context.commit(Mutations.SET_USER, data);
-  //         resolve();
-  //       })
-  //       .catch(({ response }) => {
-  //         this.context.commit(Mutations.SET_ERROR, response.data.errors);
-  //         reject();
-  //       });
-  //   });
-  // }
+  @Action
+  [Actions.UPDATE_USER](payload) {
+    ApiService.setHeader();
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("profile/edit", payload)
+        .then(({ data }) => {
+          this.context.commit(Mutations.SET_USER, data.data.user);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          this.context.commit(Mutations.SET_ERROR, response.data.errors);
+          reject();
+        });
+    });
+  }
 }

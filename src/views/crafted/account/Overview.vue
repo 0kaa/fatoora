@@ -89,7 +89,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.market_name_ar }}
+            {{ user?.market_name }}
           </span>
         </div>
         <!--end::Col-->
@@ -143,7 +143,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.market_address_ar }}
+            {{ user?.market_address }}
           </span>
         </div>
         <!--end::Col-->

@@ -29,8 +29,15 @@ class ApiService {
     ApiService.vueInstance.axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${JwtService.getToken()}`;
+    ApiService.vueInstance.axios.defaults.headers.common["Accept-Language"] =
+      window.localStorage.getItem("lang") || "ar";
     ApiService.vueInstance.axios.defaults.headers.common["Accept"] =
       "application/json";
+  }
+
+  public static setLang(): void {
+    ApiService.vueInstance.axios.defaults.headers.common["Accept-Language"] =
+      window.localStorage.getItem("lang") || "ar";
   }
 
   /**

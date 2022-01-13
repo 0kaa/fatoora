@@ -9,7 +9,7 @@
           <div
             class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
           >
-            <img :src="user?.market_icon" alt="image" />
+            <img :src="user?.market_image" alt="image" />
             <div
               class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
             ></div>
@@ -70,7 +70,7 @@
                   <span class="svg-icon svg-icon-4 me-1">
                     <inline-svg src="/media/icons/duotune/general/gen018.svg" />
                   </span>
-                  {{ user?.market_address_ar }}
+                  {{ user?.market_address }}
                 </a>
                 <a
                   href="#"
