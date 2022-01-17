@@ -5,7 +5,7 @@ import AuthModule from "@/store/modules/AuthModule";
 import BodyModule from "@/store/modules/BodyModule";
 import BreadcrumbsModule from "@/store/modules/BreadcrumbsModule";
 import ConfigModule from "@/store/modules/ConfigModule";
-
+import InvoiceModule from "@/store/modules/InvoiceModule";
 config.rawError = true;
 
 const store = createStore({
@@ -32,6 +32,7 @@ const store = createStore({
     BodyModule,
     BreadcrumbsModule,
     ConfigModule,
+    InvoiceModule,
   },
 });
 

@@ -11,7 +11,7 @@
         <thead>
           <!--begin::Table row-->
           <tr
-            class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0"
+            class="text-gray-400 fw-bolder fs-7 text-uppercase gs-0"
             role="row"
           >
             <template v-for="(cell, i) in tableHeader" :key="i">

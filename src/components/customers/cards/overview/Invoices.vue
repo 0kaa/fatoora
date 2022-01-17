@@ -8,329 +8,53 @@
         <h2>Invoices</h2>
       </div>
       <!--end::Card title-->
-
-      <!--begin::Toolbar-->
-      <div class="card-toolbar m-0">
-        <!--begin::Tab nav-->
-        <ul
-          class="nav nav-stretch fs-5 fw-bold nav-line-tabs nav-line-tabs-2x border-transparent"
-          role="tablist"
-        >
-          <li class="nav-item" role="presentation">
-            <a
-              id="kt_referrals_year_tab"
-              class="nav-link text-active-primary active"
-              data-bs-toggle="tab"
-              role="tab"
-              href="#kt_customer_details_invoices_1"
-            >
-              This Year
-            </a>
-          </li>
-
-          <li class="nav-item" role="presentation">
-            <a
-              id="kt_referrals_2019_tab"
-              class="nav-link text-active-primary ms-3"
-              data-bs-toggle="tab"
-              role="tab"
-              href="#kt_customer_details_invoices_2"
-            >
-              2020
-            </a>
-          </li>
-
-          <li class="nav-item" role="presentation">
-            <a
-              id="kt_referrals_2018_tab"
-              class="nav-link text-active-primary ms-3"
-              data-bs-toggle="tab"
-              role="tab"
-              href="#kt_customer_details_invoices_3"
-            >
-              2019
-            </a>
-          </li>
-
-          <li class="nav-item" role="presentation">
-            <a
-              id="kt_referrals_2017_tab"
-              class="nav-link text-active-primary ms-3"
-              data-bs-toggle="tab"
-              role="tab"
-              href="#kt_customer_details_invoices_4"
-            >
-              2018
-            </a>
-          </li>
-        </ul>
-        <!--end::Tab nav-->
-      </div>
-      <!--end::Toolbar-->
     </div>
     <!--end::Card header-->
 
     <!--begin::Card body-->
     <div class="card-body pt-0">
-      <!--begin::Tab Content-->
-      <div id="kt_referred_users_tab_content" class="tab-content">
-        <div
-          id="kt_customer_details_invoices_1"
-          class="py-0 tab-pane fade active show"
-          role="tabpanel"
+      <div class="py-0" v-if="invoices && invoices.length">
+        <Datatable
+          :table-header="tableHeader"
+          :table-data="invoices"
+          :rows-per-page="5"
+          :enable-items-per-page-dropdown="false"
         >
-          <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData1"
-            :rows-per-page="5"
-            :enable-items-per-page-dropdown="false"
-          >
-            <template v-slot:cell-order="{ row: invoice }">
-              {{ invoice.order }}
-            </template>
-            <template v-slot:cell-amount="{ row: invoice }">
-              <span :class="`text-${invoice.color}`">
-                {{ invoice.amount }}
-              </span>
-            </template>
-            <template v-slot:cell-status="{ row: invoice }">
-              <span :class="`badge badge-light-${invoice.status.state}`">{{
-                invoice.status.label
-              }}</span>
-            </template>
-            <template v-slot:cell-date="{ row: invoice }">
-              {{ invoice.date }}
-            </template>
-            <template v-slot:cell-invoice>
-              <a
-                href="#"
-                class="btn btn-sm btn-light btn-active-light-primary"
-                data-kt-menu-trigger="click"
-                data-kt-menu-placement="bottom-end"
-                data-kt-menu-flip="top-end"
-                >Actions
-                <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
-                </span>
-              </a>
-              <!--begin::Menu-->
-              <div
-                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                data-kt-menu="true"
-              >
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <router-link to="/invoice/1" class="menu-link px-3"
-                    >View</router-link
-                  >
-                </div>
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <a class="menu-link px-3">Download</a>
-                </div>
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <a class="menu-link px-3">Delete</a>
-                </div>
-                <!--end::Menu item-->
-              </div>
-              <!--end::Menu-->
-            </template>
-          </Datatable>
-        </div>
-        <div
-          id="kt_customer_details_invoices_2"
-          class="py-0 tab-pane fade"
-          role="tabpanel"
-        >
-          <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData2"
-            :rows-per-page="5"
-            :enable-items-per-page-dropdown="false"
-          >
-            <template v-slot:cell-order="{ row: invoice }">
-              {{ invoice.order }}
-            </template>
-            <template v-slot:cell-amount="{ row: invoice }">
-              <span :class="`text-${invoice.color}`">
-                {{ invoice.amount }}
-              </span>
-            </template>
-            <template v-slot:cell-status="{ row: invoice }">
-              <span :class="`badge badge-light-${invoice.status.state}`">{{
-                invoice.status.label
-              }}</span>
-            </template>
-            <template v-slot:cell-date="{ row: invoice }">
-              {{ invoice.date }}
-            </template>
-            <template v-slot:cell-invoice>
-              <a
-                href="#"
-                class="btn btn-sm btn-light btn-active-light-primary"
-                data-kt-menu-trigger="click"
-                data-kt-menu-placement="bottom-end"
-                data-kt-menu-flip="top-end"
-                >Actions
-                <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
-                </span>
-              </a>
-              <!--begin::Menu-->
-              <div
-                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                data-kt-menu="true"
-              >
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <router-link
-                    to="/apps/customers/customer-details"
-                    class="menu-link px-3"
-                    >View</router-link
-                  >
-                </div>
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <a class="menu-link px-3">Delete</a>
-                </div>
-                <!--end::Menu item-->
-              </div>
-              <!--end::Menu-->
-            </template>
-          </Datatable>
-        </div>
-        <div
-          id="kt_customer_details_invoices_3"
-          class="py-0 tab-pane fade"
-          role="tabpanel"
-        >
-          <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData3"
-            :rows-per-page="5"
-            :enable-items-per-page-dropdown="false"
-          >
-            <template v-slot:cell-order="{ row: invoice }">
-              {{ invoice.order }}
-            </template>
-            <template v-slot:cell-amount="{ row: invoice }">
-              <span :class="`text-${invoice.color}`">
-                {{ invoice.amount }}
-              </span>
-            </template>
-            <template v-slot:cell-status="{ row: invoice }">
-              <span :class="`badge badge-light-${invoice.status.state}`">{{
-                invoice.status.label
-              }}</span>
-            </template>
-            <template v-slot:cell-date="{ row: invoice }">
-              {{ invoice.date }}
-            </template>
-            <template v-slot:cell-invoice>
-              <a
-                href="#"
-                class="btn btn-sm btn-light btn-active-light-primary"
-                data-kt-menu-trigger="click"
-                data-kt-menu-placement="bottom-end"
-                data-kt-menu-flip="top-end"
-                >Actions
-                <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
-                </span>
-              </a>
-              <!--begin::Menu-->
-              <div
-                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                data-kt-menu="true"
-              >
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <router-link
-                    to="/apps/customers/customer-details"
-                    class="menu-link px-3"
-                    >View</router-link
-                  >
-                </div>
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <a class="menu-link px-3">Delete</a>
-                </div>
-                <!--end::Menu item-->
-              </div>
-              <!--end::Menu-->
-            </template>
-          </Datatable>
-        </div>
-        <div
-          id="kt_customer_details_invoices_4"
-          class="py-0 tab-pane fade"
-          role="tabpanel"
-        >
-          <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData4"
-            :rows-per-page="5"
-            :enable-items-per-page-dropdown="false"
-          >
-            <template v-slot:cell-order="{ row: invoice }">
-              {{ invoice.order }}
-            </template>
-            <template v-slot:cell-amount="{ row: invoice }">
-              <span :class="`text-${invoice.color}`">
-                {{ invoice.amount }}
-              </span>
-            </template>
-            <template v-slot:cell-status="{ row: invoice }">
-              <span :class="`badge badge-light-${invoice.status.state}`">{{
-                invoice.status.label
-              }}</span>
-            </template>
-            <template v-slot:cell-date="{ row: invoice }">
-              {{ invoice.date }}
-            </template>
-            <template v-slot:cell-invoice>
-              <a
-                href="#"
-                class="btn btn-sm btn-light btn-active-light-primary"
-                data-kt-menu-trigger="click"
-                data-kt-menu-placement="bottom-end"
-                data-kt-menu-flip="top-end"
-                >Actions
-                <span class="svg-icon svg-icon-5 m-0">
-                  <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
-                </span>
-              </a>
-              <!--begin::Menu-->
-              <div
-                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                data-kt-menu="true"
-              >
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <router-link
-                    to="/apps/customers/customer-details"
-                    class="menu-link px-3"
-                    >View</router-link
-                  >
-                </div>
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <a class="menu-link px-3">Delete</a>
-                </div>
-                <!--end::Menu item-->
-              </div>
-              <!--end::Menu-->
-            </template>
-          </Datatable>
-        </div>
+          <template v-slot:cell-rand_number="{ row: invoice }">
+            #{{ invoice.rand_number }}
+          </template>
+          <template v-slot:cell-total_price="{ row: invoice }">
+            <span class="text-success">
+              {{ invoice.total_price }}
+            </span>
+
+            <span class="currency mx-1 text-success fs-8">
+              {{ $store.state.currency }}
+            </span>
+          </template>
+          <template v-slot:cell-status="{ row: invoice }">
+            <span :class="`badge badge-light-success`">
+              {{ invoice.has_discount }}
+            </span>
+          </template>
+          <template v-slot:cell-release_date="{ row: invoice }">
+            {{ invoice.release_date }}
+          </template>
+          <template v-slot:cell-invoice="{ row: invoice }">
+            <router-link
+              :to="{
+                name: 'invoice-view',
+                params: {
+                  id: invoice.id,
+                  lang: currentLang,
+                },
+              }"
+              class="btn btn-sm btn-light btn-active-light-primary"
+              >View
+            </router-link>
+          </template>
+        </Datatable>
       </div>
-      <!--end::Tab Content-->
     </div>
     <!--end::Card body-->
   </div>
@@ -338,27 +62,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import Datatable from "@/components/kt-datatable/KTDatatable.vue";
-
+import { useStore } from "vuex";
 export default defineComponent({
   name: "invoices",
   props: {
     cardClasses: String,
+    invoices: Array,
   },
   components: {
     Datatable,
   },
   setup() {
+    const store = useStore();
+
+    const currentLang = computed(() => {
+      return store.getters.getLanguage;
+    });
     const tableHeader = ref([
       {
         name: "Order id",
-        key: "order",
+        key: "rand_number",
         sortable: true,
       },
       {
         name: "Amount",
-        key: "amount",
+        key: "total_price",
         sortable: true,
       },
       {
@@ -369,7 +99,7 @@ export default defineComponent({
       },
       {
         name: "Date",
-        key: "date",
+        key: "release_date",
         sortable: true,
       },
       {
@@ -381,7 +111,7 @@ export default defineComponent({
     const tableData1 = ref([
       {
         date: "Nov 01, 2020",
-        order: "102445788",
+        rand_number: "102445788",
         details: "Darknight transparency  36 Icons Pack",
         color: "success",
         amount: "$38.00",
@@ -392,7 +122,7 @@ export default defineComponent({
       },
       {
         date: "Oct 24, 2020",
-        order: "423445721",
+        rand_number: "423445721",
         details: "Seller Fee",
         color: "danger",
         amount: "$-2.60",
@@ -403,7 +133,7 @@ export default defineComponent({
       },
       {
         date: "Oct 08, 2020",
-        order: "312445984",
+        rand_number: "312445984",
         details: "Cartoon Mobile Emoji Phone Pack",
         color: "success",
         amount: "$76.00",
@@ -414,7 +144,7 @@ export default defineComponent({
       },
       {
         date: "Sep 15, 2020",
-        order: "312445984",
+        rand_number: "312445984",
         details: "Iphone 12 Pro Mockup  Mega Bundle",
         color: "success",
         amount: "$5.00",
@@ -425,7 +155,7 @@ export default defineComponent({
       },
       {
         date: "May 30, 2020",
-        order: "523445943",
+        rand_number: "523445943",
         details: "Seller Fee",
         color: "danger",
         amount: "$-1.30",
@@ -436,7 +166,7 @@ export default defineComponent({
       },
       {
         date: "Apr 22, 2020",
-        order: "231445943",
+        rand_number: "231445943",
         details: "Parcel Shipping / Delivery Service App",
         color: "success",
         amount: "$204.00",
@@ -447,7 +177,7 @@ export default defineComponent({
       },
       {
         date: "Feb 09, 2020",
-        order: "426445943",
+        rand_number: "426445943",
         details: "Visual Design Illustration",
         color: "success",
         amount: "$31.00",
@@ -458,7 +188,7 @@ export default defineComponent({
       },
       {
         date: "Nov 01, 2020",
-        order: "984445943",
+        rand_number: "984445943",
         details: "Abstract Vusial Pack",
         color: "success",
         amount: "$52.00",
@@ -469,313 +199,10 @@ export default defineComponent({
       },
       {
         date: "Jan 04, 2020",
-        order: "324442313",
+        rand_number: "324442313",
         details: "Seller Fee",
         color: "danger",
         amount: "$-0.80",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-    ]);
-    const tableData2 = ref([
-      {
-        date: "May 30, 2020",
-        order: "523445943",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-1.30",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Apr 22, 2020",
-        order: "231445943",
-        details: "Parcel Shipping / Delivery Service App",
-        color: "success",
-        amount: "$204.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Feb 09, 2020",
-        order: "426445943",
-        details: "Visual Design Illustration",
-        color: "success",
-        amount: "$31.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Nov 01, 2020",
-        order: "984445943",
-        details: "Abstract Vusial Pack",
-        color: "success",
-        amount: "$52.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Jan 04, 2020",
-        order: "324442313",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-0.80",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Nov 01, 2020",
-        order: "102445788",
-        details: "Darknight transparency  36 Icons Pack",
-        color: "success",
-        amount: "$38.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 24, 2020",
-        order: "423445721",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-2.60",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 08, 2020",
-        order: "312445984",
-        details: "Cartoon Mobile Emoji Phone Pack",
-        color: "success",
-        amount: "$76.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Sep 15, 2020",
-        order: "312445984",
-        details: "Iphone 12 Pro Mockup  Mega Bundle",
-        color: "success",
-        amount: "$5.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-    ]);
-    const tableData3 = ref([
-      {
-        date: "Feb 09, 2020",
-        order: "426445943",
-        details: "Visual Design Illustration",
-        color: "success",
-        amount: "$31.00",
-        status: {
-          label: "Successful",
-          state: "success",
-        },
-      },
-      {
-        date: "Nov 01, 2020",
-        order: "984445943",
-        details: "Abstract Vusial Pack",
-        color: "success",
-        amount: "$52.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Jan 04, 2020",
-        order: "324442313",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-0.80",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Sep 15, 2020",
-        order: "312445984",
-        details: "Iphone 12 Pro Mockup  Mega Bundle",
-        color: "success",
-        amount: "$5.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Nov 01, 2020",
-        order: "102445788",
-        details: "Darknight transparency  36 Icons Pack",
-        color: "success",
-        amount: "$38.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 24, 2020",
-        order: "423445721",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-2.60",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 08, 2020",
-        order: "312445984",
-        details: "Cartoon Mobile Emoji Phone Pack",
-        color: "success",
-        amount: "$76.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "May 30, 2020",
-        order: "523445943",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-1.30",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Apr 22, 2020",
-        order: "231445943",
-        details: "Parcel Shipping / Delivery Service App",
-        color: "success",
-        amount: "$204.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-    ]);
-    const tableData4 = ref([
-      {
-        date: "Nov 01, 2020",
-        order: "102445788",
-        details: "Darknight transparency  36 Icons Pack",
-        color: "success",
-        amount: "$38.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 24, 2020",
-        order: "423445721",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-2.60",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Nov 01, 2020",
-        order: "102445788",
-        details: "Darknight transparency  36 Icons Pack",
-        color: "success",
-        amount: "$38.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 24, 2020",
-        order: "423445721",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-2.60",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Feb 09, 2020",
-        order: "426445943",
-        details: "Visual Design Illustration",
-        color: "success",
-        amount: "$31.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Nov 01, 2020",
-        order: "984445943",
-        details: "Abstract Vusial Pack",
-        color: "success",
-        amount: "$52.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Jan 04, 2020",
-        order: "324442313",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-0.80",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 08, 2020",
-        order: "312445984",
-        details: "Cartoon Mobile Emoji Phone Pack",
-        color: "success",
-        amount: "$76.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 08, 2020",
-        order: "312445984",
-        details: "Cartoon Mobile Emoji Phone Pack",
-        color: "success",
-        amount: "$76.00",
         status: {
           label: "Pending",
           state: "warning",
@@ -783,7 +210,7 @@ export default defineComponent({
       },
     ]);
 
-    return { tableHeader, tableData1, tableData2, tableData3, tableData4 };
+    return { tableHeader, tableData1, currentLang };
   },
 });
 </script>

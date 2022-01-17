@@ -6,12 +6,20 @@ enum Actions {
   ADD_BODY_ATTRIBUTE = "addBodyAttribute",
   REMOVE_BODY_ATTRIBUTE = "removeBodyAttribute",
   ADD_CLASSNAME = "addClassName",
+  // User actions
   VERIFY_AUTH = "verifyAuth",
   LOGIN = "login",
   LOGOUT = "logout",
   REGISTER = "register",
   UPDATE_USER = "updateUser",
   FORGOT_PASSWORD = "forgotPassword",
+  // Invoice actions
+  GET_INVOICES = "getInvoices",
+  // GET_INVOICE = "getInvoice",
+  // CREATE_INVOICE = "createInvoice",
+  // UPDATE_INVOICE = "updateInvoice",
+  // DELETE_INVOICE = "deleteInvoice",
+
   SET_BREADCRUMB_ACTION = "setBreadcrumbAction",
 }
 
