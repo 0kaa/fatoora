@@ -1,30 +1,15 @@
 import ApiService from "@/core/services/ApiService";
-// import JwtService from "@/core/services/JwtService";
 import { Actions } from "@/store/enums/StoreEnums";
 import { Module, Action, VuexModule } from "vuex-module-decorators";
-// import { AxiosRequestConfig } from "axios";
-
-export interface Invoice {
-  id: number;
-  type: string;
-  summmary: string;
-  release_date: string;
-  due_date: string;
-  rand_number: string;
-  has_discount: boolean;
-  total_price: string;
-  qr_code: string;
-  customer_id: number;
-}
 
 @Module
 export default class AuthModule extends VuexModule {
   @Action
-  [Actions.GET_INVOICES]() {
+  [Actions.GET_CUSTOMERS]() {
     ApiService.setHeader();
 
     return new Promise<void>((resolve, reject) => {
-      ApiService.query("invoices", {})
+      ApiService.query("customers-list", {})
         .then(({ data }) => {
           resolve(data.data);
         })
@@ -35,11 +20,11 @@ export default class AuthModule extends VuexModule {
   }
 
   @Action
-  [Actions.GET_INVOICE](id: string) {
+  [Actions.GET_CUSTOMER](id: string) {
     ApiService.setHeader();
 
     return new Promise<void>((resolve, reject) => {
-      ApiService.get("invoices/show", id)
+      ApiService.get("/customers/show/", id)
         .then(({ data }) => {
           resolve(data.data);
         })

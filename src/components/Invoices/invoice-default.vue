@@ -137,7 +137,9 @@
                 <div class="text-end pt-10">
                   <!--begin::Total Amount-->
                   <div class="fs-3 fw-bolder text-muted mb-3">TOTAL AMOUNT</div>
-                  <div class="fs-xl-2x fs-2 fw-boldest">$20,600.00</div>
+                  <div class="fs-xl-2x fs-2 fw-boldest">
+                    {{ invoice.total_price + " " + $store.state.currency }}
+                  </div>
                   <div class="text-muted fw-bold">Taxes included</div>
                   <!--end::Total Amount-->
                   <div class="border-bottom w-100 my-7 my-lg-16"></div>
@@ -208,6 +210,9 @@ import { defineComponent, ref } from "vue";
 import jsPDF from "jspdf";
 export default defineComponent({
   name: "invoice-default",
+  props: {
+    invoice: Object,
+  },
   setup() {
     const root = ref();
     const printing = ref(false);

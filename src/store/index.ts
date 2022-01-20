@@ -6,6 +6,7 @@ import BodyModule from "@/store/modules/BodyModule";
 import BreadcrumbsModule from "@/store/modules/BreadcrumbsModule";
 import ConfigModule from "@/store/modules/ConfigModule";
 import InvoiceModule from "@/store/modules/InvoiceModule";
+import CustomerModule from "@/store/modules/CustomerModule";
 config.rawError = true;
 
 const store = createStore({
@@ -33,6 +34,7 @@ const store = createStore({
     BreadcrumbsModule,
     ConfigModule,
     InvoiceModule,
+    CustomerModule,
   },
 });
 

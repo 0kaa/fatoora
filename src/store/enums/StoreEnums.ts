@@ -15,10 +15,13 @@ enum Actions {
   FORGOT_PASSWORD = "forgotPassword",
   // Invoice actions
   GET_INVOICES = "getInvoices",
-  // GET_INVOICE = "getInvoice",
+  GET_INVOICE = "getInvoice",
   // CREATE_INVOICE = "createInvoice",
   // UPDATE_INVOICE = "updateInvoice",
   // DELETE_INVOICE = "deleteInvoice",
+  // Customer actions
+  GET_CUSTOMERS = "getCustomers",
+  GET_CUSTOMER = "getCustomer",
 
   SET_BREADCRUMB_ACTION = "setBreadcrumbAction",
 }
