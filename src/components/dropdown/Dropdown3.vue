@@ -79,10 +79,7 @@ export default defineComponent({
         document.body.classList.remove("rtl");
       }
       store.commit("setLang", lang);
-      router.push({
-        name: route.name?.toString(),
-        params: { lang: i18n.locale.value },
-      });
+      router.push({ name: route.name?.toString() });
     };
 
     const currentLanguage = (lang) => {

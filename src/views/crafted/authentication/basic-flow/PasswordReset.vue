@@ -63,7 +63,7 @@
             </button>
 
             <router-link
-              :to="{ name: 'sign-up', params: { lang: currentLanguage } }"
+              :to="{ name: 'sign-up' }"
               class="btn btn-lg btn-light-primary fw-bolder"
             >
               {{ $t("cancel") }}</router-link

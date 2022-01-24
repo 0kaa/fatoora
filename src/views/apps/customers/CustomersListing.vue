@@ -138,7 +138,7 @@
           <router-link
             :to="{
               name: 'customers-details',
-              params: { id: customer.id, lang: currentLanguage },
+              params: { id: customer.id },
             }"
             class="btn btn-sm btn-light btn-active-light-primary"
           >
@@ -153,7 +153,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import Datatable from "@/components/kt-datatable/KTDatatable.vue";
 import ExportCustomerModal from "@/components/modals/forms/ExportCustomerModal.vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
@@ -178,7 +178,6 @@ export default defineComponent({
   setup() {
     const checkedCustomers = ref([]);
     const store = useStore();
-    const currentLanguage = computed(() => store.getters.getLanguage);
     const tableHeader = ref([
       {
         key: "checkbox",
@@ -307,7 +306,6 @@ export default defineComponent({
       search,
       initCustomers,
       // createPDF,
-      currentLanguage,
       searchItems,
       checkedCustomers,
       deleteFewCustomers,

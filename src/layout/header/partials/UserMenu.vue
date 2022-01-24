@@ -37,10 +37,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link
-        :to="{ name: 'account-overview', params: { lang: i18n.locale.value } }"
-        class="menu-link px-5"
-      >
+      <router-link :to="{ name: 'account-overview' }" class="menu-link px-5">
         {{ $t("my_profile") }}
       </router-link>
     </div>
@@ -48,10 +45,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link
-        :to="{ name: 'invoices', params: { lang: i18n.locale.value } }"
-        class="menu-link px-5"
-      >
+      <router-link :to="{ name: 'invoices' }" class="menu-link px-5">
         <span class="menu-text">{{ $t("my_invoices") }}</span>
       </router-link>
     </div>
@@ -143,10 +137,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link
-        :to="{ name: 'customers-listing', params: { lang: i18n.locale.value } }"
-        class="menu-link px-5"
-      >
+      <router-link :to="{ name: 'customers-listing' }" class="menu-link px-5">
         {{ $t("my_customers") }}
       </router-link>
     </div>
@@ -277,9 +268,7 @@ export default defineComponent({
     const signOut = () => {
       store
         .dispatch(Actions.LOGOUT)
-        .then(() =>
-          router.push({ name: "sign-in", params: { lang: currentLang.value } })
-        );
+        .then(() => router.push({ name: "sign-in" }));
     };
 
     const setLang = (lang) => {
@@ -292,7 +281,6 @@ export default defineComponent({
       store.commit("setLang", lang);
       router.push({
         name: route.name?.toString(),
-        params: { lang: i18n.locale.value },
       });
     };
 

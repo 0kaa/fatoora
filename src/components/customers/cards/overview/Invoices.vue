@@ -60,7 +60,6 @@
                 name: 'invoice-view',
                 params: {
                   id: invoice.id,
-                  lang: currentLang,
                 },
               }"
               class="btn btn-sm btn-light btn-active-light-primary"
@@ -83,9 +82,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref } from "vue";
 import Datatable from "@/components/kt-datatable/KTDatatable.vue";
-import { useStore } from "vuex";
 export default defineComponent({
   name: "invoices",
   props: {
@@ -96,11 +94,6 @@ export default defineComponent({
     Datatable,
   },
   setup() {
-    const store = useStore();
-
-    const currentLang = computed(() => {
-      return store.getters.getLanguage;
-    });
     const tableHeader = ref([
       {
         name: "Order id",
@@ -235,7 +228,7 @@ export default defineComponent({
       },
     ]);
 
-    return { tableHeader, tableData1, currentLang };
+    return { tableHeader, tableData1 };
   },
 });
 </script>

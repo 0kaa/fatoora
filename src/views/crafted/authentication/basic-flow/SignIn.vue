@@ -25,7 +25,7 @@
               {{ $t("newHere") }}
 
               <router-link
-                :to="{ name: 'sign-up', params: { lang: currentLanguage } }"
+                :to="{ name: 'sign-up' }"
                 class="link-primary fw-bolder"
               >
                 {{ $t("create_account") }}
@@ -73,7 +73,6 @@
               <router-link
                 :to="{
                   name: 'password-reset',
-                  params: { lang: currentLanguage },
                 }"
                 class="link-primary fs-6 fw-bolder"
               >
@@ -254,7 +253,6 @@ export default defineComponent({
               // Go to page after successfully login
               router.push({
                 name: "home",
-                params: { lang: currentLanguage.value },
               });
             });
           })

@@ -15,10 +15,7 @@
     <!--end::Message-->
 
     <!--begin::Link-->
-    <router-link
-      :to="{ name: 'home', params: { lang: currentLanguage } }"
-      class="btn btn-primary"
-    >
+    <router-link :to="{ name: 'home' }" class="btn btn-primary">
       {{ $t("returnHome") }}
     </router-link>
     <!--end::Link-->
@@ -26,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed, onUnmounted } from "vue";
+import { defineComponent, onMounted, onUnmounted } from "vue";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
 
@@ -35,7 +32,6 @@ export default defineComponent({
   components: {},
   setup() {
     const store = useStore();
-    const currentLanguage = computed(() => store.getters.getLanguage);
     onMounted(() => {
       store.dispatch(Actions.ADD_BODY_CLASSNAME, "bg-body");
     });
@@ -43,9 +39,7 @@ export default defineComponent({
     onUnmounted(() => {
       store.dispatch(Actions.REMOVE_BODY_CLASSNAME, "bg-body");
     });
-    return {
-      currentLanguage,
-    };
+    return {};
   },
 });
 </script>

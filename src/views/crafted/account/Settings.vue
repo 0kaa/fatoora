@@ -129,6 +129,32 @@
             <!--end::Col-->
           </div>
           <!--end::Input group-->
+
+          <!--begin::Input group-->
+          <div class="row mb-6">
+            <!--begin::Label-->
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+              {{ $t("language") }}
+            </label>
+            <!--end::Label-->
+
+            <!--begin::Col-->
+            <div class="col-lg-8 fv-row">
+              <el-form-item prop="languages">
+                <el-select
+                  v-model="language"
+                  default-first-option
+                  placeholder="Choose tags for your target"
+                  class="w-100"
+                >
+                  <el-option label="Arabic" value="ar"> </el-option>
+                  <el-option label="English" value="en"> </el-option>
+                </el-select>
+              </el-form-item>
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Input group-->
         </div>
         <!--end::Card body-->
 
@@ -268,7 +294,6 @@
               {{ $t("enterpriseName") }}
             </label>
             <!--end::Label-->
-
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
               <Field
@@ -682,7 +707,7 @@
 import { defineComponent, onMounted, computed, ref } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
-import { Actions } from "@/store/enums/StoreEnums";
+import { Actions, Mutations } from "@/store/enums/StoreEnums";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 import { useStore } from "vuex";
@@ -726,6 +751,7 @@ export default defineComponent({
     // const user_avatar = ref<File | null>(null);
     const store = useStore();
     const lang = computed(() => store.getters.getLanguage);
+    const language = ref(lang.value);
     const user = computed(() => store.getters.currentUser);
 
     const profileDetailsValidator = Yup.object().shape({
@@ -794,6 +820,11 @@ export default defineComponent({
             customClass: {
               confirmButton: "btn fw-bold btn-light-primary",
             },
+          }).then(() => {
+            store.commit(Mutations.SET_LANG, language.value);
+            setTimeout(() => {
+              window.location.reload();
+            }, 0);
           });
         });
       }
@@ -972,6 +1003,7 @@ export default defineComponent({
       updatePassword,
       lang,
       user,
+      language,
     };
   },
 });

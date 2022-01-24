@@ -1,32 +1,30 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import store from "@/store";
 import { Mutations } from "@/store/enums/StoreEnums";
-const currentLanguage =
-  localStorage.getItem("lang") || store.getters.getLanguage;
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: `/${currentLanguage}/`,
+    redirect: `/`,
     component: () => import("@/layout/Layout.vue"),
     children: [
       {
-        path: "/:lang/",
+        path: "/",
         name: "home",
         component: () => import("@/views/Home.vue"),
       },
       {
-        path: "/:lang/invoices",
+        path: "/invoices",
         name: "invoices",
         component: () => import("@/views/Invoices.vue"),
       },
       {
-        path: "/:lang/invoice/:id",
+        path: "/invoice/:id",
         name: "invoice-view",
         component: () => import("@/views/Invoice-view.vue"),
       },
 
       {
-        path: "/:lang/profile",
+        path: "/profile",
         name: "profile",
         component: () => import("@/components/page-layouts/Profile.vue"),
         children: [
@@ -70,7 +68,7 @@ const routes: Array<RouteRecordRaw> = [
       },
 
       {
-        path: "/:lang/account",
+        path: "/account",
         name: "account",
         component: () => import("@/views/crafted/account/Account.vue"),
         children: [
@@ -88,12 +86,12 @@ const routes: Array<RouteRecordRaw> = [
       },
 
       {
-        path: "/:lang/customers/customers-listing",
+        path: "/customers/customers-listing",
         name: "customers-listing",
         component: () => import("@/views/apps/customers/CustomersListing.vue"),
       },
       {
-        path: "/:lang/customers/customer-details/:id",
+        path: "/customers/customer-details/:id",
         name: "customers-details",
         component: () => import("@/views/apps/customers/CustomerDetails.vue"),
       },
@@ -239,19 +237,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/components/page-layouts/Auth.vue"),
     children: [
       {
-        path: "/:lang/sign-in",
+        path: "/sign-in",
         name: "sign-in",
         component: () =>
           import("@/views/crafted/authentication/basic-flow/SignIn.vue"),
       },
       {
-        path: "/:lang/sign-up",
+        path: "/sign-up",
         name: "sign-up",
         component: () =>
           import("@/views/crafted/authentication/basic-flow/SignUp.vue"),
       },
       {
-        path: "/:lang/password-reset",
+        path: "/password-reset",
         name: "password-reset",
         component: () =>
           import("@/views/crafted/authentication/basic-flow/PasswordReset.vue"),
@@ -260,18 +258,18 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     // the 404 route, when none of the above matches
-    path: "/:lang/404",
+    path: "/404",
     name: "404",
     component: () => import("@/views/crafted/authentication/Error404.vue"),
   },
   {
-    path: "/:lang/500",
+    path: "/500",
     name: "500",
     component: () => import("@/views/crafted/authentication/Error500.vue"),
   },
   {
     path: "/:pathMatch(.*)*",
-    redirect: `/${currentLanguage}/404`,
+    redirect: `/404`,
   },
 ];
 
@@ -281,9 +279,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const language = to.params.lang;
-  const availableLanguages = ["en", "ar"];
-
+  const language = localStorage.getItem("lang") || "ar";
   // reset config to initial state
   store.commit(Mutations.RESET_LAYOUT_CONFIG);
 
@@ -293,14 +289,9 @@ router.beforeEach((to, from, next) => {
   setTimeout(() => {
     window.scrollTo(0, 0);
   }, 100);
-  if (language && availableLanguages.includes(language.toString())) {
-    store.commit(Mutations.SET_LANG, language);
-    next();
-  } else {
-    store.commit(Mutations.SET_LANG, "ar");
-    to.params.lang = "ar";
-    next(`/ar/${to.name?.toString()}`);
-  }
+
+  store.commit(Mutations.SET_LANG, language);
+  next();
 });
 
 export default router;

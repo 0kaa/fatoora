@@ -102,12 +102,7 @@ export default defineComponent({
       store.commit("setLang", lang);
       router.push({
         name: route.name?.toString(),
-        params: { lang: i18n.locale.value },
       });
-    };
-
-    const currentLanguage = (lang) => {
-      return i18n.locale.value === lang;
     };
 
     const currentLangugeLocale = computed(() => {
@@ -116,7 +111,6 @@ export default defineComponent({
 
     return {
       setLang,
-      currentLanguage,
       currentLangugeLocale,
       countries,
       currentLang,

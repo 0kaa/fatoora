@@ -139,7 +139,6 @@
                   <router-link
                     :to="{
                       name: 'sign-in',
-                      params: { lang: currentLanguage },
                     }"
                     class="link-primary fw-bolder"
                   >
@@ -1151,7 +1150,6 @@ export default defineComponent({
 
             router.push({
               name: "home",
-              params: { lang: currentLanguage.value },
             });
           });
         })
@@ -1167,7 +1165,6 @@ export default defineComponent({
           });
         });
     };
-
 
     const onFileChange = (e) => {
       const file = e.target.files[0];

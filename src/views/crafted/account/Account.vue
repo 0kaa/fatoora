@@ -219,7 +219,6 @@
             <router-link
               :to="{
                 name: 'account-overview',
-                params: { lang },
               }"
               class="nav-link text-active-primary me-6"
               active-class="active"
@@ -233,7 +232,6 @@
             <router-link
               :to="{
                 name: 'account-settings',
-                params: { lang },
               }"
               class="nav-link text-active-primary me-6"
               active-class="active"
@@ -263,9 +261,8 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const lang = computed(() => store.getters.getLanguage);
     const user = computed(() => store.getters.currentUser);
-    return { lang, user };
+    return { user };
   },
 });
 </script>

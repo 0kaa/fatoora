@@ -98,10 +98,6 @@ export default defineComponent({
       return store.getters.pageBreadcrumbPath;
     });
 
-    const currentLanguage = computed(() => {
-      return store.getters.getLanguage;
-    });
-
     onMounted(() => {
       nextTick(() => {
         reinitializeComponents();
@@ -127,7 +123,6 @@ export default defineComponent({
         if (!store.getters.isUserAuthenticated) {
           router.push({
             name: "sign-in",
-            params: { lang: currentLanguage.value },
           });
         }
 
