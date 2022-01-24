@@ -1,9 +1,15 @@
 <template>
   <!--begin::Layout-->
-  <div class="d-flex flex-column flex-xl-row my-10">
+  <div
+    class="d-flex flex-column flex-xl-row my-10"
+    v-if="invoice && Object.keys(invoice).length"
+  >
     <!--begin::Content-->
     <div class="flex-lg-row-fluid">
-      <InvoiceDefault :invoice="invoice"></InvoiceDefault>
+      <InvoiceDefault
+        :invoice="invoice"
+        v-if="invoice && invoice.invoice.type != 'simple'"
+      ></InvoiceDefault>
     </div>
     <!--end::Content-->
   </div>

@@ -22,7 +22,8 @@ enum Actions {
   // Customer actions
   GET_CUSTOMERS = "getCustomers",
   GET_CUSTOMER = "getCustomer",
-
+  DELETE_CUSTOMER = "deleteCustomer",
+  GET_CUSTOMER_INVOICES = "getCustomerInvoices",
   SET_BREADCRUMB_ACTION = "setBreadcrumbAction",
 }
 

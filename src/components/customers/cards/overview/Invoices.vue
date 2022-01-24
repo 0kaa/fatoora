@@ -5,7 +5,9 @@
     <div class="card-header border-0">
       <!--begin::Card title-->
       <div class="card-title">
-        <h2>Invoices</h2>
+        <h2>
+          {{ $t("invoices") }}
+        </h2>
       </div>
       <!--end::Card title-->
     </div>
@@ -33,8 +35,20 @@
             </span>
           </template>
           <template v-slot:cell-status="{ row: invoice }">
-            <span :class="`badge badge-light-success`">
-              {{ invoice.has_discount }}
+            <span
+              class="badge"
+              :class="{
+                'badge-success': invoice.status === 'paid',
+                'badge-danger': invoice.status === 'canceled',
+                'badge-warning': invoice.status === 'pending',
+              }"
+            >
+              {{ invoice.status }}
+            </span>
+          </template>
+          <template v-slot:cell-customer="{ row: invoice }">
+            <span>
+              {{ invoice.customer_name ? invoice.customer_name : "-" }}
             </span>
           </template>
           <template v-slot:cell-release_date="{ row: invoice }">
@@ -54,6 +68,13 @@
             </router-link>
           </template>
         </Datatable>
+      </div>
+      <div v-else>
+        <div class="text-center">
+          <h4 class="text-dark-50">
+            {{ $t("no_invoices_found") }}
+          </h4>
+        </div>
       </div>
     </div>
     <!--end::Card body-->
@@ -94,7 +115,11 @@ export default defineComponent({
       {
         name: "Status",
         key: "status",
-        sortingField: "status.label",
+        sortable: true,
+      },
+      {
+        name: "Customer",
+        key: "customer",
         sortable: true,
       },
       {

@@ -1,6 +1,11 @@
 <template>
   <!--begin::Invoice-->
-  <div class="post d-flex flex-column-fluid" id="kt_post" ref="root">
+  <div
+    class="post d-flex flex-column-fluid"
+    id="kt_post"
+    ref="root"
+    v-if="invoice.invoice && invoice.products"
+  >
     <!--begin::Container-->
     <div id="kt_content_container" class="container-xxl">
       <!-- begin::Invoice 1-->
@@ -13,16 +18,10 @@
             <div
               class="d-flex justify-content-between flex-column flex-sm-row mb-19"
             >
-              <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">INVOICE</h4>
+              <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">
+                {{ $t("INVOICE") }}
+              </h4>
               <!--end::Logo-->
-              <div class="text-sm-end">
-                <!--begin::Text-->
-                <div class="text-sm-end fw-bold fs-4 text-muted mt-7">
-                  <div>Cecilia Chapman, 711-2880 Nulla St, Mankato</div>
-                  <div>Mississippi 96522</div>
-                </div>
-                <!--end::Text-->
-              </div>
             </div>
             <!--end::Header-->
             <!--begin::Body-->
@@ -40,49 +39,31 @@
                         <tr
                           class="border-bottom fs-6 fw-bolder text-muted text-uppercase"
                         >
-                          <th class="min-w-175px pb-9">Item name</th>
-                          <th class="min-w-70px pb-9 text-end">Qty</th>
+                          <th class="min-w-175px pb-9">{{ $t("itemName") }}</th>
+                          <th class="min-w-70px pb-9 text-end">
+                            {{ $t("quantity") }}
+                          </th>
                           <th class="min-w-100px pe-lg-6 pb-9 text-end">
-                            Amount
+                            {{ $t("amount") }}
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr class="fw-bolder text-gray-700 fs-5 text-end">
+                        <tr
+                          class="fw-bolder text-gray-700 fs-5 text-end"
+                          v-for="product in invoice.products"
+                          :key="product.id"
+                        >
                           <td class="d-flex align-items-center pt-11">
-                            <div>Creative Design</div>
+                            <div>{{ product.name }}</div>
                           </td>
-                          <td class="pt-11">80</td>
+                          <td class="pt-11">{{ product.quantity }}</td>
                           <td class="pt-11 fs-5 pe-lg-6 text-dark fw-boldest">
-                            $3200.00
-                          </td>
-                        </tr>
-                        <tr class="fw-bolder text-gray-700 fs-5 text-end">
-                          <td class="d-flex align-items-center">
-                            <div>Logo Design</div>
-                          </td>
-                          <td>120</td>
-                          <td class="fs-5 text-dark fw-boldest pe-lg-6">
-                            $4800.00
-                          </td>
-                        </tr>
-
-                        <tr class="fw-bolder text-gray-700 fs-5 text-end">
-                          <td class="d-flex align-items-center">
-                            <div>Creative Design</div>
-                          </td>
-                          <td class="">80</td>
-                          <td class="fs-5 pe-lg-6 text-dark fw-boldest">
-                            $3200.00
-                          </td>
-                        </tr>
-                        <tr class="fw-bolder text-gray-700 fs-5 text-end">
-                          <td class="d-flex align-items-center">
-                            <div>Logo Design</div>
-                          </td>
-                          <td>120</td>
-                          <td class="fs-5 text-dark fw-boldest pe-lg-6">
-                            $4800.00
+                            {{
+                              product.quantity * product.price +
+                              " " +
+                              $store.state.currency
+                            }}
                           </td>
                         </tr>
                       </tbody>
@@ -136,26 +117,40 @@
                 <!--begin::Content-->
                 <div class="text-end pt-10">
                   <!--begin::Total Amount-->
-                  <div class="fs-3 fw-bolder text-muted mb-3">TOTAL AMOUNT</div>
+                  <div class="fs-3 fw-bolder text-muted mb-3">
+                    {{ $t("TOTAL_AMOUNT") }}
+                  </div>
                   <div class="fs-xl-2x fs-2 fw-boldest">
-                    {{ invoice.total_price + " " + $store.state.currency }}
+                    {{
+                      invoice.invoice.total_price + " " + $store.state.currency
+                    }}
                   </div>
                   <div class="text-muted fw-bold">Taxes included</div>
                   <!--end::Total Amount-->
                   <div class="border-bottom w-100 my-7 my-lg-16"></div>
                   <!--begin::Invoice To-->
-                  <div class="text-gray-600 fs-6 fw-bold mb-3">INVOICE TO.</div>
-                  <div class="fs-6 text-gray-800 fw-bold mb-8">
-                    Iris Watson. <br />Fredrick Nebraska 20620
+                  <div class="text-gray-600 fs-6 fw-bold mb-3">
+                    {{ $t("INVOICE_TO") }}.
+                  </div>
+                  <div class="fs-6 fw-bold mb-8">
+                    {{ invoice.invoice.customer }}
                   </div>
                   <!--end::Invoice To-->
                   <!--begin::Invoice No-->
-                  <div class="text-gray-600 fs-6 fw-bold mb-3">INVOICE NO.</div>
-                  <div class="fs-6 text-gray-800 fw-bold mb-8">56758</div>
+                  <div class="text-gray-600 fs-6 fw-bold mb-3">
+                    {{ $t("INVOICE_NO") }}.
+                  </div>
+                  <div class="fs-6 text-gray-800 fw-bold mb-8">
+                    #{{ invoice.invoice.rand_number }}
+                  </div>
                   <!--end::Invoice No-->
                   <!--begin::Invoice Date-->
-                  <div class="text-gray-600 fs-6 fw-bold mb-3">DATE</div>
-                  <div class="fs-6 text-gray-800 fw-bold">12 May, 2020</div>
+                  <div class="text-gray-600 fs-6 fw-bold mb-3">
+                    {{ $t("date") }}
+                  </div>
+                  <div class="fs-6 text-gray-800 fw-bold">
+                    {{ invoice.invoice.release_date }}
+                  </div>
                   <!--end::Invoice Date-->
                 </div>
                 <!--end::Content-->

@@ -6,11 +6,11 @@ const currentLanguage =
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: `/${currentLanguage}/home`,
+    redirect: `/${currentLanguage}/`,
     component: () => import("@/layout/Layout.vue"),
     children: [
       {
-        path: "/:lang/home",
+        path: "/:lang/",
         name: "home",
         component: () => import("@/views/Home.vue"),
       },
@@ -93,8 +93,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/apps/customers/CustomersListing.vue"),
       },
       {
-        path: "/:lang/customers/customer-details",
-        name: "apps-customers-details",
+        path: "/:lang/customers/customer-details/:id",
+        name: "customers-details",
         component: () => import("@/views/apps/customers/CustomerDetails.vue"),
       },
       {

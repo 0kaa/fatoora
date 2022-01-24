@@ -1,6 +1,9 @@
 <template>
   <!--begin::Layout-->
-  <div class="d-flex flex-column flex-xl-row">
+  <div
+    class="d-flex flex-column flex-xl-row"
+    v-if="customer && Object.keys(customer).length"
+  >
     <!--begin::Sidebar-->
     <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
       <!--begin::Card-->
@@ -20,9 +23,10 @@
               href="#"
               class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-6"
             >
-              Max Smith
+              {{ customer.name }}
             </a>
             <!--end::Name-->
+
 
             <!--begin::Info-->
             <div class="d-flex flex-wrap flex-center">
@@ -112,38 +116,31 @@
           <!--begin::Details content-->
           <div id="kt_customer_view_details" class="collapse show">
             <div class="py-5 fs-6">
-              <!--begin::Badge-->
-              <div class="badge badge-light-info d-inline">Premium user</div>
-              <!--begin::Badge-->
               <!--begin::Details item-->
-              <div class="fw-bolder mt-5">Account ID</div>
-              <div class="text-gray-600">ID-45453423</div>
-              <!--begin::Details item-->
-              <!--begin::Details item-->
-              <div class="fw-bolder mt-5">Billing Email</div>
+              <div class="fw-bolder mt-5">
+                {{ $t("customerID") }}
+              </div>
               <div class="text-gray-600">
-                <a href="#" class="text-gray-600 text-hover-primary"
-                  >info@keenthemes.com</a
-                >
+                {{ customer.id }}
               </div>
               <!--begin::Details item-->
               <!--begin::Details item-->
-              <div class="fw-bolder mt-5">Billing Address</div>
+              <div class="fw-bolder mt-5">{{ $t("customerEmail") }}</div>
               <div class="text-gray-600">
-                101 Collin Street, <br />Melbourne 3000 VIC <br />Australia
+                <a href="#" class="text-gray-600 text-hover-primary">{{
+                  customer.email
+                }}</a>
               </div>
               <!--begin::Details item-->
               <!--begin::Details item-->
-              <div class="fw-bolder mt-5">Language</div>
-              <div class="text-gray-600">English</div>
+              <div class="fw-bolder mt-5">{{ $t("customerAddress") }}</div>
+              <div class="text-gray-600">
+                {{ customer.address }}
+              </div>
               <!--begin::Details item-->
               <!--begin::Details item-->
-              <div class="fw-bolder mt-5">Upcoming Invoice</div>
-              <div class="text-gray-600">54238-8693</div>
-              <!--begin::Details item-->
-              <!--begin::Details item-->
-              <div class="fw-bolder mt-5">Tax ID</div>
-              <div class="text-gray-600">TX-8674</div>
+              <div class="fw-bolder mt-5">{{ $t("taxID") }}</div>
+              <div class="text-gray-600">{{ customer.tax_number }}</div>
               <!--begin::Details item-->
             </div>
           </div>
@@ -194,6 +191,19 @@
           >
         </li>
         <!--end:::Tab item-->
+        <!--begin:::Tab item-->
+        <li class="nav-item ms-auto">
+          <!--begin::Action menu-->
+          <a
+            href="#"
+            @click.prevent="deleteCustomer(customer.id)"
+            class="btn btn-danger"
+          >
+            {{ $t("delete") }}
+          </a>
+          <!--end::Menu-->
+        </li>
+        <!--end:::Tab item-->
       </ul>
       <!--end:::Tabs-->
 
@@ -205,9 +215,7 @@
           id="kt_customer_view_overview_tab"
           role="tabpanel"
         >
-          <PaymentRecords card-classes="mb-6 mb-xl-9"></PaymentRecords>
-
-          <Invoices card-classes="mb-6 mb-xl-9"></Invoices>
+          <Invoices :invoices="invoices" card-classes="mb-6 mb-xl-9"></Invoices>
         </div>
         <!--end:::Tab pane-->
 
@@ -243,10 +251,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import NewCardModal from "@/components/modals/forms/NewCardModal.vue";
-import PaymentRecords from "@/components/customers/cards/overview/PaymentRecords.vue";
 
 import Invoices from "@/components/customers/cards/overview/Invoices.vue";
 
@@ -256,10 +263,19 @@ import Logs from "@/components/customers/cards/events-and-logs/Logs.vue";
 import Earnings from "@/components/customers/cards/statments/Earnings.vue";
 import Statement from "@/components/customers/cards/statments/Statement.vue";
 
+import { useStore } from "vuex";
+import { Actions } from "@/store/enums/StoreEnums";
+import { useRoute } from "vue-router";
+interface Customer {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  account_type: string;
+}
 export default defineComponent({
   name: "customer-details",
   components: {
-    PaymentRecords,
     Invoices,
     Events,
     Logs,
@@ -268,11 +284,30 @@ export default defineComponent({
     NewCardModal,
   },
   setup() {
+    const store = useStore();
+    const customer = ref<Customer>({} as Customer);
+    const invoices = ref([]);
+
+    const router = useRoute();
     onMounted(() => {
-      setCurrentPageBreadcrumbs("Customer Details", ["Apps", "Customers"]);
+      store.dispatch(Actions.GET_CUSTOMER, router.params.id).then((res) => {
+        customer.value = res;
+        setCurrentPageBreadcrumbs("Customers", [
+          "Customers",
+          customer.value.name,
+        ]);
+      });
+      store
+        .dispatch(Actions.GET_CUSTOMER_INVOICES, router.params.id)
+        .then((res) => {
+          invoices.value = res;
+        });
     });
 
-    return {};
+    return {
+      customer,
+      invoices,
+    };
   },
 });
 </script>

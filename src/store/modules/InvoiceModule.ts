@@ -2,8 +2,7 @@ import ApiService from "@/core/services/ApiService";
 // import JwtService from "@/core/services/JwtService";
 import { Actions } from "@/store/enums/StoreEnums";
 import { Module, Action, VuexModule } from "vuex-module-decorators";
-// import { AxiosRequestConfig } from "axios";
-
+import router from "@/router";
 export interface Invoice {
   id: number;
   type: string;
@@ -45,6 +44,7 @@ export default class AuthModule extends VuexModule {
         })
         .catch(({ response }) => {
           reject(response.data.message.message);
+          router.push("/404");
         });
     });
   }

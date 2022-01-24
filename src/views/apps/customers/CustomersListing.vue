@@ -46,7 +46,7 @@
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#kt_modal_add_customer"
+            data-bs-target="#kt_modal_create_account"
           >
             <span class="svg-icon svg-icon-2">
               <inline-svg src="/media/icons/duotone/Navigation/Plus.svg" />
@@ -99,7 +99,7 @@
       </div>
       <!--end::Card toolbar-->
     </div>
-    <div class="card-body pt-0">
+    <div class="card-body pt-0" v-if="tableData.length">
       <Datatable
         :table-data="tableData"
         :table-header="tableHeader"
@@ -125,81 +125,60 @@
             {{ customer.email }}
           </a>
         </template>
-        <template v-slot:cell-company="{ row: customer }">
-          {{ customer.company }}
+        <template v-slot:cell-account_type="{ row: customer }">
+          {{ customer.account_type }}
         </template>
-        <template v-slot:cell-paymentMethod="{ row: customer }">
-          <img :src="customer.payment.icon" class="w-35px me-3" alt="" />{{
-            customer.payment.ccnumber
-          }}
+        <template v-slot:cell-phone="{ row: customer }">
+          {{ customer.phone }}
         </template>
-        <template v-slot:cell-date="{ row: customer }">
-          {{ customer.date }}
+        <template v-slot:cell-created_at="{ row: customer }">
+          {{ customer.created_at }}
         </template>
         <template v-slot:cell-actions="{ row: customer }">
-          <a
-            href="#"
+          <router-link
+            :to="{
+              name: 'customers-details',
+              params: { id: customer.id, lang: currentLanguage },
+            }"
             class="btn btn-sm btn-light btn-active-light-primary"
-            data-kt-menu-trigger="click"
-            data-kt-menu-placement="bottom-end"
-            data-kt-menu-flip="top-end"
-            >Actions
-            <span class="svg-icon svg-icon-5 m-0">
-              <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
-            </span>
-          </a>
-          <!--begin::Menu-->
-          <div
-            class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-            data-kt-menu="true"
           >
-            <!--begin::Menu item-->
-            <div class="menu-item px-3">
-              <router-link
-                to="/apps/customers/customer-details"
-                class="menu-link px-3"
-                >View</router-link
-              >
-            </div>
-            <!--end::Menu item-->
-            <!--begin::Menu item-->
-            <div class="menu-item px-3">
-              <a @click="deleteCustomer(customer.id)" class="menu-link px-3"
-                >Delete</a
-              >
-            </div>
-            <!--end::Menu item-->
-          </div>
-          <!--end::Menu-->
+            {{ $t("view") }}
+          </router-link>
         </template>
       </Datatable>
     </div>
   </div>
 
   <ExportCustomerModal></ExportCustomerModal>
-  <AddCustomerModal></AddCustomerModal>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
 import Datatable from "@/components/kt-datatable/KTDatatable.vue";
 import ExportCustomerModal from "@/components/modals/forms/ExportCustomerModal.vue";
-import AddCustomerModal from "@/components/modals/forms/AddCustomerModal.vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
-import customers from "@/core/data/customers";
-import { ICustomer } from "@/core/data/customers";
-import jsPDF from "jspdf";
+import { useStore } from "vuex";
+import { Actions } from "@/store/enums/StoreEnums";
+// import jsPDF from "jspdf";
+
+interface ICustomer {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  account_type: string;
+}
 
 export default defineComponent({
   name: "customers-listing",
   components: {
     Datatable,
     ExportCustomerModal,
-    AddCustomerModal,
   },
   setup() {
     const checkedCustomers = ref([]);
-
+    const store = useStore();
+    const currentLanguage = computed(() => store.getters.getLanguage);
     const tableHeader = ref([
       {
         key: "checkbox",
@@ -216,51 +195,59 @@ export default defineComponent({
         sortable: true,
       },
       {
-        name: "Company",
-        key: "company",
+        name: "Account Type",
+        key: "account_type",
         sortable: true,
       },
       {
-        name: "Payment Method",
-        key: "paymentMethod",
-        sortingField: "payment.label",
+        name: "Phone",
+        key: "phone",
         sortable: true,
       },
       {
         name: "Created Date",
-        key: "date",
+        key: "created_at",
         sortable: true,
       },
       {
         name: "Actions",
+        sortable: false,
         key: "actions",
       },
     ]);
-
-    const tableData = ref<Array<ICustomer>>(customers);
+    const tableData = ref<Array<ICustomer>>([]);
     const initCustomers = ref<Array<ICustomer>>([]);
-    const createPDF = () => {
-      const pdf = new jsPDF();
-      const data = tableData.value.map((customer: ICustomer) => {
-        return {
-          id: customer.id.toString(),
-          name: customer.name,
-          email: customer.email,
-          company: customer.company,
-          date: customer.date,
-        };
-      });
 
-      const header = ["id", "name", "email", "company", "date"];
-      pdf.table(10, 10, data, header, {
-        autoSize: true,
-      });
-      pdf.save("pdf.pdf");
-    };
+    // const createPDF = () => {
+    //   const pdf = new jsPDF();
+    //   const data = tableData.value.map((customer: ICustomer) => {
+    //     return {
+    //       id: customer.id.toString(),
+    //       name: customer.name,
+    //       email: customer.email,
+    //       company: customer.company,
+    //       date: customer.date,
+    //     };
+    //   });
+
+    //   const header = ["id", "name", "email", "company", "date"];
+    //   pdf.table(10, 10, data, header, {
+    //     autoSize: true,
+    //   });
+    //   pdf.save("pdf.pdf");
+    // };
 
     onMounted(() => {
-      setCurrentPageBreadcrumbs("Customers Listing", ["Apps", "Customers"]);
-      initCustomers.value.splice(0, tableData.value.length, ...tableData.value);
+      setCurrentPageBreadcrumbs("Customers Listing", ["Customers"]);
+
+      store
+        .dispatch(Actions.GET_CUSTOMERS)
+        .then((res) => {
+          tableData.value = res;
+        })
+        .then(() => {
+          initCustomers.value = [...tableData.value];
+        });
     });
 
     const deleteFewCustomers = () => {
@@ -273,12 +260,16 @@ export default defineComponent({
     const deleteCustomer = (id) => {
       for (let i = 0; i < tableData.value.length; i++) {
         if (tableData.value[i].id === id) {
-          tableData.value.splice(i, 1);
+          store.dispatch(Actions.DELETE_CUSTOMER, id).then((res) => {
+            tableData.value.splice(i, 1);
+            console.log(res);
+          });
         }
       }
     };
 
     const search = ref<string>("");
+
     const searchItems = () => {
       tableData.value.splice(0, tableData.value.length, ...initCustomers.value);
       if (search.value !== "") {
@@ -289,6 +280,12 @@ export default defineComponent({
           }
         }
         tableData.value.splice(0, tableData.value.length, ...results);
+      } else {
+        tableData.value.splice(
+          0,
+          tableData.value.length,
+          ...initCustomers.value
+        );
       }
     };
 
@@ -308,7 +305,9 @@ export default defineComponent({
       tableHeader,
       deleteCustomer,
       search,
-      createPDF,
+      initCustomers,
+      // createPDF,
+      currentLanguage,
       searchItems,
       checkedCustomers,
       deleteFewCustomers,

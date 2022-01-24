@@ -25,16 +25,16 @@ export default defineComponent({
         Mutations.SET_LANG,
         localStorage.getItem("lang") || currentLanguage.value
       );
-      //check if current user is authenticated
-      if (!store.getters.isUserAuthenticated) {
-        router.push({
-          name: "sign-in",
-          params: { lang: currentLanguage.value },
-        });
-      }
 
       nextTick(() => {
         initializeComponents();
+        //check if current user is authenticated
+        if (!store.getters.isUserAuthenticated) {
+          router.push({
+            name: "sign-in",
+            params: { lang: currentLanguage.value },
+          });
+        }
       });
       if (currentLanguage.value == "ar") {
         document.body.classList.add("rtl");
