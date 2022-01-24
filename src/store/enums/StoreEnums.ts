@@ -20,6 +20,7 @@ enum Actions {
   // UPDATE_INVOICE = "updateInvoice",
   // DELETE_INVOICE = "deleteInvoice",
   // Customer actions
+  CREATE_CUSTOMER = "createCustomer",
   GET_CUSTOMERS = "getCustomers",
   GET_CUSTOMER = "getCustomer",
   DELETE_CUSTOMER = "deleteCustomer",

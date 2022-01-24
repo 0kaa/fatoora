@@ -104,7 +104,7 @@
                         <Field
                           type="radio"
                           class="btn-check"
-                          name="accountType"
+                          name="account_type"
                           value="personal"
                           id="kt_create_account_form_account_type_personal"
                         />
@@ -139,7 +139,7 @@
                         <Field
                           type="radio"
                           class="btn-check"
-                          name="accountType"
+                          name="account_type"
                           value="corporate"
                           id="kt_create_account_form_account_type_corporate"
                         />
@@ -180,132 +180,186 @@
               <div data-kt-stepper-element="content">
                 <!--begin::Wrapper-->
                 <div class="w-100">
-                  <!--begin::Heading-->
-                  <div class="pb-10 pb-lg-12">
-                    <!--begin::Title-->
-                    <h2 class="fw-bolder text-dark">
-                      {{ $t("enterpriseDetails") }}
-                    </h2>
-                    <!--end::Title-->
+                  <!--begin::Input group-->
+                  <div class="fv-row row-gap row mb-10">
+                    <div class="col-md-6">
+                      <!--begin::Label-->
+                      <label class="form-label required">
+                        {{ $t("customerName") }}
+                      </label>
+                      <!--end::Label-->
 
-                    <!--begin::Notice-->
-                    <div class="text-gray-400 fw-bold fs-6">
-                      If you need more info, please check out
-                      <a href="#" class="link-primary fw-bolder">Help Page</a>.
+                      <!--begin::Input-->
+                      <Field
+                        name="name"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="name"
+                      />
+                      <!--end::Input-->
                     </div>
-                    <!--end::Notice-->
-                  </div>
-                  <!--end::Heading-->
+                    <!--begin::Input group-->
+                    <div class="col-md-6">
+                      <!--begin::Label-->
+                      <label class="d-flex align-items-center form-label">
+                        <span class="required">
+                          {{ $t("customerAddress") }}
+                        </span>
+                      </label>
+                      <!--end::Label-->
 
-                  <!--begin::Input group-->
-                  <div class="fv-row mb-10">
-                    <!--begin::Label-->
-                    <label class="form-label required">
-                      {{ $t("enterpriseName") }}
-                    </label>
-                    <!--end::Label-->
-
-                    <!--begin::Input-->
-                    <Field
-                      name="enterpriseName"
-                      class="form-control form-control-lg form-control-solid"
-                      value=""
-                    />
-                    <ErrorMessage
-                      class="fv-plugins-message-container invalid-feedback"
-                      name="enterpriseName"
-                    />
-                    <!--end::Input-->
-                  </div>
-                  <!--end::Input group-->
-
-                  <!--begin::Input group-->
-                  <div class="fv-row mb-10">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center form-label">
-                      <span class="required">
-                        {{ $t("enterpriseAddress") }}
-                      </span>
-                    </label>
-                    <!--end::Label-->
-
-                    <!--begin::Input-->
-                    <Field
-                      name="enterpriseAddress"
-                      class="form-control form-control-lg form-control-solid"
-                      value=""
-                    />
-                    <ErrorMessage
-                      class="fv-plugins-message-container invalid-feedback"
-                      name="enterpriseAddress"
-                    />
-                    <!--end::Input-->
+                      <!--begin::Input-->
+                      <Field
+                        name="address"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="address"
+                      />
+                      <!--end::Input-->
+                    </div>
+                    <!--end::Input group-->
                   </div>
                   <!--end::Input group-->
 
                   <!--begin::Input group-->
-                  <div class="fv-row mb-10">
-                    <!--begin::Label-->
-                    <label class="form-label">
-                      {{ $t("enterpriseTaxNumber") }}
-                    </label>
-                    <!--end::Label-->
+                  <div class="fv-row row-gap row mb-10">
+                    <div class="col-md-6">
+                      <!--begin::Label-->
+                      <label class="form-label required">
+                        {{ $t("customerEmail") }}
+                      </label>
+                      <!--end::Label-->
 
-                    <!--begin::Input-->
-                    <Field
-                      name="enterpriseTaxNumber"
-                      class="form-control form-control-lg form-control-solid"
-                      value=""
-                    />
-                    <ErrorMessage
-                      class="fv-plugins-message-container invalid-feedback"
-                      name="enterpriseTaxNumber"
-                    />
-                    <!--end::Input-->
+                      <!--begin::Input-->
+                      <Field
+                        name="email"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="email"
+                      />
+                      <!--end::Input-->
+                    </div>
+                    <!--begin::Input group-->
+                    <div class="col-md-6">
+                      <!--begin::Label-->
+                      <label class="d-flex align-items-center form-label">
+                        <span class="required">
+                          {{ $t("customerPhone") }}
+                        </span>
+                      </label>
+                      <!--end::Label-->
+
+                      <!--begin::Input-->
+                      <Field
+                        name="phone"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="phone"
+                      />
+                      <!--end::Input-->
+                    </div>
+                    <!--end::Input group-->
                   </div>
                   <!--end::Input group-->
 
                   <!--begin::Input group-->
-                  <div class="fv-row mb-10">
-                    <!--end::Label-->
-                    <label class="form-label">
-                      {{ $t("enterpriseRecordNumber") }}
-                    </label>
-                    <!--end::Label-->
+                  <div class="fv-row row-gap row mb-10">
+                    <div class="col-md-6">
+                      <!--begin::Label-->
+                      <label class="form-label required">
+                        {{ $t("taxID") }}
+                      </label>
+                      <!--end::Label-->
 
-                    <!--begin::Input-->
-                    <Field
-                      name="enterpriseRecordNumber"
-                      class="form-control form-control-lg form-control-solid"
-                      value=""
-                    />
-                    <ErrorMessage
-                      class="fv-plugins-message-container invalid-feedback"
-                      name="enterpriseRecordNumber"
-                    />
-                    <!--end::Input-->
+                      <!--begin::Input-->
+                      <Field
+                        name="tax_number"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="tax_number"
+                      />
+                      <!--end::Input-->
+                    </div>
+                    <!--begin::Input group-->
+                    <div class="col-md-6">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-bold form-label required">
+                        {{ $t("commercial_number") }}
+                      </label>
+                      <!--end::Label-->
+
+                      <!--begin::Input-->
+                      <Field
+                        name="commercial_number"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="commercial_number"
+                      />
+                      <!--end::Input-->
+                    </div>
+
+                    <!--end::Input group-->
                   </div>
                   <!--end::Input group-->
 
                   <!--begin::Input group-->
-                  <div class="fv-row mb-0">
-                    <!--begin::Label-->
-                    <label class="fs-6 fw-bold form-label">
-                      {{ $t("numberOfTheEnterprise") }}
-                    </label>
-                    <!--end::Label-->
+                  <div class="fv-row row-gap row mb-0">
+                    <div class="col-md-6">
+                      <!--end::Label-->
+                      <label class="form-label required">
+                        {{ $t("enterpriseRecordNumber") }}
+                      </label>
+                      <!--end::Label-->
 
-                    <!--begin::Input-->
-                    <Field
-                      name="numberOfTheEnterprise"
-                      class="form-control form-control-lg form-control-solid"
-                      value=""
-                    />
-                    <ErrorMessage
-                      class="fv-plugins-message-container invalid-feedback"
-                      name="numberOfTheEnterprise"
-                    />
-                    <!--end::Input-->
+                      <!--begin::Input-->
+                      <Field
+                        name="standard_number"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="standard_number"
+                      />
+                      <!--end::Input-->
+                    </div>
+                    <div class="col-md-6">
+                      <!--end::Label-->
+                      <label class="form-label required">
+                        {{ $t("enterpriseWebsite") }}
+                      </label>
+                      <!--end::Label-->
+
+                      <!--begin::Input-->
+                      <Field
+                        name="site_url"
+                        class="form-control form-control-lg form-control-solid"
+                        value=""
+                      />
+                      <ErrorMessage
+                        class="fv-plugins-message-container invalid-feedback"
+                        name="site_url"
+                      />
+                      <!--end::Input-->
+                    </div>
                   </div>
                   <!--end::Input group-->
                 </div>
@@ -469,15 +523,18 @@ import { Field, ErrorMessage } from "vee-validate";
 import * as Yup from "yup";
 
 interface Step1 {
-  accountType: string;
+  account_type: string;
 }
 
 interface Step2 {
-  enterpriseName: string;
-  enterpriseAddress: string;
-  enterpriseTaxNumber: string;
-  enterpriseRecordNumber: string;
-  numberOfTheEnterprise: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  tax_number: string;
+  standard_number: string;
+  commercial_number: string;
+  site_url: string;
 }
 
 interface KTCreateApp extends Step1, Step2 {}
@@ -495,12 +552,15 @@ export default defineComponent({
     const currentStepIndex = ref(0);
     const il8n = useI18n();
     const formData = ref<KTCreateApp>({
-      accountType: "personal",
-      enterpriseName: "",
-      enterpriseAddress: "",
-      enterpriseTaxNumber: "",
-      enterpriseRecordNumber: "",
-      numberOfTheEnterprise: "",
+      account_type: "personal",
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      tax_number: "",
+      standard_number: "",
+      commercial_number: "",
+      site_url: "",
     });
 
     onMounted(() => {
@@ -510,13 +570,19 @@ export default defineComponent({
     });
 
     const createAppSchema = [
-      Yup.object({}),
+      Yup.object({
+        account_type: Yup.string().required(),
+      }),
 
       Yup.object({
-        enterpriseName: Yup.string().required(
-          il8n.t("enterprise_name_required")
-        ),
-        enterpriseAddress: Yup.string().required("Enterprise Address"),
+        name: Yup.string().required(),
+        email: Yup.string().email().required(),
+        phone: Yup.string().required(),
+        address: Yup.string().required(),
+        tax_number: Yup.string().required(),
+        standard_number: Yup.string().required(),
+        commercial_number: Yup.string().required(),
+        site_url: Yup.string().required(),
       }),
     ];
 
@@ -610,5 +676,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .mw-1200px {
   max-width: 1200px;
+}
+.row-gap {
+  row-gap: 2.5rem;
 }
 </style>
