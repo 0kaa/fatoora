@@ -19,6 +19,23 @@ export default class AuthModule extends VuexModule {
   }
 
   @Action
+  [Actions.UPDATE_CUSTOMER]({ id, context }) {
+    ApiService.setHeader();
+    const params = {
+      ...context,
+    };
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post(`customers/edit/${id}`, params)
+        .then(({ data }) => {
+          resolve(data.data);
+        })
+        .catch(({ response }) => {
+          reject(response.data.message.message);
+        });
+    });
+  }
+
+  @Action
   [Actions.GET_CUSTOMERS]() {
     ApiService.setHeader();
 

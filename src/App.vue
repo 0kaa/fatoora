@@ -6,6 +6,7 @@
 import { defineComponent, nextTick, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n/index";
 import { Mutations, Actions } from "@/store/enums/StoreEnums";
 import { initializeComponents } from "@/core/plugins/keenthemes";
 
@@ -14,6 +15,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
+    const i18n = useI18n();
 
     const currentLanguage = computed(() => {
       return store.getters.getLanguage;
@@ -25,7 +27,7 @@ export default defineComponent({
         Mutations.SET_LANG,
         localStorage.getItem("lang") || currentLanguage.value
       );
-
+      i18n.locale.value = localStorage.getItem("lang") || currentLanguage.value;
       nextTick(() => {
         initializeComponents();
         //check if current user is authenticated

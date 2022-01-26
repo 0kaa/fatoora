@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
 import KTModalCard from "@/components/cards/Card.vue";
-import AddCustomerModal from "@/components/modals/forms/AddCustomerModal.vue";
+import AddCustomerModal from "@/components/modals/forms/EditCustomerModal.vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 
 export default defineComponent({

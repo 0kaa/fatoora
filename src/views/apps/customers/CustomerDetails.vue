@@ -14,7 +14,8 @@
           <div class="d-flex flex-center flex-column mb-5">
             <!--begin::Avatar-->
             <div class="symbol symbol-100px symbol-circle mb-7">
-              <img src="/media/avatars/150-26.jpg" alt="image" />
+              <img v-if="customer.image" :src="customer.image" alt="image" />
+              <img src="/media/avatars/150-26.jpg" alt="image" v-else />
             </div>
             <!--end::Avatar-->
 
@@ -26,7 +27,6 @@
               {{ customer.name }}
             </a>
             <!--end::Name-->
-
 
             <!--begin::Info-->
             <div class="d-flex flex-wrap flex-center">
@@ -86,7 +86,7 @@
               aria-expanded="false"
               aria-controls="kt_customer_view_details"
             >
-              Details
+              {{ $t("details") }}
               <span class="ms-2 rotate-180">
                 <span class="svg-icon svg-icon-3">
                   <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
@@ -103,9 +103,9 @@
                 href="#"
                 class="btn btn-sm btn-light-primary"
                 data-bs-toggle="modal"
-                data-bs-target="#kt_modal_update_customer"
+                data-bs-target="#kt_modal_edit_customer"
               >
-                Edit
+                {{ $t("edit") }}
               </a>
             </span>
           </div>
@@ -247,13 +247,16 @@
   </div>
   <!--end::Layout-->
 
-  <NewCardModal></NewCardModal>
+  <EditCustomerModal
+    :customer="customer"
+    v-if="Object.keys(customer).length"
+  ></EditCustomerModal>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
-import NewCardModal from "@/components/modals/forms/NewCardModal.vue";
+import EditCustomerModal from "@/components/modals/forms/EditCustomerModal.vue";
 
 import Invoices from "@/components/customers/cards/overview/Invoices.vue";
 
@@ -266,9 +269,11 @@ import Statement from "@/components/customers/cards/statments/Statement.vue";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
 import { useRoute } from "vue-router";
+
 interface Customer {
   id: number;
   name: string;
+  image: string;
   email: string;
   phone: string;
   account_type: string;
@@ -281,7 +286,7 @@ export default defineComponent({
     Logs,
     Earnings,
     Statement,
-    NewCardModal,
+    EditCustomerModal,
   },
   setup() {
     const store = useStore();
@@ -291,17 +296,13 @@ export default defineComponent({
     const router = useRoute();
     onMounted(() => {
       store.dispatch(Actions.GET_CUSTOMER, router.params.id).then((res) => {
-        customer.value = res;
+        customer.value = res.customer;
+        invoices.value = res.invoices;
         setCurrentPageBreadcrumbs("Customers", [
           "Customers",
           customer.value.name,
         ]);
       });
-      store
-        .dispatch(Actions.GET_CUSTOMER_INVOICES, router.params.id)
-        .then((res) => {
-          invoices.value = res;
-        });
     });
 
     return {

@@ -125,6 +125,10 @@ const messages = {
     customerName: "Customer Name",
     customerPhone: "Customer Phone",
     taxID: "Tax ID",
+    edit: "Edit",
+    details: "Details",
+    editCustomer: "Edit Customer",
+    otherInfo: "Other Information",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -250,6 +254,10 @@ const messages = {
     customerName: "اسم المستخدم",
     customerPhone: "رقم المستخدم",
     taxID: "رقم الضريبة",
+    edit: "تعديل",
+    details: "تفاصيل",
+    editCustomer: "تعديل المستخدم",
+    otherInfo: "معلومات أخرى",
   },
 };
 

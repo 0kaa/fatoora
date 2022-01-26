@@ -59,8 +59,8 @@ export default defineComponent({
     const route = useRoute();
     const i18n = useI18n();
     const store = useStore();
-    const lang = localStorage.getItem("lang") || store.getters.getLanguage;
-    i18n.locale.value = lang;
+    // const lang = localStorage.getItem("lang") || store.getters.getLanguage;
+    // i18n.locale.value = lang;
     const countries = {
       en: {
         flag: "/media/flags/united-states.svg",

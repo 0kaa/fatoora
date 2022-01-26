@@ -105,33 +105,29 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                as="select"
-                name="currency"
-                class="form-select form-select-solid form-select-lg"
-                v-model="profileDetails.currency"
-              >
-                <option
-                  v-for="(currency, index) in $store.state.currencies"
-                  :key="index"
-                  :value="currency.code"
+              <el-form-item prop="currencies" class="mb-0">
+                <el-select
+                  v-model="profileDetails.currency"
+                  default-first-option
+                  placeholder="Choose a currency"
+                  class="w-100"
                 >
-                  <b>{{ currency.code }}</b
-                  >&#160;-&#160;{{ currency.name }}
-                </option>
-              </Field>
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="currency" />
-                </div>
-              </div>
+                  <el-option
+                    v-for="(currency, index) in $store.state.currencies"
+                    :key="index"
+                    :value="currency.code"
+                    :label="currency.name"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("language") }}
@@ -140,7 +136,7 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <el-form-item prop="languages">
+              <el-form-item prop="languages" class="mb-0">
                 <el-select
                   v-model="language"
                   default-first-option
@@ -750,8 +746,8 @@ export default defineComponent({
 
     // const user_avatar = ref<File | null>(null);
     const store = useStore();
-    const lang = computed(() => store.getters.getLanguage);
-    const language = ref(lang.value);
+    const lang = localStorage.getItem("lang") || "ar";
+    const language = ref(lang);
     const user = computed(() => store.getters.currentUser);
 
     const profileDetailsValidator = Yup.object().shape({
