@@ -32,7 +32,7 @@
           </li>
           <template v-for="(item, index) in breadcrumbs" :key="index">
             <li class="breadcrumb-item text-dark">
-              {{ $t(item) }}
+              {{ $t(item.toLowerCase()) }}
             </li>
           </template>
         </ul>

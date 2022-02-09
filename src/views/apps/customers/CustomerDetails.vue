@@ -142,6 +142,14 @@
               <div class="fw-bolder mt-5">{{ $t("taxID") }}</div>
               <div class="text-gray-600">{{ customer.tax_number }}</div>
               <!--begin::Details item-->
+              <!--begin::Details item-->
+              <div class="fw-bolder mt-5">{{ $t("commercial_number") }}</div>
+              <div class="text-gray-600">{{ customer.commercial_number }}</div>
+              <!--begin::Details item-->
+              <!--begin::Details item-->
+              <div class="fw-bolder mt-5">{{ $t("standard_number") }}</div>
+              <div class="text-gray-600">{{ customer.standard_number }}</div>
+              <!--begin::Details item-->
             </div>
           </div>
           <!--end::Details content-->
@@ -170,36 +178,10 @@
         <!--end:::Tab item-->
 
         <!--begin:::Tab item-->
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary pb-4"
-            data-bs-toggle="tab"
-            href="#kt_customer_view_overview_events_and_logs_tab"
-            >Events & Logs</a
-          >
-        </li>
-        <!--end:::Tab item-->
-
-        <!--begin:::Tab item-->
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary pb-4"
-            data-kt-countup-tabs="true"
-            data-bs-toggle="tab"
-            href="#kt_customer_view_overview_statements"
-            >Statements</a
-          >
-        </li>
-        <!--end:::Tab item-->
-        <!--begin:::Tab item-->
         <li class="nav-item ms-auto">
           <!--begin::Action menu-->
-          <a
-            href="#"
-            @click.prevent="deleteCustomer(customer.id)"
-            class="btn btn-danger"
-          >
-            {{ $t("delete") }}
+          <a href="#" @click.prevent="deleteCustomer" class="btn btn-danger">
+            {{ $t("deleteCustomer") }}
           </a>
           <!--end::Menu-->
         </li>
@@ -216,28 +198,6 @@
           role="tabpanel"
         >
           <Invoices :invoices="invoices" card-classes="mb-6 mb-xl-9"></Invoices>
-        </div>
-        <!--end:::Tab pane-->
-
-        <!--begin:::Tab pane-->
-        <div
-          class="tab-pane fade"
-          id="kt_customer_view_overview_events_and_logs_tab"
-          role="tabpanel"
-        >
-          <Logs card-classes="mb-6 mb-xl-9"></Logs>
-          <Events card-classes="mb-6 mb-xl-9"></Events>
-        </div>
-        <!--end:::Tab pane-->
-
-        <!--begin:::Tab pane-->
-        <div
-          class="tab-pane fade"
-          id="kt_customer_view_overview_statements"
-          role="tabpanel"
-        >
-          <Earnings card-classes="mb-6 mb-xl-9"></Earnings>
-          <Statement card-classes="mb-6 mb-xl-9"></Statement>
         </div>
         <!--end:::Tab pane-->
       </div>
@@ -257,19 +217,14 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import EditCustomerModal from "@/components/modals/forms/EditCustomerModal.vue";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 import Invoices from "@/components/customers/cards/overview/Invoices.vue";
 
-import Events from "@/components/customers/cards/events-and-logs/Events.vue";
-import Logs from "@/components/customers/cards/events-and-logs/Logs.vue";
-
-import Earnings from "@/components/customers/cards/statments/Earnings.vue";
-import Statement from "@/components/customers/cards/statments/Statement.vue";
-
 import { useStore } from "vuex";
-import { Actions } from "@/store/enums/StoreEnums";
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
+import { Actions } from "@/store/enums/StoreEnums";
 interface Customer {
   id: number;
   name: string;
@@ -282,10 +237,6 @@ export default defineComponent({
   name: "customer-details",
   components: {
     Invoices,
-    Events,
-    Logs,
-    Earnings,
-    Statement,
     EditCustomerModal,
   },
   setup() {
@@ -293,9 +244,11 @@ export default defineComponent({
     const customer = ref<Customer>({} as Customer);
     const invoices = ref([]);
 
-    const router = useRoute();
+    const route = useRoute();
+    const router = useRouter();
+
     onMounted(() => {
-      store.dispatch(Actions.GET_CUSTOMER, router.params.id).then((res) => {
+      store.dispatch(Actions.GET_CUSTOMER, route.params.id).then((res) => {
         customer.value = res.customer;
         invoices.value = res.invoices;
         setCurrentPageBreadcrumbs("Customers", [
@@ -305,9 +258,26 @@ export default defineComponent({
       });
     });
 
+    const deleteCustomer = () => {
+      store.dispatch(Actions.DELETE_CUSTOMER, customer.value.id).then(() => {
+        Swal.fire({
+          text: "Form has been successfully submitted!",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+            confirmButton: "btn btn-primary",
+          },
+        }).then(() => {
+          router.push({ name: "customers-listing" });
+        });
+      });
+    };
+
     return {
       customer,
       invoices,
+      deleteCustomer,
     };
   },
 });

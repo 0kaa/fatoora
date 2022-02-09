@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent, nextTick, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+// import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n/index";
 import { Mutations, Actions } from "@/store/enums/StoreEnums";
 import { initializeComponents } from "@/core/plugins/keenthemes";
@@ -14,7 +14,8 @@ export default defineComponent({
   name: "app",
   setup() {
     const store = useStore();
-    const router = useRouter();
+    // const router = useRouter();
+    // const route = useRoute();
     const i18n = useI18n();
 
     const currentLanguage = computed(() => {
@@ -23,6 +24,9 @@ export default defineComponent({
 
     onMounted(() => {
       store.dispatch(Actions.VERIFY_AUTH);
+      store.dispatch(Actions.GET_BANKS);
+      store.dispatch(Actions.GET_PAYMENT_METHODS);
+      store.dispatch(Actions.GET_SHIPPING_COMPANIES);
       store.commit(
         Mutations.SET_LANG,
         localStorage.getItem("lang") || currentLanguage.value
@@ -30,12 +34,6 @@ export default defineComponent({
       i18n.locale.value = localStorage.getItem("lang") || currentLanguage.value;
       nextTick(() => {
         initializeComponents();
-        //check if current user is authenticated
-        if (!store.getters.isUserAuthenticated) {
-          router.push({
-            name: "sign-in",
-          });
-        }
       });
       if (currentLanguage.value == "ar") {
         document.body.classList.add("rtl");

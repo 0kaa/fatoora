@@ -58,6 +58,14 @@
               </div>
               <!--end::Step 2-->
 
+              <!--begin::Step 2-->
+              <div class="stepper-item" data-kt-stepper-element="nav">
+                <h3 class="stepper-title">
+                  {{ $t("accountInfo") }}
+                </h3>
+              </div>
+              <!--end::Step 2-->
+
               <!--begin::Step 3-->
               <div class="stepper-item" data-kt-stepper-element="nav">
                 <h3 class="stepper-title">
@@ -176,7 +184,7 @@
               </div>
               <!--end::Step 1-->
 
-              <!--begin::Step 3-->
+              <!--begin::Step 2-->
               <div data-kt-stepper-element="content">
                 <!--begin::Wrapper-->
                 <div class="w-100">
@@ -325,7 +333,7 @@
                     <div class="col-md-6">
                       <!--end::Label-->
                       <label class="form-label required">
-                        {{ $t("enterpriseRecordNumber") }}
+                        {{ $t("standard_number") }}
                       </label>
                       <!--end::Label-->
 
@@ -344,7 +352,7 @@
                     <div class="col-md-6">
                       <!--end::Label-->
                       <label class="form-label required">
-                        {{ $t("enterpriseWebsite") }}
+                        {{ $t("site_url") }}
                       </label>
                       <!--end::Label-->
 
@@ -360,6 +368,74 @@
                       />
                       <!--end::Input-->
                     </div>
+                  </div>
+                  <!--end::Input group-->
+                </div>
+                <!--end::Wrapper-->
+              </div>
+              <!--end::Step 2-->
+              <!--begin::Step 3-->
+              <div data-kt-stepper-element="content">
+                <!--begin::Wrapper-->
+                <div class="w-100">
+                  <!--begin::Input group-->
+                  <div class="mb-6 fv-row mx-auto mw-600px">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center form-label mb-5">
+                      {{ $t("selectBankType") }}
+                    </label>
+                    <!--end::Label-->
+
+                    <!--begin::Options-->
+                    <div class="mb-0">
+                      <!--begin:Option-->
+                      <label
+                        class="d-flex flex-stack mb-5 cursor-pointer"
+                        v-for="(bank, i) in $store.getters.getAllBanks"
+                        :key="i"
+                      >
+                        <!--begin:Label-->
+                        <span class="d-flex align-items-center me-2">
+                          <!--begin::Icon-->
+                          <span class="symbol symbol-50px me-6">
+                            <span class="symbol-label">
+                              <span
+                                class="svg-icon svg-icon-1 svg-icon-gray-600"
+                              >
+                                <img class="img-fluid" :src="bank.image" />
+                              </span>
+                            </span>
+                          </span>
+                          <!--end::Icon-->
+
+                          <!--begin::Description-->
+                          <span class="d-flex flex-column">
+                            <span
+                              class="fw-bolder text-gray-800 text-hover-primary fs-5"
+                              >{{ bank.name }}</span
+                            >
+                          </span>
+                          <!--end:Description-->
+                        </span>
+                        <!--end:Label-->
+
+                        <!--begin:Input-->
+                        <span
+                          class="form-check form-check-custom form-check-solid"
+                        >
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="bank_id"
+                            :value="bank.id"
+                            v-model="formData.bank_id"
+                          />
+                        </span>
+                        <!--end:Input-->
+                      </label>
+                      <!--end::Option-->
+                    </div>
+                    <!--end::Options-->
                   </div>
                   <!--end::Input group-->
                 </div>
@@ -535,6 +611,7 @@ interface Step2 {
   standard_number: string;
   commercial_number: string;
   site_url: string;
+  payment_id: string;
 }
 
 interface KTCreateApp extends Step1, Step2 {}
@@ -561,6 +638,7 @@ export default defineComponent({
       standard_number: "",
       commercial_number: "",
       site_url: "",
+      payment_id: "1",
     });
 
     onMounted(() => {
@@ -575,14 +653,20 @@ export default defineComponent({
       }),
 
       Yup.object({
-        name: Yup.string().required(),
-        email: Yup.string().email().required(),
-        phone: Yup.string().required(),
-        address: Yup.string().required(),
-        tax_number: Yup.string().required(),
-        standard_number: Yup.string().required(),
-        commercial_number: Yup.string().required(),
-        site_url: Yup.string().required(),
+        name: Yup.string().required(il8n.t("nameRequired")),
+        email: Yup.string()
+          .email(il8n.t("emailInvalid"))
+          .required(il8n.t("emailRequired")),
+        phone: Yup.string().required(il8n.t("phoneRequired")),
+        address: Yup.string().required(il8n.t("addressRequired")),
+        // tax_number: Yup.string().required(il8n.t("taxNumberRequired")),
+        // standard_number: Yup.string().required(
+        //   il8n.t("standardNumberRequired")
+        // ),
+        // commercial_number: Yup.string().required(
+        //   il8n.t("commercialNumberRequired")
+        // ),
+        // site_url: Yup.string().required(il8n.t("siteUrlRequired")),
       }),
     ];
 

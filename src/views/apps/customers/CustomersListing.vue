@@ -99,11 +99,12 @@
       </div>
       <!--end::Card toolbar-->
     </div>
-    <div class="card-body pt-0" v-if="tableData.length">
+    <div class="card-body pt-0">
       <Datatable
         :table-data="tableData"
         :table-header="tableHeader"
         :enable-items-per-page-dropdown="true"
+        emptyTableText="No customers found"
       >
         <template v-slot:cell-checkbox="{ row: customer }">
           <div
@@ -236,17 +237,16 @@ export default defineComponent({
     //   pdf.save("pdf.pdf");
     // };
 
+    store
+      .dispatch(Actions.GET_CUSTOMERS)
+      .then((res) => {
+        tableData.value = res;
+      })
+      .then(() => {
+        initCustomers.value = [...tableData.value];
+      });
     onMounted(() => {
       setCurrentPageBreadcrumbs("Customers Listing", ["Customers"]);
-
-      store
-        .dispatch(Actions.GET_CUSTOMERS)
-        .then((res) => {
-          tableData.value = res;
-        })
-        .then(() => {
-          initCustomers.value = [...tableData.value];
-        });
     });
 
     const deleteFewCustomers = () => {

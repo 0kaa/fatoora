@@ -1,8 +1,9 @@
 import objectPath from "object-path";
 import merge from "deepmerge";
+import ApiService from "@/core/services/ApiService";
 import layoutConfig from "@/core/config/DefaultLayoutConfig";
-import { Mutations } from "@/store/enums/StoreEnums";
-import { Mutation, Module, VuexModule } from "vuex-module-decorators";
+import { Mutations, Actions } from "@/store/enums/StoreEnums";
+import { Mutation, Action, Module, VuexModule } from "vuex-module-decorators";
 import LayoutConfigTypes from "@/core/config/LayoutConfigTypes";
 
 interface StoreInfo {
@@ -17,7 +18,9 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
   initial = layoutConfig;
   lang = "ar";
   backendURL = "https://fatora.jadara.work/public/storage/";
-
+  banks = [];
+  payment_methods = [];
+  shipping_companies = [];
   /**
    * Get config from layout config
    * @returns {function(path, defaultValue): *}
@@ -34,6 +37,16 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
 
   get getBackendURL() {
     return this.backendURL;
+  }
+
+  get getAllBanks() {
+    return this.banks;
+  }
+  get getAllPaymentMethods() {
+    return this.payment_methods;
+  }
+  get getAllShippingCompanies() {
+    return this.shipping_companies;
   }
 
   @Mutation
@@ -64,5 +77,63 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
   @Mutation
   [Mutations.OVERRIDE_PAGE_LAYOUT_CONFIG](payload): void {
     this.config = merge(this.config, payload);
+  }
+
+  @Mutation
+  [Mutations.SET_BANKS](payload): void {
+    this.banks = payload;
+  }
+  @Mutation
+  [Mutations.SET_PAYMENT_METHODS](payload): void {
+    this.payment_methods = payload;
+  }
+  @Mutation
+  [Mutations.SET_SHIPPING_COMPANIES](payload): void {
+    this.shipping_companies = payload;
+  }
+
+  @Action
+  [Actions.GET_BANKS]() {
+    ApiService.setHeader();
+
+    return new Promise<void>((resolve, reject) => {
+      ApiService.query("/banks", {})
+        .then(({ data }) => {
+          this.context.commit(Mutations.SET_BANKS, data.data);
+        })
+        .catch(({ response }) => {
+          reject(response.data.message.message);
+        });
+    });
+  }
+
+  @Action
+  [Actions.GET_PAYMENT_METHODS]() {
+    ApiService.setHeader();
+
+    return new Promise<void>((resolve, reject) => {
+      ApiService.query("/payment_methods", {})
+        .then(({ data }) => {
+          this.context.commit(Mutations.SET_PAYMENT_METHODS, data.data);
+        })
+        .catch(({ response }) => {
+          reject(response.data.message.message);
+        });
+    });
+  }
+
+  @Action
+  [Actions.GET_SHIPPING_COMPANIES]() {
+    ApiService.setHeader();
+
+    return new Promise<void>((resolve, reject) => {
+      ApiService.query("/shipping_companies", {})
+        .then(({ data }) => {
+          this.context.commit(Mutations.SET_SHIPPING_COMPANIES, data.data);
+        })
+        .catch(({ response }) => {
+          reject(response.data.message.message);
+        });
+    });
   }
 }

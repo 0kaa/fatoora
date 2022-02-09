@@ -153,9 +153,9 @@
               <div class="fv-row">
                 <!--begin::Row-->
 
-                <div class="row">
+                <div class="row row-gap">
                   <!--begin::Col-->
-                  <div class="col-lg-6">
+                  <div class="col-sm-6">
                     <!--begin::Option-->
                     <Field
                       type="radio"
@@ -165,7 +165,7 @@
                       id="kt_create_account_form_account_type_cloud"
                     />
                     <label
-                      class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-10"
+                      class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
                       for="kt_create_account_form_account_type_cloud"
                     >
                       <span class="svg-icon svg-icon-3x me-5">
@@ -190,7 +190,7 @@
                   <!--end::Col-->
 
                   <!--begin::Col-->
-                  <div class="col-lg-6">
+                  <div class="col-sm-6">
                     <!--begin::Option-->
                     <Field
                       type="radio"
@@ -236,23 +236,11 @@
           <div data-kt-stepper-element="content">
             <!--begin::Wrapper-->
             <div class="w-100">
-              <!--end::Heading-->
               <label class="d-flex align-items-center form-label mb-3">
                 {{ $t("specify_invoice_size") }}
-                <i
-                  class="fas fa-exclamation-circle ms-2 fs-7"
-                  data-bs-toggle="tooltip"
-                  title=""
-                  data-bs-original-title="Provide your team size to help us setup your billing"
-                  aria-label="Provide your team size to help us setup your billing"
-                ></i
-              ></label>
+              </label>
               <!--begin::Row-->
-              <div
-                class="row mb-10"
-                style="row-gap: 20px"
-                data-kt-buttons="true"
-              >
+              <div class="row row-gap mb-10" data-kt-buttons="true">
                 <!--begin::Col-->
                 <div class="col">
                   <!--begin::Option-->
@@ -354,8 +342,8 @@
               </div>
               <!--end::Row-->
               <!--begin::Input group-->
-              <div class="row mb-5">
-                <div class="col-lg-6 mb-5">
+              <div class="row row-gap mb-5">
+                <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="form-label required">{{ $t("name") }}</label>
                   <!--end::Label-->
@@ -400,8 +388,8 @@
               <!--end::Input group-->
 
               <!--begin::Input group-->
-              <div class="row mb-5">
-                <div class="col-lg-6 mb-5">
+              <div class="row row-gap mb-5">
+                <div class="col-lg-6">
                   <!--begin::Label-->
 
                   <label class="d-flex align-items-center form-label">
@@ -443,26 +431,8 @@
                 </div>
               </div>
               <!--end::Input group-->
-            </div>
-            <!--end::Wrapper-->
-          </div>
-          <!--end::Step 3-->
-          <!--begin::Step 4-->
-          <div data-kt-stepper-element="content">
-            <!--begin::Wrapper-->
-            <div class="w-100">
-              <!--begin::Heading-->
-              <div class="pb-10 pb-lg-12">
-                <!--begin::Title-->
-                <h2 class="fw-bolder text-dark">
-                  {{ $t("enterpriseDetails") }}
-                </h2>
-                <!--end::Title-->
-              </div>
-              <!--end::Heading-->
-
               <!--begin::Input group-->
-              <div class="row mb-5">
+              <div class="row row-gap mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
                   <label class="form-label required">
@@ -484,6 +454,29 @@
                 </div>
                 <div class="col-lg-6">
                   <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label required">
+                    {{ $t("enterpriseEmail") }}
+                  </label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="market_email"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="market_email"
+                  />
+                  <!--end::Input-->
+                </div>
+              </div>
+              <!--end::Input group-->
+              <!--begin::Input group-->
+              <div class="row row-gap mb-5">
+                <div class="col-lg-6">
+                  <!--begin::Label-->
                   <label class="d-flex align-items-center form-label">
                     <span class="required">
                       {{ $t("enterpriseAddress") }}
@@ -503,14 +496,32 @@
                   />
                   <!--end::Input-->
                 </div>
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label required">
+                    {{ $t("enterprisePhone") }}
+                  </label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="market_phone"
+                    class="form-control form-control-lg form-control-solid"
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="market_phone"
+                  />
+                  <!--end::Input-->
+                </div>
               </div>
               <!--end::Input group-->
 
               <!--begin::Input group-->
-              <div class="row mb-5">
+              <div class="row row-gap mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="form-label">
+                  <label class="form-label required">
                     {{ $t("enterpriseTaxNumber") }}
                   </label>
                   <!--end::Label-->
@@ -530,7 +541,7 @@
 
                 <div class="col-lg-6">
                   <!--end::Label-->
-                  <label class="form-label">
+                  <label class="form-label required">
                     {{ $t("enterpriseRecordNumber") }}
                   </label>
                   <!--end::Label-->
@@ -551,10 +562,10 @@
               <!--end::Input group-->
 
               <!--begin::Input group-->
-              <div class="row mb-5">
+              <div class="row row-gap mb-5">
                 <div class="col-lg-6">
                   <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label">
+                  <label class="fs-6 fw-bold form-label required">
                     {{ $t("numberOfTheEnterprise") }}</label
                   >
                   <!--end::Label-->
@@ -594,48 +605,6 @@
               <!--end::Input group-->
 
               <!--begin::Input group-->
-              <div class="row mb-10">
-                <div class="col-lg-6">
-                  <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label">
-                    {{ $t("enterpriseEmail") }}
-                  </label>
-                  <!--end::Label-->
-
-                  <!--begin::Input-->
-                  <Field
-                    name="market_email"
-                    class="form-control form-control-lg form-control-solid"
-                    value=""
-                  />
-                  <ErrorMessage
-                    class="fv-plugins-message-container invalid-feedback"
-                    name="market_email"
-                  />
-                  <!--end::Input-->
-                </div>
-                <div class="col-lg-6">
-                  <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label">
-                    {{ $t("enterprisePhone") }}
-                  </label>
-                  <!--end::Label-->
-
-                  <!--begin::Input-->
-                  <Field
-                    name="market_phone"
-                    class="form-control form-control-lg form-control-solid"
-                  />
-                  <ErrorMessage
-                    class="fv-plugins-message-container invalid-feedback"
-                    name="market_phone"
-                  />
-                  <!--end::Input-->
-                </div>
-              </div>
-              <!--end::Input group-->
-
-              <!--begin::Input group-->
               <div
                 class="fv-row mb-0"
                 :class="
@@ -651,7 +620,7 @@
                 <Field
                   type="file"
                   accept="image/*"
-                  class="btn-check"
+                  class="btn-check d-none"
                   name="market_image"
                   id="kt_logo_select"
                   @change="onFileChange"
@@ -678,6 +647,79 @@
                   name="enterpriseLogo"
                 />
                 <!--end::Input-->
+              </div>
+              <!--end::Input group-->
+            </div>
+            <!--end::Wrapper-->
+          </div>
+          <!--end::Step 3-->
+          <!--begin::Step 4-->
+          <div data-kt-stepper-element="content">
+            <!--begin::Wrapper-->
+            <div class="w-100">
+              <!--begin::Heading-->
+              <div class="pb-10 pb-lg-12">
+                <!--begin::Title-->
+                <h2 class="fw-bolder text-dark">
+                  {{ $t("paymentMethods") }}
+                </h2>
+                <!--end::Title-->
+              </div>
+              <!--end::Heading-->
+              <!--begin::Input group-->
+              <div class="mb-6 fv-row mw-600px">
+                <!--begin::Label-->
+                <label class="d-flex align-items-center form-label mb-5">
+                  {{ $t("selectBankType") }}
+                </label>
+                <!--end::Label-->
+
+                <!--begin::Options-->
+                <div class="mb-0">
+                  <!--begin:Option-->
+                  <label
+                    class="d-flex flex-stack mb-5 cursor-pointer"
+                    v-for="(bank, i) in $store.getters.getAllBanks"
+                    :key="i"
+                  >
+                    <!--begin:Label-->
+                    <span class="d-flex align-items-center me-2">
+                      <!--begin::Icon-->
+                      <span class="symbol symbol-50px me-6">
+                        <span class="symbol-label">
+                          <span class="svg-icon svg-icon-1 svg-icon-gray-600">
+                            <img class="img-fluid" :src="bank.image" />
+                          </span>
+                        </span>
+                      </span>
+                      <!--end::Icon-->
+
+                      <!--begin::Description-->
+                      <span class="d-flex flex-column">
+                        <span
+                          class="fw-bolder text-gray-800 text-hover-primary fs-5"
+                          >{{ bank.name }}</span
+                        >
+                      </span>
+                      <!--end:Description-->
+                    </span>
+                    <!--end:Label-->
+
+                    <!--begin:Input-->
+                    <span class="form-check form-check-custom form-check-solid">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="bank_id"
+                        :value="bank.id"
+                        v-model="formData.bank_id"
+                      />
+                    </span>
+                    <!--end:Input-->
+                  </label>
+                  <!--end::Option-->
+                </div>
+                <!--end::Options-->
               </div>
               <!--end::Input group-->
             </div>
@@ -802,7 +844,7 @@
         </div>
         <!--begin::Footer-->
         <div
-          class="d-flex flex-center justify-content-between flex-column-auto p-10"
+          class="d-flex flex-center justify-content-center flex-column-auto p-10"
         >
           <!--begin::Links-->
           <div class="d-flex align-items-center fw-bold fs-6">
@@ -815,27 +857,6 @@
             >
           </div>
           <!--end::Links-->
-          <div>
-            <a
-              href="#"
-              class="btn btn-flex flex-center btn-bg-white btn-text-gray-500 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
-              data-kt-menu-trigger="hover"
-              data-kt-menu-attach="parent"
-              :data-kt-menu-placement="
-                currentLanguage == 'en' ? 'top-end' : 'top-start'
-              "
-            >
-              <img
-                class="w-20px h-20px rounded-1 ms-2"
-                :src="currentLangugeLocale.flag"
-                alt="metronic"
-              />
-              <span class="svg-icon svg-icon-2 me-0">
-                <inline-svg src="/media/icons/duotune/arrows/arr072.svg" />
-              </span>
-            </a>
-            <Dropdown3></Dropdown3>
-          </div>
         </div>
         <!--end::Footer-->
       </form>
@@ -853,7 +874,6 @@ import { useRouter } from "vue-router";
 import { Actions } from "@/store/enums/StoreEnums";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Logo from "@/components/Logo.vue";
-import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm, Field, ErrorMessage } from "vee-validate";
 import { useI18n } from "vue-i18n/index";
@@ -874,10 +894,6 @@ interface Step2 {
   email: string;
   phone: string;
   password: string;
-}
-
-// Enterprise Info
-interface Step3 {
   market_name: string;
   market_address: string;
   market_tax_number: string;
@@ -888,6 +904,16 @@ interface Step3 {
   market_phone: string;
 }
 
+// Payment Methods
+interface Step3 {
+  payment_method_id: string;
+  account_name: string;
+  account_number: string;
+  iban: string;
+  bank_id: string;
+  shipping_company_id: string;
+}
+
 interface KTCreateApp extends Step1, Step2, Step3 {}
 
 export default defineComponent({
@@ -896,7 +922,6 @@ export default defineComponent({
     Field,
     ErrorMessage,
     Logo,
-    Dropdown3,
   },
   setup() {
     const _stepperObj = ref<StepperComponent | null>(null);
@@ -925,6 +950,12 @@ export default defineComponent({
       market_site_url: "",
       market_email: "",
       market_phone: "",
+      payment_method_id: "",
+      account_name: "",
+      account_number: "",
+      iban: "",
+      bank_id: "",
+      shipping_company_id: "",
     });
 
     onMounted(() => {
@@ -966,28 +997,56 @@ export default defineComponent({
 
     const createAppSchema = [
       Yup.object({
-        account_type: Yup.string().required("Account Type is required"),
+        account_type: Yup.string().required(translate("account_type_required")),
       }),
 
-      Yup.object({
-        invoice_plan: Yup.string().required("Invoice Plan is required"),
-        name: Yup.string().required("Name is required"),
-        password: Yup.string()
-          .min(8, "Password must be at least 8 characters")
-          .required("Password is required"),
-        phone: Yup.string()
-          .matches(/^[0-9]/, "Phone number must be 10 digits long")
-          .min(10, "Phone number must be 10 digits long")
-          .required("Phone number is required"),
-        email: Yup.string()
-          .email("Invalid email")
-          .required("Email is required"),
-      }),
+      // Yup.object({
+      //   invoice_plan: Yup.string().required("Invoice Plan is required"),
+      //   name: Yup.string()
+      //     .required(translate("nameRequired"))
+      //     .min(3, translate("nameMin"))
+      //     .max(50, translate("nameMax")),
+      //   password: Yup.string()
+      //     .min(8, translate("passwordMinLength"))
+      //     .max(32, translate("passwordMaxLength"))
+      //     .required(translate("passwordRequired")),
+      //   phone: Yup.string()
+      //     .matches(/^[0-9]/, translate("phoneNumberInvalid"))
+      //     .min(10, translate("phoneNumberMinLength"))
+      //     .required(translate("phoneNumberRequired")),
+      //   email: Yup.string()
+      //     .email(translate("emailInvalid"))
+      //     .required(translate("emailRequired")),
+      //   market_name: Yup.string()
+      //     .required(translate("market_name_required"))
+      //     .min(3, translate("market_name_min"))
+      //     .max(50, translate("market_name_max")),
+      //   market_address: Yup.string().required(
+      //     translate("market_address_required")
+      //   ),
+      //   market_phone: Yup.string()
+      //     .matches(/^[0-9]/, translate("market_phone_invalid"))
+      //     .min(10, translate("market_phone_min_length"))
+      //     .required(translate("market_phone_required")),
+      //   market_email: Yup.string()
+      //     .email(translate("market_email_invalid"))
+      //     .required(translate("market_email_required")),
+      //   market_tax_number: Yup.string()
+      //     .required(translate("market_tax_number_required"))
+      //     .min(15, translate("market_tax_number_min_length")),
+      //   market_commercial_number: Yup.string().required(
+      //     translate("market_commercial_number_required")
+      //   ),
+      //   market_standard_number: Yup.string().required(
+      //     translate("market_standard_number_required")
+      //   ),
+      //   market_site_url: Yup.string().url(translate("market_site_url_invalid")),
+      // }),
 
-      Yup.object({
-        market_name: Yup.string().required().label("Enterprise Name"),
-        market_address: Yup.string().required().label("Enterprise Address"),
-      }),
+      // Yup.object({
+      //   market_name: Yup.string().required().label("Enterprise Name"),
+      //   market_address: Yup.string().required().label("Enterprise Address"),
+      // }),
     ];
 
     // extracts the individual step schema
@@ -1030,15 +1089,17 @@ export default defineComponent({
         const body = {
           phone: formData.value.phone,
           email: formData.value.email,
+          market_phone: formData.value.market_phone,
+          market_email: formData.value.market_email,
         };
-        ApiService.post("check_mail_or_phone", body as AxiosRequestConfig).then(
-          ({ data }) => {
+        ApiService.post("check_mail_or_phone", body as AxiosRequestConfig)
+          .then(({ data }) => {
             if (data.email_found) {
               return Swal.fire({
                 text: translate("email_exist"),
                 icon: "error",
                 buttonsStyling: false,
-                confirmButtonText: "OK",
+                confirmButtonText: translate("ok"),
                 customClass: {
                   confirmButton: "btn fw-bold btn-light-primary",
                 },
@@ -1048,44 +1109,27 @@ export default defineComponent({
                 text: translate("phone_exist"),
                 icon: "error",
                 buttonsStyling: false,
-                confirmButtonText: "OK",
+                confirmButtonText: translate("ok"),
                 customClass: {
                   confirmButton: "btn fw-bold btn-light-primary",
                 },
               });
-            } else {
-              currentStepIndex.value++;
-
-              if (!_stepperObj.value) {
-                return;
-              }
-              _stepperObj.value.goNext();
-            }
-          }
-        );
-      } else if (currentStepIndex.value == 2) {
-        const body = {
-          market_phone: formData.value.market_phone,
-          market_email: formData.value.market_email,
-        };
-        ApiService.post("check_mail_or_phone", body as AxiosRequestConfig).then(
-          ({ data }) => {
-            if (data.market_email_found) {
+            } else if (data.market_email_found) {
               return Swal.fire({
-                text: translate("email_exist"),
+                text: translate("market_email_exist"),
                 icon: "error",
                 buttonsStyling: false,
-                confirmButtonText: "OK",
+                confirmButtonText: translate("ok"),
                 customClass: {
                   confirmButton: "btn fw-bold btn-light-primary",
                 },
               });
             } else if (data.market_phone_found) {
               return Swal.fire({
-                text: translate("phone_exist"),
+                text: translate("market_phone_exist"),
                 icon: "error",
                 buttonsStyling: false,
-                confirmButtonText: "OK",
+                confirmButtonText: translate("ok"),
                 customClass: {
                   confirmButton: "btn fw-bold btn-light-primary",
                 },
@@ -1098,8 +1142,18 @@ export default defineComponent({
               }
               _stepperObj.value.goNext();
             }
-          }
-        );
+          })
+          .catch(() => {
+            return Swal.fire({
+              text: translate("error_occured"),
+              icon: "error",
+              buttonsStyling: false,
+              confirmButtonText: translate("ok"),
+              customClass: {
+                confirmButton: "btn fw-bold btn-light-primary",
+              },
+            });
+          });
       } else {
         currentStepIndex.value++;
 
@@ -1131,26 +1185,23 @@ export default defineComponent({
         .dispatch(Actions.REGISTER, form as AxiosRequestConfig)
         .then(() => {
           Swal.fire({
-            text: "You have successfully logged in!",
+            text: translate("register_success"),
             icon: "success",
             buttonsStyling: false,
-            confirmButtonText: "Ok, got it!",
+            confirmButtonText: translate("ok"),
             customClass: {
               confirmButton: "btn fw-bold btn-light-primary",
             },
           }).then(function () {
             hideModal(createAccountModalRef.value);
             resetForm();
-            if (!_stepperObj.value) {
-              return;
-            }
+            if (!_stepperObj.value) return;
+
             currentStepIndex.value = 0;
             imgPreview.value = "";
             _stepperObj.value.goFirst();
 
-            router.push({
-              name: "home",
-            });
+            router.push({ name: "home" });
           });
         })
         .catch(() => {
@@ -1158,7 +1209,7 @@ export default defineComponent({
             text: store.getters.getErrors,
             icon: "error",
             buttonsStyling: false,
-            confirmButtonText: "Try again!",
+            confirmButtonText: translate("tryAgain"),
             customClass: {
               confirmButton: "btn fw-bold btn-light-danger",
             },
@@ -1199,3 +1250,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.row-gap {
+  row-gap: 20px;
+}
+</style>

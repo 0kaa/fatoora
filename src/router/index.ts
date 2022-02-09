@@ -282,6 +282,19 @@ router.beforeEach((to, from, next) => {
   const language = localStorage.getItem("lang") || "ar";
   // reset config to initial state
   store.commit(Mutations.RESET_LAYOUT_CONFIG);
+  const unAuthenticationRoutes = ["sign-in", "sign-up", "password-reset"];
+  //check if current user is authenticated
+  if (
+    !unAuthenticationRoutes.includes(to.name as string) &&
+    !store.getters.isUserAuthenticated
+  ) {
+    next({ name: "sign-in" });
+  } else if (
+    unAuthenticationRoutes.includes(to.name as string) &&
+    store.getters.isUserAuthenticated
+  ) {
+    next("/");
+  } else next();
 
   //store.dispatch(Actions.VERIFY_AUTH);
 
