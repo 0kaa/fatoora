@@ -57,22 +57,6 @@
                 </h3>
               </div>
               <!--end::Step 2-->
-
-              <!--begin::Step 2-->
-              <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">
-                  {{ $t("accountInfo") }}
-                </h3>
-              </div>
-              <!--end::Step 2-->
-
-              <!--begin::Step 3-->
-              <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">
-                  {{ $t("complete") }}
-                </h3>
-              </div>
-              <!--end::Step 3-->
             </div>
             <!--end::Nav-->
 
@@ -114,6 +98,7 @@
                           class="btn-check"
                           name="account_type"
                           value="personal"
+                          v-model="formData.account_type"
                           id="kt_create_account_form_account_type_personal"
                         />
                         <label
@@ -149,6 +134,7 @@
                           class="btn-check"
                           name="account_type"
                           value="corporate"
+                          v-model="formData.account_type"
                           id="kt_create_account_form_account_type_corporate"
                         />
                         <label
@@ -184,7 +170,7 @@
               </div>
               <!--end::Step 1-->
 
-              <!--begin::Step 2-->
+              <!--begin::Step 3-->
               <div data-kt-stepper-element="content">
                 <!--begin::Wrapper-->
                 <div class="w-100">
@@ -201,7 +187,7 @@
                       <Field
                         name="name"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.name"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -223,7 +209,7 @@
                       <Field
                         name="address"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.address"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -248,7 +234,7 @@
                       <Field
                         name="email"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.email"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -270,7 +256,7 @@
                       <Field
                         name="phone"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.phone"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -295,7 +281,7 @@
                       <Field
                         name="tax_number"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.tax_number"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -315,7 +301,7 @@
                       <Field
                         name="commercial_number"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.commercial_number"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -333,7 +319,7 @@
                     <div class="col-md-6">
                       <!--end::Label-->
                       <label class="form-label required">
-                        {{ $t("standard_number") }}
+                        {{ $t("enterpriseRecordNumber") }}
                       </label>
                       <!--end::Label-->
 
@@ -341,7 +327,7 @@
                       <Field
                         name="standard_number"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.standard_number"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -352,7 +338,7 @@
                     <div class="col-md-6">
                       <!--end::Label-->
                       <label class="form-label required">
-                        {{ $t("site_url") }}
+                        {{ $t("enterpriseWebsite") }}
                       </label>
                       <!--end::Label-->
 
@@ -360,7 +346,7 @@
                       <Field
                         name="site_url"
                         class="form-control form-control-lg form-control-solid"
-                        value=""
+                        v-model="formData.site_url"
                       />
                       <ErrorMessage
                         class="fv-plugins-message-container invalid-feedback"
@@ -373,144 +359,7 @@
                 </div>
                 <!--end::Wrapper-->
               </div>
-              <!--end::Step 2-->
-              <!--begin::Step 3-->
-              <div data-kt-stepper-element="content">
-                <!--begin::Wrapper-->
-                <div class="w-100">
-                  <!--begin::Input group-->
-                  <div class="mb-6 fv-row mx-auto mw-600px">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center form-label mb-5">
-                      {{ $t("selectBankType") }}
-                    </label>
-                    <!--end::Label-->
-
-                    <!--begin::Options-->
-                    <div class="mb-0">
-                      <!--begin:Option-->
-                      <label
-                        class="d-flex flex-stack mb-5 cursor-pointer"
-                        v-for="(bank, i) in $store.getters.getAllBanks"
-                        :key="i"
-                      >
-                        <!--begin:Label-->
-                        <span class="d-flex align-items-center me-2">
-                          <!--begin::Icon-->
-                          <span class="symbol symbol-50px me-6">
-                            <span class="symbol-label">
-                              <span
-                                class="svg-icon svg-icon-1 svg-icon-gray-600"
-                              >
-                                <img class="img-fluid" :src="bank.image" />
-                              </span>
-                            </span>
-                          </span>
-                          <!--end::Icon-->
-
-                          <!--begin::Description-->
-                          <span class="d-flex flex-column">
-                            <span
-                              class="fw-bolder text-gray-800 text-hover-primary fs-5"
-                              >{{ bank.name }}</span
-                            >
-                          </span>
-                          <!--end:Description-->
-                        </span>
-                        <!--end:Label-->
-
-                        <!--begin:Input-->
-                        <span
-                          class="form-check form-check-custom form-check-solid"
-                        >
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="bank_id"
-                            :value="bank.id"
-                            v-model="formData.bank_id"
-                          />
-                        </span>
-                        <!--end:Input-->
-                      </label>
-                      <!--end::Option-->
-                    </div>
-                    <!--end::Options-->
-                  </div>
-                  <!--end::Input group-->
-                </div>
-                <!--end::Wrapper-->
-              </div>
               <!--end::Step 3-->
-
-              <!--begin::Step 5-->
-              <div data-kt-stepper-element="content">
-                <!--begin::Wrapper-->
-                <div class="w-100">
-                  <!--begin::Heading-->
-                  <div class="pb-8 pb-lg-10">
-                    <!--begin::Title-->
-                    <h2 class="fw-bolder text-dark">Your Are Done!</h2>
-                    <!--end::Title-->
-
-                    <!--begin::Notice-->
-                    <div class="text-gray-400 fw-bold fs-6">
-                      If you need more info, please
-                      <router-link to="/sign-in" class="link-primary fw-bolder"
-                        >Sign In</router-link
-                      >.
-                    </div>
-                    <!--end::Notice-->
-                  </div>
-                  <!--end::Heading-->
-
-                  <!--begin::Body-->
-                  <div class="mb-0">
-                    <!--begin::Text-->
-                    <div class="fs-6 text-gray-600 mb-5">
-                      Writing headlines for blog posts is as much an art as it
-                      is a science and probably warrants its own post, but for
-                      all advise is with what works for your great & amazing
-                      audience.
-                    </div>
-                    <!--end::Text-->
-
-                    <!--begin::Alert-->
-                    <div
-                      class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6"
-                    >
-                      <!--begin::Icon-->
-                      <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                        <inline-svg
-                          src="/media/icons/duotune/general/gen044.svg"
-                        />
-                      </span>
-                      <!--end::Icon-->
-                      <!--begin::Wrapper-->
-                      <div class="d-flex flex-stack flex-grow-1">
-                        <!--begin::Content-->
-                        <div class="fw-bold">
-                          <h4 class="text-gray-800 fw-bolder">
-                            We need your attention!
-                          </h4>
-                          <div class="fs-6 text-gray-600">
-                            To start using great tools, please, please
-                            <a href="#" class="fw-bolder"
-                              >Create Team Platform</a
-                            >
-                          </div>
-                        </div>
-                        <!--end::Content-->
-                      </div>
-                      <!--end::Wrapper-->
-                    </div>
-                    <!--end::Alert-->
-                  </div>
-                  <!--end::Body-->
-                </div>
-                <!--end::Wrapper-->
-              </div>
-              <!--end::Step 5-->
 
               <!--begin::Actions-->
               <div class="d-flex flex-stack pt-15">
@@ -594,6 +443,8 @@ import { hideModal } from "@/core/helpers/dom";
 import { useI18n } from "vue-i18n/index";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
+import { useStore } from "vuex";
+import { Actions } from "@/store/enums/StoreEnums";
 import { useForm } from "vee-validate";
 import { Field, ErrorMessage } from "vee-validate";
 import * as Yup from "yup";
@@ -611,7 +462,6 @@ interface Step2 {
   standard_number: string;
   commercial_number: string;
   site_url: string;
-  payment_id: string;
 }
 
 interface KTCreateApp extends Step1, Step2 {}
@@ -628,6 +478,9 @@ export default defineComponent({
     const createAccountModalRef = ref<HTMLElement | null>(null);
     const currentStepIndex = ref(0);
     const il8n = useI18n();
+    const { t, te } = useI18n();
+
+    const store = useStore();
     const formData = ref<KTCreateApp>({
       account_type: "personal",
       name: "",
@@ -638,7 +491,6 @@ export default defineComponent({
       standard_number: "",
       commercial_number: "",
       site_url: "",
-      payment_id: "1",
     });
 
     onMounted(() => {
@@ -647,26 +499,42 @@ export default defineComponent({
       );
     });
 
+    const translate = (text) => {
+      if (te(text)) {
+        return t(text);
+      } else {
+        return text;
+      }
+    };
+
     const createAppSchema = [
       Yup.object({
         account_type: Yup.string().required(),
       }),
 
       Yup.object({
-        name: Yup.string().required(il8n.t("nameRequired")),
-        email: Yup.string()
-          .email(il8n.t("emailInvalid"))
-          .required(il8n.t("emailRequired")),
-        phone: Yup.string().required(il8n.t("phoneRequired")),
-        address: Yup.string().required(il8n.t("addressRequired")),
-        // tax_number: Yup.string().required(il8n.t("taxNumberRequired")),
-        // standard_number: Yup.string().required(
-        //   il8n.t("standardNumberRequired")
-        // ),
-        // commercial_number: Yup.string().required(
-        //   il8n.t("commercialNumberRequired")
-        // ),
-        // site_url: Yup.string().required(il8n.t("siteUrlRequired")),
+        name: Yup.string()
+          .required(translate("nameRequired"))
+          .min(3, translate("nameMin"))
+          .max(50, translate("nameMax")),
+        email: Yup.string().email().required(),
+        phone: Yup.string()
+          .matches(/^[0-9]/, translate("phoneNumberInvalid"))
+          .min(10, translate("phoneNumberMinLength"))
+          .required(translate("phoneNumberRequired")),
+        address: Yup.string().required(translate("address_required")),
+        tax_number: Yup.string()
+          .required(translate("tax_number_required"))
+          .min(15, translate("tax_number_min_length"))
+          .max(15, translate("tax_number_max_length")),
+        commercial_number: Yup.string()
+          .min(10, translate("commercial_number_min_length"))
+          .max(10, translate("commercial_number_max_length"))
+          .required(translate("commercial_number_required")),
+        standard_number: Yup.string().required(
+          translate("standard_number_required")
+        ),
+        site_url: Yup.string().url(translate("site_url_invalid")),
       }),
     ];
 
@@ -707,34 +575,58 @@ export default defineComponent({
         }
       }
 
-      currentStepIndex.value++;
-
-      if (!_stepperObj.value) {
+      if (currentStepIndex.value == 1) {
         return;
-      }
+      } else {
+        currentStepIndex.value++;
 
-      _stepperObj.value.goNext();
-    });
-
-    const formSubmit = () => {
-      Swal.fire({
-        text: "All is cool! Now you submit this form",
-        icon: "success",
-        buttonsStyling: false,
-        confirmButtonText: "Ok, got it!",
-        customClass: {
-          confirmButton: "btn fw-bold btn-light-primary",
-        },
-      }).then(() => {
-        hideModal(createAccountModalRef.value);
-        console.log(formData.value);
-        resetForm();
         if (!_stepperObj.value) {
           return;
         }
-        currentStepIndex.value = 0;
-        _stepperObj.value.goFirst();
+
+        _stepperObj.value.goNext();
+      }
+    });
+
+    const formSubmit = () => {
+      if (!_stepperObj.value) {
+        return;
+      }
+      Swal.fire({
+        title: il8n.t("pleaseWait"),
+        text: il8n.t("creatingAccount"),
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        },
       });
+
+      store
+        .dispatch(Actions.CREATE_CUSTOMER, formData.value)
+        .then((response) => {
+          Swal.close();
+          Swal.fire({
+            title: il8n.t("success"),
+            text: response.message,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          hideModal(createAccountModalRef.value);
+        })
+        .catch(() => {
+          Swal.close();
+
+          Swal.fire({
+            title: il8n.t("error"),
+            text: il8n.t("errorCreatingAccount"),
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
     };
 
     resetForm({

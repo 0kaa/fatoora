@@ -5,12 +5,16 @@ import router from "@/router";
 @Module
 export default class AuthModule extends VuexModule {
   @Action
-  [Actions.CREATE_CUSTOMER]() {
+  [Actions.CREATE_CUSTOMER](context) {
     ApiService.setHeader();
+    ApiService.setHeader();
+    const params = {
+      ...context,
+    };
     return new Promise<void>((resolve, reject) => {
-      ApiService.post("customers", {})
+      ApiService.post("customers", params)
         .then(({ data }) => {
-          resolve(data.data);
+          resolve(data);
         })
         .catch(({ response }) => {
           reject(response.data.message.message);
