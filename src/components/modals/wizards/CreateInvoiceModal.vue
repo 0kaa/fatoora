@@ -14,9 +14,7 @@
         <!--begin::Modal header-->
         <div class="modal-header">
           <!--begin::Title-->
-          <h2>
-            {{ $t("create_invoice") }}
-          </h2>
+          <h2>{{ $t("create_invoice") }}</h2>
 
           <!--end::Title-->
 
@@ -85,7 +83,7 @@
                     <!-- <div class="text-gray-400 fw-bold fs-6">
                       If you need more info, please check out
                       <a href="#" class="link-primary fw-bolder">Help Page</a>.
-                    </div> -->
+                    </div>-->
                     <!--end::Notice-->
                   </div>
                   <!--end::Heading-->
@@ -100,9 +98,9 @@
                         <Field
                           type="radio"
                           class="btn-check"
-                          name="invoiceType"
-                          checked="checked"
-                          value="fast"
+                          name="type"
+                          v-model="formData.type"
+                          value="simple"
                           id="kt_create_account_form_account_type_fast"
                         />
                         <label
@@ -117,9 +115,10 @@
 
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
-                            <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              {{ $t("fastInvoice") }}
-                            </span>
+                            <span
+                              class="text-dark fw-bolder d-block fs-4 mb-2"
+                              >{{ $t("fastInvoice") }}</span
+                            >
                             <span class="text-gray-400 fw-bold fs-6"
                               >If you need more info, please check it out</span
                             >
@@ -135,7 +134,8 @@
                         <Field
                           type="radio"
                           class="btn-check"
-                          name="invoiceType"
+                          name="type"
+                          v-model="formData.type"
                           value="medium"
                           id="kt_create_account_form_account_type_medium"
                         />
@@ -151,9 +151,10 @@
 
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
-                            <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              {{ $t("mediumInvoice") }}
-                            </span>
+                            <span
+                              class="text-dark fw-bolder d-block fs-4 mb-2"
+                              >{{ $t("mediumInvoice") }}</span
+                            >
                             <span class="text-gray-400 fw-bold fs-6"
                               >If you need more info, please check it out</span
                             >
@@ -170,7 +171,8 @@
                         <Field
                           type="radio"
                           class="btn-check"
-                          name="invoiceType"
+                          name="type"
+                          v-model="formData.type"
                           value="full"
                           id="kt_create_account_form_account_type_full"
                         />
@@ -186,9 +188,10 @@
 
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
-                            <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              {{ $t("fullInvoice") }}
-                            </span>
+                            <span
+                              class="text-dark fw-bolder d-block fs-4 mb-2"
+                              >{{ $t("fullInvoice") }}</span
+                            >
                             <span class="text-gray-400 fw-bold fs-6"
                               >Create corporate account to mane users</span
                             >
@@ -250,8 +253,10 @@
                                   <el-date-picker
                                     class="form-control-transparent pe-5 w-150px"
                                     name="invoice_date"
+                                    format="YYYY/MM/DD"
+                                    value-format="YYYY-MM-DD"
                                     :placeholder="$t('selectDate')"
-                                    v-model="invoice_date"
+                                    v-model="formData.invoice_date"
                                   />
                                   <!--end::Input-->
 
@@ -274,7 +279,7 @@
                                 <input
                                   type="text"
                                   class="form-control form-control-flush fw-bolder text-muted fs-3 w-125px"
-                                  value="2021001"
+                                  v-model="formData.invoice_number"
                                   placehoder="..."
                                 />
                               </div>
@@ -302,9 +307,11 @@
                                   <el-date-picker
                                     type="text"
                                     class="form-control-transparent pe-5 w-150px"
-                                    name="invoice_date"
+                                    name="due_date"
                                     :placeholder="$t('selectDate')"
-                                    v-model="invoice_duo_date"
+                                    v-model="formData.due_date"
+                                    format="YYYY/MM/DD"
+                                    value-format="YYYY-MM-DD"
                                   />
                                   <!--end::Input-->
 
@@ -323,20 +330,21 @@
                               <!--begin::Row-->
                               <div
                                 class="row gx-10 mb-5"
-                                v-if="formData.invoiceType != 'fast'"
+                                v-if="formData.type != 'simple'"
                               >
                                 <!--begin::Col-->
                                 <div class="col-lg-6">
                                   <label
                                     class="form-label fs-6 fw-bolder text-gray-700 mb-3"
+                                    >{{ $t("billFrom") }}</label
                                   >
-                                    {{ $t("billFrom") }}
-                                  </label>
                                   <!--begin::Input group-->
                                   <div class="mb-5">
                                     <input
                                       type="text"
                                       class="form-control form-control-solid"
+                                      :value="user.market_name"
+                                      disabled
                                       :placeholder="$t('name')"
                                     />
                                   </div>
@@ -346,6 +354,8 @@
                                     <input
                                       type="text"
                                       class="form-control form-control-solid"
+                                      :value="user.market_email"
+                                      disabled
                                       :placeholder="$t('email')"
                                     />
                                   </div>
@@ -356,25 +366,24 @@
                                 <div class="col-lg-6">
                                   <label
                                     class="form-label fs-6 fw-bolder text-gray-700 mb-3"
+                                    >{{ $t("billTo") }}</label
                                   >
-                                    {{ $t("billTo") }}
-                                  </label>
                                   <!--begin::Input group-->
                                   <div class="mb-5">
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-solid"
-                                      :placeholder="$t('name')"
-                                    />
-                                  </div>
-                                  <!--end::Input group-->
-                                  <!--begin::Input group-->
-                                  <div class="mb-5">
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-solid"
-                                      :placeholder="$t('email')"
-                                    />
+                                    <el-select
+                                      v-model="formData.customer_id"
+                                      :placeholder="$t('select_customer')"
+                                      class="w-100"
+                                      size="large"
+                                    >
+                                      <el-option
+                                        v-for="customer in customers"
+                                        :key="customer.id"
+                                        :label="customer.name"
+                                        :value="customer.id"
+                                      >
+                                      </el-option>
+                                    </el-select>
                                   </div>
                                   <!--end::Input group-->
                                 </div>
@@ -420,12 +429,17 @@
                                       :key="index"
                                     >
                                       <td class="pe-7">
-                                        <input
+                                        <!-- <input
                                           type="text"
                                           class="form-control form-control-solid mb-2"
                                           v-model="item.name"
                                           :placeholder="$t('itemName')"
-                                        />
+                                        /> -->
+                                        <input
+                                          class="form-control form-control-solid mb-2"
+                                          v-model="item.name"
+                                          :placeholder="$t('itemName')"
+                                        />                                
                                         <input
                                           type="text"
                                           class="form-control form-control-solid"
@@ -435,12 +449,17 @@
                                       </td>
                                       <td class="ps-0">
                                         <input
-                                          class="form-control form-control-solid"
                                           type="number"
+                                          class="form-control form-control-solid"
                                           min="1"
+                                          name="itemQty"
                                           v-model.number="item.quantity"
                                           placeholder="1"
                                           data-kt-element="quantity"
+                                        />
+                                        <ErrorMessage
+                                          class="fv-plugins-message-container invalid-feedback mb-2"
+                                          name="itemQty"
                                         />
                                       </td>
                                       <td>
@@ -448,9 +467,14 @@
                                           type="number"
                                           class="form-control form-control-solid"
                                           v-model="item.price"
+                                          name="itemPrice"
                                           min="1"
                                           placeholder="0.00"
                                           data-kt-element="price"
+                                        />
+                                        <ErrorMessage
+                                          class="fv-plugins-message-container invalid-feedback mb-2"
+                                          name="itemPrice"
                                         />
                                       </td>
                                       <td class="pt-8 text-end text-nowrap">
@@ -530,7 +554,7 @@
                                               type="number"
                                               class="form-control form-control-solid"
                                               :placeholder="$t('addDiscount')"
-                                              v-model="formData.invoiceDiscount"
+                                              v-model="formData.discount_amount"
                                             />
                                           </div>
                                           <!--end::Discount-->
@@ -548,9 +572,7 @@
                                         <div
                                           class="d-flex flex-column align-items-start"
                                         >
-                                          <div>
-                                            {{ $t("subTotal") }}
-                                          </div>
+                                          <div>{{ $t("subTotal") }}</div>
                                         </div>
                                       </th>
 
@@ -559,9 +581,9 @@
                                         class="border-bottom border-bottom-dashed text-end"
                                       >
                                         {{ $store.state.currency }}
-                                        <span>{{
-                                          totalInvoice.toFixed(2)
-                                        }}</span>
+                                        <span>
+                                          {{ totalInvoice.toFixed(2) }}
+                                        </span>
                                       </th>
                                     </tr>
 
@@ -579,9 +601,9 @@
                                         {{ $store.state.currency }}
                                         <span>
                                           {{
-                                            formData.invoiceDiscount
+                                            formData.discount_amount
                                               ? parseFloat(
-                                                  formData.invoiceDiscount
+                                                  formData.discount_amount
                                                 ).toFixed(2)
                                               : "0.00"
                                           }}
@@ -603,7 +625,7 @@
                                         <span>
                                           {{
                                             (
-                                              (formData.invoiceTax / 100) *
+                                              (formData.invoice_tax / 100) *
                                               totalInvoice
                                             ).toFixed(2)
                                           }}
@@ -626,9 +648,9 @@
                                           {{
                                             (
                                               totalInvoice +
-                                              (formData.invoiceTax / 100) *
+                                              (formData.invoice_tax / 100) *
                                                 totalInvoice -
-                                              formData.invoiceDiscount
+                                              formData.discount_amount
                                             ).toFixed(2)
                                           }}
                                         </span>
@@ -686,9 +708,8 @@
                               >
                                 <span
                                   class="form-check-label ms-0 fw-bolder fs-6 text-gray-700"
+                                  >{{ $t("paymentMethod") }}</span
                                 >
-                                  {{ $t("paymentMethod") }}
-                                </span>
                                 <input
                                   class="form-check-input"
                                   type="checkbox"
@@ -703,9 +724,8 @@
                               >
                                 <span
                                   class="form-check-label ms-0 fw-bolder fs-6 text-gray-700"
+                                  >{{ $t("notes") }}</span
                                 >
-                                  {{ $t("notes") }}
-                                </span>
                                 <input
                                   class="form-check-input"
                                   type="checkbox"
@@ -737,8 +757,7 @@
                             <div class="mb-0" v-if="toggleNotes">
                               <label
                                 class="form-label fs-6 fw-bolder text-gray-700"
-                              >
-                                {{ $t("notes") }}</label
+                                >{{ $t("notes") }}</label
                               >
                               <textarea
                                 name="notes"
@@ -945,26 +964,29 @@ import { useI18n } from "vue-i18n/index";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
-import { Field } from "vee-validate";
+import { Field, ErrorMessage } from "vee-validate";
 import * as Yup from "yup";
+import { useStore } from "vuex";
+import { Actions } from "@/store/enums/StoreEnums";
 
 interface Step1 {
-  invoiceType: string;
+  type: string;
 }
 
 interface Step2 {
-  invoiceNumber: string;
-  invoiceDate: string;
-  dueDate: string;
-  invoiceTo: string;
-  invoiceAddress: string;
-  invoicePhone: string;
-  invoiceEmail: string;
-  invoiceNotes: string;
-  invoiceTax: number;
+  invoice_number: string;
+  release_date: string;
+  due_date: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  invoiceDiscount: any;
-  invoiceTotal: string;
+  products: any[];
+  public_note: string;
+  private_note: string;
+  discount_amount: string;
+  invoice_tax: number;
+  customer_id: string;
+  payment_id: string;
+  shipping_company_id: string;
+  account_id: string;
 }
 
 interface KTCreateApp extends Step1, Step2 {}
@@ -973,7 +995,7 @@ export default defineComponent({
   name: "create-invoice-modal",
   components: {
     Field,
-    // ErrorMessage,
+    ErrorMessage,
   },
   setup() {
     const _stepperObj = ref<StepperComponent | null>(null);
@@ -983,9 +1005,10 @@ export default defineComponent({
     const paymentMethod = ref(false);
     const toggleNotes = ref(false);
     const paymentUrl = ref("");
-    const invoice_date = ref(new Date());
-    const invoice_duo_date = ref("");
+    const customers = ref([]);
     const il8n = useI18n();
+    const store = useStore();
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const items = ref<any[]>([
       {
@@ -996,24 +1019,29 @@ export default defineComponent({
       },
     ]);
     const formData = ref<KTCreateApp>({
-      invoiceType: "fast",
-      invoiceNumber: "",
-      invoiceDate: "",
-      dueDate: "",
-      invoiceTo: "",
-      invoiceAddress: "",
-      invoicePhone: "",
-      invoiceEmail: "",
-      invoiceNotes: "",
-      invoiceTax: 14,
-      invoiceDiscount: "",
-      invoiceTotal: "",
+      type: "simple",
+      invoice_number: "",
+      release_date: "",
+      due_date: "",
+      products: items.value,
+      public_note: "",
+      private_note: "",
+      discount_amount: "",
+      invoice_tax: 14,
+      customer_id: "",
+      payment_id: "",
+      shipping_company_id: "",
+      account_id: "",
     });
 
     onMounted(() => {
       _stepperObj.value = StepperComponent.createInsance(
         createInvoiceRef.value as HTMLElement
       );
+
+      store.dispatch(Actions.GET_CUSTOMERS).then((res) => {
+        customers.value = res;
+      });
     });
 
     const addItem = () => {
@@ -1041,11 +1069,16 @@ export default defineComponent({
       return total;
     });
 
+    const user = computed(() => {
+      return store.getters.currentUser;
+    });
+
     const createAppSchema = [
+      Yup.object({}),
       Yup.object({
-        // itemName: Yup.string().required().label("Item Name"),
-        // itemQty: Yup.string().required().label("Item Quantity"),
-        // itemPrice: Yup.string().required().label("Item Price"),
+        itemName: Yup.string().required().label("Item Name"),
+        itemQty: Yup.string().required().label("Item Quantity"),
+        itemPrice: Yup.string().required().label("Item Price"),
       }),
     ];
 
@@ -1086,34 +1119,84 @@ export default defineComponent({
         }
       }
 
-      currentStepIndex.value++;
+      if (currentStepIndex.value == 1) {
+        return;
+      } else {
+        currentStepIndex.value++;
+
+        if (!_stepperObj.value) {
+          return;
+        }
+
+        _stepperObj.value.goNext();
+      }
+    });
+
+    const formSubmit = () => {
+      //       if (!_stepperObj.value) {
+      //   return;
+      // }
+
+      // Swal.fire({
+      //   text: "All is cool! Now you submit this form",
+      //   icon: "success",
+      //   buttonsStyling: false,
+      //   confirmButtonText: "Ok, got it!",
+      //   customClass: {
+      //     confirmButton: "btn fw-bold btn-light-primary",
+      //   },
+      // }).then(() => {
+      //   hideModal(createInvoiceModalRef.value);
+      //   console.log(formData.value);
+      //   resetForm();
+      //   if (!_stepperObj.value) {
+      //     return;
+      //   }
+      //   currentStepIndex.value = 0;
+      //   _stepperObj.value.goFirst();
+      // });
 
       if (!_stepperObj.value) {
         return;
       }
 
-      _stepperObj.value.goNext();
-    });
+      formData.value.products = items.value;
 
-    const formSubmit = () => {
       Swal.fire({
-        text: "All is cool! Now you submit this form",
-        icon: "success",
-        buttonsStyling: false,
-        confirmButtonText: "Ok, got it!",
-        customClass: {
-          confirmButton: "btn fw-bold btn-light-primary",
+        title: il8n.t("pleaseWait"),
+        text: il8n.t("creatingAccount"),
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+          Swal.showLoading();
         },
-      }).then(() => {
-        hideModal(createInvoiceModalRef.value);
-        console.log(formData.value);
-        resetForm();
-        if (!_stepperObj.value) {
-          return;
-        }
-        currentStepIndex.value = 0;
-        _stepperObj.value.goFirst();
       });
+
+      store
+        .dispatch(Actions.CREATE_INVOICE, formData.value)
+        .then((response) => {
+          Swal.close();
+          Swal.fire({
+            title: il8n.t("success"),
+            text: response.message,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          hideModal(createInvoiceModalRef.value);
+        })
+        .catch(() => {
+          Swal.close();
+
+          Swal.fire({
+            title: il8n.t("error"),
+            text: il8n.t("errorCreatingAccount"),
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
     };
 
     resetForm({
@@ -1134,12 +1217,12 @@ export default defineComponent({
       addItem,
       removeItem,
       currentStepIndex,
-      invoice_date,
       totalInvoice,
       il8n,
       items,
-      invoice_duo_date,
       formData,
+      user,
+      customers,
       createInvoiceModalRef,
     };
   },

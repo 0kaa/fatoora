@@ -19,7 +19,7 @@ enum Actions {
   // Invoice actions
   GET_INVOICES = "getInvoices",
   GET_INVOICE = "getInvoice",
-  // CREATE_INVOICE = "createInvoice",
+  CREATE_INVOICE = "createInvoice",
   // UPDATE_INVOICE = "updateInvoice",
   // DELETE_INVOICE = "deleteInvoice",
   // Customer actions

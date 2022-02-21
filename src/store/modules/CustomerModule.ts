@@ -7,7 +7,6 @@ export default class AuthModule extends VuexModule {
   @Action
   [Actions.CREATE_CUSTOMER](context) {
     ApiService.setHeader();
-    ApiService.setHeader();
     const params = {
       ...context,
     };
@@ -17,7 +16,7 @@ export default class AuthModule extends VuexModule {
           resolve(data);
         })
         .catch(({ response }) => {
-          reject(response.data.message.message);
+          reject(response);
         });
     });
   }

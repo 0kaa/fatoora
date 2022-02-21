@@ -14,9 +14,7 @@
         <!--begin::Modal header-->
         <div class="modal-header">
           <!--begin::Title-->
-          <h2>
-            {{ $t("create_account") }}
-          </h2>
+          <h2>{{ $t("create_account") }}</h2>
           <!--end::Title-->
 
           <!--begin::Close-->
@@ -44,17 +42,13 @@
             <div class="stepper-nav py-5">
               <!--begin::Step 1-->
               <div class="stepper-item current" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">
-                  {{ $t("accountType") }}
-                </h3>
+                <h3 class="stepper-title">{{ $t("accountType") }}</h3>
               </div>
               <!--end::Step 1-->
 
               <!--begin::Step 2-->
               <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">
-                  {{ $t("accountInfo") }}
-                </h3>
+                <h3 class="stepper-title">{{ $t("accountInfo") }}</h3>
               </div>
               <!--end::Step 2-->
             </div>
@@ -113,9 +107,10 @@
 
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
-                            <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              {{ $t("personalAccount") }}
-                            </span>
+                            <span
+                              class="text-dark fw-bolder d-block fs-4 mb-2"
+                              >{{ $t("personalAccount") }}</span
+                            >
                             <span class="text-gray-400 fw-bold fs-6"
                               >If you need more info, please check it out</span
                             >
@@ -149,9 +144,10 @@
 
                           <!--begin::Info-->
                           <span class="d-block fw-bold text-start">
-                            <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                              {{ $t("corporateAccount") }}
-                            </span>
+                            <span
+                              class="text-dark fw-bolder d-block fs-4 mb-2"
+                              >{{ $t("corporateAccount") }}</span
+                            >
                             <span class="text-gray-400 fw-bold fs-6"
                               >Create corporate account to mane users</span
                             >
@@ -178,9 +174,9 @@
                   <div class="fv-row row-gap row mb-10">
                     <div class="col-md-6">
                       <!--begin::Label-->
-                      <label class="form-label required">
-                        {{ $t("customerName") }}
-                      </label>
+                      <label class="form-label required">{{
+                        $t("customerName")
+                      }}</label>
                       <!--end::Label-->
 
                       <!--begin::Input-->
@@ -199,9 +195,9 @@
                     <div class="col-md-6">
                       <!--begin::Label-->
                       <label class="d-flex align-items-center form-label">
-                        <span class="required">
-                          {{ $t("customerAddress") }}
-                        </span>
+                        <span class="required">{{
+                          $t("customerAddress")
+                        }}</span>
                       </label>
                       <!--end::Label-->
 
@@ -225,9 +221,9 @@
                   <div class="fv-row row-gap row mb-10">
                     <div class="col-md-6">
                       <!--begin::Label-->
-                      <label class="form-label required">
-                        {{ $t("customerEmail") }}
-                      </label>
+                      <label class="form-label required">{{
+                        $t("customerEmail")
+                      }}</label>
                       <!--end::Label-->
 
                       <!--begin::Input-->
@@ -246,9 +242,7 @@
                     <div class="col-md-6">
                       <!--begin::Label-->
                       <label class="d-flex align-items-center form-label">
-                        <span class="required">
-                          {{ $t("customerPhone") }}
-                        </span>
+                        <span class="required">{{ $t("customerPhone") }}</span>
                       </label>
                       <!--end::Label-->
 
@@ -272,9 +266,9 @@
                   <div class="fv-row row-gap row mb-10">
                     <div class="col-md-6">
                       <!--begin::Label-->
-                      <label class="form-label required">
-                        {{ $t("taxID") }}
-                      </label>
+                      <label class="form-label required">{{
+                        $t("taxID")
+                      }}</label>
                       <!--end::Label-->
 
                       <!--begin::Input-->
@@ -292,9 +286,9 @@
                     <!--begin::Input group-->
                     <div class="col-md-6">
                       <!--begin::Label-->
-                      <label class="fs-6 fw-bold form-label required">
-                        {{ $t("commercial_number") }}
-                      </label>
+                      <label class="fs-6 fw-bold form-label required">{{
+                        $t("commercial_number")
+                      }}</label>
                       <!--end::Label-->
 
                       <!--begin::Input-->
@@ -318,9 +312,9 @@
                   <div class="fv-row row-gap row mb-0">
                     <div class="col-md-6">
                       <!--end::Label-->
-                      <label class="form-label required">
-                        {{ $t("enterpriseRecordNumber") }}
-                      </label>
+                      <label class="form-label required">{{
+                        $t("enterpriseRecordNumber")
+                      }}</label>
                       <!--end::Label-->
 
                       <!--begin::Input-->
@@ -337,9 +331,9 @@
                     </div>
                     <div class="col-md-6">
                       <!--end::Label-->
-                      <label class="form-label required">
-                        {{ $t("enterpriseWebsite") }}
-                      </label>
+                      <label class="form-label required">{{
+                        $t("enterpriseWebsite")
+                      }}</label>
                       <!--end::Label-->
 
                       <!--begin::Input-->

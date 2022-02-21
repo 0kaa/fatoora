@@ -19,6 +19,23 @@ export interface Invoice {
 @Module
 export default class AuthModule extends VuexModule {
   @Action
+  [Actions.CREATE_INVOICE](context) {
+    ApiService.setHeader();
+    const params = {
+      ...context,
+    };
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("invoices", params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          reject(response);
+        });
+    });
+  }
+
+  @Action
   [Actions.GET_INVOICES]() {
     ApiService.setHeader();
 

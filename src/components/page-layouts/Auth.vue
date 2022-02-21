@@ -14,16 +14,13 @@
 import { defineComponent, onMounted, onUnmounted } from "vue";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
-import { useI18n } from "vue-i18n/index";
 
 export default defineComponent({
   name: "auth",
   components: {},
   setup() {
     const store = useStore();
-    const i18n = useI18n();
     onMounted(() => {
-      console.log(i18n);
       store.dispatch(Actions.ADD_BODY_CLASSNAME, "bg-body");
     });
 

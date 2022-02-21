@@ -175,6 +175,7 @@ const messages = {
     register_success: "Register Success",
     tryAgain: "Try Again",
     paymentMethods: "Payment Methods",
+    select_customer: "Select Customer",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -348,6 +349,7 @@ const messages = {
     register_success: "تم التسجيل بنجاح",
     tryAgain: "حاول مرة أخرى",
     paymentMethods: "طرق الدفع",
+    select_customer: "حدد العميل",
   },
 };
 
