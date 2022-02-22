@@ -47,8 +47,8 @@
         <!--end::Table head-->
         <!--begin::Table body-->
         <tbody class="fw-bold text-gray-600">
-          <template v-if="tableData.length">
-            <template v-for="(item, i) in tableData" :key="i">
+          <template v-if="getItems.length">
+            <template v-for="(item, i) in getItems" :key="i">
               <tr class="odd">
                 <template v-for="(cell, i) in tableHeader" :key="i">
                   <td :class="{ 'text-end': tableHeader.length - 1 === i }">

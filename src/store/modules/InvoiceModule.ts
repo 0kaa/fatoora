@@ -1,7 +1,7 @@
 import ApiService from "@/core/services/ApiService";
 // import JwtService from "@/core/services/JwtService";
-import { Actions } from "@/store/enums/StoreEnums";
-import { Module, Action, VuexModule } from "vuex-module-decorators";
+import { Actions, Mutations } from "@/store/enums/StoreEnums";
+import { Module, Action, Mutation, VuexModule } from "vuex-module-decorators";
 import router from "@/router";
 export interface Invoice {
   id: number;
@@ -18,6 +18,21 @@ export interface Invoice {
 
 @Module
 export default class AuthModule extends VuexModule {
+  error = {};
+
+  /**
+   * Get authentification errors
+   * @returns array
+   */
+  get getInvoiceErrors() {
+    return this.error;
+  }
+
+  @Mutation
+  [Mutations.SET_ERROR](error) {
+    this.error = error;
+  }
+
   @Action
   [Actions.CREATE_INVOICE](context) {
     ApiService.setHeader();
@@ -30,7 +45,8 @@ export default class AuthModule extends VuexModule {
           resolve(data);
         })
         .catch(({ response }) => {
-          reject(response);
+          this.context.commit(Mutations.SET_ERROR, response);
+          reject();
         });
     });
   }

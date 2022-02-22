@@ -19,8 +19,8 @@
         <Datatable
           :table-header="tableHeader"
           :table-data="invoices"
-          :rows-per-page="5"
-          :enable-items-per-page-dropdown="false"
+          :rows-per-page="10"
+          :enable-items-per-page-dropdown="true"
         >
           <template v-slot:cell-rand_number="{ row: invoice }">
             #{{ invoice.rand_number }}
@@ -126,109 +126,8 @@ export default defineComponent({
         sortable: false,
       },
     ]);
-    const tableData1 = ref([
-      {
-        date: "Nov 01, 2020",
-        rand_number: "102445788",
-        details: "Darknight transparency  36 Icons Pack",
-        color: "success",
-        amount: "$38.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Oct 24, 2020",
-        rand_number: "423445721",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-2.60",
-        status: {
-          label: "Pending",
-          state: "success",
-        },
-      },
-      {
-        date: "Oct 08, 2020",
-        rand_number: "312445984",
-        details: "Cartoon Mobile Emoji Phone Pack",
-        color: "success",
-        amount: "$76.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Sep 15, 2020",
-        rand_number: "312445984",
-        details: "Iphone 12 Pro Mockup  Mega Bundle",
-        color: "success",
-        amount: "$5.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "May 30, 2020",
-        rand_number: "523445943",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-1.30",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Apr 22, 2020",
-        rand_number: "231445943",
-        details: "Parcel Shipping / Delivery Service App",
-        color: "success",
-        amount: "$204.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Feb 09, 2020",
-        rand_number: "426445943",
-        details: "Visual Design Illustration",
-        color: "success",
-        amount: "$31.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Nov 01, 2020",
-        rand_number: "984445943",
-        details: "Abstract Vusial Pack",
-        color: "success",
-        amount: "$52.00",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-      {
-        date: "Jan 04, 2020",
-        rand_number: "324442313",
-        details: "Seller Fee",
-        color: "danger",
-        amount: "$-0.80",
-        status: {
-          label: "Pending",
-          state: "warning",
-        },
-      },
-    ]);
 
-    return { tableHeader, tableData1 };
+    return { tableHeader };
   },
 });
 </script>

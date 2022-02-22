@@ -176,6 +176,7 @@ const messages = {
     tryAgain: "Try Again",
     paymentMethods: "Payment Methods",
     select_customer: "Select Customer",
+    paidInvoice: "Paid Invoice",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -350,6 +351,7 @@ const messages = {
     tryAgain: "حاول مرة أخرى",
     paymentMethods: "طرق الدفع",
     select_customer: "حدد العميل",
+    paidInvoice: "فاتورة مدفوعة",
   },
 };
 

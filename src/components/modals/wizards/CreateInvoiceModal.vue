@@ -252,11 +252,11 @@
                                   <!--begin::Input-->
                                   <el-date-picker
                                     class="form-control-transparent pe-5 w-150px"
-                                    name="invoice_date"
+                                    name="release_date"
                                     format="YYYY/MM/DD"
                                     value-format="YYYY-MM-DD"
                                     :placeholder="$t('selectDate')"
-                                    v-model="formData.invoice_date"
+                                    v-model="formData.release_date"
                                   />
                                   <!--end::Input-->
 
@@ -437,13 +437,13 @@
                                         /> -->
                                         <input
                                           class="form-control form-control-solid mb-2"
-                                          v-model="item.name"
+                                          v-model="item.product_name"
                                           :placeholder="$t('itemName')"
-                                        />                                
+                                        />
                                         <input
                                           type="text"
                                           class="form-control form-control-solid"
-                                          v-model="item.description"
+                                          v-model="item.product_desc"
                                           :placeholder="$t('description')"
                                         />
                                       </td>
@@ -452,38 +452,31 @@
                                           type="number"
                                           class="form-control form-control-solid"
                                           min="1"
-                                          name="itemQty"
-                                          v-model.number="item.quantity"
+                                          name="product_quantity"
+                                          v-model.number="item.product_quantity"
                                           placeholder="1"
                                           data-kt-element="quantity"
-                                        />
-                                        <ErrorMessage
-                                          class="fv-plugins-message-container invalid-feedback mb-2"
-                                          name="itemQty"
                                         />
                                       </td>
                                       <td>
                                         <input
                                           type="number"
                                           class="form-control form-control-solid"
-                                          v-model="item.price"
-                                          name="itemPrice"
+                                          v-model="item.product_price"
                                           min="1"
                                           placeholder="0.00"
                                           data-kt-element="price"
-                                        />
-                                        <ErrorMessage
-                                          class="fv-plugins-message-container invalid-feedback mb-2"
-                                          name="itemPrice"
                                         />
                                       </td>
                                       <td class="pt-8 text-end text-nowrap">
                                         {{ $store.state.currency }}
                                         <span data-kt-element="total">
                                           {{
-                                            item.quantity && item.price
+                                            item.product_quantity &&
+                                            item.product_price
                                               ? (
-                                                  item.quantity * item.price
+                                                  item.product_quantity *
+                                                  item.product_price
                                                 ).toFixed(2)
                                               : "0.00"
                                           }}
@@ -702,6 +695,21 @@
                           <div class="card-body p-10">
                             <!--begin::Input group-->
                             <div class="mb-8">
+                              <!--begin::Option-->
+                              <label
+                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack mb-5"
+                              >
+                                <span
+                                  class="form-check-label ms-0 fw-bolder fs-6 text-gray-700"
+                                  >{{ $t("paidInvoice") }}</span
+                                >
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="paidInvoice"
+                                />
+                              </label>
+                              <!--end::Option-->
                               <!--begin::Option-->
                               <label
                                 class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack mb-5"
@@ -964,10 +972,11 @@ import { useI18n } from "vue-i18n/index";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
-import { Field, ErrorMessage } from "vee-validate";
+import { Field } from "vee-validate";
 import * as Yup from "yup";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
+import moment from "moment";
 
 interface Step1 {
   type: string;
@@ -981,6 +990,7 @@ interface Step2 {
   products: any[];
   public_note: string;
   private_note: string;
+  has_discount: number;
   discount_amount: string;
   invoice_tax: number;
   customer_id: string;
@@ -995,7 +1005,6 @@ export default defineComponent({
   name: "create-invoice-modal",
   components: {
     Field,
-    ErrorMessage,
   },
   setup() {
     const _stepperObj = ref<StepperComponent | null>(null);
@@ -1005,6 +1014,7 @@ export default defineComponent({
     const paymentMethod = ref(false);
     const toggleNotes = ref(false);
     const paymentUrl = ref("");
+    const paidInvoice = ref(false);
     const customers = ref([]);
     const il8n = useI18n();
     const store = useStore();
@@ -1012,20 +1022,21 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const items = ref<any[]>([
       {
-        name: "",
-        description: "",
-        quantity: "1",
-        price: "",
+        product_name: "",
+        product_desc: "",
+        product_quantity: "1",
+        product_price: "",
       },
     ]);
     const formData = ref<KTCreateApp>({
       type: "simple",
       invoice_number: "",
-      release_date: "",
+      release_date: moment().format("YYYY-MM-DD"),
       due_date: "",
       products: items.value,
       public_note: "",
       private_note: "",
+      has_discount: 0,
       discount_amount: "",
       invoice_tax: 14,
       customer_id: "",
@@ -1046,10 +1057,10 @@ export default defineComponent({
 
     const addItem = () => {
       items.value.push({
-        name: "",
-        description: "",
-        quantity: "1",
-        price: "",
+        product_name: "",
+        product_desc: "",
+        product_quantity: "1",
+        product_price: "",
       });
     };
 
@@ -1161,6 +1172,11 @@ export default defineComponent({
       }
 
       formData.value.products = items.value;
+      if (formData.value.discount_amount) {
+        formData.value.has_discount = 1;
+      } else {
+        formData.value.has_discount = 0;
+      }
 
       Swal.fire({
         title: il8n.t("pleaseWait"),
@@ -1182,16 +1198,22 @@ export default defineComponent({
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
+          }).then(() => {
+            hideModal(createInvoiceModalRef.value);
+            resetForm();
+            if (!_stepperObj.value) {
+              return;
+            }
+            currentStepIndex.value = 0;
+            _stepperObj.value.goFirst();
           });
-
-          hideModal(createInvoiceModalRef.value);
         })
         .catch(() => {
+          const message = store.getters.getInvoiceErrors;
           Swal.close();
-
           Swal.fire({
             title: il8n.t("error"),
-            text: il8n.t("errorCreatingAccount"),
+            text: message.data.message,
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
@@ -1214,6 +1236,7 @@ export default defineComponent({
       paymentMethod,
       paymentUrl,
       toggleNotes,
+      paidInvoice,
       addItem,
       removeItem,
       currentStepIndex,
