@@ -32,8 +32,8 @@
   </div>
   <!-- end:: Body -->
   <KTScrollTop></KTScrollTop>
-  <KTCreateAccountModal></KTCreateAccountModal>
   <KTCreateInvoiceModal></KTCreateInvoiceModal>
+  <KTCreateAccountModal></KTCreateAccountModal>
   <KTUpgradePlanModal></KTUpgradePlanModal>
 </template>
 

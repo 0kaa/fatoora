@@ -19,6 +19,10 @@ export interface User {
   market_email: string;
   market_phone: string;
   market_image: string;
+  payment_methods: string[];
+  shipping_companies: string[];
+  accounts: string[];
+  currency: string;
 }
 
 export interface UserAuthInfo {

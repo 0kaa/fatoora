@@ -177,6 +177,8 @@ const messages = {
     paymentMethods: "Payment Methods",
     select_customer: "Select Customer",
     paidInvoice: "Paid Invoice",
+    addNewCustomer: "Add New Customer",
+    creatingAccount: "Creating Account",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -352,6 +354,8 @@ const messages = {
     paymentMethods: "طرق الدفع",
     select_customer: "حدد العميل",
     paidInvoice: "فاتورة مدفوعة",
+    addNewCustomer: "إضافة عميل جديد",
+    creatingAccount: "جاري إنشاء حساب",
   },
 };
 

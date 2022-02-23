@@ -16,6 +16,7 @@ enum Actions {
   GET_PAYMENT_METHODS = "getPaymentMethods",
   GET_BANKS = "getBanks",
   GET_SHIPPING_COMPANIES = "getShippingCompanies",
+  GET_CURRENCIES = "getCurrencies",
   // Invoice actions
   GET_INVOICES = "getInvoices",
   GET_INVOICE = "getInvoice",

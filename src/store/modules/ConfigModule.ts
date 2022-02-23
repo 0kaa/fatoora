@@ -136,4 +136,19 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
         });
     });
   }
+  
+  @Action
+  [Actions.GET_CURRENCIES]() {
+    ApiService.setHeader();
+
+    return new Promise<void>((resolve, reject) => {
+      ApiService.query("/currencies", {})
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          reject(response.data.message.message);
+        });
+    });
+  }
 }
