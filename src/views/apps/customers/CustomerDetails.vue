@@ -15,7 +15,7 @@
             <!--begin::Avatar-->
             <div class="symbol symbol-100px symbol-circle mb-7">
               <img v-if="customer.image" :src="customer.image" alt="image" />
-              <img src="/media/avatars/150-26.jpg" alt="image" v-else />
+              <img v-else src="/media/avatars/150-26.jpg" alt="image" />
             </div>
             <!--end::Avatar-->
 
@@ -114,7 +114,7 @@
           <div class="separator separator-dashed my-3"></div>
 
           <!--begin::Details content-->
-          <div id="kt_customer_view_details" class="collapse show">
+          <div id="kt_customer_view_details" class="collapse">
             <div class="py-5 fs-6">
               <!--begin::Details item-->
               <div class="fw-bolder mt-5">

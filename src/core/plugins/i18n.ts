@@ -179,6 +179,11 @@ const messages = {
     paidInvoice: "Paid Invoice",
     addNewCustomer: "Add New Customer",
     creatingAccount: "Creating Account",
+    selectMethodType: "Select Payment Method Type",
+    selectShippingCompany: "Select Shipping Company",
+    discount_amount: "Discount Amount",
+    percentage: "Percentage",
+    fixed: "Fixed",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -356,6 +361,11 @@ const messages = {
     paidInvoice: "فاتورة مدفوعة",
     addNewCustomer: "إضافة عميل جديد",
     creatingAccount: "جاري إنشاء حساب",
+    selectMethodType: "حدد طريقة الدفع",
+    selectShippingCompany: "اختار شركة الشحن",
+    discount_amount: "قيمة الخصم",
+    percentage: "نسبة مئوية",
+    fixed: "ثابت",
   },
 };
 

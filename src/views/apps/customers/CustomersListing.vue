@@ -99,7 +99,7 @@
       </div>
       <!--end::Card toolbar-->
     </div>
-    <div class="card-body pt-0">
+    <div class="card-body pt-0" v-if="tableData && tableData.length">
       <Datatable
         :table-data="tableData"
         :table-header="tableHeader"

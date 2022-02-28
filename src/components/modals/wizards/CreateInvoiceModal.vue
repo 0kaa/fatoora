@@ -279,7 +279,7 @@
                                 <input
                                   type="text"
                                   class="form-control form-control-flush fw-bolder text-muted fs-3 w-125px"
-                                  v-model="formData.invoice_number"
+                                  v-model="formData.rand_number"
                                   placehoder="..."
                                 />
                               </div>
@@ -387,7 +387,10 @@
                                   </div>
                                   <!--end::Input group-->
                                   <!--begin::Input group-->
-                                  <div class="mb-5">
+                                  <div
+                                    class="mb-5"
+                                    v-if="formData.type == 'full'"
+                                  >
                                     <button
                                       class="btn btn-link py-1"
                                       data-bs-toggle="modal"
@@ -549,17 +552,40 @@
                                         colspan="4"
                                         class="border-bottom border-bottom-dashed ps-0"
                                       >
-                                        <div
-                                          class="d-flex flex-column align-items-start"
-                                        >
+                                        <div class="d-flex align-items-start">
                                           <!--begin::Discount-->
-                                          <div class="mb-0 w-100">
+                                          <div class="mb-0 me-5 w-100">
                                             <input
                                               type="number"
                                               class="form-control form-control-solid"
-                                              :placeholder="$t('addDiscount')"
+                                              :placeholder="
+                                                $t('discount_amount')
+                                              "
                                               v-model="formData.discount_amount"
                                             />
+                                          </div>
+                                          <!--end::Discount-->
+                                          <!--begin::Discount-->
+                                          <div class="mb-0 w-150px">
+                                            <select
+                                              class="form-control form-control-solid"
+                                              v-model="formData.discount_type"
+                                            >
+                                              <option value="percentage">
+                                                {{ $t("percentage") }}
+                                              </option>
+                                              <option value="fixed">
+                                                {{ $t("fixed") }}
+                                              </option>
+                                            </select>
+                                            <!-- <input
+                                              type="number"
+                                              class="form-control form-control-solid"
+                                              :placeholder="
+                                                $t('discount_amount')
+                                              "
+                                              v-model="formData.discount_amount"
+                                            /> -->
                                           </div>
                                           <!--end::Discount-->
                                         </div>
@@ -723,22 +749,6 @@
                               <!--end::Option-->
                               <!--begin::Option-->
                               <label
-                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack mb-5"
-                              >
-                                <span
-                                  class="form-check-label ms-0 fw-bolder fs-6 text-gray-700"
-                                  >{{ $t("paymentMethod") }}</span
-                                >
-                                <input
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="paymentMethod"
-                                />
-                              </label>
-                              <!--end::Option-->
-
-                              <!--begin::Option-->
-                              <label
                                 class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack"
                               >
                                 <span
@@ -756,6 +766,119 @@
                             <!--end::Input group-->
                             <!--begin::Separator-->
                             <div
+                              class="separator separator-dashed mt-8 mb-8"
+                            ></div>
+                            <!--end::Separator-->
+                            <!--begin::Input group-->
+                            <div class="mb-6 fv-row w-100">
+                              <!--begin::Label-->
+                              <label
+                                class="d-flex align-items-center form-label mb-5"
+                              >
+                                {{ $t("selectShippingCompany") }}
+                              </label>
+                              <!--end::Label-->
+
+                              <!--begin::Options-->
+                              <div class="mb-0">
+                                <!--begin:Option-->
+                                <label
+                                  class="d-flex flex-stack mb-5 cursor-pointer"
+                                  v-for="(
+                                    company, i
+                                  ) in user.shipping_companies"
+                                  :key="i"
+                                >
+                                  <!--begin:Label-->
+                                  <span class="d-flex align-items-center me-2">
+                                    <!--begin::Description-->
+                                    <span class="d-flex flex-column">
+                                      <span
+                                        class="fw-bolder text-gray-800 text-hover-primary"
+                                        >{{ company.name }}</span
+                                      >
+                                    </span>
+                                    <!--end:Description-->
+                                  </span>
+                                  <!--end:Label-->
+
+                                  <!--begin:Input-->
+                                  <span
+                                    class="form-check form-check-sm form-check-custom form-check-solid"
+                                  >
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="shipping_company_id"
+                                      :value="company.id"
+                                      v-model="formData.shipping_company_id"
+                                    />
+                                  </span>
+                                  <!--end:Input-->
+                                </label>
+                                <!--end::Option-->
+                              </div>
+                              <!--end::Options-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Separator-->
+                            <div
+                              class="separator separator-dashed mt-8 mb-8"
+                            ></div>
+                            <!--end::Separator-->
+                            <!--begin::Input group-->
+                            <div class="mb-6 fv-row w-100">
+                              <!--begin::Label-->
+                              <label
+                                class="d-flex align-items-center form-label mb-5"
+                              >
+                                {{ $t("selectMethodType") }}
+                              </label>
+                              <!--end::Label-->
+
+                              <!--begin::Options-->
+                              <div class="mb-0">
+                                <!--begin:Option-->
+                                <label
+                                  class="d-flex flex-stack mb-5 cursor-pointer"
+                                  v-for="(payment, i) in user.payment_methods"
+                                  :key="i"
+                                >
+                                  <!--begin:Label-->
+                                  <span class="d-flex align-items-center me-2">
+                                    <!--begin::Description-->
+                                    <span class="d-flex flex-column">
+                                      <span
+                                        class="fw-bolder text-gray-800 text-hover-primary"
+                                        >{{ payment.name }}</span
+                                      >
+                                    </span>
+                                    <!--end:Description-->
+                                  </span>
+                                  <!--end:Label-->
+
+                                  <!--begin:Input-->
+                                  <span
+                                    class="form-check form-check-sm form-check-custom form-check-solid"
+                                  >
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="payment_id"
+                                      :value="payment.id"
+                                      v-model="formData.payment_id"
+                                    />
+                                  </span>
+                                  <!--end:Input-->
+                                </label>
+                                <!--end::Option-->
+                              </div>
+                              <!--end::Options-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Separator-->
+                            <div
+                              v-if="formData.payment_id == 2"
                               class="separator separator-dashed mt-8 mb-8"
                             ></div>
                             <!--end::Separator-->
@@ -800,7 +923,7 @@
                                     <!--begin::Description-->
                                     <span class="d-flex flex-column">
                                       <span
-                                        class="fw-bolder text-gray-800 text-hover-primary fs-5"
+                                        class="fw-bolder text-gray-800 text-hover-primary"
                                         >{{ bank.account_name }}</span
                                       >
                                     </span>
@@ -810,7 +933,7 @@
 
                                   <!--begin:Input-->
                                   <span
-                                    class="form-check form-check-custom form-check-solid"
+                                    class="form-check form-check-sm form-check-custom form-check-solid"
                                   >
                                     <input
                                       class="form-check-input"
@@ -998,7 +1121,7 @@ interface Step1 {
 }
 
 interface Step2 {
-  invoice_number: string;
+  rand_number: string;
   release_date: string;
   due_date: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1007,6 +1130,7 @@ interface Step2 {
   private_note: string;
   has_discount: number;
   discount_amount: string;
+  discount_type: string;
   invoice_tax: number;
   customer_id: string;
   payment_id: string;
@@ -1016,6 +1140,11 @@ interface Step2 {
 }
 
 interface KTCreateApp extends Step1, Step2 {}
+
+interface Customer {
+  id: number;
+  name: string;
+}
 
 export default defineComponent({
   name: "create-invoice-modal",
@@ -1031,7 +1160,7 @@ export default defineComponent({
     const toggleNotes = ref(false);
     const paymentUrl = ref("");
     const paidInvoice = ref(false);
-    const customers = ref([]);
+    const customers = ref([] as Customer[]);
     const il8n = useI18n();
     const store = useStore();
 
@@ -1047,7 +1176,7 @@ export default defineComponent({
 
     const formData = ref<KTCreateApp>({
       type: "simple",
-      invoice_number: "",
+      rand_number: "",
       release_date: moment().format("YYYY-MM-DD"),
       due_date: "",
       products: items.value,
@@ -1055,6 +1184,7 @@ export default defineComponent({
       private_note: "",
       has_discount: 0,
       discount_amount: "",
+      discount_type: "percentage",
       invoice_tax: 14,
       customer_id: "",
       payment_id: "",
@@ -1093,8 +1223,8 @@ export default defineComponent({
       let total = 0;
       items.value.forEach((item) => {
         total +=
-          item.price && item.quantity
-            ? parseFloat(item.quantity) * parseFloat(item.price)
+          item.product_price && item.product_quantity
+            ? parseFloat(item.product_quantity) * parseFloat(item.product_price)
             : 0;
       });
 
