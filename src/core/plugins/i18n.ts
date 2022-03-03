@@ -184,6 +184,8 @@ const messages = {
     discount_amount: "Discount Amount",
     percentage: "Percentage",
     fixed: "Fixed",
+    api_key: "API Key",
+    api_key_required: "API Key is required",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -366,6 +368,8 @@ const messages = {
     discount_amount: "قيمة الخصم",
     percentage: "نسبة مئوية",
     fixed: "ثابت",
+    api_key: "مفتاح API",
+    api_key_required: "مفتاح API مطلوب",
   },
 };
 

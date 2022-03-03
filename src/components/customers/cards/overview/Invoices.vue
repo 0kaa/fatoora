@@ -36,14 +36,14 @@
           </template>
           <template v-slot:cell-status="{ row: invoice }">
             <span
-              class="badge"
+              class="badge text-capitalize"
               :class="{
-                'badge-success': invoice.status === 'paid',
-                'badge-danger': invoice.status === 'canceled',
-                'badge-warning': invoice.status === 'pending',
+                'badge-success': invoice.status.slug === 'paid',
+                'badge-danger': invoice.status.slug === 'canceled',
+                'badge-warning': invoice.status.slug === 'pending',
               }"
             >
-              {{ invoice.status }}
+              {{ invoice.status.name }}
             </span>
           </template>
           <template v-slot:cell-customer="{ row: invoice }">

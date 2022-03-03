@@ -603,6 +603,78 @@
                 </div>
               </div>
               <!--end::Input group-->
+              <!--begin::Input group-->
+              <div class="row row-gap mb-5">
+                <!--begin::Input group-->
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label">
+                    {{ $t("currency") }}
+                  </label>
+                  <!--end::Label-->
+
+                  <!--begin::Col-->
+                  <div>
+                    <Field
+                      type="select"
+                      as="select"
+                      class="btn-check d-none"
+                      name="currency_id"
+                      v-model="formData.currency_id"
+                    >
+                      <option
+                        v-for="(currency, index) in $store.state.currencies"
+                        :key="index"
+                        :value="currency.code"
+                      >
+                        Coffee
+                      </option>
+                    </Field>
+                    <el-form-item prop="currencies" class="mb-0">
+                      <el-select
+                        v-model="formData.currency_id"
+                        default-first-option
+                        placeholder="Choose a currency"
+                        class="w-100"
+                      >
+                        <el-option
+                          v-for="(currency, index) in $store.state.currencies"
+                          :key="index"
+                          :value="currency.code"
+                          :label="currency.name"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                    <ErrorMessage
+                      class="fv-plugins-message-container invalid-feedback"
+                      name="currency_id"
+                    />
+                  </div>
+                  <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <div class="col-lg-6">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label required">
+                    {{ $t("api_key") }}</label
+                  >
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <Field
+                    name="api_key"
+                    class="form-control form-control-lg form-control-solid"
+                    value=""
+                  />
+                  <ErrorMessage
+                    class="fv-plugins-message-container invalid-feedback"
+                    name="api_key"
+                  />
+                  <!--end::Input-->
+                </div>
+              </div>
+              <!--end::Input group-->
 
               <!--begin::Input group-->
               <div
@@ -902,6 +974,8 @@ interface Step2 {
   market_site_url: string;
   market_email: string;
   market_phone: string;
+  currency_id: string;
+  api_key: string;
 }
 
 // Payment Methods
@@ -956,6 +1030,8 @@ export default defineComponent({
       iban: "",
       bank_id: "",
       shipping_company_id: "",
+      currency_id: "",
+      api_key: "",
     });
 
     onMounted(() => {
@@ -1000,53 +1076,55 @@ export default defineComponent({
         account_type: Yup.string().required(translate("account_type_required")),
       }),
 
-      // Yup.object({
-      //   invoice_plan: Yup.string().required("Invoice Plan is required"),
-      //   name: Yup.string()
-      //     .required(translate("nameRequired"))
-      //     .min(3, translate("nameMin"))
-      //     .max(50, translate("nameMax")),
-      //   password: Yup.string()
-      //     .min(8, translate("passwordMinLength"))
-      //     .max(32, translate("passwordMaxLength"))
-      //     .required(translate("passwordRequired")),
-      //   phone: Yup.string()
-      //     .matches(/^[0-9]/, translate("phoneNumberInvalid"))
-      //     .min(10, translate("phoneNumberMinLength"))
-      //     .required(translate("phoneNumberRequired")),
-      //   email: Yup.string()
-      //     .email(translate("emailInvalid"))
-      //     .required(translate("emailRequired")),
-      //   market_name: Yup.string()
-      //     .required(translate("market_name_required"))
-      //     .min(3, translate("market_name_min"))
-      //     .max(50, translate("market_name_max")),
-      //   market_address: Yup.string().required(
-      //     translate("market_address_required")
-      //   ),
-      //   market_phone: Yup.string()
-      //     .matches(/^[0-9]/, translate("market_phone_invalid"))
-      //     .min(10, translate("market_phone_min_length"))
-      //     .required(translate("market_phone_required")),
-      //   market_email: Yup.string()
-      //     .email(translate("market_email_invalid"))
-      //     .required(translate("market_email_required")),
-      //   market_tax_number: Yup.string()
-      //     .required(translate("market_tax_number_required"))
-      //     .min(15, translate("market_tax_number_min_length")),
-      //   market_commercial_number: Yup.string().required(
-      //     translate("market_commercial_number_required")
-      //   ),
-      //   market_standard_number: Yup.string().required(
-      //     translate("market_standard_number_required")
-      //   ),
-      //   market_site_url: Yup.string().url(translate("market_site_url_invalid")),
-      // }),
+      Yup.object({
+        invoice_plan: Yup.string().required("Invoice Plan is required"),
+        name: Yup.string()
+          .required(translate("nameRequired"))
+          .min(3, translate("nameMin"))
+          .max(50, translate("nameMax")),
+        password: Yup.string()
+          .min(8, translate("passwordMinLength"))
+          .max(32, translate("passwordMaxLength"))
+          .required(translate("passwordRequired")),
+        phone: Yup.string()
+          .matches(/^[0-9]/, translate("phoneNumberInvalid"))
+          .min(10, translate("phoneNumberMinLength"))
+          .required(translate("phoneNumberRequired")),
+        email: Yup.string()
+          .email(translate("emailInvalid"))
+          .required(translate("emailRequired")),
+        market_name: Yup.string()
+          .required(translate("market_name_required"))
+          .min(3, translate("market_name_min"))
+          .max(50, translate("market_name_max")),
+        market_address: Yup.string().required(
+          translate("market_address_required")
+        ),
+        market_phone: Yup.string()
+          .matches(/^[0-9]/, translate("market_phone_invalid"))
+          .min(10, translate("market_phone_min_length"))
+          .required(translate("market_phone_required")),
+        market_email: Yup.string()
+          .email(translate("market_email_invalid"))
+          .required(translate("market_email_required")),
+        market_tax_number: Yup.string()
+          .required(translate("market_tax_number_required"))
+          .min(15, translate("market_tax_number_min_length")),
+        market_commercial_number: Yup.string().required(
+          translate("market_commercial_number_required")
+        ),
+        market_standard_number: Yup.string().required(
+          translate("market_standard_number_required")
+        ),
+        market_site_url: Yup.string().url(translate("market_site_url_invalid")),
+        currency_id: Yup.string().required(translate("currency_required")),
+        api_key: Yup.string().required(translate("api_key_required")),
+      }),
 
-      // Yup.object({
-      //   market_name: Yup.string().required().label("Enterprise Name"),
-      //   market_address: Yup.string().required().label("Enterprise Address"),
-      // }),
+      Yup.object({
+        market_name: Yup.string().required().label("Enterprise Name"),
+        market_address: Yup.string().required().label("Enterprise Address"),
+      }),
     ];
 
     // extracts the individual step schema

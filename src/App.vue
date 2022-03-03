@@ -27,6 +27,7 @@ export default defineComponent({
       store.dispatch(Actions.GET_BANKS);
       store.dispatch(Actions.GET_PAYMENT_METHODS);
       store.dispatch(Actions.GET_SHIPPING_COMPANIES);
+      store.dispatch(Actions.GET_CURRENCIES);
       store.commit(
         Mutations.SET_LANG,
         localStorage.getItem("lang") || currentLanguage.value

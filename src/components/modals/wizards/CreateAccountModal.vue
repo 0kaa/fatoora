@@ -266,9 +266,7 @@
                   <div class="fv-row row-gap row mb-10">
                     <div class="col-md-6">
                       <!--begin::Label-->
-                      <label class="form-label required">{{
-                        $t("taxID")
-                      }}</label>
+                      <label class="form-label">{{ $t("taxID") }}</label>
                       <!--end::Label-->
 
                       <!--begin::Input-->
@@ -286,7 +284,7 @@
                     <!--begin::Input group-->
                     <div class="col-md-6">
                       <!--begin::Label-->
-                      <label class="fs-6 fw-bold form-label required">{{
+                      <label class="fs-6 fw-bold form-label">{{
                         $t("commercial_number")
                       }}</label>
                       <!--end::Label-->
@@ -312,7 +310,7 @@
                   <div class="fv-row row-gap row mb-0">
                     <div class="col-md-6">
                       <!--end::Label-->
-                      <label class="form-label required">{{
+                      <label class="form-label">{{
                         $t("enterpriseRecordNumber")
                       }}</label>
                       <!--end::Label-->
@@ -331,7 +329,7 @@
                     </div>
                     <div class="col-md-6">
                       <!--end::Label-->
-                      <label class="form-label required">{{
+                      <label class="form-label">{{
                         $t("enterpriseWebsite")
                       }}</label>
                       <!--end::Label-->
@@ -518,16 +516,11 @@ export default defineComponent({
           .required(translate("phoneNumberRequired")),
         address: Yup.string().required(translate("address_required")),
         tax_number: Yup.string()
-          .required(translate("tax_number_required"))
           .min(15, translate("tax_number_min_length"))
           .max(15, translate("tax_number_max_length")),
         commercial_number: Yup.string()
           .min(10, translate("commercial_number_min_length"))
-          .max(10, translate("commercial_number_max_length"))
-          .required(translate("commercial_number_required")),
-        standard_number: Yup.string().required(
-          translate("standard_number_required")
-        ),
+          .max(10, translate("commercial_number_max_length")),
         site_url: Yup.string().url(translate("site_url_invalid")),
       }),
     ];

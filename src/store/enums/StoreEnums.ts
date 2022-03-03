@@ -43,6 +43,7 @@ enum Mutations {
   SET_ERROR = "setError",
   SET_LANG = "setLang",
   SET_BANKS = "setBanks",
+  SET_CURRENCY = "setCurrency",
   SET_SHIPPING_COMPANIES = "setShippingCompanies",
   SET_PAYMENT_METHODS = "setPaymentMethods",
   SET_BREADCRUMB_MUTATION = "setBreadcrumbMutation",

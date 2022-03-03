@@ -21,6 +21,7 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
   banks = [];
   payment_methods = [];
   shipping_companies = [];
+  currencies = [];
   /**
    * Get config from layout config
    * @returns {function(path, defaultValue): *}
@@ -47,6 +48,10 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
   }
   get getAllShippingCompanies() {
     return this.shipping_companies;
+  }
+
+  get allCurrencies() {
+    return this.currencies;
   }
 
   @Mutation
@@ -90,6 +95,10 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
   @Mutation
   [Mutations.SET_SHIPPING_COMPANIES](payload): void {
     this.shipping_companies = payload;
+  }
+  @Mutation
+  [Mutations.SET_CURRENCY](payload): void {
+    this.currencies = payload;
   }
 
   @Action
@@ -136,7 +145,7 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
         });
     });
   }
-  
+
   @Action
   [Actions.GET_CURRENCIES]() {
     ApiService.setHeader();
@@ -144,7 +153,9 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
     return new Promise<void>((resolve, reject) => {
       ApiService.query("/currencies", {})
         .then(({ data }) => {
-          resolve(data);
+          console.log(data);
+          // resolve(data);
+          // this.context.commit(Mutations.SET_PAYMENT_METHODS, data.data);
         })
         .catch(({ response }) => {
           reject(response.data.message.message);

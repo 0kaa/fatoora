@@ -1114,7 +1114,7 @@ import { Field } from "vee-validate";
 import * as Yup from "yup";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
-import moment from "moment";
+// import moment from "moment";
 
 interface Step1 {
   type: string;
@@ -1177,7 +1177,7 @@ export default defineComponent({
     const formData = ref<KTCreateApp>({
       type: "simple",
       rand_number: "",
-      release_date: moment().format("YYYY-MM-DD"),
+      release_date: "",
       due_date: "",
       products: items.value,
       public_note: "",

@@ -134,7 +134,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5 my-1">
-      <router-link to="/crafted/account/settings" class="menu-link px-5">
+      <router-link :to="{ name: 'account-settings' }" class="menu-link px-5">
         {{ $t("account_settings") }}
       </router-link>
     </div>

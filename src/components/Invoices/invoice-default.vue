@@ -166,13 +166,8 @@
               <!-- begin::Actions-->
               <div class="my-1 me-5">
                 <!-- begin::Action-->
-                <button
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#kt_modal_create_invoice"
-                  class="btn btn-primary my-1 me-12"
-                >
-                  Create Invoice
+                <button type="button" class="btn btn-danger my-1 me-12">
+                  Delete Invoice
                 </button>
                 <!-- end::Action-->
                 <!-- begin::Download-->
