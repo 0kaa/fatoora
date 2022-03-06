@@ -153,9 +153,7 @@ export default class ConfigModule extends VuexModule implements StoreInfo {
     return new Promise<void>((resolve, reject) => {
       ApiService.query("/currencies", {})
         .then(({ data }) => {
-          console.log(data);
-          // resolve(data);
-          // this.context.commit(Mutations.SET_PAYMENT_METHODS, data.data);
+          this.context.commit(Mutations.SET_CURRENCY, data.data);
         })
         .catch(({ response }) => {
           reject(response.data.message.message);

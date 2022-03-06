@@ -77,27 +77,6 @@
             <!--end::Label-->
           </div>
           <!--end::Step 3-->
-
-          <!--begin::Step 5-->
-          <div class="stepper-item" data-kt-stepper-element="nav">
-            <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
-            <!--end::Line-->
-
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">4</span>
-            </div>
-            <!--end::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">{{ $t("confirm") }}</h3>
-            </div>
-            <!--end::Label-->
-          </div>
-          <!--end::Step 5-->
         </div>
         <!--end::Nav-->
       </div>
@@ -623,9 +602,10 @@
                       v-model="formData.currency_id"
                     >
                       <option
-                        v-for="(currency, index) in $store.state.currencies"
+                        v-for="(currency, index) in $store.getters
+                          .allCurrencies"
                         :key="index"
-                        :value="currency.code"
+                        :value="currency.id"
                       >
                         Coffee
                       </option>
@@ -638,9 +618,10 @@
                         class="w-100"
                       >
                         <el-option
-                          v-for="(currency, index) in $store.state.currencies"
+                          v-for="(currency, index) in $store.getters
+                            .allCurrencies"
                           :key="index"
-                          :value="currency.code"
+                          :value="currency.id"
                           :label="currency.name"
                         >
                         </el-option>
@@ -654,25 +635,6 @@
                   <!--end::Col-->
                 </div>
                 <!--end::Input group-->
-                <div class="col-lg-6">
-                  <!--begin::Label-->
-                  <label class="fs-6 fw-bold form-label required">
-                    {{ $t("api_key") }}</label
-                  >
-                  <!--end::Label-->
-
-                  <!--begin::Input-->
-                  <Field
-                    name="api_key"
-                    class="form-control form-control-lg form-control-solid"
-                    value=""
-                  />
-                  <ErrorMessage
-                    class="fv-plugins-message-container invalid-feedback"
-                    name="api_key"
-                  />
-                  <!--end::Input-->
-                </div>
               </div>
               <!--end::Input group-->
 
@@ -689,11 +651,20 @@
                 </label>
                 <!--end::Label-->
                 <!--begin::Input-->
-                <Field
+                <!-- <Field
                   type="file"
                   accept="image/*"
                   class="btn-check d-none"
                   name="market_image"
+                 
+                  @change="onFileChange"
+                /> -->
+
+                <input
+                  type="file"
+                  name="avatar"
+                  class="btn-check d-none"
+                  accept=".png, .jpg, .jpeg"
                   id="kt_logo_select"
                   @change="onFileChange"
                 />
@@ -733,135 +704,172 @@
               <div class="pb-10 pb-lg-12">
                 <!--begin::Title-->
                 <h2 class="fw-bolder text-dark">
+                  {{ $t("shippingMethods") }}
+                </h2>
+                <!--end::Title-->
+              </div>
+              <!--end::Heading-->
+              <!--begin::Input group-->
+              <div class="mb-6 fv-row">
+                <label
+                  class="form-check form-switch form-check-custom form-check-solid mb-6 user-select-none"
+                  v-for="shipping in $store.getters.getAllShippingCompanies"
+                  :key="shipping.id"
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    :value="shipping.id"
+                    v-model.number="shipping_id"
+                  />
+                  <span class="form-check-label fw-bold">{{
+                    shipping.name
+                  }}</span>
+                </label>
+              </div>
+              <!--end::Input group-->
+              <!--begin::Heading-->
+              <div class="pb-10 pb-lg-12">
+                <!--begin::Title-->
+                <h2 class="fw-bolder text-dark">
                   {{ $t("paymentMethods") }}
                 </h2>
                 <!--end::Title-->
               </div>
               <!--end::Heading-->
               <!--begin::Input group-->
-              <div class="mb-6 fv-row mw-600px">
-                <!--begin::Label-->
-                <label class="d-flex align-items-center form-label mb-5">
-                  {{ $t("selectBankType") }}
+              <div class="mb-6 fv-row">
+                <label
+                  class="form-check form-switch form-check-custom form-check-solid mb-6 user-select-none"
+                  v-for="payment in $store.getters.getAllPaymentMethods"
+                  :key="payment.id"
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    :value="payment.id"
+                    v-model.number="payment_id"
+                  />
+                  <span class="form-check-label fw-bold">{{
+                    payment.name
+                  }}</span>
                 </label>
-                <!--end::Label-->
-
-                <!--begin::Options-->
-                <div class="mb-0">
-                  <!--begin:Option-->
-                  <label
-                    class="d-flex flex-stack mb-5 cursor-pointer"
-                    v-for="(bank, i) in $store.getters.getAllBanks"
-                    :key="i"
-                  >
-                    <!--begin:Label-->
-                    <span class="d-flex align-items-center me-2">
-                      <!--begin::Icon-->
-                      <span class="symbol symbol-50px me-6">
-                        <span class="symbol-label">
-                          <span class="svg-icon svg-icon-1 svg-icon-gray-600">
-                            <img class="img-fluid" :src="bank.image" />
-                          </span>
-                        </span>
-                      </span>
-                      <!--end::Icon-->
-
-                      <!--begin::Description-->
-                      <span class="d-flex flex-column">
-                        <span
-                          class="fw-bolder text-gray-800 text-hover-primary fs-5"
-                          >{{ bank.name }}</span
-                        >
-                      </span>
-                      <!--end:Description-->
-                    </span>
-                    <!--end:Label-->
-
-                    <!--begin:Input-->
-                    <span class="form-check form-check-custom form-check-solid">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="bank_id"
-                        :value="bank.id"
-                        v-model="formData.bank_id"
-                      />
-                    </span>
-                    <!--end:Input-->
+                <div v-if="payment_id.includes(2)">
+                  <!--begin::Label-->
+                  <label class="d-flex align-items-center form-label mb-5">
+                    {{ $t("selectBankType") }}
                   </label>
-                  <!--end::Option-->
+                  <!--end::Label-->
+
+                  <!--begin::Options-->
+                  <!--begin::Repeater-->
+                  <div id="kt_docs_repeater_basic">
+                    <!--begin::Form group-->
+                    <div class="form-group">
+                      <div
+                        v-for="(account, i) in formData.bank_accounts"
+                        :key="i"
+                        class="mb-5"
+                      >
+                        <div class="form-group row">
+                          <div class="col-md-3">
+                            <label class="form-label">
+                              {{ $t("bank") }}
+                            </label>
+                            <el-form-item class="mb-0">
+                              <el-select
+                                v-model="account.bank_id"
+                                default-first-option
+                                :placeholder="$t('choose_a_bank')"
+                                class="w-100"
+                              >
+                                <el-option
+                                  v-for="(bank, index) in $store.getters
+                                    .getAllBanks"
+                                  :key="index"
+                                  :value="bank.id"
+                                  :label="bank.name"
+                                >
+                                </el-option>
+                              </el-select>
+                            </el-form-item>
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label">{{
+                              $t("account_name")
+                            }}</label>
+                            <el-input
+                              v-model="account.account_name"
+                              :placeholder="$t('enter_account_name')"
+                            />
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">
+                              {{ $t("account_number") }}
+                            </label>
+
+                            <el-input
+                              v-model="account.account_number"
+                              :placeholder="$t('enter_account_number')"
+                            />
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">
+                              {{ $t("iban") }}
+                            </label>
+                            <el-input
+                              v-model="account.iban"
+                              :placeholder="$t('enter_iban')"
+                            />
+                          </div>
+
+                          <div class="col-md-1">
+                            <a
+                              @click.prevent="removeBankAccount(i)"
+                              class="btn btn-light-danger mt-3 mt-md-8"
+                            >
+                              <i class="la la-trash-o fs-2"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--end::Form group-->
+
+                    <!--begin::Form group-->
+                    <div class="form-group mt-5">
+                      <a
+                        @click.prevent="addBankAccount"
+                        class="btn btn-light-primary"
+                      >
+                        <i class="la la-plus"></i>Add
+                      </a>
+                    </div>
+                    <!--end::Form group-->
+                  </div>
+                  <!--end::Repeater-->
+                  <!--end::Options-->
                 </div>
-                <!--end::Options-->
+                <div class="mt-5" v-if="payment_id.includes(3)">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold form-label required">
+                    {{ $t("api_key") }}</label
+                  >
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <el-input
+                    v-model="formData.api_key"
+                    :placeholder="$t('api_key')"
+                  />
+                  <!--end::Input-->
+                </div>
               </div>
               <!--end::Input group-->
             </div>
             <!--end::Wrapper-->
           </div>
           <!--end::Step 4-->
-
-          <!--begin::Step 5-->
-          <div data-kt-stepper-element="content">
-            <!--begin::Wrapper-->
-            <div class="w-100">
-              <!--begin::Heading-->
-              <div class="pb-8 pb-lg-10">
-                <!--begin::Title-->
-                <h2 class="fw-bolder text-dark">Your Are Done!</h2>
-                <!--end::Title-->
-
-                <!--begin::Notice-->
-                <div class="text-gray-400 fw-bold fs-6">
-                  If you need more info, please
-                  <router-link to="/sign-in" class="link-primary fw-bolder"
-                    >Sign In</router-link
-                  >.
-                </div>
-                <!--end::Notice-->
-              </div>
-              <!--end::Heading-->
-
-              <!--begin::Body-->
-              <div class="mb-0">
-                <!--begin::Text-->
-                <div class="fs-6 text-gray-600 mb-5">
-                  Writing headlines for blog posts is as much an art as it is a
-                  science and probably warrants its own post, but for all advise
-                  is with what works for your great & amazing audience.
-                </div>
-                <!--end::Text-->
-
-                <!--begin::Alert-->
-                <div
-                  class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6"
-                >
-                  <!--begin::Icon-->
-                  <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                    <inline-svg src="/media/icons/duotune/general/gen044.svg" />
-                  </span>
-                  <!--end::Icon-->
-                  <!--begin::Wrapper-->
-                  <div class="d-flex flex-stack flex-grow-1">
-                    <!--begin::Content-->
-                    <div class="fw-bold">
-                      <h4 class="text-gray-800 fw-bolder">
-                        We need your attention!
-                      </h4>
-                      <div class="fs-6 text-gray-600">
-                        To start using great tools, please, please
-                        <a href="#" class="fw-bolder">Create Team Platform</a>
-                      </div>
-                    </div>
-                    <!--end::Content-->
-                  </div>
-                  <!--end::Wrapper-->
-                </div>
-                <!--end::Alert-->
-              </div>
-              <!--end::Body-->
-            </div>
-            <!--end::Wrapper-->
-          </div>
-          <!--end::Step 5-->
 
           <!--begin::Actions-->
           <div class="d-flex flex-stack pt-15">
@@ -980,12 +988,14 @@ interface Step2 {
 
 // Payment Methods
 interface Step3 {
-  payment_method_id: string;
-  account_name: string;
-  account_number: string;
-  iban: string;
-  bank_id: string;
-  shipping_company_id: string;
+  bank_accounts: [
+    {
+      account_name: string;
+      account_number: string;
+      iban: string;
+      bank_id: string;
+    }
+  ];
 }
 
 interface KTCreateApp extends Step1, Step2, Step3 {}
@@ -1002,6 +1012,10 @@ export default defineComponent({
     const createAccountRef = ref<HTMLElement | null>(null);
     const createAccountModalRef = ref<HTMLElement | null>(null);
     const currentStepIndex = ref(0);
+
+    // payment_id ref array of string or number
+    const payment_id = ref<number[]>([]);
+    const shipping_id = ref<number[]>([]);
     const imgPreview = ref<string>("");
     const store = useStore();
     const router = useRouter();
@@ -1009,6 +1023,7 @@ export default defineComponent({
     const { t, te } = useI18n();
     // market_image file
     const market_image = ref<File | null>(null);
+
     const formData = ref<KTCreateApp>({
       account_type: "cloud",
       invoice_plan: "100",
@@ -1024,12 +1039,14 @@ export default defineComponent({
       market_site_url: "",
       market_email: "",
       market_phone: "",
-      payment_method_id: "",
-      account_name: "",
-      account_number: "",
-      iban: "",
-      bank_id: "",
-      shipping_company_id: "",
+      bank_accounts: [
+        {
+          account_name: "",
+          account_number: "",
+          iban: "",
+          bank_id: "",
+        },
+      ],
       currency_id: "",
       api_key: "",
     });
@@ -1061,6 +1078,21 @@ export default defineComponent({
         flag: "/media/flags/saudi-arabia.svg",
         name: "Arabic",
       },
+    };
+
+    const addBankAccount = () => {
+      formData.value.bank_accounts.push({
+        account_name: "",
+        account_number: "",
+        iban: "",
+        bank_id: "",
+      });
+    };
+
+    const removeBankAccount = (index: number) => {
+      if (formData.value.bank_accounts.length > 1) {
+        formData.value.bank_accounts.splice(index, 1);
+      }
     };
 
     const currentLanguage = computed(() => {
@@ -1118,12 +1150,7 @@ export default defineComponent({
         ),
         market_site_url: Yup.string().url(translate("market_site_url_invalid")),
         currency_id: Yup.string().required(translate("currency_required")),
-        api_key: Yup.string().required(translate("api_key_required")),
-      }),
-
-      Yup.object({
-        market_name: Yup.string().required().label("Enterprise Name"),
-        market_address: Yup.string().required().label("Enterprise Address"),
+        // api_key: Yup.string().required(translate("api_key_required")),
       }),
     ];
 
@@ -1255,7 +1282,25 @@ export default defineComponent({
           form.append(key, body[key]);
         }
       }
-      form.append("market_image", market_image.value as File);
+      if (market_image.value) {
+        form.append("market_image", market_image.value);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      payment_id.value.forEach((item: any) => {
+        form.append("payment_id[]", item);
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      shipping_id.value.forEach((item: any) => {
+        form.append("shipping_id[]", item);
+      });
+
+      if (!payment_id.value.includes(2)) {
+        form.delete("bank_accounts");
+      }
+
+      if (!payment_id.value.includes(3)) {
+        form.delete("api_key");
+      }
       // Clear existing errors
       store.dispatch(Actions.LOGOUT);
 
@@ -1318,11 +1363,15 @@ export default defineComponent({
       handleStep,
       formSubmit,
       onFileChange,
+      shipping_id,
+      payment_id,
       imgPreview,
       currentLanguage,
       currentLangugeLocale,
       currentStepIndex,
       formData,
+      addBankAccount,
+      removeBankAccount,
       createAccountModalRef,
     };
   },

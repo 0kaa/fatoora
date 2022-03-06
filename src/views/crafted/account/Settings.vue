@@ -107,15 +107,15 @@
             <div class="col-lg-8 fv-row">
               <el-form-item prop="currencies" class="mb-0">
                 <el-select
-                  v-model="profileDetails.currency"
+                  v-model="profileDetails.currency_id"
                   default-first-option
                   placeholder="Choose a currency"
                   class="w-100"
                 >
                   <el-option
-                    v-for="(currency, index) in $store.state.currencies"
+                    v-for="(currency, index) in $store.getters.allCurrencies"
                     :key="index"
-                    :value="currency.code"
+                    :value="currency.id"
                     :label="currency.name"
                   >
                   </el-option>
@@ -720,7 +720,7 @@ interface ProfileDetails {
   market_email: string;
   market_phone: string;
   market_image: string;
-  currency: string;
+  currency_id: string;
 }
 
 export default defineComponent({
@@ -795,7 +795,7 @@ export default defineComponent({
       market_email: "",
       market_phone: "",
       market_image: "",
-      currency: "",
+      currency_id: "",
     });
 
     const saveChanges1 = () => {
@@ -968,7 +968,6 @@ export default defineComponent({
       setCurrentPageBreadcrumbs("settings", ["account", "settings"]);
       setTimeout(() => {
         profileDetails.value = user.value;
-        profileDetails.value.currency = store.state.currency;
       }, 1000);
     });
 
