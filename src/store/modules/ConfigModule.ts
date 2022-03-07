@@ -16,7 +16,7 @@ interface StoreInfo {
 export default class ConfigModule extends VuexModule implements StoreInfo {
   config = layoutConfig;
   initial = layoutConfig;
-  lang = "ar";
+  lang = "en";
   backendURL = "https://fatora.jadara.work/public/storage/";
   banks = [];
   payment_methods = [];
