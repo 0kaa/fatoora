@@ -767,7 +767,7 @@
                     <!--begin::Form group-->
                     <div class="form-group">
                       <div
-                        v-for="(account, i) in formData.bank_accounts"
+                        v-for="(account, i) in bank_accounts"
                         :key="i"
                         class="mb-5"
                       >
@@ -984,21 +984,11 @@ interface Step2 {
   market_phone: string;
   currency_id: string;
   api_key: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  bank_accounts: any[];
 }
 
-// Payment Methods
-interface Step3 {
-  bank_accounts: [
-    {
-      account_name: string;
-      account_number: string;
-      iban: string;
-      bank_id: string;
-    }
-  ];
-}
-
-interface KTCreateApp extends Step1, Step2, Step3 {}
+interface KTCreateApp extends Step1, Step2 {}
 
 export default defineComponent({
   name: "sign-up",
@@ -1012,10 +1002,17 @@ export default defineComponent({
     const createAccountRef = ref<HTMLElement | null>(null);
     const createAccountModalRef = ref<HTMLElement | null>(null);
     const currentStepIndex = ref(0);
-
-    // payment_id ref array of string or number
     const payment_id = ref<number[]>([]);
     const shipping_id = ref<number[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const bank_accounts = ref<any[]>([
+      {
+        account_name: "",
+        account_number: "",
+        iban: "",
+        bank_id: "",
+      },
+    ]);
     const imgPreview = ref<string>("");
     const store = useStore();
     const router = useRouter();
@@ -1039,16 +1036,9 @@ export default defineComponent({
       market_site_url: "",
       market_email: "",
       market_phone: "",
-      bank_accounts: [
-        {
-          account_name: "",
-          account_number: "",
-          iban: "",
-          bank_id: "",
-        },
-      ],
       currency_id: "",
       api_key: "",
+      bank_accounts: bank_accounts.value,
     });
 
     onMounted(() => {
@@ -1081,7 +1071,7 @@ export default defineComponent({
     };
 
     const addBankAccount = () => {
-      formData.value.bank_accounts.push({
+      bank_accounts.value.push({
         account_name: "",
         account_number: "",
         iban: "",
@@ -1090,8 +1080,8 @@ export default defineComponent({
     };
 
     const removeBankAccount = (index: number) => {
-      if (formData.value.bank_accounts.length > 1) {
-        formData.value.bank_accounts.splice(index, 1);
+      if (bank_accounts.value.length > 1) {
+        bank_accounts.value.splice(index, 1);
       }
     };
 
@@ -1167,7 +1157,7 @@ export default defineComponent({
       return _stepperObj.value.totatStepsNumber;
     });
 
-    const { resetForm, handleSubmit } = useForm<Step1 | Step2 | Step3>({
+    const { resetForm, handleSubmit } = useForm<Step1 | Step2>({
       validationSchema: currentSchema,
     });
 
@@ -1294,6 +1284,16 @@ export default defineComponent({
         form.append("shipping_id[]", item);
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      bank_accounts.value.forEach((item: any, i) => {
+        for (const key in item) {
+          // eslint-disable-next-line no-prototype-builtins
+          if (item.hasOwnProperty(key)) {
+            form.append(`bank_accounts[${i}][${key}]`, item[key]);
+          }
+        }
+      });
+
       if (!payment_id.value.includes(2)) {
         form.delete("bank_accounts");
       }
@@ -1301,9 +1301,9 @@ export default defineComponent({
       if (!payment_id.value.includes(3)) {
         form.delete("api_key");
       }
+
       // Clear existing errors
       store.dispatch(Actions.LOGOUT);
-
       store
         .dispatch(Actions.REGISTER, form as AxiosRequestConfig)
         .then(() => {
@@ -1370,6 +1370,7 @@ export default defineComponent({
       currentLangugeLocale,
       currentStepIndex,
       formData,
+      bank_accounts,
       addBankAccount,
       removeBankAccount,
       createAccountModalRef,
