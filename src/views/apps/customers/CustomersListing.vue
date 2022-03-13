@@ -99,9 +99,9 @@
       </div>
       <!--end::Card toolbar-->
     </div>
-    <div class="card-body pt-0" v-if="tableData && tableData.length">
+    <div class="card-body pt-0" v-if="customersList && customersList.length">
       <Datatable
-        :table-data="tableData"
+        :table-data="customersList"
         :table-header="tableHeader"
         :enable-items-per-page-dropdown="true"
         emptyTableText="No customers found"
@@ -154,7 +154,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
 import Datatable from "@/components/kt-datatable/KTDatatable.vue";
 import ExportCustomerModal from "@/components/modals/forms/ExportCustomerModal.vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
@@ -237,16 +237,10 @@ export default defineComponent({
     //   pdf.save("pdf.pdf");
     // };
 
-    store
-      .dispatch(Actions.GET_CUSTOMERS)
-      .then((res) => {
-        tableData.value = res;
-      })
-      .then(() => {
-        initCustomers.value = [...tableData.value];
-      });
     onMounted(() => {
       setCurrentPageBreadcrumbs("Customers Listing", ["Customers"]);
+      tableData.value = store.getters.Customers;
+      initCustomers.value = [...tableData.value];
     });
 
     const deleteFewCustomers = () => {
@@ -299,12 +293,17 @@ export default defineComponent({
       return false;
     };
 
+    const customersList = computed(() => {
+      return store.getters.Customers;
+    });
+
     return {
       tableData,
       tableHeader,
       deleteCustomer,
       search,
       initCustomers,
+      customersList,
       // createPDF,
       searchItems,
       checkedCustomers,

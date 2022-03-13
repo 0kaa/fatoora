@@ -196,6 +196,10 @@ const messages = {
     enter_account_number: "Enter account number",
     enter_iban: "Enter iban",
     currency_required: "Currency is required",
+    by: "by",
+    allLogs: "All Logs",
+    view_updates: "View Updates",
+    logs: "Logs",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -390,6 +394,10 @@ const messages = {
     enter_account_number: "أدخل رقم الحساب",
     enter_iban: "أدخل IBAN",
     currency_required: "العملة مطلوبة",
+    by: "بواسطة",
+    allLogs: "كل السجلات",
+    view_updates: "عرض التحديثات",
+    logs: "سجلات",
   },
 };
 

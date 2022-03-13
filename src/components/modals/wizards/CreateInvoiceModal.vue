@@ -377,7 +377,8 @@
                                       size="large"
                                     >
                                       <el-option
-                                        v-for="customer in customers"
+                                        v-for="customer in $store.getters
+                                          .Customers"
                                         :key="customer.id"
                                         :label="customer.name"
                                         :value="customer.id"
@@ -1193,17 +1194,10 @@ export default defineComponent({
       status: "",
     });
 
-    const getCustomers = () => {
-      store.dispatch(Actions.GET_CUSTOMERS).then((res) => {
-        customers.value = res;
-      });
-    };
-
     onMounted(() => {
       _stepperObj.value = StepperComponent.createInsance(
         createInvoiceRef.value as HTMLElement
       );
-      getCustomers();
     });
 
     const addItem = () => {

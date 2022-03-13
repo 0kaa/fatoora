@@ -7,6 +7,7 @@ import BreadcrumbsModule from "@/store/modules/BreadcrumbsModule";
 import ConfigModule from "@/store/modules/ConfigModule";
 import InvoiceModule from "@/store/modules/InvoiceModule";
 import CustomerModule from "@/store/modules/CustomerModule";
+import LogModule from "@/store/modules/LogModule";
 config.rawError = true;
 
 const store = createStore({
@@ -26,7 +27,7 @@ const store = createStore({
         symbol_en: "$",
       },
     ],
-    lang: "ar",
+    lang: "en",
   },
   modules: {
     AuthModule,
@@ -35,6 +36,7 @@ const store = createStore({
     ConfigModule,
     InvoiceModule,
     CustomerModule,
+    LogModule,
   },
 });
 

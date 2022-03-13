@@ -13,6 +13,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/Home.vue"),
       },
       {
+        path: "logs",
+        name: "logs",
+        component: () => import("@/views/Logs.vue"),
+      },
+      {
         path: "/invoices",
         name: "invoices",
         component: () => import("@/views/Invoices.vue"),
@@ -57,12 +62,6 @@ const routes: Array<RouteRecordRaw> = [
             name: "profile-connections",
             component: () =>
               import("@/views/crafted/pages/profile/Connections.vue"),
-          },
-          {
-            path: "activity",
-            name: "profile-activity",
-            component: () =>
-              import("@/views/crafted/pages/profile/Activity.vue"),
           },
         ],
       },

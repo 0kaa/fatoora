@@ -8,7 +8,7 @@
     <div class="flex-lg-row-fluid">
       <InvoiceDefault
         :invoice="invoice"
-        v-if="invoice && invoice.invoice.type != 'simple'"
+        v-if="invoice"
       ></InvoiceDefault>
     </div>
     <!--end::Content-->

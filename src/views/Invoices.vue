@@ -3,7 +3,10 @@
   <div class="d-flex flex-column flex-xl-row">
     <!--begin::Content-->
     <div class="flex-lg-row-fluid">
-      <Invoices card-classes="mb-6" :invoices="invoices"></Invoices>
+      <Invoices
+        card-classes="mb-6"
+        :invoices="$store.getters.allInvoices"
+      ></Invoices>
     </div>
     <!--end::Content-->
   </div>
@@ -11,11 +14,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted } from "vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import Invoices from "@/components/customers/cards/overview/Invoices.vue";
-import { useStore } from "vuex";
-import { Actions } from "@/store/enums/StoreEnums";
 
 export default defineComponent({
   name: "invoices",
@@ -23,17 +24,9 @@ export default defineComponent({
     Invoices,
   },
   setup() {
-    const store = useStore();
-    const invoices = ref([]);
     onMounted(() => {
       setCurrentPageBreadcrumbs("Invoices", ["Invoices"]);
     });
-    store.dispatch(Actions.GET_INVOICES).then((res) => {
-      invoices.value = res;
-    });
-    return {
-      invoices,
-    };
   },
 });
 </script>

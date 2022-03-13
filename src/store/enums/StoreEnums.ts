@@ -29,8 +29,9 @@ enum Actions {
   GET_CUSTOMERS = "getCustomers",
   GET_CUSTOMER = "getCustomer",
   DELETE_CUSTOMER = "deleteCustomer",
-  GET_CUSTOMER_INVOICES = "getCustomerInvoices",
   SET_BREADCRUMB_ACTION = "setBreadcrumbAction",
+  GET_LOGS = "getLogs",
+  GET_ALL_LOGS = "getAllLogs",
 }
 
 enum Mutations {
@@ -46,6 +47,9 @@ enum Mutations {
   SET_CURRENCY = "setCurrency",
   SET_SHIPPING_COMPANIES = "setShippingCompanies",
   SET_PAYMENT_METHODS = "setPaymentMethods",
+  SET_LOGS = "setLogs",
+  SET_CUSTOMERS = "setCustomers",
+  SET_INVOICES = "setInvoices",
   SET_BREADCRUMB_MUTATION = "setBreadcrumbMutation",
   SET_LAYOUT_CONFIG = "setLayoutConfig",
   RESET_LAYOUT_CONFIG = "resetLayoutConfig",

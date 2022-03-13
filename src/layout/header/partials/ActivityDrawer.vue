@@ -77,7 +77,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Item1 from "@/layout/header/partials/activity-timeline/Item1.vue";
-import Item2 from "@/layout/header/partials/activity-timeline/Item2.vue";
+import Item2 from "@/layout/header/partials/activity-timeline/Item2.vue
 import Item3 from "@/layout/header/partials/activity-timeline/Item3.vue";
 import Item4 from "@/layout/header/partials/activity-timeline/Item4.vue";
 import Item5 from "@/layout/header/partials/activity-timeline/Item5.vue";

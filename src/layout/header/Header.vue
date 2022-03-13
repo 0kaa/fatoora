@@ -23,10 +23,7 @@
         <!--begin::Breadcrumb-->
         <ul v-if="breadcrumbs" class="breadcrumb fw-bold fs-base my-1">
           <li class="breadcrumb-item text-muted">
-            <router-link
-              :to="{ name: 'home', params: { lang } }"
-              class="text-muted"
-            >
+            <router-link :to="{ name: 'home' }" class="text-muted">
               {{ $t("home") }}
             </router-link>
           </li>
@@ -55,7 +52,6 @@ import { defineComponent, computed } from "vue";
 import KTTopbar from "@/layout/header/Topbar.vue";
 import { headerWidthFluid } from "@/core/helpers/config";
 import { headerFixed, headerFixedOnMobile } from "@/core/helpers/config";
-import { useStore } from "vuex";
 
 export default defineComponent({
   name: "KTHeader",
@@ -75,14 +71,9 @@ export default defineComponent({
         return headerFixedOnMobile.value;
       }
     });
-
-    const store = useStore();
-    const lang = computed(() => store.getters.getLanguage);
-
     return {
       headerWidthFluid,
       isHeaderSticky,
-      lang,
     };
   },
 });

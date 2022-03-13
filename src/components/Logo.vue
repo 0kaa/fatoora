@@ -1,12 +1,16 @@
 <template>
   <div class="fatoora-logo">
-    <a href="/metronic8/demo10/../demo10/index.html">
+    <router-link
+      :to="{
+        name: 'home',
+      }"
+    >
       <img
         alt="Logo"
-        src="/media/logos/logo-main.svg"
-        class="h-75px h-lg-80px"
+        src="/media/logos/vertical.png"
+        class="h-150px h-lg-150px"
       />
-    </a>
+    </router-link>
   </div>
 </template>
 

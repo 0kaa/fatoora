@@ -133,7 +133,7 @@
                     {{ $t("INVOICE_TO") }}.
                   </div>
                   <div class="fs-6 fw-bold mb-8">
-                    {{ invoice.invoice.customer }}
+                    {{ invoice.invoice.customer_name }}
                   </div>
                   <!--end::Invoice To-->
                   <!--begin::Invoice No-->

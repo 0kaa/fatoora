@@ -17,8 +17,9 @@ export interface Invoice {
 }
 
 @Module
-export default class AuthModule extends VuexModule {
+export default class InvoiceModule extends VuexModule {
   error = {};
+  invoices = [];
 
   /**
    * Get authentification errors
@@ -28,9 +29,17 @@ export default class AuthModule extends VuexModule {
     return this.error;
   }
 
+  get allInvoices() {
+    return this.invoices;
+  }
+
   @Mutation
   [Mutations.SET_ERROR](error) {
     this.error = error;
+  }
+  @Mutation
+  [Mutations.SET_INVOICES](invoices) {
+    this.invoices = invoices;
   }
 
   @Action
@@ -42,6 +51,7 @@ export default class AuthModule extends VuexModule {
     return new Promise<void>((resolve, reject) => {
       ApiService.post("invoices", params)
         .then(({ data }) => {
+          this.context.dispatch(Actions.GET_INVOICES);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -58,6 +68,7 @@ export default class AuthModule extends VuexModule {
     return new Promise<void>((resolve, reject) => {
       ApiService.query("invoices", {})
         .then(({ data }) => {
+          this.context.commit(Mutations.SET_INVOICES, data.data);
           resolve(data.data);
         })
         .catch(({ response }) => {

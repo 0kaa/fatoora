@@ -166,7 +166,7 @@ export default defineComponent({
   },
   components: {},
   setup(props, { emit }) {
-    const data = ref(props.tableData);
+    // const data = ref(props.tableData);
     const currentSort = ref<string>("");
     const order = ref(props.order);
     const label = ref(props.sortLabel);
@@ -178,25 +178,27 @@ export default defineComponent({
 
     const vnodeProps = getCurrentInstance()?.vnode.props || {};
 
-    watch(data.value, () => {
+    watch(props.tableData, () => {
       if ("onCurrentChange" in vnodeProps) {
         currentSort.value = label.value + order.value;
       } else {
-        pagination.value.total = data.value.length;
+        pagination.value.total = props.tableData.length;
       }
     });
 
     onMounted(() => {
       currentSort.value = label.value + order.value;
-      pagination.value.total = props.total ? props.total : data.value.length;
+      pagination.value.total = props.total
+        ? props.total
+        : props.tableData.length;
       pagination.value.rowsPerPage = props.rowsPerPage;
     });
 
     const getItems = computed(() => {
       if ("onCurrentChange" in vnodeProps) {
-        return data.value;
+        return props.tableData;
       } else {
-        const clone = JSON.parse(JSON.stringify(data.value));
+        const clone = JSON.parse(JSON.stringify(props.tableData));
         const startFrom =
           pagination.value.page * pagination.value.rowsPerPage -
           pagination.value.rowsPerPage;
@@ -228,10 +230,10 @@ export default defineComponent({
       } else {
         if (order.value === "asc") {
           order.value = "desc";
-          arraySort(data.value, columnName, { reverse: false });
+          arraySort(props.tableData, columnName, { reverse: false });
         } else {
           order.value = "asc";
-          arraySort(data.value, columnName, { reverse: true });
+          arraySort(props.tableData, columnName, { reverse: true });
         }
       }
       currentSort.value = columnName + order.value;
