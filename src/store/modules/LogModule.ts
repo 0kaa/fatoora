@@ -21,7 +21,7 @@ export default class LogModule extends VuexModule {
     ApiService.setHeader();
 
     return new Promise<void>((resolve, reject) => {
-      ApiService.query(`logs?count=${count}`, {})
+      ApiService.query(`logs/user?count=${count}`, {})
         .then(({ data }) => {
           this.context.commit(Mutations.SET_LOGS, data.data);
         })
@@ -35,7 +35,7 @@ export default class LogModule extends VuexModule {
     ApiService.setHeader();
 
     return new Promise<void>((resolve, reject) => {
-      ApiService.query(`logs?count=${count}`, {})
+      ApiService.query(`logs/user?count=${count}`, {})
         .then(({ data }) => {
           resolve(data.data);
         })

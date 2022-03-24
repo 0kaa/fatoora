@@ -30,7 +30,6 @@ export default defineComponent({
       store.dispatch(Actions.GET_CURRENCIES);
       store.dispatch(Actions.GET_CUSTOMERS);
       store.dispatch(Actions.GET_INVOICES);
-      store.dispatch(Actions.GET_LOGS, 8);
       store.commit(
         Mutations.SET_LANG,
         localStorage.getItem("lang") || currentLanguage.value

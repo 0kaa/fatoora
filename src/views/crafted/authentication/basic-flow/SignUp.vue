@@ -8,7 +8,7 @@
       id="kt_create_account_stepper"
     >
       <div
-        class="bg-lighten flex-column flex-center shadow-sm py-10 justify-content-center h-100 d-none d-xl-flex w-100 w-xl-500px"
+        class="bg-lighten flex-column align-items-center shadow-sm py-10 h-100 d-none d-xl-flex w-100 w-xl-500px"
       >
         <!--begin::Logo-->
         <Logo class="mb-20 ps-lg-10"></Logo>
@@ -82,9 +82,9 @@
       </div>
 
       <!--begin::Form-->
-      <form
+      <Form
         class="w-100 h-100 d-flex flex-column pb-lg-0 px-lg-20 p-10"
-        novalidate="novalidate"
+        :validation-schema="createAppSchema"
         id="kt_create_account_form"
         @submit="handleStep"
       >
@@ -247,6 +247,7 @@
                     class="btn-check"
                     name="invoice_plan"
                     value="1000"
+                    disabled
                     id="kt_one_thousand_select"
                   />
                   <label
@@ -267,6 +268,7 @@
                     class="btn-check"
                     name="invoice_plan"
                     value="5000"
+                    disabled
                     id="kt_five_thousand_select"
                   />
                   <label
@@ -287,6 +289,7 @@
                     class="btn-check"
                     name="invoice_plan"
                     value="10000"
+                    disabled
                     id="kt_ten_thousand_select"
                   />
                   <label
@@ -307,6 +310,7 @@
                     class="btn-check"
                     name="invoice_plan"
                     value="other"
+                    disabled
                     id="kt_other_select"
                   />
                   <label
@@ -939,7 +943,7 @@
           <!--end::Links-->
         </div>
         <!--end::Footer-->
-      </form>
+      </Form>
       <!--end::Form-->
     </div>
     <!--end::Stepper-->
@@ -1132,15 +1136,15 @@ export default defineComponent({
         market_tax_number: Yup.string()
           .required(translate("market_tax_number_required"))
           .min(15, translate("market_tax_number_min_length")),
-        market_commercial_number: Yup.string().required(
-          translate("market_commercial_number_required")
-        ),
+        market_commercial_number: Yup.string()
+          .required(translate("market_commercial_number_required"))
+          .min(10, translate("market_commercial_number_min_length"))
+          .max(10, translate("market_commercial_number_max_length")),
         market_standard_number: Yup.string().required(
           translate("market_standard_number_required")
         ),
         market_site_url: Yup.string().url(translate("market_site_url_invalid")),
         currency_id: Yup.string().required(translate("currency_required")),
-        // api_key: Yup.string().required(translate("api_key_required")),
       }),
     ];
 
@@ -1363,6 +1367,7 @@ export default defineComponent({
       handleStep,
       formSubmit,
       onFileChange,
+      createAppSchema,
       shipping_id,
       payment_id,
       imgPreview,

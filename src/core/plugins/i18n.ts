@@ -200,6 +200,10 @@ const messages = {
     allLogs: "All Logs",
     view_updates: "View Updates",
     logs: "Logs",
+    market_commercial_number_min_length:
+      "Market commercial number must be at least 10 characters",
+    market_commercial_number_max_length:
+      "Market commercial number must be less than 10 characters",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -398,6 +402,10 @@ const messages = {
     allLogs: "كل السجلات",
     view_updates: "عرض التحديثات",
     logs: "سجلات",
+    market_commercial_number_min_length:
+      "رقم السجل التجاري يجب أن يكون أكبر من 10 أحرف",
+    market_commercial_number_max_length:
+      "رقم السجل التجاري يجب أن يكون أقل من 10 أحرف",
   },
 };
 

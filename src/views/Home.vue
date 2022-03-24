@@ -133,6 +133,8 @@ import CardCreateModal from "../components/cards/CardCreateModal.vue";
 import UserMenu from "@/layout/header/partials/UserMenu.vue";
 import Logo from "@/components/Logo.vue";
 import SidebarDefault from "@/components/sidebar/Sidebar-default.vue";
+import { useStore } from "vuex";
+import { Actions } from "@/store/enums/StoreEnums";
 
 export default defineComponent({
   name: "dashboard",
@@ -143,8 +145,11 @@ export default defineComponent({
     SidebarDefault,
   },
   setup() {
+    const store = useStore();
     onMounted(() => {
       setCurrentPageTitle("Home");
+      store.dispatch(Actions.GET_LOGS, 8);
+
       document.body.classList.add("home");
     });
 

@@ -87,24 +87,6 @@
               <!--end::Info-->
             </div>
             <!--end::User-->
-
-            <!--begin::Actions-->
-            <div class="d-flex my-4">
-              <!--begin::Menu-->
-              <div class="me-0">
-                <button
-                  class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
-                  data-kt-menu-trigger="click"
-                  data-kt-menu-placement="bottom-end"
-                  data-kt-menu-flip="top-end"
-                >
-                  <i class="bi bi-three-dots fs-3"></i>
-                </button>
-                <Dropdown2></Dropdown2>
-              </div>
-              <!--end::Menu-->
-            </div>
-            <!--end::Actions-->
           </div>
           <!--end::Title-->
 
@@ -252,13 +234,10 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
-import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
 
 export default defineComponent({
   name: "kt-account",
-  components: {
-    Dropdown2,
-  },
+
   setup() {
     const store = useStore();
     const user = computed(() => store.getters.currentUser);

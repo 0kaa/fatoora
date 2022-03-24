@@ -23,12 +23,11 @@
     <!--begin::Content-->
     <div id="kt_account_profile_details" class="collapse show">
       <!--begin::Form-->
-      <Form
-        id="kt_account_profile_details_form"
-        class="form"
-        novalidate="novalidate"
-        @submit="saveChanges1()"
-        :validation-schema="profileDetailsValidator"
+      <el-form
+        @submit.prevent="saveChanges1()"
+        :model="profileDetails"
+        :rules="profileDetailsValidator"
+        ref="formProfileDetails"
       >
         <!--begin::Card body-->
         <div class="card-body border-top p-9">
@@ -42,18 +41,14 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="text"
-                name="name"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('name')"
-                v-model="profileDetails.name"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="name" />
-                </div>
-              </div>
+              <el-form-item prop="name">
+                <el-input
+                  :placeholder="$t('name')"
+                  maxlength="30"
+                  v-model="profileDetails.name"
+                />
+              </el-form-item>
+              <!--end::Input-->
             </div>
             <!--end::Col-->
           </div>
@@ -77,19 +72,15 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="number"
-                name="phone"
-                class="form-control form-control-lg form-control-solid"
-                :placeholder="$t('phone')"
-                style="direction: inherit"
-                v-model="profileDetails.phone"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="phone" />
-                </div>
-              </div>
+              <el-form-item prop="phone">
+                <el-input
+                  type="number"
+                  maxlength="15"
+                  :placeholder="$t('phone')"
+                  v-model="profileDetails.phone"
+                />
+              </el-form-item>
+              <!--end::Input-->
             </div>
             <!--end::Col-->
           </div>
@@ -153,15 +144,9 @@
           <!--end::Input group-->
         </div>
         <!--end::Card body-->
-
         <!--begin::Actions-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-          <button
-            type="submit"
-            id="kt_account_profile_details_submit"
-            ref="submitButton1"
-            class="btn btn-primary"
-          >
+          <button type="submit" ref="profileButton" class="btn btn-primary">
             <span class="indicator-label">
               {{ $t("saveChanges") }}
             </span>
@@ -174,7 +159,7 @@
           </button>
         </div>
         <!--end::Actions-->
-      </Form>
+      </el-form>
       <!--end::Form-->
     </div>
     <!--end::Content-->
@@ -205,12 +190,11 @@
     <!--begin::Content-->
     <div id="kt_account_enterprise_details" class="collapse show">
       <!--begin::Form-->
-      <Form
-        id="kt_account_enterprise_details_form"
-        class="form"
-        novalidate="novalidate"
-        @submit="saveChanges2()"
-        :validation-schema="enterpriseDetailsValidator"
+      <el-form
+        @submit.prevent="saveChanges2()"
+        :model="profileDetails"
+        :rules="enterpriseDetailsValidator"
+        ref="formEnterpriseDetails"
       >
         <!--begin::Card body-->
         <div class="card-body border-top p-9">
@@ -292,7 +276,14 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
+              <el-form-item prop="market_name">
+                <el-input
+                  :placeholder="$t('market_name')"
+                  v-model="profileDetails.market_name"
+                />
+              </el-form-item>
+              <!--end::Input-->
+              <!-- <Field
                 type="text"
                 name="market_name"
                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
@@ -303,7 +294,7 @@
                 <div class="fv-help-block">
                   <ErrorMessage name="market_name" />
                 </div>
-              </div>
+              </div> -->
             </div>
             <!--end::Col-->
           </div>
@@ -514,7 +505,7 @@
           <button
             type="submit"
             id="kt_account_profile_details_submit"
-            ref="submitButton2"
+            ref="enterpriseButton"
             class="btn btn-primary"
           >
             <span class="indicator-label">
@@ -529,8 +520,7 @@
           </button>
         </div>
         <!--end::Actions-->
-      </Form>
-      <!--end::Form-->
+      </el-form>
     </div>
     <!--end::Content-->
   </div>
@@ -707,6 +697,7 @@ import { Actions, Mutations } from "@/store/enums/StoreEnums";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n/index";
 
 interface ProfileDetails {
   name: string;
@@ -731,13 +722,15 @@ export default defineComponent({
     Form,
   },
   setup() {
-    const submitButton1 = ref<HTMLElement | null>(null);
-    const submitButton2 = ref<HTMLElement | null>(null);
+    const profileButton = ref<HTMLElement | null>(null);
+    const enterpriseButton = ref<HTMLElement | null>(null);
     const submitButton3 = ref<HTMLElement | null>(null);
     const submitButton4 = ref<HTMLElement | null>(null);
     const submitButton5 = ref<HTMLElement | null>(null);
     const updateEmailButton = ref<HTMLElement | null>(null);
     const updatePasswordButton = ref<HTMLElement | null>(null);
+    const formProfileDetails = ref<null | HTMLFormElement>(null);
+    const formEnterpriseDetails = ref<null | HTMLFormElement>(null);
 
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
@@ -749,24 +742,76 @@ export default defineComponent({
     const lang = localStorage.getItem("lang") || "ar";
     const language = ref(lang);
     const user = computed(() => store.getters.currentUser);
-
-    const profileDetailsValidator = Yup.object().shape({
-      name: Yup.string().required().label("name"),
-      phone: Yup.string()
-        .matches(/^[0-9]/, "Phone number must be 10 digits long")
-        .min(10, "Phone number must be 10 digits long")
-        .required("Phone number is required"),
+    const { t, te } = useI18n();
+    const translate = (text) => {
+      if (te(text)) {
+        return t(text);
+      } else {
+        return text;
+      }
+    };
+    const profileDetailsValidator = ref({
+      name: [
+        {
+          required: true,
+          message: translate("nameRequired"),
+          trigger: "change",
+        },
+      ],
+      phone: [
+        {
+          required: true,
+          message: "Phone number is required",
+          trigger: "change",
+        },
+        {
+          min: 10,
+          message: "Phone number must be at least 10 characters",
+          trigger: "change",
+        },
+        {
+          pattern: /^[0-9]+$/,
+          message: "Phone number must be digits only",
+          trigger: "change",
+        },
+      ],
+    });
+    const enterpriseDetailsValidator = ref({
+      // market_name: [
+      //   {
+      //     required: true,
+      //     message: translate("enterpriseNameRequired"),
+      //     trigger: "change",
+      //   },
+      // ],
+      // phone: [
+      //   {
+      //     required: true,
+      //     message: "Phone number is required",
+      //     trigger: "change",
+      //   },
+      //   {
+      //     min: 10,
+      //     message: "Phone number must be at least 10 characters",
+      //     trigger: "change",
+      //   },
+      //   {
+      //     pattern: /^[0-9]+$/,
+      //     message: "Phone number must be digits only",
+      //     trigger: "change",
+      //   },
+      // ],
     });
 
-    const enterpriseDetailsValidator = Yup.object().shape({
-      market_name: Yup.string().required().label("Enterprise"),
-      market_address: Yup.string().required().label("Market Address"),
-      market_tax_number: Yup.string()
-        .min(15)
-        .required()
-        .label("market_tax_number"),
-      market_commercial_number: Yup.string().label("Market Commercial Number"),
-    });
+    // const enterpriseDetailsValidator = Yup.object().shape({
+    //   market_name: Yup.string().required().label("Enterprise"),
+    //   market_address: Yup.string().required().label("Market Address"),
+    //   market_tax_number: Yup.string()
+    //     .min(15)
+    //     .required()
+    //     .label("market_tax_number"),
+    //   market_commercial_number: Yup.string().label("Market Commercial Number"),
+    // });
 
     const changeEmail = Yup.object().shape({
       emailaddress: Yup.string().required().email().label("Email"),
@@ -799,39 +844,65 @@ export default defineComponent({
     });
 
     const saveChanges1 = () => {
-      if (submitButton1.value) {
-        const userDetails = {
-          name: profileDetails.value.name,
-          phone: profileDetails.value.phone,
-        };
-        // Activate indicator
-        submitButton1.value.setAttribute("data-kt-indicator", "on");
-        store.dispatch(Actions.UPDATE_USER, userDetails).then((response) => {
-          submitButton1.value?.removeAttribute("data-kt-indicator");
+      if (!formProfileDetails.value) {
+        return;
+      }
+
+      formProfileDetails.value.validate((valid) => {
+        if (valid) {
+          const userDetails = {
+            name: profileDetails.value.name,
+            phone: profileDetails.value.phone,
+          };
+          profileButton.value?.setAttribute("data-kt-indicator", "on");
+          store.dispatch(Actions.UPDATE_USER, userDetails).then((response) => {
+            profileButton.value?.removeAttribute("data-kt-indicator");
+            Swal.fire({
+              text: response.message,
+              icon: "success",
+              buttonsStyling: false,
+              confirmButtonText: "Ok, got it!",
+              customClass: {
+                confirmButton: "btn fw-bold btn-light-primary",
+              },
+            }).then(() => {
+              store.commit(Mutations.SET_LANG, language.value);
+              setTimeout(() => {
+                window.location.reload();
+              }, 0);
+            });
+          });
+        } else {
           Swal.fire({
-            text: response.message,
-            icon: "success",
+            text: "Sorry, looks like there are some errors detected, please try again.",
+            icon: "error",
             buttonsStyling: false,
             confirmButtonText: "Ok, got it!",
             customClass: {
-              confirmButton: "btn fw-bold btn-light-primary",
+              confirmButton: "btn btn-primary",
             },
-          }).then(() => {
-            store.commit(Mutations.SET_LANG, language.value);
-            setTimeout(() => {
-              window.location.reload();
-            }, 0);
           });
-        });
-      }
+          return false;
+        }
+      });
     };
 
+    // const saveChanges1 = () => {
+    //   if (profileButton.value) {
+    //     const userDetails = {
+    //       name: profileDetails.value.name,
+    //       phone: profileDetails.value.phone,
+    //     };
+    //     // Activate indicator
+    //   }
+    // };
+
     const saveChanges2 = () => {
-      if (submitButton2.value) {
+      if (enterpriseButton.value) {
         const formData = new FormData();
 
         const enterpriseDetails = {
-          market_name: profileDetails.value.market_name,
+          market_name: profileDetails.value.market_name ? ,
           market_address: profileDetails.value.market_address,
           market_tax_number: profileDetails.value.market_tax_number,
           market_commercial_number:
@@ -849,10 +920,10 @@ export default defineComponent({
         }
 
         // Activate indicator
-        submitButton2.value.setAttribute("data-kt-indicator", "on");
+        enterpriseButton.value.setAttribute("data-kt-indicator", "on");
 
         store.dispatch(Actions.UPDATE_USER, formData).then((response) => {
-          submitButton2.value?.removeAttribute("data-kt-indicator");
+          enterpriseButton.value?.removeAttribute("data-kt-indicator");
           Swal.fire({
             text: response.message,
             icon: "success",
@@ -972,8 +1043,10 @@ export default defineComponent({
     });
 
     return {
-      submitButton1,
-      submitButton2,
+      formProfileDetails,
+      formEnterpriseDetails,
+      profileButton,
+      enterpriseButton,
       submitButton3,
       submitButton4,
       submitButton5,
