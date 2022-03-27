@@ -77,5 +77,6 @@ export default defineComponent({
 @import "assets/sass/style";
 
 //RTL version styles
-// @import "assets/css/style.rtl.css";
+
+@import "assets/css/style.rtl.css";
 </style>

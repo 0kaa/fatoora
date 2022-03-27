@@ -24,7 +24,7 @@
     <div id="kt_account_profile_details" class="collapse show">
       <!--begin::Form-->
       <el-form
-        @submit.prevent="saveChanges1()"
+        @submit.prevent="profileHandleSubmit()"
         :model="profileDetails"
         :rules="profileDetailsValidator"
         ref="formProfileDetails"
@@ -98,7 +98,7 @@
             <div class="col-lg-8 fv-row">
               <el-form-item prop="currencies" class="mb-0">
                 <el-select
-                  v-model="profileDetails.currency_id"
+                  v-model="profileDetails.currency"
                   default-first-option
                   placeholder="Choose a currency"
                   class="w-100"
@@ -191,7 +191,7 @@
     <div id="kt_account_enterprise_details" class="collapse show">
       <!--begin::Form-->
       <el-form
-        @submit.prevent="saveChanges2()"
+        @submit.prevent="enterpriseHandleSubmit()"
         :model="profileDetails"
         :rules="enterpriseDetailsValidator"
         ref="formEnterpriseDetails"
@@ -278,23 +278,11 @@
             <div class="col-lg-8 fv-row">
               <el-form-item prop="market_name">
                 <el-input
-                  :placeholder="$t('market_name')"
+                  :placeholder="$t('enterpriseName')"
                   v-model="profileDetails.market_name"
                 />
               </el-form-item>
               <!--end::Input-->
-              <!-- <Field
-                type="text"
-                name="market_name"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('enterpriseName')"
-                v-model="profileDetails.market_name"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_name" />
-                </div>
-              </div> -->
             </div>
             <!--end::Col-->
           </div>
@@ -310,18 +298,12 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="email"
-                name="market_email"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('enterpriseEmail')"
-                v-model="profileDetails.market_email"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_email" />
-                </div>
-              </div>
+              <el-form-item prop="market_email">
+                <el-input
+                  :placeholder="$t('enterpriseEmail')"
+                  v-model="profileDetails.market_email"
+                />
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -337,18 +319,12 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="url"
-                name="market_site_url"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('enterpriseWebsite')"
-                v-model="profileDetails.market_site_url"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_site_url" />
-                </div>
-              </div>
+              <el-form-item prop="market_site_url">
+                <el-input
+                  :placeholder="$t('enterpriseWebsite')"
+                  v-model="profileDetails.market_site_url"
+                />
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -364,18 +340,12 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="text"
-                name="market_commercial_number"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('numberOfTheEnterprise')"
-                v-model="profileDetails.market_commercial_number"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_commercial_number" />
-                </div>
-              </div>
+              <el-form-item prop="market_commercial_number">
+                <el-input
+                  :placeholder="$t('numberOfTheEnterprise')"
+                  v-model="profileDetails.market_commercial_number"
+                />
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -391,18 +361,12 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="text"
-                name="market_standard_number"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('enterpriseRecordNumber')"
-                v-model="profileDetails.market_standard_number"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_standard_number" />
-                </div>
-              </div>
+              <el-form-item prop="market_standard_number">
+                <el-input
+                  :placeholder="$t('enterpriseRecordNumber')"
+                  v-model="profileDetails.market_standard_number"
+                />
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -418,18 +382,12 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="text"
-                name="market_tax_number"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('enterpriseTaxNumber')"
-                v-model="profileDetails.market_tax_number"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_tax_number" />
-                </div>
-              </div>
+              <el-form-item prop="market_tax_number">
+                <el-input
+                  :placeholder="$t('enterpriseTaxNumber')"
+                  v-model="profileDetails.market_tax_number"
+                />
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -445,18 +403,12 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="text"
-                name="market_address"
-                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                :placeholder="$t('enterpriseAddress')"
-                v-model="profileDetails.market_address"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_address" />
-                </div>
-              </div>
+              <el-form-item prop="market_address">
+                <el-input
+                  :placeholder="$t('enterpriseAddress')"
+                  v-model="profileDetails.market_address"
+                />
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -469,30 +421,17 @@
               <span class="">
                 {{ $t("enterprisePhone") }}
               </span>
-
-              <i
-                class="fas fa-exclamation-circle ms-1 fs-7"
-                data-bs-toggle="tooltip"
-                title="Phone number must be active"
-              ></i>
             </label>
             <!--end::Label-->
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <Field
-                type="number"
-                name="market_phone"
-                class="form-control form-control-lg form-control-solid"
-                :placeholder="$t('enterprisePhone')"
-                style="direction: inherit"
-                v-model="profileDetails.market_phone"
-              />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="market_phone" />
-                </div>
-              </div>
+              <el-form-item prop="market_phone">
+                <el-input
+                  :placeholder="$t('enterprisePhone')"
+                  v-model="profileDetails.market_phone"
+                />
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -575,7 +514,6 @@
               class="form"
               novalidate="novalidate"
               @submit="updatePassword()"
-              :validation-schema="changePassword"
             >
               <div class="row mb-6">
                 <div class="col-lg-4">
@@ -695,7 +633,6 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import { Actions, Mutations } from "@/store/enums/StoreEnums";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import * as Yup from "yup";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n/index";
 
@@ -711,7 +648,11 @@ interface ProfileDetails {
   market_email: string;
   market_phone: string;
   market_image: string;
-  currency_id: string;
+  currency: {
+    id: number;
+    code: string;
+    value: string;
+  };
 }
 
 export default defineComponent({
@@ -777,13 +718,13 @@ export default defineComponent({
       ],
     });
     const enterpriseDetailsValidator = ref({
-      // market_name: [
-      //   {
-      //     required: true,
-      //     message: translate("enterpriseNameRequired"),
-      //     trigger: "change",
-      //   },
-      // ],
+      market_name: [
+        {
+          max: 20,
+          message: translate("nameRequired"),
+          trigger: "change",
+        },
+      ],
       // phone: [
       //   {
       //     required: true,
@@ -813,21 +754,6 @@ export default defineComponent({
     //   market_commercial_number: Yup.string().label("Market Commercial Number"),
     // });
 
-    const changeEmail = Yup.object().shape({
-      emailaddress: Yup.string().required().email().label("Email"),
-      confirmemailpassword: Yup.string().required().label("Password"),
-    });
-
-    const changePassword = Yup.object().shape({
-      currentpassword: Yup.string().required().label("Current password"),
-      newpassword: Yup.string().min(4).required().label("Password"),
-      confirmpassword: Yup.string()
-        .min(4)
-        .required()
-        .oneOf([Yup.ref("newpassword"), null], "Passwords must match")
-        .label("Password Confirmation"),
-    });
-
     const profileDetails = ref<ProfileDetails>({
       name: "",
       phone: "",
@@ -840,10 +766,14 @@ export default defineComponent({
       market_email: "",
       market_phone: "",
       market_image: "",
-      currency_id: "",
+      currency: {
+        id: 0,
+        code: "",
+        value: "",
+      },
     });
 
-    const saveChanges1 = () => {
+    const profileHandleSubmit = () => {
       if (!formProfileDetails.value) {
         return;
       }
@@ -853,6 +783,7 @@ export default defineComponent({
           const userDetails = {
             name: profileDetails.value.name,
             phone: profileDetails.value.phone,
+            currency_id: profileDetails.value.currency.id,
           };
           profileButton.value?.setAttribute("data-kt-indicator", "on");
           store.dispatch(Actions.UPDATE_USER, userDetails).then((response) => {
@@ -887,114 +818,82 @@ export default defineComponent({
       });
     };
 
-    // const saveChanges1 = () => {
-    //   if (profileButton.value) {
-    //     const userDetails = {
-    //       name: profileDetails.value.name,
-    //       phone: profileDetails.value.phone,
-    //     };
-    //     // Activate indicator
-    //   }
-    // };
+    const enterpriseHandleSubmit = () => {
+      if (!formEnterpriseDetails.value) {
+        return;
+      }
+      formEnterpriseDetails.value.validate((valid) => {
+        if (valid) {
+          if (enterpriseButton.value) {
+            const formData = new FormData();
 
-    const saveChanges2 = () => {
-      if (enterpriseButton.value) {
-        const formData = new FormData();
+            const enterpriseDetails = {
+              market_name:
+                profileDetails.value.market_name == null
+                  ? ""
+                  : profileDetails.value.market_name,
+              market_address:
+                profileDetails.value.market_address == null
+                  ? ""
+                  : profileDetails.value.market_address,
+              market_tax_number:
+                profileDetails.value.market_tax_number == null
+                  ? ""
+                  : profileDetails.value.market_tax_number,
+              market_commercial_number:
+                profileDetails.value.market_commercial_number == null
+                  ? ""
+                  : profileDetails.value.market_commercial_number,
+              market_standard_number:
+                profileDetails.value.market_standard_number == null
+                  ? ""
+                  : profileDetails.value.market_standard_number,
+              market_site_url:
+                profileDetails.value.market_site_url == null
+                  ? ""
+                  : profileDetails.value.market_site_url,
+              market_phone:
+                profileDetails.value.market_phone == null
+                  ? ""
+                  : profileDetails.value.market_phone,
+            };
 
-        const enterpriseDetails = {
-          market_name: profileDetails.value.market_name ? ,
-          market_address: profileDetails.value.market_address,
-          market_tax_number: profileDetails.value.market_tax_number,
-          market_commercial_number:
-            profileDetails.value.market_commercial_number,
-          market_standard_number: profileDetails.value.market_standard_number,
-          market_site_url: profileDetails.value.market_site_url,
-          market_phone: profileDetails.value.market_phone,
-        };
+            if (market_image.value) {
+              formData.append("market_image", market_image.value);
+            }
+            for (let key in enterpriseDetails) {
+              formData.append(key, enterpriseDetails[key]);
+            }
 
-        if (market_image.value) {
-          formData.append("market_image", market_image.value);
-        }
-        for (let key in enterpriseDetails) {
-          formData.append(key, enterpriseDetails[key]);
-        }
+            // Activate indicator
+            enterpriseButton.value.setAttribute("data-kt-indicator", "on");
 
-        // Activate indicator
-        enterpriseButton.value.setAttribute("data-kt-indicator", "on");
-
-        store.dispatch(Actions.UPDATE_USER, formData).then((response) => {
-          enterpriseButton.value?.removeAttribute("data-kt-indicator");
+            store.dispatch(Actions.UPDATE_USER, formData).then((response) => {
+              enterpriseButton.value?.removeAttribute("data-kt-indicator");
+              Swal.fire({
+                text: response.message,
+                icon: "success",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary",
+                },
+              });
+            });
+          }
+        } else {
           Swal.fire({
-            text: response.message,
-            icon: "success",
+            text: "Sorry, looks like there are some errors detected, please try again.",
+            icon: "error",
             buttonsStyling: false,
             confirmButtonText: "Ok, got it!",
             customClass: {
-              confirmButton: "btn fw-bold btn-light-primary",
+              confirmButton: "btn btn-primary",
             },
           });
-        });
-      }
-    };
-
-    const saveChanges3 = () => {
-      if (submitButton3.value) {
-        // Activate indicator
-        submitButton3.value.setAttribute("data-kt-indicator", "on");
-
-        setTimeout(() => {
-          submitButton3.value?.removeAttribute("data-kt-indicator");
-        }, 2000);
-      }
-    };
-
-    const saveChanges4 = () => {
-      if (submitButton4.value) {
-        // Activate indicator
-        submitButton4.value.setAttribute("data-kt-indicator", "on");
-
-        setTimeout(() => {
-          submitButton4.value?.removeAttribute("data-kt-indicator");
-        }, 2000);
-      }
-    };
-
-    const deactivateAccount = () => {
-      if (submitButton5.value) {
-        // Activate indicator
-        submitButton5.value.setAttribute("data-kt-indicator", "on");
-
-        setTimeout(() => {
-          submitButton5.value?.removeAttribute("data-kt-indicator");
-
-          Swal.fire({
-            text: "Email is successfully changed!",
-            icon: "success",
-            confirmButtonText: "Ok",
-            buttonsStyling: false,
-            customClass: {
-              confirmButton: "btn btn-light-primary",
-            },
-          }).then(() => {
-            emailFormDisplay.value = false;
-          });
-        }, 2000);
-      }
-    };
-
-    const updateEmail = () => {
-      console.log(updateEmailButton.value);
-
-      if (updateEmailButton.value) {
-        // Activate indicator
-        updateEmailButton.value.setAttribute("data-kt-indicator", "on");
-
-        setTimeout(() => {
-          updateEmailButton.value?.removeAttribute("data-kt-indicator");
-
-          emailFormDisplay.value = false;
-        }, 2000);
-      }
+          return false;
+        }
+      });
     };
 
     const updatePassword = () => {
@@ -1050,11 +949,8 @@ export default defineComponent({
       submitButton3,
       submitButton4,
       submitButton5,
-      saveChanges1,
-      saveChanges2,
-      saveChanges3,
-      saveChanges4,
-      deactivateAccount,
+      profileHandleSubmit,
+      enterpriseHandleSubmit,
       profileDetails,
       emailFormDisplay,
       passwordFormDisplay,
@@ -1063,11 +959,8 @@ export default defineComponent({
       imgPreview,
       profileDetailsValidator,
       enterpriseDetailsValidator,
-      changeEmail,
-      changePassword,
       updateEmailButton,
       updatePasswordButton,
-      updateEmail,
       updatePassword,
       lang,
       user,
