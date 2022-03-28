@@ -54,13 +54,12 @@
               <!--end::Step 2-->
             </div>
             <!--end::Nav-->
-
             <!--begin::Form-->
             <form
               class="mx-auto w-100 py-10"
               novalidate="novalidate"
               id="kt_create_invoice_form"
-              @submit="handleStep"
+              @submit.prevent="handleStep"
             >
               <!--begin::Step 1-->
               <div class="current" data-kt-stepper-element="content">
@@ -450,10 +449,20 @@
                                           v-model="item.name"
                                           :placeholder="$t('itemName')"
                                         /> -->
-                                        <input
+                                        <!-- <input
                                           class="form-control form-control-solid mb-2"
                                           v-model="item.product_name"
                                           :placeholder="$t('itemName')"
+                                        /> -->
+                                        <Field
+                                          class="form-control form-control-solid mb-2"
+                                          :name="`products[0].product_name`"
+                                          :placeholder="$t('itemName')"
+                                          v-model="item.product_name"
+                                        />
+                                        <ErrorMessage
+                                          class="fv-plugins-message-container invalid-feedback"
+                                          :name="`products[0].product_name`"
                                         />
                                         <input
                                           type="text"
@@ -543,7 +552,6 @@
                                       <th class="text-primary">
                                         <button
                                           class="btn btn-link py-1"
-                                          data-kt-element="add-item"
                                           @click.prevent="addItem"
                                         >
                                           {{ $t("addItem") }}
@@ -1111,7 +1119,7 @@ import { useI18n } from "vue-i18n/index";
 import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useForm } from "vee-validate";
-import { Field } from "vee-validate";
+import { Field, ErrorMessage } from "vee-validate";
 import * as Yup from "yup";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
@@ -1122,7 +1130,7 @@ interface Step1 {
 }
 
 interface Step2 {
-  rand_number: string;
+  rand_number: number;
   release_date: string;
   due_date: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1151,6 +1159,7 @@ export default defineComponent({
   name: "create-invoice-modal",
   components: {
     Field,
+    ErrorMessage,
   },
   setup() {
     const _stepperObj = ref<StepperComponent | null>(null);
@@ -1177,7 +1186,7 @@ export default defineComponent({
 
     const formData = ref<KTCreateApp>({
       type: "simple",
-      rand_number: "",
+      rand_number: Math.floor(Math.random() * 1000000),
       release_date: "",
       due_date: "",
       products: items.value,
@@ -1232,9 +1241,11 @@ export default defineComponent({
     const createAppSchema = [
       Yup.object({}),
       Yup.object({
-        itemName: Yup.string().required().label("Item Name"),
-        itemQty: Yup.string().required().label("Item Quantity"),
-        itemPrice: Yup.string().required().label("Item Price"),
+        products: Yup.array().of(
+          Yup.object({
+            product_name: Yup.string().required(),
+          })
+        ),
       }),
     ];
 
@@ -1319,6 +1330,7 @@ export default defineComponent({
       store
         .dispatch(Actions.CREATE_INVOICE, formData.value)
         .then((response) => {
+          resetForm();
           Swal.close();
           Swal.fire({
             title: il8n.t("success"),
@@ -1328,7 +1340,6 @@ export default defineComponent({
             timer: 1500,
           }).then(() => {
             hideModal(createInvoiceModalRef.value);
-            resetForm();
             if (!_stepperObj.value) {
               return;
             }
@@ -1356,6 +1367,7 @@ export default defineComponent({
     });
 
     return {
+      _stepperObj,
       createInvoiceRef,
       totalSteps,
       previousStep,
