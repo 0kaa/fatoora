@@ -32,7 +32,7 @@
         <!--begin::Card body-->
         <div class="card-body border-top p-9">
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("name") }}
@@ -55,18 +55,12 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               <span class="">
                 {{ $t("phone") }}
               </span>
-
-              <i
-                class="fas fa-exclamation-circle ms-1 fs-7"
-                data-bs-toggle="tooltip"
-                title="Phone number must be active"
-              ></i>
             </label>
             <!--end::Label-->
 
@@ -191,9 +185,8 @@
     <div id="kt_account_enterprise_details" class="collapse show">
       <!--begin::Form-->
       <el-form
-        @submit.prevent="enterpriseHandleSubmit()"
         :model="profileDetails"
-        :rules="enterpriseDetailsValidator"
+        @submit.prevent="enterpriseHandleSubmit()"
         ref="formEnterpriseDetails"
       >
         <!--begin::Card body-->
@@ -212,7 +205,7 @@
               <div
                 class="image-input image-input-outline"
                 data-kt-image-input="true"
-                style="background-image: url(media/avatars/blank.png)"
+                style="background-image: url(/media/avatars/blank.png)"
               >
                 <!--begin::Preview existing avatar-->
 
@@ -268,7 +261,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseName") }}
@@ -289,7 +282,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseEmail") }}
@@ -310,28 +303,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
-            <!--begin::Label-->
-            <label class="col-lg-4 col-form-label fw-bold fs-6">
-              {{ $t("enterpriseWebsite") }}
-            </label>
-            <!--end::Label-->
-
-            <!--begin::Col-->
-            <div class="col-lg-8 fv-row">
-              <el-form-item prop="market_site_url">
-                <el-input
-                  :placeholder="$t('enterpriseWebsite')"
-                  v-model="profileDetails.market_site_url"
-                />
-              </el-form-item>
-            </div>
-            <!--end::Col-->
-          </div>
-          <!--end::Input group-->
-
-          <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("numberOfTheEnterprise") }}
@@ -352,7 +324,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseRecordNumber") }}
@@ -373,7 +345,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseTaxNumber") }}
@@ -394,7 +366,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseAddress") }}
@@ -415,7 +387,28 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row">
+            <!--begin::Label-->
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+              {{ $t("enterpriseWebsite") }}
+            </label>
+            <!--end::Label-->
+
+            <!--begin::Col-->
+            <div class="col-lg-8 fv-row">
+              <el-form-item prop="market_site_url">
+                <el-input
+                  :placeholder="$t('enterpriseWebsite')"
+                  v-model="profileDetails.market_site_url"
+                />
+              </el-form-item>
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Input group-->
+
+          <!--begin::Input group-->
+          <div class="row">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               <span class="">
@@ -432,6 +425,162 @@
                   v-model="profileDetails.market_phone"
                 />
               </el-form-item>
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Input group-->
+
+          <!--begin::Input group-->
+          <div class="row">
+            <!--begin::Label-->
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+              <span class="">
+                {{ $t("shippingMethods") }}
+              </span>
+            </label>
+            <!--end::Label-->
+
+            <!--begin::Col-->
+            <div class="col-lg-8 fv-row">
+              <el-checkbox-group v-model="shipping_id" :min="1">
+                <el-checkbox
+                  v-for="shipping in $store.getters.getAllShippingCompanies"
+                  :key="shipping.id"
+                  :value="shipping.id"
+                  :label="shipping.id"
+                  >{{ shipping.name }}</el-checkbox
+                >
+              </el-checkbox-group>
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Input group-->
+
+          <!--begin::Input group-->
+          <div class="row">
+            <!--begin::Label-->
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+              <span class="">
+                {{ $t("paymentMethods") }}
+              </span>
+            </label>
+            <!--end::Label-->
+
+            <!--begin::Col-->
+            <div class="col-lg-8 fv-row">
+              <el-checkbox-group v-model="payment_id" :min="1">
+                <el-checkbox
+                  v-for="payment in $store.getters.getAllPaymentMethods"
+                  :key="payment.id"
+                  :value="payment.id"
+                  :label="payment.id"
+                  >{{ payment.name }}</el-checkbox
+                >
+              </el-checkbox-group>
+              <!--begin::Form group-->
+              <div class="mt-5" v-show="payment_id.includes(2)">
+                <div
+                  v-for="(account, i) in bank_accounts"
+                  :key="i"
+                  class="mb-6"
+                >
+                  <div class="form-group row">
+                    <div class="col-md-3">
+                      <label class="form-label">
+                        {{ $t("bank") }}
+                      </label>
+                      <el-form-item
+                        class="mb-0"
+                        :prop="`bank_accounts.${i}.bank_id`"
+                        :rules="{
+                          required: true,
+                          message: 'domain can not be null',
+                          trigger: 'change',
+                        }"
+                      >
+                        <el-select
+                          v-model="account.bank_id"
+                          default-first-option
+                          :placeholder="$t('choose_a_bank')"
+                          class="w-100"
+                          name="bank_id"
+                        >
+                          <el-option
+                            v-for="(bank, index) in $store.getters.getAllBanks"
+                            :key="index"
+                            :value="bank.id"
+                            :label="bank.name"
+                          >
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="form-label">{{ $t("account_name") }}</label>
+                      <el-form-item class="mb-0">
+                        <el-input
+                          v-model="account.account_name"
+                          :placeholder="$t('enter_account_name')"
+                        />
+                      </el-form-item>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label">
+                        {{ $t("account_number") }}
+                      </label>
+
+                      <el-input
+                        v-model="account.account_number"
+                        :placeholder="$t('enter_account_number')"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label">
+                        {{ $t("iban") }}
+                      </label>
+                      <el-input
+                        v-model="account.iban"
+                        :placeholder="$t('enter_iban')"
+                      />
+                    </div>
+
+                    <div class="col-md-1">
+                      <a
+                        @click.prevent="removeBankAccount(i)"
+                        class="btn btn-light-danger mt-3 mt-md-8"
+                      >
+                        <i class="la la-trash-o fs-2"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!--begin::Form group-->
+                <div class="form-group mt-5">
+                  <a
+                    @click.prevent="addBankAccount"
+                    class="btn btn-light-primary"
+                  >
+                    <i class="la la-plus"></i>
+                    {{ $t("add") }}
+                  </a>
+                </div>
+                <!--end::Form group-->
+              </div>
+              <!--end::Form group-->
+              <div class="mt-5" v-if="payment_id.includes(3)">
+                <!--begin::Label-->
+                <label class="fs-6 fw-bold form-label">
+                  {{ $t("api_key") }}</label
+                >
+                <!--end::Label-->
+
+                <!--begin::Input-->
+                <el-input
+                  v-model="profileDetails.api_key"
+                  :placeholder="$t('api_key')"
+                />
+                <!--end::Input-->
+              </div>
             </div>
             <!--end::Col-->
           </div>
@@ -628,7 +777,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed, ref } from "vue";
+import { defineComponent, onMounted, computed, ref, watch } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import { Actions, Mutations } from "@/store/enums/StoreEnums";
@@ -653,6 +802,9 @@ interface ProfileDetails {
     code: string;
     value: string;
   };
+  api_key: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  bank_accounts: any[];
 }
 
 export default defineComponent({
@@ -665,15 +817,21 @@ export default defineComponent({
   setup() {
     const profileButton = ref<HTMLElement | null>(null);
     const enterpriseButton = ref<HTMLElement | null>(null);
-    const submitButton3 = ref<HTMLElement | null>(null);
-    const submitButton4 = ref<HTMLElement | null>(null);
-    const submitButton5 = ref<HTMLElement | null>(null);
-    const updateEmailButton = ref<HTMLElement | null>(null);
     const updatePasswordButton = ref<HTMLElement | null>(null);
     const formProfileDetails = ref<null | HTMLFormElement>(null);
     const formEnterpriseDetails = ref<null | HTMLFormElement>(null);
 
-    const emailFormDisplay = ref(false);
+    const shipping_id = ref<number[]>([]);
+    const payment_id = ref<number[]>([]);
+    const bank_accounts = ref<any[]>([
+      {
+        account_name: "",
+        account_number: "",
+        iban: "",
+        bank_id: "",
+      },
+    ]);
+
     const passwordFormDisplay = ref(false);
     const imgPreview = ref<string>("");
     const market_image = ref<File | null>(null);
@@ -718,41 +876,18 @@ export default defineComponent({
       ],
     });
     const enterpriseDetailsValidator = ref({
-      market_name: [
+      bank_accounts: [
         {
-          max: 20,
-          message: translate("nameRequired"),
-          trigger: "change",
+          bank_id: [
+            {
+              required: true,
+              message: "Bank name is required",
+              trigger: "change",
+            },
+          ],
         },
       ],
-      // phone: [
-      //   {
-      //     required: true,
-      //     message: "Phone number is required",
-      //     trigger: "change",
-      //   },
-      //   {
-      //     min: 10,
-      //     message: "Phone number must be at least 10 characters",
-      //     trigger: "change",
-      //   },
-      //   {
-      //     pattern: /^[0-9]+$/,
-      //     message: "Phone number must be digits only",
-      //     trigger: "change",
-      //   },
-      // ],
     });
-
-    // const enterpriseDetailsValidator = Yup.object().shape({
-    //   market_name: Yup.string().required().label("Enterprise"),
-    //   market_address: Yup.string().required().label("Market Address"),
-    //   market_tax_number: Yup.string()
-    //     .min(15)
-    //     .required()
-    //     .label("market_tax_number"),
-    //   market_commercial_number: Yup.string().label("Market Commercial Number"),
-    // });
 
     const profileDetails = ref<ProfileDetails>({
       name: "",
@@ -771,7 +906,24 @@ export default defineComponent({
         code: "",
         value: "",
       },
+      api_key: "",
+      bank_accounts: bank_accounts.value,
     });
+
+    const addBankAccount = () => {
+      bank_accounts.value.push({
+        account_name: "",
+        account_number: "",
+        iban: "",
+        bank_id: "",
+      });
+    };
+
+    const removeBankAccount = (index: number) => {
+      if (bank_accounts.value.length > 1) {
+        bank_accounts.value.splice(index, 1);
+      }
+    };
 
     const profileHandleSubmit = () => {
       if (!formProfileDetails.value) {
@@ -896,6 +1048,10 @@ export default defineComponent({
       });
     };
 
+    watch(bank_accounts.value, (value) => {
+      profileDetails.value.bank_accounts = value;
+    });
+
     const updatePassword = () => {
       if (updatePasswordButton.value) {
         // Activate indicator
@@ -946,25 +1102,25 @@ export default defineComponent({
       formEnterpriseDetails,
       profileButton,
       enterpriseButton,
-      submitButton3,
-      submitButton4,
-      submitButton5,
       profileHandleSubmit,
       enterpriseHandleSubmit,
       profileDetails,
-      emailFormDisplay,
       passwordFormDisplay,
       removeImage,
       onFileChange,
       imgPreview,
       profileDetailsValidator,
       enterpriseDetailsValidator,
-      updateEmailButton,
       updatePasswordButton,
       updatePassword,
       lang,
       user,
       language,
+      shipping_id,
+      payment_id,
+      bank_accounts,
+      addBankAccount,
+      removeBankAccount,
     };
   },
 });

@@ -78,5 +78,5 @@ export default defineComponent({
 
 //RTL version styles
 
-@import "assets/css/style.rtl.css";
+// @import "assets/css/style.rtl.css";
 </style>

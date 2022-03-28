@@ -35,7 +35,7 @@
         <!--begin::Col-->
         <div class="col-lg-8">
           <span class="fw-bolder fs-6 text-dark">
-            {{ user?.name }}
+            {{ user?.name || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -53,7 +53,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.email }}
+            {{ user?.email || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -71,7 +71,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.phone }}
+            {{ user?.phone || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -89,7 +89,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.market_name }}
+            {{ user?.market_name || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -107,7 +107,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.market_email }}
+            {{ user?.market_email || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -125,7 +125,7 @@
         <!--begin::Col-->
         <div class="col-lg-8">
           <span class="fw-bold fs-6">
-            {{ user?.market_phone }}
+            {{ user?.market_phone || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -143,7 +143,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.market_address }}
+            {{ user?.market_address || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -161,7 +161,7 @@
         <!--begin::Col-->
         <div class="col-lg-8 fv-row">
           <span class="fw-bold fs-6">
-            {{ user?.market_tax_number }}
+            {{ user?.market_tax_number || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -173,18 +173,13 @@
         <!--begin::Label-->
         <label class="col-lg-4 fw-bold text-muted">
           {{ $t("enterpriseRecordNumber") }}
-          <i
-            class="fas fa-exclamation-circle ms-1 fs-7"
-            data-bs-toggle="tooltip"
-            title="Country of origination"
-          ></i>
         </label>
         <!--end::Label-->
 
         <!--begin::Col-->
         <div class="col-lg-8">
           <span class="fw-bold fs-6">
-            {{ user?.market_standard_number }}
+            {{ user?.market_standard_number || "-" }}
           </span>
         </div>
         <!--end::Col-->
@@ -202,7 +197,7 @@
         <!--begin::Col-->
         <div class="col-lg-8">
           <span class="fw-bold fs-6">
-            {{ user?.market_commercial_number }}
+            {{ user?.market_commercial_number || "-" }}
           </span>
         </div>
         <!--end::Col-->
