@@ -514,13 +514,19 @@ export default defineComponent({
           .matches(/^[0-9]/, translate("phoneNumberInvalid"))
           .min(10, translate("phoneNumberMinLength"))
           .required(translate("phoneNumberRequired")),
-        address: Yup.string().required(translate("address_required")),
-        tax_number: Yup.string()
-          .min(15, translate("tax_number_min_length"))
-          .max(15, translate("tax_number_max_length")),
-        commercial_number: Yup.string()
-          .min(10, translate("commercial_number_min_length"))
-          .max(10, translate("commercial_number_max_length")),
+        address: Yup.string().required(translate("addressRequired")),
+        tax_number: Yup.string().test(
+          "taxNumber",
+          translate("taxNumberLength"),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (value: any) => !value || value.length === 15
+        ),
+        commercial_number: Yup.string().test(
+          "commercialNumber",
+          translate("commercialNumberLength"),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (value: any) => !value || value.length === 10
+        ),
         site_url: Yup.string().url(translate("site_url_invalid")),
       }),
     ];
@@ -601,6 +607,8 @@ export default defineComponent({
             timer: 1500,
           });
 
+          resetForm();
+          previousStep();
           hideModal(createAccountModalRef.value);
         })
         .catch(() => {

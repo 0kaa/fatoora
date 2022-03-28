@@ -205,6 +205,8 @@ const messages = {
     market_commercial_number_max_length:
       "Market commercial number must be less than 10 characters",
     add: "Add",
+    taxNumberLength: "Tax number must be 15 characters",
+    commercialNumberLength: "Commercial number must be 10 characters",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -408,6 +410,8 @@ const messages = {
     market_commercial_number_max_length:
       "رقم السجل التجاري يجب أن يكون أقل من 10 أحرف",
     add: "إضافة",
+    taxNumberLength: "رقم الضريبة يجب أن يكون أكبر من 15 أحرف",
+    commercialNumberLength: "رقم السجل التجاري يجب أن يكون أكبر من 10 أحرف",
   },
 };
 

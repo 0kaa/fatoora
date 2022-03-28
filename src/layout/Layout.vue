@@ -7,6 +7,32 @@
       <!-- begin:: Header -->
 
       <!-- ktheader -->
+      <div class="container-xxl">
+        <div
+          v-if="$route.path !== '/account/settings'"
+          class="alert alert-danger w-full mt-2 d-flex align-items-center justify-content-between p-4 mx-auto flex-wrap z-index-3"
+        >
+          <div class="d-flex align-items-center flex-wrap" style="gap: 20px">
+            <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+              <inline-svg src="/media/icons/duotune/general/gen044.svg" />
+            </span>
+
+            <div class="d-flex flex-column">
+              <h4 class="mb-1 text-dark">This is an alert</h4>
+              <span class="text-dark"
+                >The alert component can be used to highlight certain parts of
+                your page for higher content visibility.</span
+              >
+            </div>
+          </div>
+          <router-link
+            :to="{ name: 'account-settings' }"
+            class="btn btn-bg-danger text-white d-block"
+          >
+            Go settings
+          </router-link>
+        </div>
+      </div>
 
       <KTHeader
         v-if="route.name !== 'home'"
@@ -31,38 +57,6 @@
     </div>
   </div>
   <!-- end:: Body -->
-  <div
-    v-if="$route.path !== '/account/settings'"
-    class="alert alert-dismissible bg-light-danger d-flex align-items-center justify-content-between p-4 position-fixed mx-auto flex-wrap"
-    style="
-      width: 90%;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 9999999;
-      gap: 20px;
-    "
-  >
-    <div class="d-flex align-items-center flex-wrap" style="gap: 20px">
-      <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
-        <inline-svg src="/media/icons/duotune/general/gen044.svg" />
-      </span>
-
-      <div class="d-flex flex-column">
-        <h4 class="mb-1 text-black">This is an alert</h4>
-        <span
-          >The alert component can be used to highlight certain parts of your
-          page for higher content visibility.</span
-        >
-      </div>
-    </div>
-    <router-link
-      :to="{ name: 'account-settings' }"
-      class="btn btn-bg-danger text-white d-block"
-    >
-      Go settings
-    </router-link>
-  </div>
 
   <KTScrollTop></KTScrollTop>
   <KTCreateInvoiceModal></KTCreateInvoiceModal>

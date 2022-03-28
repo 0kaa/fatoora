@@ -517,7 +517,17 @@
                     </div>
                     <div class="col-md-2">
                       <label class="form-label">{{ $t("account_name") }}</label>
-                      <el-form-item class="mb-0">
+                      <el-form-item
+                        class="mb-0"
+                        prop="bank_accounts.0.account_name"
+                        :rules="[
+                          {
+                            required: true,
+                            message: 'Please input email address',
+                            trigger: 'change',
+                          },
+                        ]"
+                      >
                         <el-input
                           v-model="account.account_name"
                           :placeholder="$t('enter_account_name')"
@@ -784,7 +794,6 @@ import { Actions, Mutations } from "@/store/enums/StoreEnums";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n/index";
-
 interface ProfileDetails {
   name: string;
   phone: string;
@@ -972,6 +981,7 @@ export default defineComponent({
 
     const enterpriseHandleSubmit = () => {
       if (!formEnterpriseDetails.value) {
+        console.log("not_found");
         return;
       }
       formEnterpriseDetails.value.validate((valid) => {
