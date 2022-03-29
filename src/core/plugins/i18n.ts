@@ -31,7 +31,7 @@ const messages = {
     // validation messages
     nameMin: "Name must be at least 3 characters",
     nameMax: "Name must be less than 50 characters",
-    passwordMinLength: "Password must be at least 8 characters",
+    passwordMinLength: "Password must be at least 6 characters",
     passwordMaxLength: "Password must be less than 32 characters",
     passwordRequired: "Password is required",
     phoneNumberInvalid: "Phone number is invalid",
@@ -51,8 +51,10 @@ const messages = {
     market_tax_number_required: "Market tax number is required",
     market_tax_number_min_length:
       "Market tax number must be at least 15 characters",
+    market_tax_number_digits_only: "Tax number must be digits only",
     market_commercial_number_required: "Market commercial number is required",
     market_standard_number_required: "Market standard number is required",
+    market_standard_number_digits_only: "Standard number must be digits only",
     market_site_url_invalid: "Market site url is invalid",
     market_site_url_required: "Market site url is required",
 
@@ -204,6 +206,8 @@ const messages = {
       "Market commercial number must be at least 10 characters",
     market_commercial_number_max_length:
       "Market commercial number must be less than 10 characters",
+    market_commercial_number_digits_only:
+      "Market commercial number must be digits only",
     add: "Add",
     taxNumberLength: "Tax number must be 15 characters",
     commercialNumberLength: "Commercial number must be 10 characters",
@@ -256,8 +260,10 @@ const messages = {
     market_email_required: "البريد الإلكتروني مطلوب",
     market_tax_number_required: "رقم الضريبة مطلوب",
     market_tax_number_min_length: "رقم الضريبة يجب أن يكون أكثر من 10 أرقام",
+    market_tax_number_digits_only: "رقم الضريبة يجب أن يكون أرقام فقط",
     market_commercial_number_required: "رقم التجاري مطلوب",
     market_standard_number_required: "الرقم الموحد مطلوب",
+    market_standard_number_digits_only: "الرقم الموحد يجب أن يكون أرقام فقط",
     market_site_url_invalid: "رابط الموقع غير صحيح",
     market_site_url_required: "رابط الموقع مطلوب",
 
@@ -409,6 +415,8 @@ const messages = {
       "رقم السجل التجاري يجب أن يكون أكبر من 10 أحرف",
     market_commercial_number_max_length:
       "رقم السجل التجاري يجب أن يكون أقل من 10 أحرف",
+    market_commercial_number_digits_only:
+      "رقم السجل التجاري يجب أن يكون أرقام فقط",
     add: "إضافة",
     taxNumberLength: "رقم الضريبة يجب أن يكون أكبر من 15 أحرف",
     commercialNumberLength: "رقم السجل التجاري يجب أن يكون أكبر من 10 أحرف",

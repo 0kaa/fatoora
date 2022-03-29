@@ -187,6 +187,7 @@
       <el-form
         :model="profileDetails"
         @submit.prevent="enterpriseHandleSubmit()"
+        :rules="enterpriseDetailsValidator"
         ref="formEnterpriseDetails"
       >
         <!--begin::Card body-->
@@ -261,7 +262,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row">
+          <div class="row mb-2">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseName") }}
@@ -282,7 +283,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row">
+          <div class="row mb-2">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseEmail") }}
@@ -303,7 +304,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row">
+          <div class="row mb-2">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("numberOfTheEnterprise") }}
@@ -324,7 +325,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row">
+          <div class="row mb-2">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseRecordNumber") }}
@@ -345,7 +346,7 @@
           <!--end::Input group-->
 
           <!--begin::Input group-->
-          <div class="row">
+          <div class="row mb-2">
             <!--begin::Label-->
             <label class="col-lg-4 col-form-label fw-bold fs-6">
               {{ $t("enterpriseTaxNumber") }}
@@ -492,11 +493,6 @@
                       <el-form-item
                         class="mb-0"
                         :prop="`bank_accounts.${i}.bank_id`"
-                        :rules="{
-                          required: true,
-                          message: 'domain can not be null',
-                          trigger: 'change',
-                        }"
                       >
                         <el-select
                           v-model="account.bank_id"
@@ -520,13 +516,6 @@
                       <el-form-item
                         class="mb-0"
                         prop="bank_accounts.0.account_name"
-                        :rules="[
-                          {
-                            required: true,
-                            message: 'Please input email address',
-                            trigger: 'change',
-                          },
-                        ]"
                       >
                         <el-input
                           v-model="account.account_name"
@@ -850,6 +839,19 @@ export default defineComponent({
     const lang = localStorage.getItem("lang") || "ar";
     const language = ref(lang);
     const user = computed(() => store.getters.currentUser);
+
+    user.value.payment_methods.forEach((payment) => {
+      payment_id.value.push(payment.id);
+    });
+
+    if (user.value.accounts && user.value.accounts.length > 0) {
+      bank_accounts.value = user.value.accounts;
+    }
+    if (user.value.shipping_companies) {
+      shipping_id.value = user.value.shipping_companies.map((shipping) => {
+        return shipping.id;
+      });
+    }
     const { t, te } = useI18n();
     const translate = (text) => {
       if (te(text)) {
@@ -885,12 +887,113 @@ export default defineComponent({
       ],
     });
     const enterpriseDetailsValidator = ref({
+      market_name: [
+        {
+          required: true,
+          message: translate("nameRequired"),
+          trigger: "change",
+        },
+      ],
+      market_address: [
+        {
+          required: true,
+          message: translate("addressRequired"),
+          trigger: "change",
+        },
+      ],
+      market_tax_number: [
+        {
+          required: true,
+          message: translate("market_tax_number_required"),
+          trigger: "change",
+        },
+        {
+          pattern: /^[0-9]+$/,
+          message: translate("market_tax_number_digits_only"),
+          trigger: "change",
+        },
+        {
+          min: 15,
+          message: translate("market_tax_number_min_length"),
+          trigger: "change",
+        },
+      ],
+      market_commercial_number: [
+        {
+          required: true,
+          message: translate("market_commercial_number_required"),
+          trigger: "change",
+        },
+        {
+          pattern: /^[0-9]+$/,
+          message: translate("market_commercial_number_digits_only"),
+          trigger: "change",
+        },
+        {
+          min: 10,
+          message: translate("market_commercial_number_min_length"),
+          trigger: "change",
+        },
+      ],
+      market_standard_number: [
+        {
+          required: true,
+          message: translate("market_standard_number_required"),
+          trigger: "change",
+        },
+        {
+          pattern: /^[0-9]+$/,
+          message: translate("market_standard_number_digits_only"),
+          trigger: "change",
+        },
+      ],
+      market_site_url: [
+        {
+          required: true,
+          message: translate("market_site_url_required"),
+          trigger: "change",
+        },
+        {
+          type: "url",
+          message: translate("market_site_url_invalid"),
+          trigger: "change",
+        },
+      ],
+      market_email: [
+        {
+          required: true,
+          message: translate("market_email_required"),
+          trigger: "change",
+        },
+        {
+          type: "email",
+          message: translate("market_email_invalid"),
+          trigger: "change",
+        },
+      ],
+      market_phone: [
+        {
+          required: true,
+          message: translate("market_phone_required"),
+          trigger: "change",
+        },
+        {
+          pattern: /^[0-9]+$/,
+          message: translate("market_phone_digits_only"),
+          trigger: "change",
+        },
+        {
+          min: 10,
+          message: translate("market_phone_min_length"),
+          trigger: "change",
+        },
+      ],
       bank_accounts: [
         {
           bank_id: [
             {
               required: true,
-              message: "Bank name is required",
+              message: translate("bank_id_required"),
               trigger: "change",
             },
           ],
@@ -1018,11 +1121,38 @@ export default defineComponent({
                 profileDetails.value.market_phone == null
                   ? ""
                   : profileDetails.value.market_phone,
+              market_email:
+                profileDetails.value.market_email == null
+                  ? ""
+                  : profileDetails.value.market_email,
             };
 
             if (market_image.value) {
               formData.append("market_image", market_image.value);
             }
+            if (payment_id.value) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              payment_id.value.forEach((id: any) => {
+                formData.append("payment_id[]", id);
+              });
+            }
+            if (shipping_id.value) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              shipping_id.value.forEach((id: any) => {
+                formData.append("shipping_id[]", id);
+              });
+            }
+            if (bank_accounts.value) {
+              bank_accounts.value.forEach((item: any, i) => {
+                for (const key in item) {
+                  // eslint-disable-next-line no-prototype-builtins
+                  if (item.hasOwnProperty(key)) {
+                    formData.append(`bank_accounts[${i}][${key}]`, item[key]);
+                  }
+                }
+              });
+            }
+
             for (let key in enterpriseDetails) {
               formData.append(key, enterpriseDetails[key]);
             }

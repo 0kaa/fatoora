@@ -11,6 +11,7 @@ enum Actions {
   LOGIN = "login",
   LOGOUT = "logout",
   REGISTER = "register",
+  CONTACT_FORM = "contactForm",
   UPDATE_USER = "updateUser",
   FORGOT_PASSWORD = "forgotPassword",
   GET_PAYMENT_METHODS = "getPaymentMethods",

@@ -135,7 +135,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
           resolve();
         })
         .catch(({ response }) => {
-          this.context.commit(Mutations.SET_ERROR, response.data.errors);
+          this.context.commit(Mutations.SET_ERROR, response.data);
           reject();
         });
     });
@@ -191,6 +191,18 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         .catch(({ response }) => {
           this.context.commit(Mutations.SET_ERROR, response.data.errors);
           reject();
+        });
+    });
+  }
+
+  @Action
+  [Actions.CONTACT_FORM](credentials) {
+    ApiService.setLang();
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("contact", credentials)
+        .then(() => resolve())
+        .catch(({ response }) => {
+          reject(response);
         });
     });
   }

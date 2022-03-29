@@ -9,7 +9,7 @@
       <!-- ktheader -->
       <div class="container-xxl">
         <div
-          v-if="$route.path !== '/account/settings'"
+          v-if="$route.path !== '/account/settings' && user.active == false"
           class="alert alert-danger w-full mt-2 d-flex align-items-center justify-content-between p-4 mx-auto flex-wrap z-index-3"
         >
           <div class="d-flex align-items-center flex-wrap" style="gap: 20px">
@@ -110,6 +110,7 @@ export default defineComponent({
     const route = useRoute();
     const i18n = useI18n();
     const router = useRouter();
+    const user = computed(() => store.getters.currentUser);
 
     // show page loading
     store.dispatch(Actions.ADD_BODY_CLASSNAME, "page-loading");
@@ -172,6 +173,7 @@ export default defineComponent({
       route,
       themeLightLogo,
       themeDarkLogo,
+      user,
     };
   },
 });
