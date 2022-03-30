@@ -31,7 +31,7 @@ const messages = {
     // validation messages
     nameMin: "Name must be at least 3 characters",
     nameMax: "Name must be less than 50 characters",
-    passwordMinLength: "Password must be at least 6 characters",
+    passwordMinLength: "Password must be at least 8 characters",
     passwordMaxLength: "Password must be less than 32 characters",
     passwordRequired: "Password is required",
     phoneNumberInvalid: "Phone number is invalid",
@@ -50,11 +50,17 @@ const messages = {
     market_email_required: "Market email is required",
     market_tax_number_required: "Market tax number is required",
     market_tax_number_min_length:
-      "Market tax number must be at least 15 characters",
+      "Market tax number must be at least 8 characters",
+    market_tax_number_max_length:
+      "Market tax number must be less than 15 characters",
     market_tax_number_digits_only: "Tax number must be digits only",
     market_commercial_number_required: "Market commercial number is required",
     market_standard_number_required: "Market standard number is required",
     market_standard_number_digits_only: "Standard number must be digits only",
+    market_standard_number_min_length:
+      "Standard number must be at least 8 characters",
+    market_standard_number_max_length:
+      "Standard number must be less than 15 characters",
     market_site_url_invalid: "Market site url is invalid",
     market_site_url_required: "Market site url is required",
 
@@ -203,14 +209,18 @@ const messages = {
     view_updates: "View Updates",
     logs: "Logs",
     market_commercial_number_min_length:
-      "Market commercial number must be at least 10 characters",
+      "Market commercial number must be at least 8 characters",
     market_commercial_number_max_length:
-      "Market commercial number must be less than 10 characters",
+      "Market commercial number must be less than 15 characters",
     market_commercial_number_digits_only:
       "Market commercial number must be digits only",
     add: "Add",
     taxNumberLength: "Tax number must be 15 characters",
     commercialNumberLength: "Commercial number must be 10 characters",
+    pleaseEnterBank: "Please enter bank",
+    account_name_is_required: "Account name is required",
+    account_number_is_required: "Account number is required",
+    iban_is_required: "IBAN is required",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -260,10 +270,15 @@ const messages = {
     market_email_required: "البريد الإلكتروني مطلوب",
     market_tax_number_required: "رقم الضريبة مطلوب",
     market_tax_number_min_length: "رقم الضريبة يجب أن يكون أكثر من 10 أرقام",
+    market_tax_number_max_length: "رقم الضريبة يجب أن يكون أقل من 15 أرقام",
     market_tax_number_digits_only: "رقم الضريبة يجب أن يكون أرقام فقط",
     market_commercial_number_required: "رقم التجاري مطلوب",
     market_standard_number_required: "الرقم الموحد مطلوب",
     market_standard_number_digits_only: "الرقم الموحد يجب أن يكون أرقام فقط",
+    market_standard_number_min_length:
+      "الرقم الموحد يجب أن يكون أكثر من 8 أرقام",
+    market_standard_number_max_length:
+      "الرقم الموحد يجب أن يكون أقل من 15 أرقام",
     market_site_url_invalid: "رابط الموقع غير صحيح",
     market_site_url_required: "رابط الموقع مطلوب",
 
@@ -412,14 +427,18 @@ const messages = {
     view_updates: "عرض التحديثات",
     logs: "سجلات",
     market_commercial_number_min_length:
-      "رقم السجل التجاري يجب أن يكون أكبر من 10 أحرف",
+      "رقم السجل التجاري يجب أن يكون أكبر من 8 أحرف",
     market_commercial_number_max_length:
-      "رقم السجل التجاري يجب أن يكون أقل من 10 أحرف",
+      "رقم السجل التجاري يجب أن يكون أقل من 15 أحرف",
     market_commercial_number_digits_only:
       "رقم السجل التجاري يجب أن يكون أرقام فقط",
     add: "إضافة",
     taxNumberLength: "رقم الضريبة يجب أن يكون أكبر من 15 أحرف",
-    commercialNumberLength: "رقم السجل التجاري يجب أن يكون أكبر من 10 أحرف",
+    commercialNumberLength: "رقم السجل التجاري يجب أن يكون أكبر من 8 أحرف",
+    pleaseEnterBank: "يرجى إدخال بنك",
+    account_name_is_required: "اسم الحساب مطلوب",
+    account_number_is_required: "رقم الحساب مطلوب",
+    iban_is_required: "IBAN مطلوب",
   },
 };
 

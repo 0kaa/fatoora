@@ -100,7 +100,7 @@
                   <el-option
                     v-for="(currency, index) in $store.getters.allCurrencies"
                     :key="index"
-                    :value="currency.id"
+                    :value="currency"
                     :label="currency.name"
                   >
                   </el-option>
@@ -443,15 +443,20 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <el-checkbox-group v-model="shipping_id" :min="1">
-                <el-checkbox
-                  v-for="shipping in $store.getters.getAllShippingCompanies"
-                  :key="shipping.id"
-                  :value="shipping.id"
-                  :label="shipping.id"
-                  >{{ shipping.name }}</el-checkbox
+              <el-form-item class="mb-5" prop="shipping_companies">
+                <el-checkbox-group
+                  v-model="profileDetails.shipping_companies"
+                  :min="1"
                 >
-              </el-checkbox-group>
+                  <el-checkbox
+                    v-for="shipping in $store.getters.getAllShippingCompanies"
+                    :key="shipping.id"
+                    :value="shipping.id"
+                    :label="shipping.id"
+                    >{{ shipping.name }}</el-checkbox
+                  >
+                </el-checkbox-group>
+              </el-form-item>
             </div>
             <!--end::Col-->
           </div>
@@ -469,19 +474,28 @@
 
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-              <el-checkbox-group v-model="payment_id" :min="1">
-                <el-checkbox
-                  v-for="payment in $store.getters.getAllPaymentMethods"
-                  :key="payment.id"
-                  :value="payment.id"
-                  :label="payment.id"
-                  >{{ payment.name }}</el-checkbox
+              <el-form-item class="mb-0" prop="payment_methods">
+                <el-checkbox-group
+                  :min="1"
+                  v-model="profileDetails.payment_methods"
                 >
-              </el-checkbox-group>
+                  <el-checkbox
+                    v-for="payment in $store.getters.getAllPaymentMethods"
+                    :key="payment.id"
+                    :value="payment.id"
+                    :label="payment.id"
+                    >{{ payment.name }}</el-checkbox
+                  >
+                </el-checkbox-group>
+              </el-form-item>
+
               <!--begin::Form group-->
-              <div class="mt-5" v-show="payment_id.includes(2)">
+              <div
+                class="mt-5"
+                v-show="profileDetails.payment_methods.includes(2)"
+              >
                 <div
-                  v-for="(account, i) in bank_accounts"
+                  v-for="(account, i) in profileDetails.accounts"
                   :key="i"
                   class="mb-6"
                 >
@@ -492,7 +506,16 @@
                       </label>
                       <el-form-item
                         class="mb-0"
-                        :prop="`bank_accounts.${i}.bank_id`"
+                        :prop="`accounts.${i}.bank_id`"
+                        :rules="[
+                          {
+                            required: profileDetails.payment_methods.includes(2)
+                              ? true
+                              : false,
+                            message: $t('pleaseEnterBank'),
+                            trigger: 'change',
+                          },
+                        ]"
                       >
                         <el-select
                           v-model="account.bank_id"
@@ -515,7 +538,16 @@
                       <label class="form-label">{{ $t("account_name") }}</label>
                       <el-form-item
                         class="mb-0"
-                        prop="bank_accounts.0.account_name"
+                        :prop="`accounts.${i}.account_name`"
+                        :rules="[
+                          {
+                            required: profileDetails.payment_methods.includes(2)
+                              ? true
+                              : false,
+                            message: $t('account_name_is_required'),
+                            trigger: 'change',
+                          },
+                        ]"
                       >
                         <el-input
                           v-model="account.account_name"
@@ -527,20 +559,47 @@
                       <label class="form-label">
                         {{ $t("account_number") }}
                       </label>
-
-                      <el-input
-                        v-model="account.account_number"
-                        :placeholder="$t('enter_account_number')"
-                      />
+                      <el-form-item
+                        class="mb-0"
+                        :prop="`accounts.${i}.account_number`"
+                        :rules="[
+                          {
+                            required: profileDetails.payment_methods.includes(2)
+                              ? true
+                              : false,
+                            message: $t('account_number_is_required'),
+                            trigger: 'change',
+                          },
+                        ]"
+                      >
+                        <el-input
+                          v-model="account.account_number"
+                          :placeholder="$t('enter_account_number')"
+                        />
+                      </el-form-item>
                     </div>
                     <div class="col-md-3">
                       <label class="form-label">
                         {{ $t("iban") }}
                       </label>
-                      <el-input
-                        v-model="account.iban"
-                        :placeholder="$t('enter_iban')"
-                      />
+                      <el-form-item
+                        class="mb-0"
+                        :prop="`accounts.${i}.iban`"
+                        :rules="[
+                          {
+                            required: profileDetails.payment_methods.includes(2)
+                              ? true
+                              : false,
+                            message: $t('iban_is_required'),
+                            trigger: 'change',
+                          },
+                        ]"
+                      >
+                        <el-input
+                          v-model="account.iban"
+                          :placeholder="$t('enter_iban')"
+                        />
+                      </el-form-item>
                     </div>
 
                     <div class="col-md-1">
@@ -566,19 +625,34 @@
                 <!--end::Form group-->
               </div>
               <!--end::Form group-->
-              <div class="mt-5" v-if="payment_id.includes(3)">
+              <div
+                class="mt-5"
+                v-if="profileDetails.payment_methods.includes(3)"
+              >
                 <!--begin::Label-->
                 <label class="fs-6 fw-bold form-label">
                   {{ $t("api_key") }}</label
                 >
                 <!--end::Label-->
-
-                <!--begin::Input-->
-                <el-input
-                  v-model="profileDetails.api_key"
-                  :placeholder="$t('api_key')"
-                />
-                <!--end::Input-->
+                <el-form-item
+                  :prop="`api_key`"
+                  :rules="[
+                    {
+                      required: profileDetails.payment_methods.includes(3)
+                        ? true
+                        : false,
+                      message: $t('api_key_required'),
+                      trigger: 'change',
+                    },
+                  ]"
+                >
+                  <!--begin::Input-->
+                  <el-input
+                    v-model="profileDetails.api_key"
+                    :placeholder="$t('api_key')"
+                  />
+                  <!--end::Input-->
+                </el-form-item>
               </div>
             </div>
             <!--end::Col-->
@@ -776,7 +850,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed, ref, watch } from "vue";
+import { defineComponent, onMounted, computed, ref } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import { Actions, Mutations } from "@/store/enums/StoreEnums";
@@ -802,7 +876,9 @@ interface ProfileDetails {
   };
   api_key: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bank_accounts: any[];
+  accounts: any[];
+  payment_methods: any[];
+  shipping_companies: any[];
 }
 
 export default defineComponent({
@@ -840,18 +916,6 @@ export default defineComponent({
     const language = ref(lang);
     const user = computed(() => store.getters.currentUser);
 
-    user.value.payment_methods.forEach((payment) => {
-      payment_id.value.push(payment.id);
-    });
-
-    if (user.value.accounts && user.value.accounts.length > 0) {
-      bank_accounts.value = user.value.accounts;
-    }
-    if (user.value.shipping_companies) {
-      shipping_id.value = user.value.shipping_companies.map((shipping) => {
-        return shipping.id;
-      });
-    }
     const { t, te } = useI18n();
     const translate = (text) => {
       if (te(text)) {
@@ -913,8 +977,13 @@ export default defineComponent({
           trigger: "change",
         },
         {
-          min: 15,
+          min: 8,
           message: translate("market_tax_number_min_length"),
+          trigger: "change",
+        },
+        {
+          max: 14,
+          message: translate("market_tax_number_max_length"),
           trigger: "change",
         },
       ],
@@ -930,8 +999,13 @@ export default defineComponent({
           trigger: "change",
         },
         {
-          min: 10,
+          min: 8,
           message: translate("market_commercial_number_min_length"),
+          trigger: "change",
+        },
+        {
+          max: 14,
+          message: translate("market_commercial_number_max_length"),
           trigger: "change",
         },
       ],
@@ -944,6 +1018,16 @@ export default defineComponent({
         {
           pattern: /^[0-9]+$/,
           message: translate("market_standard_number_digits_only"),
+          trigger: "change",
+        },
+        {
+          min: 8,
+          message: translate("market_standard_number_min_length"),
+          trigger: "change",
+        },
+        {
+          max: 14,
+          message: translate("market_standard_number_max_length"),
           trigger: "change",
         },
       ],
@@ -988,15 +1072,18 @@ export default defineComponent({
           trigger: "change",
         },
       ],
-      bank_accounts: [
+      payment_methods: [
         {
-          bank_id: [
-            {
-              required: true,
-              message: translate("bank_id_required"),
-              trigger: "change",
-            },
-          ],
+          required: true,
+          message: translate("payment_id_required"),
+          trigger: "change",
+        },
+      ],
+      shipping_companies: [
+        {
+          required: true,
+          message: translate("payment_id_required"),
+          trigger: "change",
         },
       ],
     });
@@ -1019,11 +1106,32 @@ export default defineComponent({
         value: "",
       },
       api_key: "",
-      bank_accounts: bank_accounts.value,
+      accounts: bank_accounts.value,
+      payment_methods: payment_id.value,
+      shipping_companies: shipping_id.value,
     });
 
+    setTimeout(() => {
+      if (user.value.payment_methods) {
+        profileDetails.value.payment_methods = user.value.payment_methods.map(
+          (payment) => {
+            return payment.id;
+          }
+        );
+      }
+      if (user.value.shipping_companies) {
+        profileDetails.value.shipping_companies =
+          user.value.shipping_companies.map((shipping) => {
+            return shipping.id;
+          });
+      }
+      if (!user.value.accounts.length) {
+        profileDetails.value.accounts = [...bank_accounts.value];
+      }
+    }, 2000);
+
     const addBankAccount = () => {
-      bank_accounts.value.push({
+      profileDetails.value.accounts.push({
         account_name: "",
         account_number: "",
         iban: "",
@@ -1032,8 +1140,8 @@ export default defineComponent({
     };
 
     const removeBankAccount = (index: number) => {
-      if (bank_accounts.value.length > 1) {
-        bank_accounts.value.splice(index, 1);
+      if (profileDetails.value.accounts.length > 1) {
+        profileDetails.value.accounts.splice(index, 1);
       }
     };
 
@@ -1130,20 +1238,20 @@ export default defineComponent({
             if (market_image.value) {
               formData.append("market_image", market_image.value);
             }
-            if (payment_id.value) {
+            if (profileDetails.value.payment_methods) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              payment_id.value.forEach((id: any) => {
+              profileDetails.value.payment_methods.forEach((id: any) => {
                 formData.append("payment_id[]", id);
               });
             }
-            if (shipping_id.value) {
+            if (profileDetails.value.shipping_companies) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              shipping_id.value.forEach((id: any) => {
+              profileDetails.value.shipping_companies.forEach((id: any) => {
                 formData.append("shipping_id[]", id);
               });
             }
-            if (bank_accounts.value) {
-              bank_accounts.value.forEach((item: any, i) => {
+            if (profileDetails.value.accounts) {
+              profileDetails.value.accounts.forEach((item: any, i) => {
                 for (const key in item) {
                   // eslint-disable-next-line no-prototype-builtins
                   if (item.hasOwnProperty(key)) {
@@ -1153,6 +1261,10 @@ export default defineComponent({
               });
             }
 
+            if (profileDetails.value.api_key) {
+              formData.append("api_key", profileDetails.value.api_key);
+            }
+
             for (let key in enterpriseDetails) {
               formData.append(key, enterpriseDetails[key]);
             }
@@ -1160,18 +1272,32 @@ export default defineComponent({
             // Activate indicator
             enterpriseButton.value.setAttribute("data-kt-indicator", "on");
 
-            store.dispatch(Actions.UPDATE_USER, formData).then((response) => {
-              enterpriseButton.value?.removeAttribute("data-kt-indicator");
-              Swal.fire({
-                text: response.message,
-                icon: "success",
-                buttonsStyling: false,
-                confirmButtonText: "Ok, got it!",
-                customClass: {
-                  confirmButton: "btn fw-bold btn-light-primary",
-                },
+            store
+              .dispatch(Actions.UPDATE_USER, formData)
+              .then((response) => {
+                enterpriseButton.value?.removeAttribute("data-kt-indicator");
+                Swal.fire({
+                  text: response.message,
+                  icon: "success",
+                  buttonsStyling: false,
+                  confirmButtonText: "Ok, got it!",
+                  customClass: {
+                    confirmButton: "btn fw-bold btn-light-primary",
+                  },
+                });
+              })
+              .catch(() => {
+                enterpriseButton.value?.removeAttribute("data-kt-indicator");
+                Swal.fire({
+                  text: store.getters.getErrors,
+                  icon: "error",
+                  buttonsStyling: false,
+                  confirmButtonText: "Ok, got it!",
+                  customClass: {
+                    confirmButton: "btn btn-primary",
+                  },
+                });
               });
-            });
           }
         } else {
           Swal.fire({
@@ -1187,10 +1313,6 @@ export default defineComponent({
         }
       });
     };
-
-    watch(bank_accounts.value, (value) => {
-      profileDetails.value.bank_accounts = value;
-    });
 
     const updatePassword = () => {
       if (updatePasswordButton.value) {
