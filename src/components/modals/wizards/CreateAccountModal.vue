@@ -32,393 +32,401 @@
 
         <!--begin::Modal body-->
         <div class="modal-body scroll-y m-5">
-          <!--begin::Stepper-->
-          <div
+          <!--begin::Form-->
+          <el-form
             ref="createAccountRef"
-            class="stepper stepper-links d-flex flex-column"
-            id="kt_create_account_stepper"
+            :model="formData"
+            :rules="createAccountValidationRules"
+            class="mx-auto w-100 py-10"
+            novalidate="novalidate"
+            @submit.prevent="createAccount()"
           >
-            <!--begin::Nav-->
-            <div class="stepper-nav py-5">
-              <!--begin::Step 1-->
-              <div class="stepper-item current" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">{{ $t("accountType") }}</h3>
-              </div>
-              <!--end::Step 1-->
+            <!--begin::Step 1-->
+            <div v-if="currentStepIndex == 1">
+              <!--begin::Wrapper-->
+              <div class="w-100">
+                <!--begin::Heading-->
+                <div class="pb-10 pb-lg-15">
+                  <!--begin::Title-->
+                  <h2 class="fw-bolder d-flex align-items-center text-dark">
+                    {{ $t("choose_account_type") }}
+                    <i
+                      class="fas fa-exclamation-circle ms-2 fs-7"
+                      data-bs-toggle="tooltip"
+                      title="Billing is issued based on your selected account type"
+                    ></i>
+                  </h2>
+                  <!--end::Title-->
+                </div>
+                <!--end::Heading-->
 
-              <!--begin::Step 2-->
-              <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">{{ $t("accountInfo") }}</h3>
+                <!--begin::Input group-->
+                <div class="fv-row">
+                  <!--begin::Row-->
+                  <div class="row">
+                    <!--begin::Col-->
+                    <div class="col-lg-6">
+                      <!--begin::Option-->
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="account_type"
+                        value="personal"
+                        v-model="formData.account_type"
+                        id="kt_create_account_form_account_type_personal"
+                      />
+                      <label
+                        class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-10"
+                        for="kt_create_account_form_account_type_personal"
+                      >
+                        <span class="svg-icon svg-icon-3x me-5">
+                          <inline-svg
+                            src="/media/icons/duotune/communication/com005.svg"
+                          />
+                        </span>
+
+                        <!--begin::Info-->
+                        <span class="d-block fw-bold text-start">
+                          <span class="text-dark fw-bolder d-block fs-4 mb-2">{{
+                            $t("personalAccount")
+                          }}</span>
+                          <span class="text-gray-400 fw-bold fs-6"
+                            >If you need more info, please check it out</span
+                          >
+                        </span>
+                        <!--end::Info-->
+                      </label>
+                      <!--end::Option-->
+                    </div>
+                    <!--end::Col-->
+
+                    <!--begin::Col-->
+                    <div class="col-lg-6">
+                      <!--begin::Option-->
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="account_type"
+                        value="corporate"
+                        v-model="formData.account_type"
+                        id="kt_create_account_form_account_type_corporate"
+                      />
+                      <label
+                        class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
+                        for="kt_create_account_form_account_type_corporate"
+                      >
+                        <span class="svg-icon svg-icon-3x me-5">
+                          <inline-svg
+                            src="/media/icons/duotune/finance/fin006.svg"
+                          />
+                        </span>
+
+                        <!--begin::Info-->
+                        <span class="d-block fw-bold text-start">
+                          <span class="text-dark fw-bolder d-block fs-4 mb-2">{{
+                            $t("corporateAccount")
+                          }}</span>
+                          <span class="text-gray-400 fw-bold fs-6"
+                            >Create corporate account to mane users</span
+                          >
+                        </span>
+                        <!--end::Info-->
+                      </label>
+                      <!--end::Option-->
+                    </div>
+                    <!--end::Col-->
+                  </div>
+                  <!--end::Row-->
+                </div>
+                <!--end::Input group-->
               </div>
-              <!--end::Step 2-->
+              <!--end::Wrapper-->
             </div>
-            <!--end::Nav-->
+            <!--end::Step 1-->
 
-            <!--begin::Form-->
-            <form
-              class="mx-auto w-100 py-10"
-              novalidate="novalidate"
-              id="kt_create_account_form"
-              @submit="handleStep"
-            >
-              <!--begin::Step 1-->
-              <div class="current" data-kt-stepper-element="content">
-                <!--begin::Wrapper-->
-                <div class="w-100">
-                  <!--begin::Heading-->
-                  <div class="pb-10 pb-lg-15">
-                    <!--begin::Title-->
-                    <h2 class="fw-bolder d-flex align-items-center text-dark">
-                      {{ $t("choose_account_type") }}
-                      <i
-                        class="fas fa-exclamation-circle ms-2 fs-7"
-                        data-bs-toggle="tooltip"
-                        title="Billing is issued based on your selected account type"
-                      ></i>
-                    </h2>
-                    <!--end::Title-->
-                  </div>
-                  <!--end::Heading-->
+            <!--begin::Step 3-->
+            <div v-if="currentStepIndex == 2">
+              <!--begin::Scroll-->
+              <div
+                class="scroll-y me-n7 pe-7"
+                id="kt_modal_edit_customer_scroll"
+                data-kt-scroll="true"
+                data-kt-scroll-activate="{default: false, lg: true}"
+                data-kt-scroll-max-height="auto"
+                data-kt-scroll-dependencies="#kt_modal_edit_customer_header"
+                data-kt-scroll-wrappers="#kt_modal_edit_customer_scroll"
+                data-kt-scroll-offset="300px"
+              >
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                  <!--begin::Label-->
+                  <label class="required fs-6 fw-bold mb-2">
+                    {{ $t("customerName") }}
+                  </label>
+                  <!--end::Label-->
 
-                  <!--begin::Input group-->
-                  <div class="fv-row">
-                    <!--begin::Row-->
-                    <div class="row">
-                      <!--begin::Col-->
-                      <div class="col-lg-6">
-                        <!--begin::Option-->
-                        <Field
-                          type="radio"
-                          class="btn-check"
-                          name="account_type"
-                          value="personal"
-                          v-model="formData.account_type"
-                          id="kt_create_account_form_account_type_personal"
-                        />
-                        <label
-                          class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-10"
-                          for="kt_create_account_form_account_type_personal"
-                        >
-                          <span class="svg-icon svg-icon-3x me-5">
-                            <inline-svg
-                              src="/media/icons/duotune/communication/com005.svg"
-                            />
-                          </span>
-
-                          <!--begin::Info-->
-                          <span class="d-block fw-bold text-start">
-                            <span
-                              class="text-dark fw-bolder d-block fs-4 mb-2"
-                              >{{ $t("personalAccount") }}</span
-                            >
-                            <span class="text-gray-400 fw-bold fs-6"
-                              >If you need more info, please check it out</span
-                            >
-                          </span>
-                          <!--end::Info-->
-                        </label>
-                        <!--end::Option-->
-                      </div>
-                      <!--end::Col-->
-
-                      <!--begin::Col-->
-                      <div class="col-lg-6">
-                        <!--begin::Option-->
-                        <Field
-                          type="radio"
-                          class="btn-check"
-                          name="account_type"
-                          value="corporate"
-                          v-model="formData.account_type"
-                          id="kt_create_account_form_account_type_corporate"
-                        />
-                        <label
-                          class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
-                          for="kt_create_account_form_account_type_corporate"
-                        >
-                          <span class="svg-icon svg-icon-3x me-5">
-                            <inline-svg
-                              src="/media/icons/duotune/finance/fin006.svg"
-                            />
-                          </span>
-
-                          <!--begin::Info-->
-                          <span class="d-block fw-bold text-start">
-                            <span
-                              class="text-dark fw-bolder d-block fs-4 mb-2"
-                              >{{ $t("corporateAccount") }}</span
-                            >
-                            <span class="text-gray-400 fw-bold fs-6"
-                              >Create corporate account to mane users</span
-                            >
-                          </span>
-                          <!--end::Info-->
-                        </label>
-                        <!--end::Option-->
-                      </div>
-                      <!--end::Col-->
-                    </div>
-                    <!--end::Row-->
-                  </div>
-                  <!--end::Input group-->
+                  <!--begin::Input-->
+                  <el-form-item prop="name">
+                    <el-input v-model="formData.name" type="text" />
+                  </el-form-item>
+                  <!--end::Input-->
                 </div>
-                <!--end::Wrapper-->
-              </div>
-              <!--end::Step 1-->
+                <!--end::Input group-->
 
-              <!--begin::Step 3-->
-              <div data-kt-stepper-element="content">
-                <!--begin::Wrapper-->
-                <div class="w-100">
-                  <!--begin::Input group-->
-                  <div class="fv-row row-gap row mb-10">
-                    <div class="col-md-6">
-                      <!--begin::Label-->
-                      <label class="form-label required">{{
-                        $t("customerName")
-                      }}</label>
-                      <!--end::Label-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold mb-2">
+                    <span class="required">{{ $t("customerEmail") }}</span>
 
-                      <!--begin::Input-->
-                      <Field
-                        name="name"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.name"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="name"
-                      />
-                      <!--end::Input-->
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="col-md-6">
-                      <!--begin::Label-->
-                      <label class="d-flex align-items-center form-label">
-                        <span class="required">{{
-                          $t("customerAddress")
-                        }}</span>
-                      </label>
-                      <!--end::Label-->
+                    <i
+                      class="fas fa-exclamation-circle ms-1 fs-7"
+                      data-bs-toggle="tooltip"
+                      title="Email address must be active"
+                    ></i>
+                  </label>
+                  <!--end::Label-->
 
-                      <!--begin::Input-->
-                      <Field
-                        name="address"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.address"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="address"
-                      />
-                      <!--end::Input-->
-                    </div>
-                    <!--end::Input group-->
-                  </div>
-                  <!--end::Input group-->
-
-                  <!--begin::Input group-->
-                  <div class="fv-row row-gap row mb-10">
-                    <div class="col-md-6">
-                      <!--begin::Label-->
-                      <label class="form-label required">{{
-                        $t("customerEmail")
-                      }}</label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <Field
-                        name="email"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.email"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="email"
-                      />
-                      <!--end::Input-->
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="col-md-6">
-                      <!--begin::Label-->
-                      <label class="d-flex align-items-center form-label">
-                        <span class="required">{{ $t("customerPhone") }}</span>
-                      </label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <Field
-                        name="phone"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.phone"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="phone"
-                      />
-                      <!--end::Input-->
-                    </div>
-                    <!--end::Input group-->
-                  </div>
-                  <!--end::Input group-->
-
-                  <!--begin::Input group-->
-                  <div class="fv-row row-gap row mb-10">
-                    <div class="col-md-6">
-                      <!--begin::Label-->
-                      <label class="form-label">{{ $t("taxID") }}</label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <Field
-                        name="tax_number"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.tax_number"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="tax_number"
-                      />
-                      <!--end::Input-->
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="col-md-6">
-                      <!--begin::Label-->
-                      <label class="fs-6 fw-bold form-label">{{
-                        $t("commercial_number")
-                      }}</label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <Field
-                        name="commercial_number"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.commercial_number"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="commercial_number"
-                      />
-                      <!--end::Input-->
-                    </div>
-
-                    <!--end::Input group-->
-                  </div>
-                  <!--end::Input group-->
-
-                  <!--begin::Input group-->
-                  <div class="fv-row row-gap row mb-0">
-                    <div class="col-md-6">
-                      <!--end::Label-->
-                      <label class="form-label">{{
-                        $t("enterpriseRecordNumber")
-                      }}</label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <Field
-                        name="standard_number"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.standard_number"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="standard_number"
-                      />
-                      <!--end::Input-->
-                    </div>
-                    <div class="col-md-6">
-                      <!--end::Label-->
-                      <label class="form-label">{{
-                        $t("enterpriseWebsite")
-                      }}</label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <Field
-                        name="site_url"
-                        class="form-control form-control-lg form-control-solid"
-                        v-model="formData.site_url"
-                      />
-                      <ErrorMessage
-                        class="fv-plugins-message-container invalid-feedback"
-                        name="site_url"
-                      />
-                      <!--end::Input-->
-                    </div>
-                  </div>
-                  <!--end::Input group-->
+                  <!--begin::Input-->
+                  <el-form-item prop="email">
+                    <el-input v-model="formData.email" />
+                  </el-form-item>
+                  <!--end::Input-->
                 </div>
-                <!--end::Wrapper-->
-              </div>
-              <!--end::Step 3-->
+                <!--end::Input group-->
 
-              <!--begin::Actions-->
-              <div class="d-flex flex-stack pt-15">
-                <!--begin::Wrapper-->
-                <div class="me-2">
-                  <button
-                    type="button"
-                    class="btn btn-lg btn-light-primary me-3"
-                    data-kt-stepper-action="previous"
-                    @click="previousStep()"
-                  >
-                    <span class="svg-icon svg-icon-3 me-1">
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold mb-2 required">{{
+                    $t("customerPhone")
+                  }}</label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <el-form-item prop="phone">
+                    <el-input v-model="formData.phone" type="text" />
+                  </el-form-item>
+                  <!--end::Input-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-15">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold mb-2 required">{{
+                    $t("customerAddress")
+                  }}</label>
+                  <!--end::Label-->
+
+                  <!--begin::Input-->
+                  <el-form-item prop="address">
+                    <el-input v-model="formData.address" type="text" />
+                  </el-form-item>
+                  <!--end::Input-->
+                </div>
+                <!--end::Input group-->
+
+                <!--begin::Billing toggle-->
+                <div
+                  class="fw-bolder fs-3 rotate collapsed collapsible mb-7"
+                  data-bs-toggle="collapse"
+                  href="#kt_modal_edit_customer_billing_info"
+                  role="button"
+                  aria-expanded="true"
+                  aria-controls="kt_customer_view_details"
+                >
+                  {{ $t("otherInfo") }}
+                  <span class="ms-2 rotate-180">
+                    <span class="svg-icon svg-icon-3">
                       <inline-svg
-                        :src="`/media/icons/duotune/arrows/arr06${
-                          il8n.locale.value == 'ar' ? '4' : '3'
-                        }.svg`"
+                        src="/media/icons/duotune/arrows/arr072.svg"
                       />
                     </span>
-                    {{ $t("back") }}
-                  </button>
+                  </span>
                 </div>
-                <!--end::Wrapper-->
+                <!--end::Billing toggle-->
 
-                <!--begin::Wrapper-->
-                <div>
-                  <button
-                    type="submit"
-                    class="btn btn-lg btn-primary"
-                    v-if="currentStepIndex === totalSteps - 1"
-                    @click="formSubmit()"
-                  >
-                    <span class="indicator-label">
-                      {{ $t("submit") }}
-                      <span class="svg-icon svg-icon-3 ms-2 me-0">
-                        <inline-svg
-                          :src="`/media/icons/duotune/arrows/arr06${
-                            il8n.locale.value == 'ar' ? '3' : '4'
-                          }.svg`"
-                        />
-                      </span>
-                    </span>
-                    <span class="indicator-progress">
-                      {{ $t("pleaseWait") }}
-                      <span
-                        class="spinner-border spinner-border-sm align-middle ms-2"
-                      ></span>
-                    </span>
-                  </button>
+                <!--begin::Billing form-->
+                <div id="kt_modal_edit_customer_billing_info" class="collapse">
+                  <!--begin::Input group-->
+                  <div class="d-flex flex-column mb-7 fv-row">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-bold mb-2">
+                      {{ $t("taxID") }}
+                    </label>
+                    <!--end::Label-->
 
-                  <button type="submit" class="btn btn-lg btn-primary" v-else>
-                    {{ $t("continue") }}
-                    <span class="svg-icon svg-icon-3 ms-1 me-0">
+                    <!--begin::Input-->
+                    <el-form-item
+                      prop="tax_number"
+                      :rules="[
+                        {
+                          pattern: /^[0-9]+$/,
+                          message: $t('market_tax_number_digits_only'),
+                          trigger: 'change',
+                        },
+                        {
+                          min: formData.tax_number ? 8 : 0,
+                          message: $t('market_tax_number_min_length'),
+                          trigger: 'change',
+                        },
+                        {
+                          max: 14,
+                          message: $t('market_tax_number_max_length'),
+                          trigger: 'change',
+                        },
+                      ]"
+                    >
+                      <el-input v-model="formData.tax_number" />
+                    </el-form-item>
+                    <!--end::Input-->
+                  </div>
+                  <!--end::Input group-->
+
+                  <!--begin::Input group-->
+                  <div class="d-flex flex-column mb-7 fv-row">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-bold mb-2">
+                      {{ $t("commercial_number") }}
+                    </label>
+                    <!--end::Label-->
+
+                    <!--begin::Input-->
+                    <el-form-item
+                      prop="commercial_number"
+                      :rules="[
+                        {
+                          pattern: /^[0-9]+$/,
+                          message: $t('market_commercial_number_digits_only'),
+                          trigger: 'change',
+                        },
+                        {
+                          min: formData.commercial_number ? 8 : 0,
+                          message: $t('market_commercial_number_min_length'),
+                          trigger: 'change',
+                        },
+                        {
+                          max: formData.commercial_number ? 14 : 0,
+                          message: $t('market_commercial_number_max_length'),
+                          trigger: 'change',
+                        },
+                      ]"
+                    >
+                      <el-input v-model="formData.commercial_number" />
+                    </el-form-item>
+                    <!--end::Input-->
+                  </div>
+                  <!--end::Input group-->
+
+                  <!--begin::Input group-->
+                  <div class="d-flex flex-column mb-7 fv-row">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-bold mb-2">
+                      {{ $t("standard_number") }}
+                    </label>
+                    <!--end::Label-->
+
+                    <!--begin::Input-->
+                    <el-form-item
+                      prop="standard_number"
+                      :rules="[
+                        {
+                          pattern: /^[0-9]+$/,
+                          message: $t('market_standard_number_digits_only'),
+                          trigger: 'change',
+                        },
+                        {
+                          min: formData.standard_number ? 8 : 0,
+                          message: $t('market_standard_number_min_length'),
+                          trigger: 'change',
+                        },
+                        {
+                          max: formData.standard_number ? 14 : 0,
+                          message: $t('market_standard_number_max_length'),
+                          trigger: 'change',
+                        },
+                      ]"
+                    >
+                      <el-input v-model="formData.standard_number" />
+                    </el-form-item>
+                    <!--end::Input-->
+                  </div>
+                  <!--end::Input group-->
+                </div>
+                <!--end::Billing form-->
+              </div>
+              <!--end::Scroll-->
+            </div>
+            <!--end::Step 3-->
+
+            <!--begin::Actions-->
+            <div class="d-flex flex-stack pt-15">
+              <!--begin::Wrapper-->
+              <div class="me-2">
+                <button
+                  v-if="currentStepIndex == 2"
+                  type="button"
+                  class="btn btn-lg btn-light-primary me-3"
+                  @click.prevent="currentStepIndex = 1"
+                >
+                  <span class="svg-icon svg-icon-3 me-1">
+                    <inline-svg
+                      :src="`/media/icons/duotune/arrows/arr06${
+                        il8n.locale.value == 'ar' ? '4' : '3'
+                      }.svg`"
+                    />
+                  </span>
+                  {{ $t("back") }}
+                </button>
+              </div>
+              <!--end::Wrapper-->
+
+              <!--begin::Wrapper-->
+              <div>
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-primary"
+                  v-if="currentStepIndex === 2"
+                  @click="formSubmit()"
+                >
+                  <span class="indicator-label">
+                    {{ $t("submit") }}
+                    <span class="svg-icon svg-icon-3 ms-2 me-0">
                       <inline-svg
                         :src="`/media/icons/duotune/arrows/arr06${
                           il8n.locale.value == 'ar' ? '3' : '4'
                         }.svg`"
                       />
                     </span>
-                  </button>
-                </div>
-                <!--end::Wrapper-->
+                  </span>
+                  <span class="indicator-progress">
+                    {{ $t("pleaseWait") }}
+                    <span
+                      class="spinner-border spinner-border-sm align-middle ms-2"
+                    ></span>
+                  </span>
+                </button>
+
+                <button
+                  @click.prevent="currentStepIndex = 2"
+                  class="btn btn-lg btn-primary"
+                  v-else
+                >
+                  {{ $t("continue") }}
+                  <span class="svg-icon svg-icon-3 ms-1 me-0">
+                    <inline-svg
+                      :src="`/media/icons/duotune/arrows/arr06${
+                        il8n.locale.value == 'ar' ? '3' : '4'
+                      }.svg`"
+                    />
+                  </span>
+                </button>
               </div>
-              <!--end::Actions-->
-            </form>
-            <!--end::Form-->
-          </div>
-          <!--end::Stepper-->
+              <!--end::Wrapper-->
+            </div>
+            <!--end::Actions-->
+          </el-form>
+          <!--end::Form-->
         </div>
         <!--end::Modal body-->
       </div>
@@ -430,16 +438,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { hideModal } from "@/core/helpers/dom";
 import { useI18n } from "vue-i18n/index";
-import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
-import { useForm } from "vee-validate";
-import { Field, ErrorMessage } from "vee-validate";
-import * as Yup from "yup";
 
 interface Step1 {
   account_type: string;
@@ -460,19 +464,15 @@ interface KTCreateApp extends Step1, Step2 {}
 
 export default defineComponent({
   name: "create-account-modal",
-  components: {
-    Field,
-    ErrorMessage,
-  },
+
   setup() {
-    const _stepperObj = ref<StepperComponent | null>(null);
-    const createAccountRef = ref<HTMLElement | null>(null);
+    const createAccountRef = ref<HTMLFormElement>();
     const createAccountModalRef = ref<HTMLElement | null>(null);
-    const currentStepIndex = ref(0);
+    const currentStepIndex = ref(2);
     const il8n = useI18n();
     const { t, te } = useI18n();
-
     const store = useStore();
+
     const formData = ref<KTCreateApp>({
       account_type: "personal",
       name: "",
@@ -485,12 +485,6 @@ export default defineComponent({
       site_url: "",
     });
 
-    onMounted(() => {
-      _stepperObj.value = StepperComponent.createInsance(
-        createAccountRef.value as HTMLElement
-      );
-    });
-
     const translate = (text) => {
       if (te(text)) {
         return t(text);
@@ -499,147 +493,100 @@ export default defineComponent({
       }
     };
 
-    const createAppSchema = [
-      Yup.object({
-        account_type: Yup.string().required(),
-      }),
-
-      Yup.object({
-        name: Yup.string()
-          .required(translate("nameRequired"))
-          .min(3, translate("nameMin"))
-          .max(50, translate("nameMax")),
-        email: Yup.string().email().required(),
-        phone: Yup.string()
-          .matches(/^[0-9]/, translate("phoneNumberInvalid"))
-          .min(10, translate("phoneNumberMinLength"))
-          .required(translate("phoneNumberRequired")),
-        address: Yup.string().required(translate("addressRequired")),
-        tax_number: Yup.string().test(
-          "taxNumber",
-          translate("taxNumberLength"),
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (value: any) => !value || value.length === 15
-        ),
-        commercial_number: Yup.string().test(
-          "commercialNumber",
-          translate("commercialNumberLength"),
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (value: any) => !value || value.length === 10
-        ),
-        site_url: Yup.string().url(translate("site_url_invalid")),
-      }),
-    ];
-
-    // extracts the individual step schema
-    const currentSchema = computed(() => {
-      return createAppSchema[currentStepIndex.value];
-    });
-
-    const totalSteps = computed(() => {
-      if (!_stepperObj.value) {
-        return;
-      }
-
-      return _stepperObj.value.totatStepsNumber;
-    });
-
-    const { resetForm, handleSubmit } = useForm<Step1 | Step2>({
-      validationSchema: currentSchema,
-    });
-
-    const previousStep = () => {
-      if (!_stepperObj.value) {
-        return;
-      }
-
-      currentStepIndex.value--;
-
-      _stepperObj.value.goPrev();
-    };
-
-    const handleStep = handleSubmit((values) => {
-      for (const item in values) {
-        // eslint-disable-next-line no-prototype-builtins
-        if (values.hasOwnProperty(item)) {
-          if (values[item]) {
-            formData.value[item] = values[item];
-          }
-        }
-      }
-
-      if (currentStepIndex.value == 1) {
-        return;
-      } else {
-        currentStepIndex.value++;
-
-        if (!_stepperObj.value) {
-          return;
-        }
-
-        _stepperObj.value.goNext();
-      }
-    });
-
-    const formSubmit = () => {
-      if (!_stepperObj.value) {
-        return;
-      }
-      Swal.fire({
-        title: il8n.t("pleaseWait"),
-        text: il8n.t("creatingAccount"),
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        onBeforeOpen: () => {
-          Swal.showLoading();
+    const createAccountValidationRules = ref({
+      name: [
+        {
+          required: true,
+          message: translate("nameRequired"),
+          trigger: "change",
         },
-      });
-
-      store
-        .dispatch(Actions.CREATE_CUSTOMER, formData.value)
-        .then((response) => {
-          Swal.close();
-          Swal.fire({
-            title: il8n.t("success"),
-            text: response.message,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-
-          resetForm();
-          previousStep();
-          hideModal(createAccountModalRef.value);
-        })
-        .catch(() => {
-          Swal.close();
-
-          Swal.fire({
-            title: il8n.t("error"),
-            text: il8n.t("errorCreatingAccount"),
-            icon: "error",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
-    };
-
-    resetForm({
-      values: {
-        ...formData.value,
-      },
+      ],
+      address: [
+        {
+          required: true,
+          message: translate("addressRequired"),
+          trigger: "change",
+        },
+      ],
+      email: [
+        {
+          required: true,
+          message: translate("emailRequired"),
+          trigger: "change",
+        },
+        {
+          type: "email",
+          message: translate("emailInvalid"),
+          trigger: "change",
+        },
+      ],
+      phone: [
+        {
+          required: true,
+          message: translate("phoneRequired"),
+          trigger: "change",
+        },
+        {
+          pattern: /^(\+?\d{1,3}[- ]?)?\d{10}$/,
+          message: translate("phoneNumberInvalid"),
+          trigger: "change",
+        },
+      ],
     });
+
+    const createAccount = () => {
+      if (!createAccountRef.value) {
+        return;
+      }
+      createAccountRef.value.validate((valid) => {
+        if (valid) {
+          Swal.fire({
+            title: il8n.t("pleaseWait"),
+            text: il8n.t("creatingAccount"),
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+              Swal.showLoading();
+            },
+          });
+
+          store
+            .dispatch(Actions.CREATE_CUSTOMER, formData.value)
+            .then((response) => {
+              Swal.close();
+              Swal.fire({
+                title: il8n.t("success"),
+                text: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              createAccountRef.value?.resetFields();
+              hideModal(createAccountModalRef.value);
+            })
+            .catch(() => {
+              Swal.close();
+
+              Swal.fire({
+                title: il8n.t("error"),
+                text: il8n.t("errorCreatingAccount"),
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            });
+        }
+      });
+    };
 
     return {
       createAccountRef,
-      totalSteps,
-      previousStep,
-      handleStep,
-      formSubmit,
+      createAccount,
       il8n,
       currentStepIndex,
       formData,
       createAccountModalRef,
+      createAccountValidationRules,
     };
   },
 });

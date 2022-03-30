@@ -456,13 +456,13 @@
                                         /> -->
                                         <Field
                                           class="form-control form-control-solid mb-2"
-                                          :name="`products[0].product_name`"
+                                          :name="`products[${i}].product_name`"
                                           :placeholder="$t('itemName')"
                                           v-model="item.product_name"
                                         />
                                         <ErrorMessage
                                           class="fv-plugins-message-container invalid-feedback"
-                                          :name="`products[0].product_name`"
+                                          :name="`products[${i}].product_name`"
                                         />
                                         <input
                                           type="text"
@@ -1145,7 +1145,7 @@ interface Step2 {
   payment_id: string;
   shipping_company_id: string;
   account_id: string;
-  status: string;
+  invoice_status_id: number;
 }
 
 interface KTCreateApp extends Step1, Step2 {}
@@ -1200,7 +1200,7 @@ export default defineComponent({
       payment_id: "",
       shipping_company_id: "",
       account_id: "",
-      status: "",
+      invoice_status_id: 1,
     });
 
     onMounted(() => {
@@ -1312,9 +1312,9 @@ export default defineComponent({
       }
 
       if (paidInvoice.value) {
-        formData.value.status = "paid";
+        formData.value.invoice_status_id = 2;
       } else {
-        formData.value.status = "pending";
+        formData.value.invoice_status_id = 1;
       }
 
       Swal.fire({

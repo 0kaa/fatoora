@@ -76,6 +76,20 @@ export default defineComponent({
 @import "assets/sass/plugins";
 @import "assets/sass/style";
 
+@font-face {
+  font-family: "alriyadh";
+  src: url("/fonts/TatweerAlRiyadh-Light.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "alriyadh";
+  src: url("/fonts/TatweerAlRiyadh-Regular.otf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 //RTL version styles
 
 // @import "assets/css/style.rtl.css";
