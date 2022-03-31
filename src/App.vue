@@ -90,6 +90,9 @@ export default defineComponent({
   font-style: normal;
 }
 
+.el-form-item__error {
+  font-size: 14px;
+}
 //RTL version styles
 
 // @import "assets/css/style.rtl.css";
