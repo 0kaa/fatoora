@@ -106,7 +106,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         .then(({ data }) => {
           this.context.commit(Mutations.SET_AUTH, data.data.user);
           this.context.commit(Mutations.SET_TOKEN, data.data.token);
-          resolve();
+          resolve(data);
         })
         .catch(({ response }) => {
           this.context.commit(
@@ -143,19 +143,14 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
 
   @Action
   [Actions.FORGOT_PASSWORD](payload) {
-    const params = {
-      params: {
-        ...payload,
-      },
-    };
     return new Promise<void>((resolve, reject) => {
-      ApiService.post("forgot_password", params)
+      ApiService.post("reset-pasword", payload)
         .then(({ data }) => {
           this.context.commit(Mutations.SET_AUTH, data);
-          resolve();
+          resolve(data);
         })
         .catch(({ response }) => {
-          this.context.commit(Mutations.SET_ERROR, response.data.errors);
+          this.context.commit(Mutations.SET_ERROR, response.data.message);
           reject();
         });
     });
@@ -191,6 +186,22 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         .catch(({ response }) => {
           this.context.commit(Mutations.SET_ERROR, response.data.message);
           reject(response);
+        });
+    });
+  }
+
+  @Action
+  [Actions.SET_NEW_PASSWORD](payload) {
+    ApiService.setHeader();
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("new-password", payload)
+        .then(({ data }) => {
+          console.log(data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          this.context.commit(Mutations.SET_ERROR, response.data.message);
+          reject();
         });
     });
   }

@@ -253,6 +253,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import("@/views/crafted/authentication/basic-flow/PasswordReset.vue"),
       },
+      {
+        path: "/change-password",
+        name: "change-password",
+        component: () =>
+          import(
+            "@/views/crafted/authentication/basic-flow/ChangePassword.vue"
+          ),
+      },
     ],
   },
   {
@@ -281,7 +289,12 @@ router.beforeEach((to, from, next) => {
   const language = localStorage.getItem("lang") || "ar";
   // reset config to initial state
   store.commit(Mutations.RESET_LAYOUT_CONFIG);
-  const unAuthenticationRoutes = ["sign-in", "sign-up", "password-reset"];
+  const unAuthenticationRoutes = [
+    "sign-in",
+    "sign-up",
+    "password-reset",
+    "change-password",
+  ];
   //check if current user is authenticated
   if (
     !unAuthenticationRoutes.includes(to.name as string) &&

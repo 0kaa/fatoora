@@ -81,8 +81,14 @@ export default defineComponent({
   top: 40px;
   right: 100px;
   @media (max-width: 992px) {
-    right: 50%;
-    transform: translateX(50%);
+    position: relative;
+    top: inherit;
+    right: inherit;
+    width: 100%;
+    display: block;
+    margin: auto;
+    margin-top: 40px;
+    text-align: center;
   }
 }
 </style>

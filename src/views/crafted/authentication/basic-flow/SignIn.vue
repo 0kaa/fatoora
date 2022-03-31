@@ -1,8 +1,8 @@
 <template>
   <div class="container-xxl">
-    <div class="d-flex flex-column h-100 justify-content-center">
+    <div class="d-flex flex-column h-100 justify-content-lg-center">
       <!--begin::Wrapper-->
-      <div class="w-lg-500px w-100 rounded p-10 m-10 p-lg-15 mx-auto">
+      <div class="w-lg-500px bg-white w-100 rounded p-10 m-10 p-lg-15 mx-auto">
         <!--begin::Form-->
         <el-form
           class="form w-100"
@@ -45,7 +45,7 @@
           <!--begin::Input group-->
           <el-form-item
             prop="password"
-            class="mb-10"
+            class="mb-2"
             :rules="[
               {
                 required: true,
@@ -83,7 +83,7 @@
               type="submit"
               ref="submitButton"
               id="kt_sign_in_submit"
-              class="btn btn-lg px-16 fs-1 btn-primary mb-5"
+              class="btn btn-lg px-18 fs-1 btn-primary mb-5"
             >
               <span class="indicator-label">
                 {{ $t("signIn") }}
@@ -123,6 +123,7 @@
 import { defineComponent, nextTick, onMounted, ref } from "vue";
 import { Actions } from "@/store/enums/StoreEnums";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n/index";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { reinitializeComponents } from "@/core/plugins/keenthemes";
@@ -135,6 +136,15 @@ export default defineComponent({
     const router = useRouter();
     const submitButton = ref<HTMLButtonElement | null>(null);
     const loginFormRef = ref<HTMLFormElement | null>(null);
+    const { t, te } = useI18n();
+
+    const translate = (text) => {
+      if (te(text)) {
+        return t(text);
+      } else {
+        return text;
+      }
+    };
 
     const loginForm = ref({
       email: "",
@@ -148,55 +158,56 @@ export default defineComponent({
     });
 
     //Form submit function
-    const onSubmitLogin = (values) => {
+    const onSubmitLogin = () => {
       // Clear existing errors
       store.dispatch(Actions.LOGOUT);
 
-      if (submitButton.value) {
-        // eslint-disable-next-line
-        submitButton.value!.disabled = true;
-        // Activate indicator
-        submitButton.value.setAttribute("data-kt-indicator", "on");
-      }
+      if (!loginFormRef.value) return;
 
-      // Dummy delay
-      setTimeout(() => {
-        // Send login request
-        store
-          .dispatch(Actions.LOGIN, values)
-          .then(() => {
-            Swal.fire({
-              text: "You have successfully logged in!",
-              icon: "success",
-              buttonsStyling: false,
-              confirmButtonText: "Ok, got it!",
-              customClass: {
-                confirmButton: "btn fw-bold btn-light-primary",
-              },
-            }).then(function () {
-              // Go to page after successfully login
-              router.push({
-                name: "home",
+      loginFormRef.value.validate((valid) => {
+        if (valid) {
+          if (submitButton.value) {
+            // eslint-disable-next-line
+        submitButton.value!.disabled = true;
+            // Activate indicator
+            submitButton.value.setAttribute("data-kt-indicator", "on");
+          }
+
+          // Send login request
+          store
+            .dispatch(Actions.LOGIN, loginForm.value)
+            .then((response) => {
+              console.log(response.message);
+              Swal.fire({
+                text: response.message,
+                icon: "success",
+                buttonsStyling: false,
+                confirmButtonText: translate("ok"),
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary",
+                },
+              }).then(function () {
+                router.push({ name: "home" });
+              });
+            })
+            .catch(() => {
+              Swal.fire({
+                text: store.getters.getErrors,
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: translate("tryAgain"),
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-danger",
+                },
               });
             });
-          })
-          .catch(() => {
-            Swal.fire({
-              text: store.getters.getErrors,
-              icon: "error",
-              buttonsStyling: false,
-              confirmButtonText: "Try again!",
-              customClass: {
-                confirmButton: "btn fw-bold btn-light-danger",
-              },
-            });
-          });
 
-        //Deactivate indicator
-        submitButton.value?.removeAttribute("data-kt-indicator");
-        // eslint-disable-next-line
+          //Deactivate indicator
+          submitButton.value?.removeAttribute("data-kt-indicator");
+          // eslint-disable-next-line
         submitButton.value!.disabled = false;
-      }, 500);
+        }
+      });
     };
 
     return {
