@@ -34,35 +34,17 @@
         <!--begin::Modal body-->
         <div class="modal-body scroll-y m-5">
           <!--begin::Stepper-->
-          <div
-            ref="createInvoiceRef"
-            class="stepper stepper-links d-flex flex-column"
-            id="kt_create_invoice_stepper"
-          >
-            <!--begin::Nav-->
-            <div class="stepper-nav py-5">
-              <!--begin::Step 1-->
-              <div class="stepper-item current" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">{{ $t("invoiceType") }}</h3>
-              </div>
-              <!--end::Step 1-->
-
-              <!--begin::Step 2-->
-              <div class="stepper-item" data-kt-stepper-element="nav">
-                <h3 class="stepper-title">{{ $t("invoiceInfo") }}</h3>
-              </div>
-              <!--end::Step 2-->
-            </div>
-            <!--end::Nav-->
+          <div>
             <!--begin::Form-->
-            <form
+            <el-form
               class="mx-auto w-100 py-10"
               novalidate="novalidate"
-              id="kt_create_invoice_form"
-              @submit.prevent="handleStep"
+              ref="createInvoiceRef"
+              :model="formData"
+              @submit.prevent="createInvoice()"
             >
               <!--begin::Step 1-->
-              <div class="current" data-kt-stepper-element="content">
+              <div v-if="currentStepIndex === 1">
                 <!--begin::Wrapper-->
                 <div class="w-100">
                   <!--begin::Heading-->
@@ -77,13 +59,6 @@
                       ></i>
                     </h2>
                     <!--end::Title-->
-
-                    <!--begin::Notice-->
-                    <!-- <div class="text-gray-400 fw-bold fs-6">
-                      If you need more info, please check out
-                      <a href="#" class="link-primary fw-bolder">Help Page</a>.
-                    </div>-->
-                    <!--end::Notice-->
                   </div>
                   <!--end::Heading-->
 
@@ -94,7 +69,7 @@
                       <!--begin::Col-->
                       <div class="col-lg-4">
                         <!--begin::Option-->
-                        <Field
+                        <input
                           type="radio"
                           class="btn-check"
                           name="type"
@@ -130,7 +105,7 @@
                       <!--begin::Col-->
                       <div class="col-lg-4">
                         <!--begin::Option-->
-                        <Field
+                        <input
                           type="radio"
                           class="btn-check"
                           name="type"
@@ -167,7 +142,7 @@
                       <!--begin::Col-->
                       <div class="col-lg-4">
                         <!--begin::Option-->
-                        <Field
+                        <input
                           type="radio"
                           class="btn-check"
                           name="type"
@@ -210,7 +185,7 @@
               <!--end::Step 1-->
 
               <!--begin::Step 3-->
-              <div data-kt-stepper-element="content">
+              <div v-if="currentStepIndex === 2">
                 <!--begin::Wrapper-->
                 <div class="w-100">
                   <!--begin::Post-->
@@ -249,14 +224,26 @@
                                 >
                                   <!--begin::Datepicker-->
                                   <!--begin::Input-->
-                                  <el-date-picker
-                                    class="form-control-transparent pe-5 w-150px"
-                                    name="release_date"
-                                    format="YYYY/MM/DD"
-                                    value-format="YYYY-MM-DD"
-                                    :placeholder="$t('selectDate')"
-                                    v-model="formData.release_date"
-                                  />
+                                  <el-form-item
+                                    prop="release_date"
+                                    class="mb-0"
+                                    :rules="[
+                                      {
+                                        required: true,
+                                        message: $t('release_date_is_required'),
+                                      },
+                                    ]"
+                                  >
+                                    <el-date-picker
+                                      class="form-control-transparent pe-5 w-150px"
+                                      name="release_date"
+                                      format="YYYY/MM/DD"
+                                      value-format="YYYY-MM-DD"
+                                      :placeholder="$t('selectDate')"
+                                      v-model="formData.release_date"
+                                    />
+                                  </el-form-item>
+
                                   <!--end::Input-->
 
                                   <!--end::Datepicker-->
@@ -303,15 +290,47 @@
                                 >
                                   <!--begin::Datepicker-->
                                   <!--begin::Input-->
-                                  <el-date-picker
-                                    type="text"
-                                    class="form-control-transparent pe-5 w-150px"
-                                    name="due_date"
-                                    :placeholder="$t('selectDate')"
-                                    v-model="formData.due_date"
-                                    format="YYYY/MM/DD"
-                                    value-format="YYYY-MM-DD"
-                                  />
+                                  <el-form-item
+                                    prop="due_date"
+                                    class="mb-0"
+                                    :rules="[
+                                      {
+                                        required: true,
+                                        message: $t('due_date_is_required'),
+                                      },
+                                      {
+                                        validator: (rule, value, callback) => {
+                                          if (value) {
+                                            if (
+                                              moment(value).isBefore(
+                                                moment(formData.release_date)
+                                              )
+                                            ) {
+                                              callback(
+                                                $t(
+                                                  'due_date_must_be_after_release_date'
+                                                )
+                                              );
+                                            } else {
+                                              callback();
+                                            }
+                                          } else {
+                                            callback();
+                                          }
+                                        },
+                                      },
+                                    ]"
+                                  >
+                                    <el-date-picker
+                                      type="text"
+                                      class="form-control-transparent pe-5 w-150px"
+                                      name="due_date"
+                                      :placeholder="$t('selectDate')"
+                                      v-model="formData.due_date"
+                                      format="YYYY/MM/DD"
+                                      value-format="YYYY-MM-DD"
+                                    />
+                                  </el-form-item>
                                   <!--end::Input-->
 
                                   <!--end::Datepicker-->
@@ -339,9 +358,8 @@
                                   >
                                   <!--begin::Input group-->
                                   <div class="mb-5">
-                                    <input
+                                    <el-input
                                       type="text"
-                                      class="form-control form-control-solid"
                                       :value="user.market_name"
                                       disabled
                                       :placeholder="$t('name')"
@@ -350,9 +368,8 @@
                                   <!--end::Input group-->
                                   <!--begin::Input group-->
                                   <div class="mb-5">
-                                    <input
+                                    <el-input
                                       type="text"
-                                      class="form-control form-control-solid"
                                       :value="user.market_email"
                                       disabled
                                       :placeholder="$t('email')"
@@ -369,21 +386,35 @@
                                   >
                                   <!--begin::Input group-->
                                   <div class="mb-5">
-                                    <el-select
-                                      v-model="formData.customer_id"
-                                      :placeholder="$t('select_customer')"
-                                      class="w-100"
-                                      size="large"
+                                    <el-form-item
+                                      prop="customer_id"
+                                      :rules="[
+                                        {
+                                          required:
+                                            formData.type !== 'simple'
+                                              ? true
+                                              : false,
+                                          message: $t('customer_is_required'),
+                                          trigger: 'change',
+                                        },
+                                      ]"
                                     >
-                                      <el-option
-                                        v-for="customer in $store.getters
-                                          .Customers"
-                                        :key="customer.id"
-                                        :label="customer.name"
-                                        :value="customer.id"
+                                      <el-select
+                                        v-model="formData.customer_id"
+                                        :placeholder="$t('select_customer')"
+                                        class="w-100"
+                                        size="large"
                                       >
-                                      </el-option>
-                                    </el-select>
+                                        <el-option
+                                          v-for="customer in $store.getters
+                                            .Customers"
+                                          :key="customer.id"
+                                          :label="customer.name"
+                                          :value="customer.id"
+                                        >
+                                        </el-option>
+                                      </el-select>
+                                    </el-form-item>
                                   </div>
                                   <!--end::Input group-->
                                   <!--begin::Input group-->
@@ -392,6 +423,7 @@
                                     v-if="formData.type == 'full'"
                                   >
                                     <button
+                                      type="button"
                                       class="btn btn-link py-1"
                                       data-bs-toggle="modal"
                                       data-bs-target="#kt_modal_create_account"
@@ -409,7 +441,6 @@
                                 <!--begin::Table-->
                                 <table
                                   class="table g-5 gs-0 mb-0 fw-bolder text-gray-700"
-                                  data-kt-element="items"
                                 >
                                   <!--begin::Table head-->
                                   <thead>
@@ -438,59 +469,75 @@
                                   <tbody>
                                     <tr
                                       class="border-bottom border-bottom-dashed"
-                                      data-kt-element="item"
-                                      v-for="(item, index) in items"
+                                      v-for="(item, index) in formData.products"
                                       :key="index"
                                     >
                                       <td class="pe-7">
-                                        <!-- <input
-                                          type="text"
-                                          class="form-control form-control-solid mb-2"
-                                          v-model="item.name"
-                                          :placeholder="$t('itemName')"
-                                        /> -->
-                                        <!-- <input
-                                          class="form-control form-control-solid mb-2"
-                                          v-model="item.product_name"
-                                          :placeholder="$t('itemName')"
-                                        /> -->
-                                        <Field
-                                          class="form-control form-control-solid mb-2"
-                                          :name="`products[${i}].product_name`"
-                                          :placeholder="$t('itemName')"
-                                          v-model="item.product_name"
-                                        />
-                                        <ErrorMessage
-                                          class="fv-plugins-message-container invalid-feedback"
-                                          :name="`products[${i}].product_name`"
-                                        />
-                                        <input
-                                          type="text"
-                                          class="form-control form-control-solid"
-                                          v-model="item.product_desc"
-                                          :placeholder="$t('description')"
-                                        />
+                                        <el-form-item
+                                          :prop="`products.${index}.product_name`"
+                                          :rules="[
+                                            {
+                                              required: true,
+                                              message: $t(
+                                                'product_name_is_required'
+                                              ),
+                                              trigger: 'change',
+                                            },
+                                          ]"
+                                        >
+                                          <el-input
+                                            :placeholder="$t('itemName')"
+                                            v-model="item.product_name"
+                                          />
+                                        </el-form-item>
+                                        <el-form-item>
+                                          <el-input
+                                            :placeholder="$t('description')"
+                                            v-model="item.product_desc"
+                                          />
+                                        </el-form-item>
                                       </td>
                                       <td class="ps-0">
-                                        <input
-                                          type="number"
-                                          class="form-control form-control-solid"
-                                          min="1"
-                                          name="product_quantity"
-                                          v-model.number="item.product_quantity"
-                                          placeholder="1"
-                                          data-kt-element="quantity"
-                                        />
+                                        <el-form-item
+                                          :prop="`products.${index}.product_quantity`"
+                                          :rules="[
+                                            {
+                                              required: true,
+                                              message: $t(
+                                                'product_quantity_is_required'
+                                              ),
+                                              trigger: 'change',
+                                            },
+                                          ]"
+                                        >
+                                          <el-input
+                                            type="number"
+                                            placeholder="1"
+                                            minlength="1"
+                                            v-model="item.product_quantity"
+                                          />
+                                        </el-form-item>
                                       </td>
                                       <td>
-                                        <input
-                                          type="number"
-                                          class="form-control form-control-solid"
-                                          v-model="item.product_price"
-                                          min="1"
-                                          placeholder="0.00"
-                                          data-kt-element="price"
-                                        />
+                                        <el-form-item
+                                          :prop="`products.${index}.product_price`"
+                                          :rules="[
+                                            {
+                                              required: true,
+                                              message: $t(
+                                                'product_price_is_required'
+                                              ),
+                                              trigger: 'change',
+                                            },
+                                          ]"
+                                        >
+                                          <el-input
+                                            type="number"
+                                            placeholder="0.00"
+                                            minlength="1"
+                                            v-model="item.product_price"
+                                          />
+                                        </el-form-item>
                                       </td>
                                       <td class="pt-8 text-end text-nowrap">
                                         {{ $store.state.currency }}
@@ -563,38 +610,44 @@
                                       >
                                         <div class="d-flex align-items-start">
                                           <!--begin::Discount-->
-                                          <div class="mb-0 me-5 w-100">
-                                            <input
-                                              type="number"
-                                              class="form-control form-control-solid"
-                                              :placeholder="
-                                                $t('discount_amount')
-                                              "
-                                              v-model="formData.discount_amount"
-                                            />
+
+                                          <div class="mb-0 me-5">
+                                            <el-form-item>
+                                              <el-input
+                                                type="number"
+                                                :placeholder="
+                                                  $t('discount_amount')
+                                                "
+                                                minlength="1"
+                                                v-model="
+                                                  formData.discount_amount
+                                                "
+                                              />
+                                            </el-form-item>
                                           </div>
                                           <!--end::Discount-->
                                           <!--begin::Discount-->
                                           <div class="mb-0 w-150px">
-                                            <select
-                                              class="form-control form-control-solid"
-                                              v-model="formData.discount_type"
-                                            >
-                                              <option value="percentage">
-                                                {{ $t("percentage") }}
-                                              </option>
-                                              <option value="fixed">
-                                                {{ $t("fixed") }}
-                                              </option>
-                                            </select>
-                                            <!-- <input
-                                              type="number"
-                                              class="form-control form-control-solid"
-                                              :placeholder="
-                                                $t('discount_amount')
-                                              "
-                                              v-model="formData.discount_amount"
-                                            /> -->
+                                            <el-form-item prop="discount_type">
+                                              <el-select
+                                                v-model="formData.discount_type"
+                                                class="w-100"
+                                                size="large"
+                                              >
+                                                <el-option
+                                                  value="percentage"
+                                                  :label="$t('percentage')"
+                                                >
+                                                  {{ $t("percentage") }}
+                                                </el-option>
+                                                <el-option
+                                                  value="fixed"
+                                                  :label="$t('fixed')"
+                                                >
+                                                  {{ $t("fixed") }}
+                                                </el-option>
+                                              </el-select>
+                                            </el-form-item>
                                           </div>
                                           <!--end::Discount-->
                                         </div>
@@ -1061,10 +1114,10 @@
                 <!--begin::Wrapper-->
                 <div class="me-2">
                   <button
+                    v-if="currentStepIndex === 2"
                     type="button"
                     class="btn btn-lg btn-light-primary me-3"
-                    data-kt-stepper-action="previous"
-                    @click="previousStep()"
+                    @click.prevent="currentStepIndex = 1"
                   >
                     <span class="svg-icon svg-icon-3 me-1">
                       <inline-svg
@@ -1081,9 +1134,9 @@
                 <!--begin::Wrapper-->
                 <div>
                   <button
-                    type="submit"
+                    @click.prevent="currentStepIndex = 2"
                     class="btn btn-lg btn-primary"
-                    v-if="currentStepIndex !== totalSteps - 1"
+                    v-if="currentStepIndex === 1"
                   >
                     {{ $t("continue") }}
                     <span class="svg-icon svg-icon-3 ms-1 me-0">
@@ -1098,7 +1151,7 @@
                 <!--end::Wrapper-->
               </div>
               <!--end::Actions-->
-            </form>
+            </el-form>
             <!--end::Form-->
           </div>
           <!--end::Stepper-->
@@ -1113,17 +1166,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { hideModal } from "@/core/helpers/dom";
 import { useI18n } from "vue-i18n/index";
-import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
-import { useForm } from "vee-validate";
-import { Field, ErrorMessage } from "vee-validate";
-import * as Yup from "yup";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
-// import moment from "moment";
+import moment from "moment";
 
 interface Step1 {
   type: string;
@@ -1157,15 +1206,10 @@ interface Customer {
 
 export default defineComponent({
   name: "create-invoice-modal",
-  components: {
-    Field,
-    ErrorMessage,
-  },
   setup() {
-    const _stepperObj = ref<StepperComponent | null>(null);
-    const createInvoiceRef = ref<HTMLElement | null>(null);
+    const createInvoiceRef = ref<HTMLFormElement>();
     const createInvoiceModalRef = ref<HTMLElement | null>(null);
-    const currentStepIndex = ref(0);
+    const currentStepIndex = ref(1);
     const paymentMethod = ref(false);
     const toggleNotes = ref(false);
     const paymentUrl = ref("");
@@ -1174,27 +1218,24 @@ export default defineComponent({
     const il8n = useI18n();
     const store = useStore();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const items = ref<any[]>([
-      {
-        product_name: "",
-        product_desc: "",
-        product_quantity: "1",
-        product_price: "",
-      },
-    ]);
-
     const formData = ref<KTCreateApp>({
       type: "simple",
       rand_number: Math.floor(Math.random() * 1000000),
       release_date: "",
       due_date: "",
-      products: items.value,
+      products: [
+        {
+          product_name: "",
+          product_desc: "",
+          product_quantity: "1",
+          product_price: "",
+        },
+      ],
       public_note: "",
       private_note: "",
       has_discount: 0,
       discount_amount: "",
-      discount_type: "percentage",
+      discount_type: "fixed",
       invoice_tax: 14,
       customer_id: "",
       payment_id: "",
@@ -1203,14 +1244,8 @@ export default defineComponent({
       invoice_status_id: 1,
     });
 
-    onMounted(() => {
-      _stepperObj.value = StepperComponent.createInsance(
-        createInvoiceRef.value as HTMLElement
-      );
-    });
-
     const addItem = () => {
-      items.value.push({
+      formData.value.products.push({
         product_name: "",
         product_desc: "",
         product_quantity: "1",
@@ -1219,12 +1254,12 @@ export default defineComponent({
     };
 
     const removeItem = (index: number) => {
-      items.value.splice(index, 1);
+      formData.value.products.splice(index, 1);
     };
 
     const totalInvoice = computed(() => {
       let total = 0;
-      items.value.forEach((item) => {
+      formData.value.products.forEach((item) => {
         total +=
           item.product_price && item.product_quantity
             ? parseFloat(item.product_quantity) * parseFloat(item.product_price)
@@ -1238,141 +1273,71 @@ export default defineComponent({
       return store.getters.currentUser;
     });
 
-    const createAppSchema = [
-      Yup.object({}),
-      Yup.object({
-        products: Yup.array().of(
-          Yup.object({
-            product_name: Yup.string().required(),
-          })
-        ),
-      }),
-    ];
+    const createInvoice = () => {
+      if (!createInvoiceRef.value) return;
 
-    // extracts the individual step schema
-    const currentSchema = computed(() => {
-      return createAppSchema[currentStepIndex.value];
-    });
-
-    const totalSteps = computed(() => {
-      if (!_stepperObj.value) {
-        return;
-      }
-
-      return _stepperObj.value.totatStepsNumber;
-    });
-
-    const { resetForm, handleSubmit } = useForm<Step1 | Step2>({
-      validationSchema: currentSchema,
-    });
-
-    const previousStep = () => {
-      if (!_stepperObj.value) {
-        return;
-      }
-
-      currentStepIndex.value--;
-
-      _stepperObj.value.goPrev();
-    };
-
-    const handleStep = handleSubmit((values) => {
-      for (const item in values) {
-        // eslint-disable-next-line no-prototype-builtins
-        if (values.hasOwnProperty(item)) {
-          if (values[item]) {
-            formData.value[item] = values[item];
+      createInvoiceRef.value.validate((valid) => {
+        if (valid) {
+          if (formData.value.discount_amount) {
+            formData.value.has_discount = 1;
+          } else {
+            formData.value.has_discount = 0;
           }
+
+          if (paidInvoice.value) {
+            formData.value.invoice_status_id = 2;
+          } else {
+            formData.value.invoice_status_id = 1;
+          }
+
+          Swal.fire({
+            title: il8n.t("pleaseWait"),
+            text: il8n.t("creatingAccount"),
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+              Swal.showLoading();
+            },
+          });
+
+          store
+            .dispatch(Actions.CREATE_INVOICE, formData.value)
+            .then((response) => {
+              Swal.close();
+              Swal.fire({
+                title: il8n.t("success"),
+                text: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+              }).then(() => {
+                hideModal(createInvoiceModalRef.value);
+
+                currentStepIndex.value = 1;
+                createInvoiceRef.value?.resetFields();
+                formData.value.rand_number = Math.floor(
+                  Math.random() * 1000000
+                );
+              });
+            })
+            .catch(() => {
+              const message = store.getters.getInvoiceErrors;
+              Swal.close();
+              Swal.fire({
+                title: il8n.t("error"),
+                text: message.data.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            });
         }
-      }
-
-      if (currentStepIndex.value == 1) {
-        return;
-      } else {
-        currentStepIndex.value++;
-
-        if (!_stepperObj.value) {
-          return;
-        }
-
-        _stepperObj.value.goNext();
-      }
-    });
-
-    const formSubmit = () => {
-      if (!_stepperObj.value) {
-        return;
-      }
-
-      formData.value.products = items.value;
-      if (formData.value.discount_amount) {
-        formData.value.has_discount = 1;
-      } else {
-        formData.value.has_discount = 0;
-      }
-
-      if (paidInvoice.value) {
-        formData.value.invoice_status_id = 2;
-      } else {
-        formData.value.invoice_status_id = 1;
-      }
-
-      Swal.fire({
-        title: il8n.t("pleaseWait"),
-        text: il8n.t("creatingAccount"),
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        onBeforeOpen: () => {
-          Swal.showLoading();
-        },
       });
-
-      store
-        .dispatch(Actions.CREATE_INVOICE, formData.value)
-        .then((response) => {
-          resetForm();
-          Swal.close();
-          Swal.fire({
-            title: il8n.t("success"),
-            text: response.message,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(() => {
-            hideModal(createInvoiceModalRef.value);
-            if (!_stepperObj.value) {
-              return;
-            }
-            currentStepIndex.value = 0;
-            _stepperObj.value.goFirst();
-          });
-        })
-        .catch(() => {
-          const message = store.getters.getInvoiceErrors;
-          Swal.close();
-          Swal.fire({
-            title: il8n.t("error"),
-            text: message.data.message,
-            icon: "error",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
     };
-
-    resetForm({
-      values: {
-        ...formData.value,
-      },
-    });
 
     return {
-      _stepperObj,
       createInvoiceRef,
-      totalSteps,
-      previousStep,
-      handleStep,
-      formSubmit,
+      createInvoice,
       paymentMethod,
       paymentUrl,
       toggleNotes,
@@ -1382,11 +1347,11 @@ export default defineComponent({
       currentStepIndex,
       totalInvoice,
       il8n,
-      items,
       formData,
       user,
       customers,
       createInvoiceModalRef,
+      moment,
     };
   },
 });

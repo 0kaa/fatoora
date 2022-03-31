@@ -8,7 +8,7 @@
     aria-hidden="true"
   >
     <!--begin::Modal dialog-->
-    <div class="modal-dialog mw-1200px">
+    <div class="modal-dialog mw-600px">
       <!--begin::Modal content-->
       <div class="modal-content">
         <!--begin::Modal header-->
@@ -251,7 +251,7 @@
                   <!--begin::Input group-->
                   <div class="d-flex flex-column mb-7 fv-row">
                     <!--begin::Label-->
-                    <label class="required fs-6 fw-bold mb-2">
+                    <label class="fs-6 fw-bold mb-2">
                       {{ $t("taxID") }}
                     </label>
                     <!--end::Label-->
@@ -286,7 +286,7 @@
                   <!--begin::Input group-->
                   <div class="d-flex flex-column mb-7 fv-row">
                     <!--begin::Label-->
-                    <label class="required fs-6 fw-bold mb-2">
+                    <label class="fs-6 fw-bold mb-2">
                       {{ $t("commercial_number") }}
                     </label>
                     <!--end::Label-->
@@ -321,7 +321,7 @@
                   <!--begin::Input group-->
                   <div class="d-flex flex-column mb-7 fv-row">
                     <!--begin::Label-->
-                    <label class="required fs-6 fw-bold mb-2">
+                    <label class="fs-6 fw-bold mb-2">
                       {{ $t("standard_number") }}
                     </label>
                     <!--end::Label-->

@@ -221,6 +221,12 @@ const messages = {
     account_name_is_required: "Account name is required",
     account_number_is_required: "Account number is required",
     iban_is_required: "IBAN is required",
+    release_date_is_required: "Release date is required",
+    due_date_is_required: "Due date is required",
+    due_date_must_be_after_release_date: "Due date must be after release date",
+    product_name_is_required: "Product name is required",
+    product_quantity_is_required: "Product quantity is required",
+    product_price_is_required: "Product price is required",
   },
   ar: {
     signIn: "تسجيل الدخول",
@@ -439,6 +445,13 @@ const messages = {
     account_name_is_required: "اسم الحساب مطلوب",
     account_number_is_required: "رقم الحساب مطلوب",
     iban_is_required: "IBAN مطلوب",
+    release_date_is_required: "تاريخ الإصدار مطلوب",
+    due_date_is_required: "تاريخ الاستحقاق مطلوب",
+    due_date_must_be_after_release_date:
+      "تاريخ الاستحقاق يجب أن يكون بعد تاريخ الإصدار",
+    product_name_is_required: "اسم المنتج مطلوب",
+    product_quantity_is_required: "الكمية مطلوبة",
+    product_price_is_required: "سعر المنتج مطلوب",
   },
 };
 
