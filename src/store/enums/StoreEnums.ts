@@ -14,6 +14,8 @@ enum Actions {
   CONTACT_FORM = "contactForm",
   UPDATE_USER = "updateUser",
   FORGOT_PASSWORD = "forgotPassword",
+  RESEND_VERIFICATION_CODE = "resendVerificationCode",
+  VERIFY_OTP = "verifyOtp",
   SET_NEW_PASSWORD = "setNewPassword",
   GET_PAYMENT_METHODS = "getPaymentMethods",
   GET_BANKS = "getBanks",

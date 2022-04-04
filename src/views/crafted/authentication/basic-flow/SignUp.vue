@@ -1,195 +1,165 @@
 <template>
-  <!--begin::Stepper-->
-  <div class="w-100">
-    <!--begin::Wrapper-->
-    <div
-      ref="createAccountRef"
-      class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid h-100 flex-center"
-      id="kt_create_account_stepper"
-    >
-      <div
-        class="bg-lighten flex-column align-items-center shadow-sm py-10 h-100 d-none d-xl-flex w-100 w-xl-500px"
-      >
-        <!--begin::Logo-->
-        <Logo class="mb-20 ps-lg-10"></Logo>
-        <!--end::Logo-->
-        <!--begin::Nav-->
-        <div class="stepper-nav ps-lg-10">
-          <!--begin::Step 1-->
-          <div class="stepper-item current" data-kt-stepper-element="nav">
-            <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
-            <!--end::Line-->
-
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">1</span>
-            </div>
-            <!--end::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">{{ $t("accountType") }}</h3>
-            </div>
-            <!--end::Label-->
-          </div>
-          <!--end::Step 1-->
-
-          <!--begin::Step 2-->
-          <div class="stepper-item" data-kt-stepper-element="nav">
-            <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
-            <!--end::Line-->
-
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">2</span>
-            </div>
-            <!--begin::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">{{ $t("accountInfo") }}</h3>
-            </div>
-            <!--begin::Label-->
-          </div>
-          <!--end::Step 2-->
-        </div>
-        <!--end::Nav-->
-      </div>
-
-      <!--begin::Form-->
-      <div class="w-100 h-100 d-flex flex-column pb-lg-0 px-lg-20 p-10">
-        <div
-          class="d-flex flex-column flex-column-fluid justify-content-center"
+  <div class="container-xxl">
+    <div class="d-flex flex-column h-100 justify-content-lg-center">
+      <!--begin::Wrapper-->
+      <div class="w-lg-500px bg-white w-100 rounded p-10 m-10 p-lg-15 mx-auto">
+        <!--begin::Form-->
+        <el-form
+          class="form w-100"
+          @submit.prevent="signUp"
+          :model="formData"
+          :rules="signUpValidator"
+          ref="formSignUp"
         >
-          <!--begin::Step 1-->
-          <div v-if="currentStepIndex == 1">
-            <!--begin::Wrapper-->
-            <div class="w-100">
-              <!-- begin::Logo in mobile -->
-              <Logo class="mb-10 ps-lg-10 d-xl-none"></Logo>
-              <!--end::Logo-->
-              <!--begin::Heading-->
-              <div class="pb-10 pb-lg-15">
-                <!--begin::Title-->
-                <h2 class="fw-bolder d-flex align-items-center text-dark">
-                  {{ $t("chooseAccountType") }}
-                  <i
-                    class="fas fa-exclamation-circle ms-2 fs-7"
-                    data-bs-toggle="tooltip"
-                    data-bs-trigger="hover"
-                    title="Billing is issued based on your selected account type"
-                  ></i>
-                </h2>
-                <!--end::Title-->
-
-                <!--begin::Notice-->
-                <div class="text-gray-400 fw-bold fs-6">
-                  {{ $t("ifYouHaveAccount") }}
-                  <router-link
-                    :to="{
-                      name: 'sign-in',
-                    }"
-                    class="link-primary fw-bolder"
-                  >
-                    {{ $t("signIn") }} </router-link
-                  >.
-                </div>
-                <!--end::Notice-->
-              </div>
-              <!--end::Heading-->
-
-              <!--begin::Input group-->
-              <div class="fv-row">
-                <!--begin::Row-->
-
-                <div class="row row-gap">
-                  <!--begin::Col-->
-                  <div class="col-sm-6">
-                    <!--begin::Option-->
-                    <input
-                      type="radio"
-                      class="btn-check"
-                      v-model="formData.account_type"
-                      id="kt_create_account_form_account_type_cloud"
-                      value="cloud"
-                    />
-                    <label
-                      class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
-                      for="kt_create_account_form_account_type_cloud"
-                    >
-                      <span class="svg-icon svg-icon-3x me-5">
-                        <inline-svg
-                          src="/media/icons/duotune/communication/com005.svg"
-                        />
-                      </span>
-
-                      <!--begin::Info-->
-                      <span class="d-block fw-bold text-start">
-                        <span class="text-dark fw-bolder d-block fs-4 mb-2">
-                          {{ $t("cloudAccount") }}
-                        </span>
-                        <span class="text-gray-400 fw-bold fs-6">
-                          {{ $t("checkItOut") }}
-                        </span>
-                      </span>
-                      <!--end::Info-->
-                    </label>
-                    <!--end::Option-->
-                  </div>
-                  <!--end::Col-->
-
-                  <!--begin::Col-->
-                  <div class="col-sm-6">
-                    <!--begin::Option-->
-                    <input
-                      type="radio"
-                      class="btn-check"
-                      v-model="formData.account_type"
-                      value="custom"
-                      id="kt_create_account_form_account_type_custom"
-                    />
-                    <label
-                      class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
-                      for="kt_create_account_form_account_type_custom"
-                    >
-                      <span class="svg-icon svg-icon-3x me-5">
-                        <inline-svg
-                          src="/media/icons/duotune/finance/fin006.svg"
-                        />
-                      </span>
-
-                      <!--begin::Info-->
-                      <span class="d-block fw-bold text-start">
-                        <span class="text-dark fw-bolder d-block fs-4 mb-2">{{
-                          $t("customAccount")
-                        }}</span>
-                        <span class="text-gray-400 fw-bold fs-6">
-                          {{ $t("createCorpAccount") }}
-                        </span>
-                      </span>
-                      <!--end::Info-->
-                    </label>
-                    <!--end::Option-->
-                  </div>
-                  <!--end::Col-->
-                </div>
-                <!--end::Row-->
-              </div>
-              <!--end::Input group-->
+          <div v-if="currentStepIndex === 1">
+            <!--begin::Heading-->
+            <div class="text-center mb-10">
+              <!--begin::Title-->
+              <h1 class="text-main mb-3">
+                {{ $t("chooseAccountType") }}
+              </h1>
+              <!--end::Title-->
             </div>
-            <!--end::Wrapper-->
-          </div>
-          <!--end::Step 1-->
-          <!--begin::Step 1-->
-          <div class="current" v-if="currentStepIndex == 2">
+            <!--begin::Heading-->
             <!--begin::Row-->
-            <div class="row row-gap mb-10" data-kt-buttons="true">
+
+            <div class="row row-gap">
               <!--begin::Col-->
-              <div class="col">
+              <div class="col-sm-12">
+                <!--begin::Option-->
+                <input
+                  type="radio"
+                  class="btn-check"
+                  v-model="formData.account_type"
+                  id="kt_create_account_form_account_type_cloud"
+                  value="cloud"
+                />
+                <label
+                  class="btn btn-outline btn-outline-dashed p-7 d-flex align-items-center"
+                  for="kt_create_account_form_account_type_cloud"
+                >
+                  <span class="svg-icon svg-icon-3x me-5">
+                    <inline-svg
+                      src="/media/icons/duotune/communication/com005.svg"
+                    />
+                  </span>
+
+                  <!--begin::Info-->
+                  <span class="d-block fw-bold text-start">
+                    <span class="text-main fw-bolder d-block fs-4 mb-2">
+                      {{ $t("cloudAccount") }}
+                    </span>
+                    <span class="text-gray-400 fw-bold fs-6">
+                      {{ $t("checkItOut") }}
+                    </span>
+                  </span>
+                  <!--end::Info-->
+                </label>
+                <!--end::Option-->
+              </div>
+              <!--end::Col-->
+
+              <!--begin::Col-->
+              <div class="col-sm-12">
+                <!--begin::Option-->
+                <input
+                  type="radio"
+                  class="btn-check"
+                  v-model="formData.account_type"
+                  value="custom"
+                  id="kt_create_account_form_account_type_custom"
+                />
+                <label
+                  class="btn btn-outline btn-outline-dashed p-7 d-flex align-items-center"
+                  for="kt_create_account_form_account_type_custom"
+                >
+                  <span class="svg-icon svg-icon-3x me-5">
+                    <inline-svg src="/media/icons/duotune/finance/fin006.svg" />
+                  </span>
+
+                  <!--begin::Info-->
+                  <span class="d-block fw-bold text-start">
+                    <span class="text-main fw-bolder d-block fs-4 mb-2">{{
+                      $t("customAccount")
+                    }}</span>
+                    <span class="text-gray-400 fw-bold fs-6">
+                      {{ $t("createCorpAccount") }}
+                    </span>
+                  </span>
+                  <!--end::Info-->
+                </label>
+                <!--end::Option-->
+              </div>
+              <!--end::Col-->
+            </div>
+            <!--end::Row-->
+          </div>
+          <div v-if="currentStepIndex === 2">
+            <!--begin::Heading-->
+            <div class="text-center mb-10">
+              <!--begin::Title-->
+              <h1 class="text-main mb-3">
+                {{ $t("accountInfo") }}
+              </h1>
+              <!--end::Title-->
+            </div>
+            <!--begin::Heading-->
+            <!--begin::Input group-->
+            <el-form-item class="mb-8" prop="name">
+              <el-input
+                class="fs-3"
+                v-model="formData.name"
+                type="text"
+                :placeholder="$t('name')"
+              />
+            </el-form-item>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <el-form-item class="mb-8" prop="phone">
+              <el-input
+                class="fs-3"
+                v-model="formData.phone"
+                type="number"
+                :placeholder="$t('phone')"
+              />
+            </el-form-item>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <el-form-item class="mb-8" prop="email">
+              <el-input
+                class="fs-3"
+                v-model="formData.email"
+                type="email"
+                :placeholder="$t('email')"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <!--end::Input group-->
+
+            <!--begin::Input group-->
+            <el-form-item prop="password" class="mb-12">
+              <el-input
+                class="fs-3"
+                v-model="formData.password"
+                type="password"
+                :placeholder="$t('password')"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <!--end::Input group-->
+            <!--begin::Heading-->
+            <div class="text-center mb-10">
+              <!--begin::Title-->
+              <h1 class="text-main mb-3">
+                {{ $t("specify_invoice_size") }}
+              </h1>
+              <!--end::Title-->
+            </div>
+            <!--begin::Heading-->
+            <!--begin::Row-->
+            <div class="row-gap flex-wrap justify-content-center d-flex mb-10">
+              <!--begin::Col-->
+              <div class="">
                 <!--begin::Option-->
                 <input
                   type="radio"
@@ -198,17 +168,60 @@
                   value="100"
                   id="kt_hundred_select"
                 />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_hundred_select"
-                >
-                  <span class="fw-bolder fs-3">100</span>
+                <label for="kt_hundred_select">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="60"
+                    height="60"
+                    viewBox="0 0 122 122"
+                  >
+                    <g
+                      id="Group_23449"
+                      data-name="Group 23449"
+                      transform="translate(-1382 -794)"
+                    >
+                      <g
+                        id="Ellipse_8"
+                        data-name="Ellipse 8"
+                        transform="translate(1382 794)"
+                        fill="#fff"
+                        stroke="#1b325f"
+                        stroke-width="1"
+                      >
+                        <circle cx="61" cy="61" r="61" stroke="none" />
+                        <circle cx="61" cy="61" r="60.5" fill="none" />
+                      </g>
+                      <g
+                        id="Ellipse_13"
+                        data-name="Ellipse 13"
+                        transform="translate(1387 799)"
+                        fill="#fff"
+                        stroke="#f26c4f"
+                        stroke-linecap="round"
+                        stroke-width="1"
+                        stroke-dasharray="7"
+                      >
+                        <circle cx="56" cy="56" r="56" stroke="none" />
+                        <circle cx="56" cy="56" r="55.5" fill="none" />
+                      </g>
+                      <text
+                        id="_100"
+                        data-name="100"
+                        transform="translate(1419 868)"
+                        fill="#1b325f"
+                        font-size="32"
+                        font-family="TatweerAlRiyadh-Regular, Tatweer Al Riyadh"
+                      >
+                        <tspan x="0" y="0">100</tspan>
+                      </text>
+                    </g>
+                  </svg>
                 </label>
                 <!--end::Option-->
               </div>
               <!--end::Col-->
               <!--begin::Col-->
-              <div class="col">
+              <div class="">
                 <!--begin::Option-->
                 <input
                   type="radio"
@@ -218,18 +231,107 @@
                   disabled
                   id="kt_one_thousand_select"
                 />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_one_thousand_select"
-                >
-                  <span class="fw-bolder fs-3">1000</span>
+                <label for="kt_one_thousand_select">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="60"
+                    height="60"
+                    viewBox="0 0 122 122"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="linear-gradient"
+                        x1="0.5"
+                        y1="0.123"
+                        x2="0.5"
+                        y2="1"
+                        gradientUnits="objectBoundingBox"
+                      >
+                        <stop
+                          offset="0"
+                          stop-color="#fff"
+                          stop-opacity="0.451"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="gray"
+                          stop-opacity="0.878"
+                        />
+                      </linearGradient>
+                    </defs>
+                    <g
+                      id="Group_23450"
+                      data-name="Group 23450"
+                      transform="translate(-1244 -794)"
+                    >
+                      <g
+                        id="Ellipse_9"
+                        data-name="Ellipse 9"
+                        transform="translate(1244 794)"
+                        fill="#fff"
+                        stroke="#1b325f"
+                        stroke-width="1"
+                      >
+                        <circle cx="61" cy="61" r="61" stroke="none" />
+                        <circle cx="61" cy="61" r="60.5" fill="none" />
+                      </g>
+                      <g
+                        id="Ellipse_14"
+                        data-name="Ellipse 14"
+                        transform="translate(1249 799)"
+                        fill="#fff"
+                        stroke="#cccaca"
+                        stroke-linecap="round"
+                        stroke-width="1"
+                        stroke-dasharray="7"
+                      >
+                        <circle cx="56" cy="56" r="56" stroke="none" />
+                        <circle cx="56" cy="56" r="55.5" fill="none" />
+                      </g>
+                      <text
+                        id="_1000"
+                        data-name="1000"
+                        transform="translate(1268 869)"
+                        fill="#d4d4d4"
+                        font-size="32"
+                        font-family="TatweerAlRiyadh-Regular, Tatweer Al Riyadh"
+                      >
+                        <tspan x="0" y="0">1000</tspan>
+                      </text>
+                      <circle
+                        id="Ellipse_22"
+                        data-name="Ellipse 22"
+                        cx="61"
+                        cy="61"
+                        r="61"
+                        transform="translate(1244 794)"
+                        fill="url(#linear-gradient)"
+                      />
+                      <g id="Lock" transform="translate(1282.763 835.926)">
+                        <path
+                          id="Path_18658"
+                          data-name="Path 18658"
+                          d="M31.136,15.124H30.023V11.787a7.787,7.787,0,0,0-15.574,0v3.337H13.337A3.341,3.341,0,0,0,10,18.461V31.81a3.341,3.341,0,0,0,3.337,3.337h17.8a3.341,3.341,0,0,0,3.337-3.337V18.461A3.341,3.341,0,0,0,31.136,15.124ZM16.674,11.787a5.562,5.562,0,0,1,11.124,0v3.337H16.674ZM32.248,31.81a1.114,1.114,0,0,1-1.112,1.112h-17.8a1.114,1.114,0,0,1-1.112-1.112V18.461a1.114,1.114,0,0,1,1.112-1.112h17.8a1.114,1.114,0,0,1,1.112,1.112Z"
+                          fill="#1b325f"
+                        />
+                        <path
+                          id="Path_18659"
+                          data-name="Path 18659"
+                          d="M30.225,35a2.218,2.218,0,0,0-1.112,4.14v2.534a1.112,1.112,0,1,0,2.225,0V39.14A2.218,2.218,0,0,0,30.225,35Z"
+                          transform="translate(-7.988 -13.758)"
+                          fill="#1b325f"
+                        />
+                      </g>
+                    </g>
+                  </svg>
                 </label>
                 <!--end::Option-->
               </div>
               <!--end::Col-->
 
               <!--begin::Col-->
-              <div class="col">
+              <div class="">
                 <!--begin::Option-->
                 <input
                   type="radio"
@@ -239,18 +341,107 @@
                   disabled
                   id="kt_five_thousand_select"
                 />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_five_thousand_select"
-                >
-                  <span class="fw-bolder fs-3">5000</span>
+                <label for="kt_five_thousand_select">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="60"
+                    height="60"
+                    viewBox="0 0 122 122"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="linear-gradient"
+                        x1="0.5"
+                        y1="0.123"
+                        x2="0.5"
+                        y2="1"
+                        gradientUnits="objectBoundingBox"
+                      >
+                        <stop
+                          offset="0"
+                          stop-color="#fff"
+                          stop-opacity="0.451"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="gray"
+                          stop-opacity="0.878"
+                        />
+                      </linearGradient>
+                    </defs>
+                    <g
+                      id="Group_23451"
+                      data-name="Group 23451"
+                      transform="translate(-1106 -794)"
+                    >
+                      <g
+                        id="Ellipse_10"
+                        data-name="Ellipse 10"
+                        transform="translate(1106 794)"
+                        fill="#fff"
+                        stroke="#1b325f"
+                        stroke-width="1"
+                      >
+                        <circle cx="61" cy="61" r="61" stroke="none" />
+                        <circle cx="61" cy="61" r="60.5" fill="none" />
+                      </g>
+                      <g
+                        id="Ellipse_15"
+                        data-name="Ellipse 15"
+                        transform="translate(1111 799)"
+                        fill="#fff"
+                        stroke="#cccaca"
+                        stroke-linecap="round"
+                        stroke-width="1"
+                        stroke-dasharray="7"
+                      >
+                        <circle cx="56" cy="56" r="56" stroke="none" />
+                        <circle cx="56" cy="56" r="55.5" fill="none" />
+                      </g>
+                      <text
+                        id="_5000"
+                        data-name="5000"
+                        transform="translate(1130 869)"
+                        fill="#d4d4d4"
+                        font-size="32"
+                        font-family="TatweerAlRiyadh-Regular, Tatweer Al Riyadh"
+                      >
+                        <tspan x="0" y="0">5000</tspan>
+                      </text>
+                      <circle
+                        id="Ellipse_23"
+                        data-name="Ellipse 23"
+                        cx="61"
+                        cy="61"
+                        r="61"
+                        transform="translate(1106 794)"
+                        fill="url(#linear-gradient)"
+                      />
+                      <g id="Lock" transform="translate(1144.763 835.926)">
+                        <path
+                          id="Path_18658"
+                          data-name="Path 18658"
+                          d="M31.136,15.124H30.023V11.787a7.787,7.787,0,0,0-15.574,0v3.337H13.337A3.341,3.341,0,0,0,10,18.461V31.81a3.341,3.341,0,0,0,3.337,3.337h17.8a3.341,3.341,0,0,0,3.337-3.337V18.461A3.341,3.341,0,0,0,31.136,15.124ZM16.674,11.787a5.562,5.562,0,0,1,11.124,0v3.337H16.674ZM32.248,31.81a1.114,1.114,0,0,1-1.112,1.112h-17.8a1.114,1.114,0,0,1-1.112-1.112V18.461a1.114,1.114,0,0,1,1.112-1.112h17.8a1.114,1.114,0,0,1,1.112,1.112Z"
+                          fill="#1b325f"
+                        />
+                        <path
+                          id="Path_18659"
+                          data-name="Path 18659"
+                          d="M30.225,35a2.218,2.218,0,0,0-1.112,4.14v2.534a1.112,1.112,0,1,0,2.225,0V39.14A2.218,2.218,0,0,0,30.225,35Z"
+                          transform="translate(-7.988 -13.758)"
+                          fill="#1b325f"
+                        />
+                      </g>
+                    </g>
+                  </svg>
                 </label>
                 <!--end::Option-->
               </div>
               <!--end::Col-->
 
               <!--begin::Col-->
-              <div class="col">
+              <div class="">
                 <!--begin::Option-->
                 <input
                   type="radio"
@@ -260,20 +451,109 @@
                   disabled
                   id="kt_ten_thousand_select"
                 />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_ten_thousand_select"
-                >
-                  <span class="fw-bolder fs-3">10000</span>
+                <label for="kt_ten_thousand_select">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="60"
+                    height="60"
+                    viewBox="0 0 122 122"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="linear-gradient"
+                        x1="0.5"
+                        y1="0.123"
+                        x2="0.5"
+                        y2="1"
+                        gradientUnits="objectBoundingBox"
+                      >
+                        <stop
+                          offset="0"
+                          stop-color="#fff"
+                          stop-opacity="0.451"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="gray"
+                          stop-opacity="0.878"
+                        />
+                      </linearGradient>
+                    </defs>
+                    <g
+                      id="Group_23452"
+                      data-name="Group 23452"
+                      transform="translate(-968 -794)"
+                    >
+                      <g
+                        id="Ellipse_11"
+                        data-name="Ellipse 11"
+                        transform="translate(968 794)"
+                        fill="#fff"
+                        stroke="#707070"
+                        stroke-width="1"
+                      >
+                        <circle cx="61" cy="61" r="61" stroke="none" />
+                        <circle cx="61" cy="61" r="60.5" fill="none" />
+                      </g>
+                      <g
+                        id="Ellipse_16"
+                        data-name="Ellipse 16"
+                        transform="translate(973 799)"
+                        fill="#fff"
+                        stroke="#cccaca"
+                        stroke-linecap="round"
+                        stroke-width="1"
+                        stroke-dasharray="7"
+                      >
+                        <circle cx="56" cy="56" r="56" stroke="none" />
+                        <circle cx="56" cy="56" r="55.5" fill="none" />
+                      </g>
+                      <text
+                        id="_10000"
+                        data-name="10000"
+                        transform="translate(983 869)"
+                        fill="#d4d4d4"
+                        font-size="32"
+                        font-family="TatweerAlRiyadh-Regular, Tatweer Al Riyadh"
+                      >
+                        <tspan x="0" y="0">10000</tspan>
+                      </text>
+                      <circle
+                        id="Ellipse_24"
+                        data-name="Ellipse 24"
+                        cx="61"
+                        cy="61"
+                        r="61"
+                        transform="translate(968 794)"
+                        fill="url(#linear-gradient)"
+                      />
+                      <g id="Lock" transform="translate(1006.763 835.926)">
+                        <path
+                          id="Path_18658"
+                          data-name="Path 18658"
+                          d="M31.136,15.124H30.023V11.787a7.787,7.787,0,0,0-15.574,0v3.337H13.337A3.341,3.341,0,0,0,10,18.461V31.81a3.341,3.341,0,0,0,3.337,3.337h17.8a3.341,3.341,0,0,0,3.337-3.337V18.461A3.341,3.341,0,0,0,31.136,15.124ZM16.674,11.787a5.562,5.562,0,0,1,11.124,0v3.337H16.674ZM32.248,31.81a1.114,1.114,0,0,1-1.112,1.112h-17.8a1.114,1.114,0,0,1-1.112-1.112V18.461a1.114,1.114,0,0,1,1.112-1.112h17.8a1.114,1.114,0,0,1,1.112,1.112Z"
+                          fill="#1b325f"
+                        />
+                        <path
+                          id="Path_18659"
+                          data-name="Path 18659"
+                          d="M30.225,35a2.218,2.218,0,0,0-1.112,4.14v2.534a1.112,1.112,0,1,0,2.225,0V39.14A2.218,2.218,0,0,0,30.225,35Z"
+                          transform="translate(-7.988 -13.758)"
+                          fill="#1b325f"
+                        />
+                      </g>
+                    </g>
+                  </svg>
                 </label>
                 <!--end::Option-->
               </div>
               <!--end::Col-->
 
               <!--begin::Col-->
-              <div class="col">
+              <div class="">
                 <!--begin::Option-->
-                <Field
+                <input
                   type="radio"
                   class="btn-check"
                   name="invoice_plan"
@@ -281,163 +561,158 @@
                   disabled
                   id="kt_other_select"
                 />
-                <label
-                  class="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
-                  for="kt_other_select"
-                >
-                  <span class="fw-bolder fs-3">{{ $t("other") }}</span>
+                <label for="kt_other_select">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="60"
+                    height="60"
+                    viewBox="0 0 122 122"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="linear-gradient"
+                        x1="0.5"
+                        y1="0.123"
+                        x2="0.5"
+                        y2="1"
+                        gradientUnits="objectBoundingBox"
+                      >
+                        <stop
+                          offset="0"
+                          stop-color="#fff"
+                          stop-opacity="0.451"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="gray"
+                          stop-opacity="0.878"
+                        />
+                      </linearGradient>
+                    </defs>
+                    <g
+                      id="Group_23453"
+                      data-name="Group 23453"
+                      transform="translate(-830 -794)"
+                    >
+                      <g
+                        id="Ellipse_12"
+                        data-name="Ellipse 12"
+                        transform="translate(830 794)"
+                        fill="#fff"
+                        stroke="#707070"
+                        stroke-width="1"
+                      >
+                        <circle cx="61" cy="61" r="61" stroke="none" />
+                        <circle cx="61" cy="61" r="60.5" fill="none" />
+                      </g>
+                      <g
+                        id="Ellipse_17"
+                        data-name="Ellipse 17"
+                        transform="translate(835 799)"
+                        fill="#fff"
+                        stroke="#cccaca"
+                        stroke-linecap="round"
+                        stroke-width="1"
+                        stroke-dasharray="7"
+                      >
+                        <circle cx="56" cy="56" r="56" stroke="none" />
+                        <circle cx="56" cy="56" r="55.5" fill="none" />
+                      </g>
+                      <text
+                        id="أخرى"
+                        transform="translate(866 864)"
+                        fill="#d4d4d4"
+                        font-size="32"
+                        font-family="TatweerAlRiyadh-Regular, Tatweer Al Riyadh"
+                      >
+                        <tspan x="0" y="0">أخرى</tspan>
+                      </text>
+                      <circle
+                        id="Ellipse_25"
+                        data-name="Ellipse 25"
+                        cx="61"
+                        cy="61"
+                        r="61"
+                        transform="translate(830 794)"
+                        fill="url(#linear-gradient)"
+                      />
+                      <g id="Lock" transform="translate(868.763 835.926)">
+                        <path
+                          id="Path_18658"
+                          data-name="Path 18658"
+                          d="M31.136,15.124H30.023V11.787a7.787,7.787,0,0,0-15.574,0v3.337H13.337A3.341,3.341,0,0,0,10,18.461V31.81a3.341,3.341,0,0,0,3.337,3.337h17.8a3.341,3.341,0,0,0,3.337-3.337V18.461A3.341,3.341,0,0,0,31.136,15.124ZM16.674,11.787a5.562,5.562,0,0,1,11.124,0v3.337H16.674ZM32.248,31.81a1.114,1.114,0,0,1-1.112,1.112h-17.8a1.114,1.114,0,0,1-1.112-1.112V18.461a1.114,1.114,0,0,1,1.112-1.112h17.8a1.114,1.114,0,0,1,1.112,1.112Z"
+                          fill="#1b325f"
+                        />
+                        <path
+                          id="Path_18659"
+                          data-name="Path 18659"
+                          d="M30.225,35a2.218,2.218,0,0,0-1.112,4.14v2.534a1.112,1.112,0,1,0,2.225,0V39.14A2.218,2.218,0,0,0,30.225,35Z"
+                          transform="translate(-7.988 -13.758)"
+                          fill="#1b325f"
+                        />
+                      </g>
+                    </g>
+                  </svg>
                 </label>
                 <!--end::Option-->
               </div>
               <!--end::Col-->
             </div>
             <!--end::Row-->
-            <!--begin::Wrapper-->
-            <div class="w-100">
-              <!--begin::Form-->
-              <el-form
-                ref="formSignUp"
-                :model="formData"
-                :rules="signUpValidator"
-                label-position="top"
-                @submit.prevent="signUp()"
-              >
-                <!--begin::Input group-->
-                <div class="row row-gap">
-                  <div class="col-lg-12">
-                    <el-form-item prop="name" class="mb-1">
-                      <el-input
-                        v-model="formData.name"
-                        name="name"
-                        :placeholder="$t('name')"
-                      />
-                    </el-form-item>
-                  </div>
-                  <div class="col-lg-12">
-                    <el-form-item prop="phone" class="mb-1">
-                      <el-input
-                        v-model="formData.phone"
-                        name="tel"
-                        :placeholder="$t('phone')"
-                      />
-                    </el-form-item>
-                  </div>
-                  <div class="col-lg-12">
-                    <el-form-item prop="email" class="mb-1">
-                      <el-input
-                        v-model="formData.email"
-                        :placeholder="$t('email')"
-                      />
-                    </el-form-item>
-                  </div>
-                  <div class="col-lg-12">
-                    <el-form-item
-                      v-if="formData.account_type === 'custom'"
-                      prop="password"
-                      class="mb-1"
-                      :rules="[
-                        {
-                          required:
-                            formData.account_type === 'custom' ? true : false,
-                          message: $t('passwordRequired'),
-                        },
-                        { min: 6, message: $t('passwordMinLength') },
-                      ]"
-                    >
-                      <el-input
-                        autocomplete="off"
-                        type="password"
-                        v-model="formData.password"
-                        :placeholder="$t('password')"
-                      />
-                    </el-form-item>
-                  </div>
-                </div>
-                <!--end::Input group-->
-              </el-form>
-              <!--end::Form-->
-            </div>
-            <!--end::Wrapper-->
           </div>
-          <!--end::Step 1-->
-
-          <!--begin::Actions-->
-          <div class="d-flex flex-stack pt-15">
-            <!--begin::Wrapper-->
-            <div class="me-2">
-              <button
-                v-if="currentStepIndex === 2"
-                type="button"
-                class="btn btn-lg btn-light-primary me-3"
-                @click.prevent="currentStepIndex = 1"
-              >
-                <span class="svg-icon svg-icon-3 me-1">
-                  <inline-svg src="/media/icons/duotune/arrows/arr063.svg" />
-                </span>
-                {{ $t("back") }}
-              </button>
-            </div>
-            <!--end::Wrapper-->
-
-            <!--begin::Wrapper-->
-            <div>
-              <button
-                type="submit"
-                class="btn btn-lg btn-primary"
-                v-if="currentStepIndex === 2"
-                @click="signUp()"
-              >
-                <span class="indicator-label">
-                  {{ $t("submit") }}
-                  <span class="svg-icon svg-icon-3 ms-2 me-0">
-                    <inline-svg src="icons/duotune/arrows/arr064.svg" />
-                  </span>
-                </span>
-                <span class="indicator-progress">
-                  {{ $t("pleaseWait") }}
-                  <span
-                    class="spinner-border spinner-border-sm align-middle ms-2"
-                  ></span>
-                </span>
-              </button>
-
-              <button
-                type="button"
-                @click.prevent="currentStepIndex = 2"
-                class="btn btn-lg btn-primary"
-                v-else
-              >
-                {{ $t("continue") }}
-                <span class="svg-icon svg-icon-3 ms-1 me-0">
-                  <inline-svg src="/media/icons/duotune/arrows/arr064.svg" />
-                </span>
-              </button>
-            </div>
-            <!--end::Wrapper-->
-          </div>
-          <!--end::Actions-->
-        </div>
-        <!--begin::Footer-->
-        <div
-          class="d-flex flex-center justify-content-center flex-column-auto p-10"
-        >
-          <!--begin::Links-->
-          <div class="d-flex align-items-center fw-bold fs-6">
-            <a href="#" class="text-muted text-hover-primary px-2">About</a>
-
-            <a href="#" class="text-muted text-hover-primary px-2">Contact</a>
-
-            <a href="#" class="text-muted text-hover-primary px-2"
-              >Contact Us</a
+          <div class="text-center mt-14">
+            <button
+              type="submit"
+              class="btn btn-lg px-18 fs-1 btn-primary"
+              v-if="currentStepIndex === 2"
+              @click="signUp()"
             >
+              <span class="indicator-label">
+                {{ $t("signUp") }}
+                <span class="svg-icon svg-icon-3 ms-2 me-0">
+                  <inline-svg src="icons/duotune/arrows/arr064.svg" />
+                </span>
+              </span>
+              <span class="indicator-progress">
+                {{ $t("pleaseWait") }}
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span>
+              </span>
+            </button>
+
+            <!--begin::Link-->
+            <div
+              class="text-gray-400 text-center fw-bold fs-4 mt-3"
+              v-if="currentStepIndex === 2"
+            >
+              {{ $t("already_registered") }}
+
+              <router-link
+                :to="{ name: 'sign-in' }"
+                class="fw-bolder text-decoration-underline"
+              >
+                {{ $t("signIn") }}
+              </router-link>
+            </div>
+            <!--end::Link-->
+
+            <button
+              type="button"
+              @click.prevent="currentStepIndex = 2"
+              class="btn btn-lg px-18 fs-1 btn-primary"
+              v-else
+            >
+              {{ $t("continue") }}
+            </button>
           </div>
-          <!--end::Links-->
-        </div>
-        <!--end::Footer-->
+        </el-form>
+        <!--end::Form-->
       </div>
-      <!--end::Form-->
+      <!--end::Wrapper-->
     </div>
-    <!--end::Stepper-->
+    <!--end::Form-->
   </div>
 </template>
 
@@ -446,7 +721,6 @@ import { computed, defineComponent, onMounted, nextTick, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { Actions } from "@/store/enums/StoreEnums";
-import Logo from "@/components/Logo.vue";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { useI18n } from "vue-i18n/index";
 import { reinitializeComponents } from "@/core/plugins/keenthemes";
@@ -469,11 +743,6 @@ interface KTCreateApp extends Step1, Step2 {}
 
 export default defineComponent({
   name: "sign-up",
-  components: {
-    // Field,
-    // ErrorMessage,
-    Logo,
-  },
   setup() {
     const formSignUp = ref<HTMLFormElement>();
     const currentStepIndex = ref(1);
@@ -621,6 +890,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .row-gap {
-  row-gap: 20px;
+  gap: 5px;
+}
+.btn-check {
+  &:checked + .btn {
+    border-color: #f26c4f;
+  }
 }
 </style>

@@ -157,6 +157,34 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
   }
 
   @Action
+  [Actions.RESEND_VERIFICATION_CODE](payload) {
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("resend-code", payload)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          this.context.commit(Mutations.SET_ERROR, response.data.message);
+          reject();
+        });
+    });
+  }
+
+  @Action
+  [Actions.VERIFY_OTP](payload) {
+    return new Promise<void>((resolve, reject) => {
+      ApiService.post("verify-otp", payload)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          this.context.commit(Mutations.SET_ERROR, response.data.message);
+          reject();
+        });
+    });
+  }
+
+  @Action
   [Actions.VERIFY_AUTH]() {
     if (JwtService.getToken()) {
       ApiService.setHeader();
