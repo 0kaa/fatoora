@@ -239,7 +239,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
     ApiService.setLang();
     return new Promise<void>((resolve, reject) => {
       ApiService.post("contact", credentials)
-        .then(() => resolve())
+        .then(({ data }) => resolve(data))
         .catch(({ response }) => {
           reject(response);
         });

@@ -137,7 +137,11 @@
             <!--end::Input group-->
 
             <!--begin::Input group-->
-            <el-form-item prop="password" class="mb-12">
+            <el-form-item
+              prop="password"
+              class="mb-12"
+              v-if="formData.account_type === 'custom'"
+            >
               <el-input
                 class="fs-3"
                 v-model="formData.password"
@@ -148,7 +152,10 @@
             </el-form-item>
             <!--end::Input group-->
             <!--begin::Heading-->
-            <div class="text-center mb-10">
+            <div
+              class="text-center mb-10"
+              v-if="formData.account_type === 'custom'"
+            >
               <!--begin::Title-->
               <h1 class="text-main mb-3">
                 {{ $t("specify_invoice_size") }}
@@ -157,7 +164,10 @@
             </div>
             <!--begin::Heading-->
             <!--begin::Row-->
-            <div class="row-gap flex-wrap justify-content-center d-flex mb-10">
+            <div
+              class="row-gap flex-wrap justify-content-center d-flex mb-10"
+              v-if="formData.account_type === 'custom'"
+            >
               <!--begin::Col-->
               <div class="">
                 <!--begin::Option-->
@@ -663,10 +673,10 @@
           </div>
           <div class="text-center mt-14">
             <button
-              type="submit"
+              ref="submitButton"
               class="btn btn-lg px-18 fs-1 btn-primary"
               v-if="currentStepIndex === 2"
-              @click="signUp()"
+              @click.prevent="signUp()"
             >
               <span class="indicator-label">
                 {{ $t("signUp") }}
@@ -744,6 +754,7 @@ interface KTCreateApp extends Step1, Step2 {}
 export default defineComponent({
   name: "sign-up",
   setup() {
+    const submitButton = ref<HTMLButtonElement | null>(null);
     const formSignUp = ref<HTMLFormElement>();
     const currentStepIndex = ref(1);
     const store = useStore();
@@ -834,6 +845,10 @@ export default defineComponent({
       }
       formSignUp.value.validate((valid) => {
         if (valid) {
+          // eslint-disable-next-line
+          submitButton.value!.disabled = true;
+          // Activate loading indicator
+          submitButton.value?.setAttribute("data-kt-indicator", "on");
           Swal.fire({
             title: translate("pleaseWait"),
             text: translate("creatingAccount"),
@@ -843,34 +858,55 @@ export default defineComponent({
               Swal.showLoading();
             },
           });
-          // Clear existing errors
-          store.dispatch(Actions.LOGOUT);
-          store
-            .dispatch(Actions.REGISTER, formData.value)
-            .then(() => {
-              Swal.fire({
-                text: translate("register_success"),
-                icon: "success",
-                buttonsStyling: false,
-                confirmButtonText: translate("ok"),
-                customClass: {
-                  confirmButton: "btn fw-bold btn-light-primary",
-                },
-              }).then(function () {
-                router.push({ name: "home" });
+          if (formData.value.account_type === "custom") {
+            // Clear existing errors
+            store.dispatch(Actions.LOGOUT);
+            store
+              .dispatch(Actions.REGISTER, formData.value)
+              .then(() => {
+                Swal.fire({
+                  text: translate("register_success"),
+                  icon: "success",
+                  buttonsStyling: false,
+                  confirmButtonText: translate("ok"),
+                  customClass: {
+                    confirmButton: "btn fw-bold btn-light-primary",
+                  },
+                }).then(function () {
+                  router.push({ name: "home" });
+                });
+              })
+              .catch(() => {
+                Swal.fire({
+                  text: store.getters.getErrors.message,
+                  icon: "error",
+                  buttonsStyling: false,
+                  confirmButtonText: translate("tryAgain"),
+                  customClass: {
+                    confirmButton: "btn fw-bold btn-light-danger",
+                  },
+                });
               });
-            })
-            .catch(() => {
-              Swal.fire({
-                text: store.getters.getErrors.message,
-                icon: "error",
-                buttonsStyling: false,
-                confirmButtonText: translate("tryAgain"),
-                customClass: {
-                  confirmButton: "btn fw-bold btn-light-danger",
-                },
+          } else {
+            store
+              .dispatch(Actions.CONTACT_FORM, formData.value)
+              .then((response) => {
+                Swal.fire({
+                  text: response.message,
+                  icon: "success",
+                  buttonsStyling: false,
+                  confirmButtonText: translate("ok"),
+                  customClass: {
+                    confirmButton: "btn fw-bold btn-light-primary",
+                  },
+                }).then(function () {
+                  router.push({ name: "sign-in" });
+                });
               });
-            });
+          }
+          submitButton.value?.removeAttribute("data-kt-indicator");
+          // eslint-disable-next-line
+          submitButton.value!.disabled = false;
         }
       });
     };
@@ -883,6 +919,7 @@ export default defineComponent({
       currentLangugeLocale,
       currentStepIndex,
       formData,
+      submitButton,
     };
   },
 });
